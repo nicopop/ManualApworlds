@@ -1,0 +1,22 @@
+{
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.game.schema.json",
+    "game": "PlateUp",
+    "creator": "Nicopopxd",
+
+    "filler_item_name": "Customer spillage",
+    "version": "1.3.1",
+    "starting_items": [
+        {
+            "item_categories": [ "2 Recipes" ],
+            "random": 1
+        },
+        {
+            "item_categories": [ "NormalSettings" ],
+            "random": 1
+        },
+        {
+            "items": [ "Basic floorplans" ]
+        }
+    ],
+    "death_link": true
+}

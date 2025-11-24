@@ -160,3 +160,10 @@ def after_options_defined(options: dict) -> dict:
         options['goal'].default = your_goal_class.options.get('default', generated_goal.default)
         options['goal'].__doc__ = your_goal_class.__doc__ or options['goal'].__doc__
     return options
+
+def before_option_groups_created(groups: dict[str, list[Type[Option[Any]]]]) -> dict[str, list[Type[Option[Any]]]]:
+    return groups
+
+
+def after_option_groups_created(groups: list[OptionGroup]) -> list[OptionGroup]:
+    return groups

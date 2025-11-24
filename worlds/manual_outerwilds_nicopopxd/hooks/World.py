@@ -379,3 +379,27 @@ def after_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld, 
 def before_write_spoiler(world: World, multiworld: MultiWorld, spoiler_handle) -> None:
     #spoiler_handle.write(f"\nIncluded in this Async: {world.game} version {APMiscData['version']}")
     pass
+
+
+def hook_get_filler_item_name(world: World, multiworld: MultiWorld, player: int) -> str | bool:
+    return False
+
+
+def before_create_items_all(item_config: dict[str, int | dict], world: World, multiworld: MultiWorld, player: int) -> dict[str, int | dict]:
+    return item_config
+
+
+def after_collect_item(world: World, state: CollectionState, Changed: bool, item: Item):
+    pass
+
+
+def after_remove_item(world: World, state: CollectionState, Changed: bool, item: Item):
+    pass
+
+
+def before_extend_hint_information(hint_data: dict[int, dict[int, str]], world: World, multiworld: MultiWorld, player: int) -> None:
+    pass
+
+
+def after_extend_hint_information(hint_data: dict[int, dict[int, str]], world: World, multiworld: MultiWorld, player: int) -> None:
+    pass

@@ -1,3 +1,4 @@
+name: update manuals
 on:
     workflow_dispatch:
     schedule:
@@ -18,7 +19,7 @@ jobs:
         uses: silasary/ap_manuals/update-manual@main
         with:
           allow_unstable: 'true'
-          directory: 'worlds/manual_outerwilds_nicopopxd'
+          directory: 'worlds/manual_outerwilds_nicopopxd/'
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
@@ -26,3 +27,4 @@ jobs:
           title: Update manual_outerwilds_nicopopxd to latest version
           branch: update-manual
           labels: automated-pr
+          draft: true

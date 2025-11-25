@@ -14,7 +14,7 @@ jobs:
       - uses: Eijebong/ap-actions/fuzz@main
         name: Run fuzz for manual_outerwilds_nicopopxd
         with:
-          apworld-path: worlds/manual_outerwilds_nicopopxd
+          apworld-path: worlds/manual_outerwilds_nicopopxd/
           ap-version: ${{ env.AP_VERSION }}
           python-version: '3.12'
           runs: 500 # This is optional

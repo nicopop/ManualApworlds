@@ -91,7 +91,7 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     elif randomcontent == RandomContent.option_dlc:
         if goal == Goal.option_standard: goal.value = Goal.option_prisoner #Dynamic Goal
 
-    InitCategories(multiworld, player)
+    InitCategories(world, player)
 #endregion
 pass
 

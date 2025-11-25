@@ -1,7 +1,6 @@
-from typing import Optional
-from BaseClasses import MultiWorld
-from ..Locations import ManualLocation
-from ..Items import ManualItem
+from typing import Optional, Any
+from BaseClasses import MultiWorld, Item, Location
+from worlds.AutoWorld import World
 
 
 # Use this if you want to override the default behavior of is_option_enabled
@@ -14,14 +13,14 @@ def before_is_category_enabled(multiworld: MultiWorld, player: int, category_nam
 
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the item, False to disable it, or None to use the default behavior
-def before_is_item_enabled(multiworld: MultiWorld, player: int, item: ManualItem) -> Optional[bool]:
+def before_is_item_enabled(multiworld: MultiWorld, player: int, item:  dict[str, Any]) -> Optional[bool]:
     if item.get('name','').endswith('Access') and 'DLC - Eye' in item.get('category', []):
         return bool(multiworld.worlds[player].options.dlc_access_items.value)
     return checkobject(multiworld, player, item)
 
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the location, False to disable it, or None to use the default behavior
-def before_is_location_enabled(multiworld: MultiWorld, player: int, location: ManualLocation) -> Optional[bool]:
+def before_is_location_enabled(multiworld: MultiWorld, player: int, location:  dict[str, Any]) -> Optional[bool]:
     return checkobject(multiworld, player, location)
 
 def checkobject(multiworld: MultiWorld, player: int, obj: object) -> Optional[bool]:
@@ -37,7 +36,7 @@ def checkobject(multiworld: MultiWorld, player: int, obj: object) -> Optional[bo
         return None if no category are enable or disabled
     """
     world = multiworld.worlds.get(player)
-    if not hasattr(world, 'categoryInit'):
+    if world is not None and not hasattr(world, 'categoryInit'):
         InitCategories(world, player)
 
     resultYes = False
@@ -57,13 +56,9 @@ def checkobject(multiworld: MultiWorld, player: int, obj: object) -> Optional[bo
         return False
     return None
 
-def InitCategories(MultiWorld: MultiWorld, player: int):
+def InitCategories(base: World, player: int):
     """Mark categories as Enabled or Disabled based on options"""
     from .Options import RandomContent, Goal #imported here because otherwise cause circular import
-    if not hasattr(MultiWorld, 'worlds'):
-        raise Exception("wrong multiworld type")
-
-    base = MultiWorld.worlds.get(player)
 
     goal = base.options.goal.value
     solanum = base.options.require_solanum.value

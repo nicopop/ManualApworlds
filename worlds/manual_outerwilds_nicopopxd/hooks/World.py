@@ -4,7 +4,7 @@ from worlds.generic.Rules import add_rule
 from ..Data import load_data_file
 from copy import copy
 
-from BaseClasses import MultiWorld, CollectionState
+from BaseClasses import MultiWorld, CollectionState, Item
 import logging
 
 # Object classes from Manual -- extending AP core -- representing items and locations that are used in generation
@@ -42,6 +42,11 @@ Copy of any changed world item/locations
 ########################################################################################
 
 
+
+# Use this function to change the valid filler items to be created to replace item links or starting items.
+# Default value is the `filler_item_name` from game.json
+def hook_get_filler_item_name(world: World, multiworld: MultiWorld, player: int) -> str | bool:
+    return False
 
 # Called before regions and locations are created. Not clear why you'd want this, but it's here. Victory location is included, but Victory event is not placed yet.
 def before_create_regions(world: World, multiworld: MultiWorld, player: int):
@@ -88,9 +93,11 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
 
     InitCategories(multiworld, player)
 #endregion
+pass
 
-# Called after regions and locations are created, in case you want to see or modify that information.
+# Called after regions and locations are created, in case you want to see or modify that information. Victory location is included.
 def after_create_regions(world: World, multiworld: MultiWorld, player: int):
+    # Use this hook to remove locations from the world
     solanum = world.options.require_solanum.value
     owlguy = world.options.require_prisoner.value
     randomContent = world.options.randomized_content.value
@@ -159,6 +166,16 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
     #endregion
 #endregion
     pass
+# This hook allows you to access the item names & counts before the items are created. Use this to increase/decrease the amount of a specific item in the pool
+# Valid item_config key/values:
+# {"Item Name": 5} <- This will create qty 5 items using all the default settings
+# {"Item Name": {"useful": 7}} <- This will create qty 7 items and force them to be classified as useful
+# {"Item Name": {"progression": 2, "useful": 1}} <- This will create 3 items, with 2 classified as progression and 1 as useful
+# {"Item Name": {0b0110: 5}} <- If you know the special flag for the item classes, you can also define non-standard options. This setup
+#       will create 5 items that are the "useful trap" class
+# {"Item Name": {ItemClassification.useful: 5}} <- You can also use the classification directly
+def before_create_items_all(item_config: dict[str, int|dict], world: World, multiworld: MultiWorld, player: int) -> dict[str, int|dict]:
+    return item_config
 
 # The item pool before starting items are processed, in case you want to see the raw item pool at that stage
 def before_create_items_starting(item_pool: list, world: World, multiworld: MultiWorld, player: int) -> list:
@@ -290,6 +307,14 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
         APWorkingData.pop("RM_place_item", "")
     return item_pool
 
+    # Some other useful hook options:
+
+    ## Place an item at a specific location
+    # location = next(l for l in multiworld.get_unfilled_locations(player=player) if l.name == "Location Name")
+    # item_to_place = next(i for i in item_pool if i.name == "Item Name")
+    # location.place_locked_item(item_to_place)
+    # remove_specific_item(item_pool, item_to_place)
+
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
 def after_create_items(item_pool: list, world: World, multiworld: MultiWorld, player: int) -> list:
     return item_pool
@@ -300,6 +325,7 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
 def after_set_rules(world: World, multiworld: MultiWorld, player: int):
+    # Use this hook to modify the access rules for a given location
     #extra_data = load_data_file("extra.json")
     solanum = world.options.require_solanum.value
     owlguy = world.options.require_prisoner.value
@@ -335,20 +361,22 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
                 add_rule(location,
                          lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
 #endregion
-# The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
-    pass
 
-# This method is run at the very end of pre-generation, once the place_item options have been handled and before AP generation occurs
-def after_generate_basic(world: World, multiworld: MultiWorld, player: int):
-    pass
+    def Example_Rule(state: CollectionState) -> bool:
+        # Calculated rules take a CollectionState object and return a boolean
+        # True if the player can access the location
+        # CollectionState is defined in BaseClasses
+        return True
 
-# This method is called before the victory location has the victory event placed and locked
-def before_pre_fill(world: World, multiworld: MultiWorld, player: int):
-    pass
+    ## Common functions:
+    # location = world.get_location(location_name, player)
+    # location.access_rule = Example_Rule
 
-# This method is called after the victory location has the victory event placed and locked
-def after_pre_fill(world: World, multiworld: MultiWorld, player: int):
-    pass
+    ## Combine rules:
+    # old_rule = location.access_rule
+    # location.access_rule = lambda state: old_rule(state) and Example_Rule(state)
+    # OR
+    # location.access_rule = lambda state: old_rule(state) or Example_Rule(state)
 
 # The item name to create is provided before the item is created, in case you want to make changes to it
 def before_create_item(item_name: str, world: World, multiworld: MultiWorld, player: int) -> str:
@@ -359,12 +387,29 @@ def after_create_item(item: ManualItem, world: World, multiworld: MultiWorld, pl
     return item
 
 # This method is run towards the end of pre-generation, before the place_item options have been handled and before AP generation occurs
-def before_generate_basic(world: World, multiworld: MultiWorld, player: int) -> list:
+def before_generate_basic(world: World, multiworld: MultiWorld, player: int):
     pass
 
 # This method is run at the very end of pre-generation, once the place_item options have been handled and before AP generation occurs
 def after_generate_basic(world: World, multiworld: MultiWorld, player: int):
     pass
+
+# This method is run every time an item is added to the state, can be used to modify the value of an item.
+# IMPORTANT! Any changes made in this hook must be cancelled/undone in after_remove_item
+def after_collect_item(world: World, state: CollectionState, Changed: bool, item: Item):
+    # the following let you add to the Potato Item Value count
+    # if item.name == "Cooked Potato":
+    #     state.prog_items[item.player][format_state_prog_items_key(ProgItemsCat.VALUE, "Potato")] += 1
+    pass
+
+# This method is run every time an item is removed from the state, can be used to modify the value of an item.
+# IMPORTANT! Any changes made in this hook must be first done in after_collect_item
+def after_remove_item(world: World, state: CollectionState, Changed: bool, item: Item):
+    # the following let you undo the addition to the Potato Item Value count
+    # if item.name == "Cooked Potato":
+    #     state.prog_items[item.player][format_state_prog_items_key(ProgItemsCat.VALUE, "Potato")] -= 1
+    pass
+
 
 # This is called before slot data is set and provides an empty dict ({}), in case you want to modify it before Manual does
 def before_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld, player: int) -> dict:
@@ -380,26 +425,21 @@ def before_write_spoiler(world: World, multiworld: MultiWorld, spoiler_handle) -
     #spoiler_handle.write(f"\nIncluded in this Async: {world.game} version {APMiscData['version']}")
     pass
 
-
-def hook_get_filler_item_name(world: World, multiworld: MultiWorld, player: int) -> str | bool:
-    return False
-
-
-def before_create_items_all(item_config: dict[str, int | dict], world: World, multiworld: MultiWorld, player: int) -> dict[str, int | dict]:
-    return item_config
-
-
-def after_collect_item(world: World, state: CollectionState, Changed: bool, item: Item):
-    pass
-
-
-def after_remove_item(world: World, state: CollectionState, Changed: bool, item: Item):
-    pass
-
-
+# This is called when you want to add information to the hint text
 def before_extend_hint_information(hint_data: dict[int, dict[int, str]], world: World, multiworld: MultiWorld, player: int) -> None:
-    pass
 
+    ### Example way to use this hook:
+    # if player not in hint_data:
+    #     hint_data.update({player: {}})
+    # for location in multiworld.get_locations(player):
+    #     if not location.address:
+    #         continue
+    #
+    #     use this section to calculate the hint string
+    #
+    #     hint_data[player][location.address] = hint_string
+
+    pass
 
 def after_extend_hint_information(hint_data: dict[int, dict[int, str]], world: World, multiworld: MultiWorld, player: int) -> None:
     pass

@@ -1,9 +1,8 @@
 # Object classes from AP that represent different types of options that you can create
-from Options import FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, NamedRange
-
+from Options import Option, FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, NamedRange, OptionGroup, PerGameCommonOptions
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, get_option_value
-
+from typing import Type, Any
 
 
 ####################################################################
@@ -129,7 +128,7 @@ class ApWorldVersion(FreeText):
     default = "Should Be Detected"
 
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
-def before_options_defined(options: dict) -> dict:
+def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, Type[Option[Any]]]:
 #    options["total_characters_to_win_with"] = TotalCharactersToWinWith
     options["game_version"] = ApWorldVersion
     options["require_solanum"] = RequireSolanum
@@ -145,25 +144,34 @@ def before_options_defined(options: dict) -> dict:
     return options
 
 # This is called after any manual options are defined, in case you want to see what options are defined or want to modify the defined options
-def after_options_defined(options: dict) -> dict:
-    # the generated goal option will not keep your defined values or documentation string you'll need to add them here:
-    # To automatically convert your own goal to alias of the generated goal uncomment this below and replace 'Goal' with your own option of type Choice
-    your_goal_class = Goal #Your Goal class here
-    generated_goal = options.get('goal', {})
-    if generated_goal and issubclass(your_goal_class, Choice) and not issubclass(generated_goal, your_goal_class):
-        goals = {'option_' + i: v for i, v in generated_goal.options.items() if i != 'default'}
-        for option, value in your_goal_class.options.items():
-            if option == 'default':
-                continue
-            goals[f"alias_{option}"] = value
-        options['goal'] = type('goal', (Choice,), goals)
-        options['goal'].default = your_goal_class.options.get('default', generated_goal.default)
-        options['goal'].__doc__ = your_goal_class.__doc__ or options['goal'].__doc__
-    return options
+def after_options_defined(options: Type[PerGameCommonOptions]):
+    # To access a modifiable version of options check the dict in options.type_hints
+    # For example if you want to change DLC_enabled's display name you would do:
+    # options.type_hints["DLC_enabled"].display_name = "New Display Name"
 
+    #  Here's an example on how to add your aliases to the generated goal
+    # options.type_hints['goal'].aliases.update({"example": 0, "second_alias": 1})
+    # options.type_hints['goal'].options.update({"example": 0, "second_alias": 1})  #for an alias to be valid it must also be in options
+    options.type_hints['goal'].aliases.update(Goal.options)
+    options.type_hints['goal'].options.update(Goal.options)
+    options.type_hints['goal'].__doc__ = Goal.__doc__
+
+    # generated_goal = options.type_hints.get('goal', {})
+    # if generated_goal and issubclass(your_goal_class, Choice) and not issubclass(type(generated_goal), your_goal_class):
+    #     goals = {'option_' + i: v for i, v in generated_goal.options.items() if i != 'default'}
+    #     for option, value in your_goal_class.options.items():
+    #         if option == 'default':
+    #             continue
+    #         goals[f"alias_{option}"] = value
+    #     options['goal'] = type('goal', (Choice,), goals)
+    #     options['goal'].default = your_goal_class.options.get('default', generated_goal.default)
+    #     options['goal'].__doc__ = your_goal_class.__doc__ or options['goal'].__doc__
+    # return options
+
+# Use this Hook if you want to add your Option to an Option group (existing or not)
 def before_option_groups_created(groups: dict[str, list[Type[Option[Any]]]]) -> dict[str, list[Type[Option[Any]]]]:
+    # Uses the format groups['GroupName'] = [TotalCharactersToWinWith]
     return groups
-
 
 def after_option_groups_created(groups: list[OptionGroup]) -> list[OptionGroup]:
     return groups

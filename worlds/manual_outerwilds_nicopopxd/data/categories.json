@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/ManualForArchipelago/Manual/raw/Schemas-in-json/schemas/Manual.categories.schema.json",
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.categories.schema.json",
   "2b Trap": {
     "hidden": true
   },

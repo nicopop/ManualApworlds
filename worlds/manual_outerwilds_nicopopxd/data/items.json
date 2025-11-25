@@ -1,5 +1,5 @@
 {
-    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/Schemas-in-json/schemas/Manual.items.schema.json",
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.items.schema.json",
     "data":[
         {
             "name": "Coords to the eye",

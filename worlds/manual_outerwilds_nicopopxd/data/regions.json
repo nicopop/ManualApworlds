@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/ManualForArchipelago/Manual/raw/Schemas-in-json/schemas/Manual.regions.schema.json",
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.regions.schema.json",
   "Timber Hearth Village": {
     "_comment": "Contains the 4 starting locations",
     "requires": "",

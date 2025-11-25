@@ -1,6 +1,6 @@
 {
-    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/Schemas-in-json/schemas/Manual.locations.schema.json",
-    "data":[
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.locations.schema.json",
+    "data": [
         {
             "name": "'Learn' the Launch Codes in the observatory",
             "region": "Timber Hearth Village",

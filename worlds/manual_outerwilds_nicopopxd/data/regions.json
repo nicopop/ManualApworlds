@@ -23,9 +23,9 @@
   },
   "Teleporters":{
     "requires": "|Teleporters| and |SpaceSuit|",
-    "connects_to": ["Sun Station", "Ember Twin", "Timber Hearth" , "Brittle Hollow - TP", "Giant's Deep - Statue Island"],
+    "connects_to": ["Ash Twin", "Sun Station", "Ember Twin", "Timber Hearth" , "Brittle Hollow - TP", "Giant's Deep - Statue Island"],
     "_comment": "Adding those entrance rule so logic doesn't try to reverse teleport until I find a mod to do it",
-    "entrance_rules": {
+    "entrance_requires": {
       "Ember Twin": "|Reverse Teleporters|",
       "Timber Hearth": "|Reverse Teleporters|",
       "Brittle Hollow - TP": "|Reverse Teleporters|",
@@ -35,7 +35,7 @@
   "Ember Twin": {
     "requires": "",
     "connects_to": [ "Ash Twin", "Teleporters" ],
-        "entrance_rules": {
+    "entrance_requires": {
       "Teleporters": "|SpaceSuit|"
     }
   },
@@ -46,7 +46,7 @@
   "Brittle Hollow": {
     "requires": "",
     "connects_to": [ "Blackhole Forge"],
-    "entrance_rules": {
+    "entrance_requires": {
       "Blackhole Forge": "|SpaceSuit|"
     }
   },
@@ -57,9 +57,9 @@
   "Blackhole Forge": {
     "requires": "",
     "connects_to": ["Brittle Hollow"],
-    "entrance_rules": {
+    "entrance_requires": {
       "Brittle Hollow": "|SpaceSuit| and |Ship Key|",
-      "Brittle Hollow - TP": "|SpaceSuit| and|Teleporters| and |Ship Key|"
+      "Brittle Hollow - TP": "|SpaceSuit| and |Teleporters| and |Ship Key|"
     }
   },
   "Giant's Deep": {
@@ -123,7 +123,8 @@
     "connects_to": ["All Archive"]
   },
   "All Archive": {
-    "requires": "((|DreamWorld Loading Glitch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))) and ((|DreamWorld Door Candles| and |DreamWorld Death Glitch|) or (|DreamWorld Door Candles| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|)) and (|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and |DreamWorld Grabbing Hands|))",
+    "_requires": "((|DreamWorld Loading Glitch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))) and ((|DreamWorld Door Candles| and |DreamWorld Death Glitch|) or (|DreamWorld Door Candles| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|)) and (|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and |DreamWorld Grabbing Hands|))",
+    "requires": "[91 - Get in the Forbidden Archive of the Shrouded Woodlands] and ([92 - Lights on - Get in the Forbidden Archive of the Starlit Cove] or [92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove]) and ([93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon] or [93 - Sneak the long way in the Forbidden Archive of the Endless Canyon])",
     "connects_to": []
   },
   "Subterranean Lake": {

@@ -12,7 +12,6 @@
             "name": "'Learn' the Launch Codes in the observatory.",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth", "no_launch_codes" ],
-            "create_event": true,
             "dont_place_item_category": [ "2b Trap" ]
         },
         {
@@ -214,8 +213,7 @@
         {
             "name": "2 - Visit the Radio Station and listen to the recording",
             "region": "Timber Hearth",
-            "category": [ "2 - Timber Hearth", "EotE" ],
-            "requires": "{OptOne(|Stranger Access|)}"
+            "category": [ "2 - Timber Hearth", "DLC - Eye" ]
         },
 
         {
@@ -456,222 +454,222 @@
             "name": "8 - Get in the stranger",
             "create_event": true,
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Get crushed by a chain elevator",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Attempt to use the artifact at a normal campfire",
             "region": "The Stranger",
             "requires": "{OptOne(DreamWorld Access)}",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Ride the wave for more than 5 seconds",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Do a full loop on the boat in less than 2 minutes",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Burn a slide",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Watch a slide in River Lowlands",
             "region": "The Stranger",
             "requires": "|Stranger Projectors|",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Watch a slide in Cinder Isles",
             "region": "The Stranger",
             "requires": "|Stranger Projectors|",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Find the cave diagram in Cinder Isles",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Watch a slide in Hidden Gorge",
             "region": "The Stranger",
             "requires": "|Stranger Projectors|",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Get in the hidden Laboratory",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ],
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
             "requires": "|Stranger Hull breach|"
         },
         {
             "name": "8 - Use the prototype artifact with explosive result",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ],
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
             "requires": "|Stranger Hull breach|"
         },
         {
             "name": "8 - Watch the hidden lab's slide",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ],
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
             "requires": "|Stranger Projectors| and |Stranger Hull breach|"
         },
         {
             "name": "8 - Watch the hull anomaly slide in the Hidden Gorge",
             "region": "The Stranger",
             "requires": "|Stranger Projectors| and |Scout| and |Photos|",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
 
         {
             "name": "8 - Watch the slide in the reservoir",
             "region": "The Stranger",
             "requires": "|Stranger Projectors|",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Get in Abandoned temple's secret basement",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ],
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
             "requires": "|Abandoned temple code| and [8 - Get in the Code Vault]"
         },
         {
             "name": "8 - Find the broken connection diagram in the reservoir area",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ],
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
             "requires": "|Broken Interface room code| and ((|Scout| and |Photos|) or [8 - Get in the Code Vault])"
         },
         {
             "name": "8 - Find the stranger trajectory diagram in the reservoir area",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Find the Submerged structure diagram in the reservoir area",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Get in the hidden Slide burning room in River Lowlands",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ],
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
             "requires": "|Progressive Slide burning room:1|"
         },
         {
             "name": "8 - Watch the Slide from the burning room in River Lowlands",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ],
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
             "requires": "|Stranger Projectors| and |Progressive Slide burning room:1|"
         },
         {
             "name": "8 - Get in the hidden Slide burning room in Cinder Isles",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ],
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
             "requires": "|Progressive Slide burning room:2|"
         },
         {
             "name": "8 - Watch the Slide from the burning room in Cinder Isles",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ],
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
             "requires": "|Stranger Projectors| and |Progressive Slide burning room:2|"
         },
         {
             "name": "8 - Get in the hidden Slide burning room in Hidden Gorge",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ],
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
             "requires": "|Progressive Slide burning room:3|"
         },
         {
             "name": "8 - Watch the Slide from the burning room in Hidden Gorge",
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "EotE" ],
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
             "requires": "|Stranger Projectors| and |Progressive Slide burning room:3|"
         },
         {
             "name": "9 - Enter the DreamWorld",
             "region": "DreamWorld General",
-            "category": [ "9 - DreamWorld General", "EotE" ]
+            "category": [ "9 - DreamWorld General", "DLC - Eye" ]
         },
         {
             "name": "9 - Get on the boat",
             "region": "DreamWorld General",
             "requires": "(|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )",
-            "category": [ "9 - DreamWorld General", "EotE" ]
+            "category": [ "9 - DreamWorld General", "DLC - Eye" ]
         },
         {
             "name": "9 - Get your spine adjusted by an Owlks",
             "region": "DreamWorld General",
             "requires": "|DreamWorld Render Glitch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|) or (|Hidden Gorge Flame| and |DreamWorld Fake Wall|) )",
-            "category": [ "9 - DreamWorld General", "EotE" ]
+            "category": [ "9 - DreamWorld General", "DLC - Eye" ]
         },
         {
             "name": "9 - Watch the vision torch outside the submerge structure in the dream",
             "region": "DreamWorld General",
             "requires": "|DreamWorld Grabbing Hands| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )",
-            "category": [ "9 - DreamWorld General", "EotE" ]
+            "category": [ "9 - DreamWorld General", "DLC - Eye" ]
         },
         {
             "name": "9 - In a loop visit all 3 archive without getting caught",
             "region": "All Archive",
             "requires": "",
-            "category": [ "9 - DreamWorld General", "EotE" ]
+            "category": [ "9 - DreamWorld General", "DLC - Eye" ]
         },
         {
             "name": "91 - Enter the Shrouded Woodlands Dream",
             "region": "Shrouded Woodlands",
-            "category": [ "91 - Shrouded Woodlands", "EotE" ]
+            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
             "name": "91 - Find where the Wandering Owlks come from",
             "region": "Shrouded Woodlands",
-            "category": [ "91 - Shrouded Woodlands", "EotE" ]
+            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
             "name": "91 - Find where the Wandering Owlks are Going",
             "region": "Shrouded Woodlands",
-            "category": [ "91 - Shrouded Woodlands", "EotE" ]
+            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
             "name": "91 - Get in the Forbidden Archive of the Shrouded Woodlands",
             "region": "Shrouded Woodlands",
             "create_event": true,
             "requires": "(|DreamWorld Loading Glitch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))",
-            "category": [ "91 - Shrouded Woodlands", "EotE" ]
+            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
             "name": "91 - Watch the Loading Glitch Slide",
             "region": "Shrouded Woodlands Archive",
-            "category": [ "91 - Shrouded Woodlands", "EotE" ]
+            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
             "name": "91 - Discover the burned code",
             "region": "Shrouded Woodlands Archive",
-            "category": [ "91 - Shrouded Woodlands", "EotE" ]
+            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
             "name": "92 - Enter the Starlit Cove Dream",
             "region": "Starlit Cove",
-            "category": [ "92 - Starlit Cove", "EotE" ]
+            "category": [ "92 - Starlit Cove", "DLC - Eye" ]
         },
         {
             "name": "92 - Visit the Burned Eye Church in the dream",
             "region": "Starlit Cove",
-            "category": [ "92 - Starlit Cove", "EotE" ]
+            "category": [ "92 - Starlit Cove", "DLC - Eye" ]
         },
         {
             "name": "92 - Get to the top of the Tower in the Starlit Cove",
             "region": "Starlit Cove",
             "requires": "|DreamWorld Door Candles|",
-            "category": [ "92 - Starlit Cove", "EotE" ]
+            "category": [ "92 - Starlit Cove", "DLC - Eye" ]
         },
         {
             "name": "8 - Get in the Code Vault",
@@ -679,7 +677,7 @@
             "create_event": true,
             "requires": "|DreamWorld Door Candles|",
             "dont_place_item_category": [ "2b Trap" ],
-            "category": [ "8 - The Stranger", "EotE" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "92 - Lights on - Get in the Forbidden Archive of the Starlit Cove",
@@ -687,7 +685,7 @@
             "create_event": true,
             "requires": "|DreamWorld Door Candles| and |DreamWorld Death Glitch|",
             "dont_place_item_category": [ "2b Trap" ],
-            "category": [ "92 - Starlit Cove", "EotE" ]
+            "category": [ "92 - Starlit Cove", "DLC - Eye" ]
         },
         {
             "name": "92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove",
@@ -695,54 +693,54 @@
             "create_event": true,
             "requires": "|DreamWorld Door Candles| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|",
             "dont_place_item_category": [ "2b Trap" ],
-            "category": [ "92 - Starlit Cove", "EotE", "DLC - Spooky" ]
+            "category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
         },
         {
             "name": "92 - Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
             "requires": "|DreamWorld Door Candles| and |DreamWorld Death Glitch| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|",
-            "category": [ "92 - Starlit Cove", "EotE", "DLC - Spooky" ]
+            "category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
         },
 
         {
             "name": "92 - Watch the Death Glitch Slide",
             "region": "Starlit Cove Archive",
             "requires": "",
-            "category": [ "92 - Starlit Cove", "EotE" ]
+            "category": [ "92 - Starlit Cove", "DLC - Eye" ]
         },
         {
             "name": "92 - Discover the burned code",
             "region": "Starlit Cove Archive",
             "requires": "",
-            "category": [ "92 - Starlit Cove", "EotE" ]
+            "category": [ "92 - Starlit Cove", "DLC - Eye" ]
         },
         {
             "name": "93 - Enter the Endless Canyon Dream",
             "region": "Endless Canyon",
-            "category": [ "93 - Endless Canyon", "EotE" ]
+            "category": [ "93 - Endless Canyon", "DLC - Eye" ]
         },
         {
             "name": "93 - Find the Stage with the 2 musical instruments",
             "region": "Endless Canyon",
-            "category": [ "93 - Endless Canyon", "EotE" ]
+            "category": [ "93 - Endless Canyon", "DLC - Eye" ]
         },
         {
             "name": "93 - Lights on - Make the bridge appear inside the mansion",
             "region": "Endless Canyon",
-            "category": [ "93 - Endless Canyon", "EotE" ],
+            "category": [ "93 - Endless Canyon", "DLC - Eye" ],
             "requires": "|DreamWorld Grabbing Hands|"
         },
         {
             "name": "93 - Lights out - Make the bridge appear inside the mansion",
             "region": "Endless Canyon",
-            "category": [ "93 - Endless Canyon", "EotE", "DLC - Spooky" ],
+            "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ],
             "requires": "|DreamWorld Grabbing Hands| and (|DreamWorld Render Glitch| or |DreamWorld Fake Wall|)"
         },
         {
             "name": "93 - Lights out - Get the 1 / 900 achievement",
             "region": "Endless Canyon",
             "requires": "|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and ( |DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))",
-            "category": [ "93 - Endless Canyon", "EotE", "DLC - Spooky" ]
+            "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
         },
         {
             "name": "93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon",
@@ -750,63 +748,63 @@
             "create_event": true,
             "requires": "|DreamWorld Render Glitch|",
             "dont_place_item_category": [ "2b Trap" ],
-            "category": [ "93 - Endless Canyon", "EotE" ]
+            "category": [ "93 - Endless Canyon", "DLC - Eye" ]
         },
         {
             "name": "93 - Sneak the long way in the Forbidden Archive of the Endless Canyon",
-            "region": "Endless Canyon Archive",
+            "region": "Endless Canyon",
             "create_event": true,
             "requires": "(|DreamWorld Render Glitch| or |DreamWorld Fake Wall|) and |DreamWorld Grabbing Hands|",
             "dont_place_item_category": [ "2b Trap" ],
-            "category": [ "93 - Endless Canyon", "EotE", "DLC - Spooky" ]
+            "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
         },
         {
             "name": "93 - Bonus item if you go in both ways to the Forbidden Archive of the Endless Canyon",
             "region": "Endless Canyon Archive",
             "requires": "|DreamWorld Render Glitch| and (|DreamWorld Render Glitch| or |DreamWorld Fake Wall|) and |DreamWorld Grabbing Hands|",
-            "category": [ "93 - Endless Canyon", "EotE", "DLC - Spooky" ]
+            "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
         },
         {
             "name": "93 - Watch the Render Glitch Slide",
             "region": "Endless Canyon Archive",
             "requires": "",
-            "category": [ "93 - Endless Canyon", "EotE" ]
+            "category": [ "93 - Endless Canyon", "DLC - Eye" ]
         },
         {
             "name": "93 - Discover the burned code",
             "region": "Endless Canyon Archive",
             "requires": "|DreamWorld Render Glitch|",
-            "category": [ "93 - Endless Canyon", "EotE" ]
+            "category": [ "93 - Endless Canyon", "DLC - Eye" ]
         },
         {
             "name": "94 - Enter the Subterranean Lake Dream",
             "region": "Subterranean Lake",
-            "category": [ "94 - Subterranean Lake", "EotE" ]
+            "category": [ "94 - Subterranean Lake", "DLC - Eye" ]
         },
         {
             "name": "94 - Disable the first lock on the vault",
             "region": "Subterranean Lake",
             "requires": "|DreamWorld Render Glitch|",
-            "category": [ "94 - Subterranean Lake", "EotE" ]
+            "category": [ "94 - Subterranean Lake", "DLC - Eye" ]
         },
         {
             "name": "94 - Disable the second lock on the vault",
             "region": "Subterranean Lake",
             "requires": "(|DreamWorld Loading Glitch| and (|River Lowlands Flame| or |Cinder Isles Flame| or |Hidden Gorge Flame|)) or |Progressive Datamined Sealed Vault Code:2|",
-            "category": [ "94 - Subterranean Lake", "EotE" ]
+            "category": [ "94 - Subterranean Lake", "DLC - Eye" ]
         },
         {
             "name": "94 - Disable the third lock on the vault",
             "region": "Subterranean Lake",
             "requires": "|DreamWorld Death Glitch| or |Progressive Datamined Sealed Vault Code:3|",
-            "category": [ "94 - Subterranean Lake", "EotE" ]
+            "category": [ "94 - Subterranean Lake", "DLC - Eye" ]
         },
         {
             "name": "94 - Enter the Sealed Vault in the Subterranean Lake Dream",
             "region": "Subterranean Lake",
             "create_event": true,
             "requires": "(|Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|) or (|Progressive Datamined Sealed Vault Code:2| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|) or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)",
-            "category": [ "94 - Subterranean Lake", "EotE" ],
+            "category": [ "94 - Subterranean Lake", "DLC - Eye" ],
             "dont_place_item_category": [ "2b Trap" ]
         },
 

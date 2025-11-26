@@ -13,8 +13,11 @@
   },
   "Base Game":{
     "hidden": true,
-    "yaml_option_off": [ "Enable_Base_game"],
+    "yaml_option_off": [ "randomize_base_game"],
     "create_item_group": false
+  },
+  "FillerDummy":{
+    "hidden": true
   },
   "Win_Eye": {
     "hidden": true,
@@ -82,9 +85,9 @@
     "create_item_group": false,
     "create_location_group": false
   },
-  "EotE": {
+  "DLC - Eye": {
     "hidden": true,
-    "yaml_option_off": [ "Enable_EotE_DLC"],
+    "yaml_option": [ "randomize_dlc"],
     "create_item_group": false
   },
   "DLC - Stranger Entrance": {

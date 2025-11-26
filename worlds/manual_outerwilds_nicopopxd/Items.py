@@ -1,5 +1,5 @@
 from BaseClasses import Item
-from .Data import item_table
+from .Data import item_table, category_table
 from .Game import filler_item_name, starting_index
 
 
@@ -9,7 +9,7 @@ from .Game import filler_item_name, starting_index
 
 item_id_to_name: dict[int, str] = {}
 item_name_to_item: dict[str, dict] = {}
-item_name_groups: dict[str, str] = {}
+item_name_groups: dict[str, list[str]] = {}
 advancement_item_names: set[str] = set()
 lastItemId = -1
 
@@ -34,7 +34,7 @@ for key, val in enumerate(item_table):
     item_table[key]["progression"] = val["progression"] if "progression" in val else False
     if isinstance(val.get("category", []), str):
         item_table[key]["category"] = [val["category"]]
-        
+
     count += 1
 
 for item in item_table:
@@ -46,10 +46,10 @@ for item in item_table:
         lastItemId = max(lastItemId, item["id"])
 
     for c in item.get("category", []):
-        if c not in item_name_groups:
-            item_name_groups[c] = []
-        item_name_groups[c].append(item_name)
-
+        if category_table.get(c,{}).get("create_item_group", True):
+            if c not in item_name_groups:
+                item_name_groups[c] = []
+            item_name_groups[c].append(item_name)
     #Just lowercase the values here to remove all the .lower.strip down the line
     item['value'] = {k.lower().strip(): v
                      for k, v in item.get('value', {}).items()}

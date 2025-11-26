@@ -14,7 +14,8 @@
   "Base Game":{
     "hidden": true,
     "yaml_option_off": [ "randomize_base_game"],
-    "create_item_group": false
+    "create_item_group": false,
+    "create_location_group": false
   },
   "FillerDummy":{
     "hidden": true
@@ -88,7 +89,8 @@
   "DLC - Eye": {
     "hidden": true,
     "yaml_option": [ "randomize_dlc"],
-    "create_item_group": false
+    "create_item_group": false,
+    "create_location_group": false
   },
   "DLC - Stranger Entrance": {
     "hidden": true

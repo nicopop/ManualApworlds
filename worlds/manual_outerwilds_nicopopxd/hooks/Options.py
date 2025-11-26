@@ -1,5 +1,5 @@
 # Object classes from AP that represent different types of options that you can create
-from Options import Option, FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, NamedRange, OptionGroup, PerGameCommonOptions
+from Options import Visibility, Option, FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, NamedRange, OptionGroup, PerGameCommonOptions
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, get_option_value
 from typing import Type, Any
@@ -43,7 +43,9 @@ class do_spooks(DefaultOnToggle):
     """Do you want to enable some of the Spookier DLC locations?"""
     display_name = "ReduceSpooks"
 class MainDlcKnowledge(Toggle):
-    """Should The main 2 dlc Progression items (stranger access and dreamworld access) be enabled?"""
+    """Should The main 2 dlc Progression items (stranger access and dreamworld access) be enabled?
+    AKA lock going to the Stranger and the Dream behind an "access" mcguffin item each
+    """
     display_name = "Enable Main 2 Dlc Access Items"
 
 class LocalPlacedItems(DefaultOnToggle):
@@ -71,6 +73,20 @@ class EarlyShipKey(Choice):
     option_startswith = 4
     default = 4
 
+class RandomizeDLC(DefaultOnToggle):
+    """Should the dlc location and items be enabled"""
+    display_name = "Randomize DLC"
+
+class RandomizeBaseGame(DefaultOnToggle):
+    """Should the base location and items be enabled
+    If an location/item is required for you goal it will be enabled"""
+    display_name = "Randomize Base Game"
+
+class RandomizeMod1(Toggle):
+    """Should locations and item from mod X be enabled"""
+    display_name = "Randomize Mod X"
+    visibility = Visibility.none
+
 class RandomContent(Choice):
     """What part of the game do you want to play + minimum content for your goal,
     Base Game: disable the dlc
@@ -96,6 +112,7 @@ class ReverseTeleporter(Toggle):
     """Turn this on if you want and use a mod to enable reverse teleporters,
     Warning No such mod exist as of writing this, and thus the logic is untested"""
     display_name = "Enable Reverse Teleporters Logic"
+    visibility = Visibility.none
 
 class Goal(Choice):
     """Where do you want to end,
@@ -126,6 +143,7 @@ class ApWorldVersion(FreeText):
     """Do not change this, it will get set to the apworld version"""
     display_name = "Game Version (Detected)"
     default = "Should Be Detected"
+    visibility = Visibility.spoiler
 
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, Type[Option[Any]]]:
@@ -133,12 +151,14 @@ def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, T
     options["game_version"] = ApWorldVersion
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
-    options["enable_spooks"] = do_spooks #we'll need to talk on what need to be disabled/modified when this is enabled
+    options["enable_spooks"] = do_spooks
     options["remove_launch_codes"] = BiggerSphere1
     options["ship_key_logic"] = EarlyShipKey
     options["shuffle_spacesuit"] = ShuffleSpacesuit
     options["do_place_item_category"] = LocalPlacedItems
-    options["randomized_content"] = RandomContent
+    # ptions["randomized_content"] = RandomContent
+    options["randomize_base_game"] = RandomizeBaseGame
+    options["randomize_dlc"] = RandomizeDLC
     options["dlc_access_items"] = MainDlcKnowledge
     options["reverse_teleporters"] = ReverseTeleporter
     return options
@@ -155,6 +175,8 @@ def after_options_defined(options: Type[PerGameCommonOptions]):
     options.type_hints['goal'].aliases.update(Goal.options)
     options.type_hints['goal'].options.update(Goal.options)
     options.type_hints['goal'].__doc__ = Goal.__doc__
+    options.type_hints['filler_traps'].range_end = 75
+    options.type_hints['filler_traps'].default = 20
 
     # generated_goal = options.type_hints.get('goal', {})
     # if generated_goal and issubclass(your_goal_class, Choice) and not issubclass(type(generated_goal), your_goal_class):

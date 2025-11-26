@@ -59,28 +59,32 @@ def after_load_meta_file(meta_table: dict) -> dict:
             "require_solanum": False,
             "require_prisoner": False,
             "do_place_item_category": True,
-            "randomized_content": "both",
+            "randomize_base_game": True,
+            "randomize_dlc": True,
             "goal": "standard"
             },
         "Long":{
             "require_solanum": True,
             "require_prisoner": True,
             "do_place_item_category": True,
-            "randomized_content": "both",
+            "randomize_base_game": True,
+            "randomize_dlc": True,
             "goal": "standard"
             },
         "Short (BaseGame)":{
             "require_solanum": False,
             "require_prisoner": False,
             "do_place_item_category": True,
-            "randomized_content": "base_game",
+            "randomize_base_game": True,
+            "randomize_dlc": True,
             "goal": "standard"
             },
         "Long (BaseGame)":{
             "require_solanum": True,
             "require_prisoner": False,
             "do_place_item_category": True,
-            "randomized_content": "base_game",
+            "randomize_base_game": True,
+            "randomize_dlc": True,
             "goal": "standard"
             }
         }

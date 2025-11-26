@@ -25,7 +25,6 @@ from .Options import EarlyShipKey, Goal
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, is_item_enabled, get_option_value
 
-logger = logging.getLogger()
 APMiscData: dict[int|str, Any] = {}
 """
 Copy of any changed world item/locations
@@ -55,7 +54,7 @@ def hook_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: in
     # Set version in yaml and log
     if not APMiscData.get('version'):
         APMiscData['version'] = world.world_version.as_simple_string()
-        logger.info(f"player(s) uses {world.game} version: {APMiscData['version']}")
+        logging.info(f"player(s) uses {world.game} version: {APMiscData['version']}")
 
     world.options.game_version.value = APMiscData["version"]
 # region Init Options
@@ -304,10 +303,10 @@ def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", mult
             if solanum and goal != Goal.option_stuck_with_solanum:
                 message.append("Solanum")
 
-    #logger.info(message)
+    #logging.info(message)
     contentmsg = " + ".join(message)
     location_count = len(multiworld.get_unfilled_locations(player))
-    logger.info(f"{world.game}:{multiworld.get_player_name(player)} ({player}):({contentmsg}) {len(item_pool)} items | {location_count} locations | Victory: {victory_message}")
+    logging.info(f"{world.game}:{world.player_name} ({player}):({contentmsg}) {len(item_pool)} items | {location_count} locations | Victory: {victory_message}")
 #endregion
     return item_pool
 

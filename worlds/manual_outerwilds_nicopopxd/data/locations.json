@@ -640,7 +640,7 @@
         },
         {
             "name": "91 - Get in the Forbidden Archive of the Shrouded Woodlands",
-            "region": "Shrouded Woodlands",
+            "region": "Shrouded Woodlands Archive",
             "create_event": true,
             "requires": "(|DreamWorld Loading Glitch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))",
             "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
@@ -681,24 +681,24 @@
         },
         {
             "name": "92 - Lights on - Get in the Forbidden Archive of the Starlit Cove",
-            "region": "Starlit Cove",
+            "region": "Starlit Cove Archive",
             "create_event": true,
-            "requires": "|DreamWorld Door Candles| and |DreamWorld Death Glitch|",
+            "requires": "|DreamWorld Death Glitch|",
             "dont_place_item_category": [ "2b Trap" ],
             "category": [ "92 - Starlit Cove", "DLC - Eye" ]
         },
         {
             "name": "92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove",
-            "region": "Starlit Cove",
+            "region": "Starlit Cove Archive",
             "create_event": true,
-            "requires": "|DreamWorld Door Candles| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|",
+            "requires": "|DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|",
             "dont_place_item_category": [ "2b Trap" ],
             "category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
         },
         {
             "name": "92 - Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
-            "requires": "|DreamWorld Door Candles| and |DreamWorld Death Glitch| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|",
+            "requires": "[92 - Lights on - Get in the Forbidden Archive of the Starlit Cove] and [92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove]",
             "category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
         },
 
@@ -744,7 +744,7 @@
         },
         {
             "name": "93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon",
-            "region": "Endless Canyon",
+            "region": "Endless Canyon Archive",
             "create_event": true,
             "requires": "|DreamWorld Render Glitch|",
             "dont_place_item_category": [ "2b Trap" ],
@@ -752,7 +752,7 @@
         },
         {
             "name": "93 - Sneak the long way in the Forbidden Archive of the Endless Canyon",
-            "region": "Endless Canyon",
+            "region": "Endless Canyon Archive",
             "create_event": true,
             "requires": "(|DreamWorld Render Glitch| or |DreamWorld Fake Wall|) and |DreamWorld Grabbing Hands|",
             "dont_place_item_category": [ "2b Trap" ],
@@ -761,7 +761,7 @@
         {
             "name": "93 - Bonus item if you go in both ways to the Forbidden Archive of the Endless Canyon",
             "region": "Endless Canyon Archive",
-            "requires": "|DreamWorld Render Glitch| and (|DreamWorld Render Glitch| or |DreamWorld Fake Wall|) and |DreamWorld Grabbing Hands|",
+            "requires": "[93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon] and [93 - Sneak the long way in the Forbidden Archive of the Endless Canyon]",
             "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
         },
         {
@@ -856,7 +856,7 @@
             "name": "Quantum_Stuck%",
             "victory": true,
             "region": "Quantum Moon",
-            "requires": "|Adv. warp core| and [1 - Get in the Ash Twin Project] and |Quantum Rule > entanglement| and |Quantum Rule > sixth location|",
+            "requires": "|Adv. warp core| and [1 - Get in the Ash Twin Project] and [6 - Explore the Sixth Location]",
             "category": [ "0 - Finale", "6 - Quantum Moon"]
         },
         {

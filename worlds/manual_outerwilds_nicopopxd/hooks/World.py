@@ -293,8 +293,8 @@ def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", mult
 #endregion
 #region Personal log msg
     VictoryInfoToAdd = ""
-    if solanum: VictoryInfoToAdd += " + 'Seen Goat'"
-    if owlguy: VictoryInfoToAdd += " + 'Seen Elk'"
+    if solanum: VictoryInfoToAdd += " + Vault"
+    if owlguy: VictoryInfoToAdd += " + 6th location"
     victory_message = goal.current_option_name + VictoryInfoToAdd
 
     message = []
@@ -302,22 +302,22 @@ def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", mult
         message.append("Base game")
     if rdm_dlc:
         message.append("DLC")
-        if len("message") == 1:
+        if len(message) == 1:
             if goal == Goal.alias_vanilla:
                 message.append("Eye")
-            elif goal == Goal.alias_ash_twin_project_break_spacetime:
+            elif goal == Goal.alias_ash_twin_project_break_spacetime or goal == Goal.alias_stuck_in_stranger\
+                or goal == Goal.alias_stuck_in_dream or goal == Goal.alias_stuck_with_solanum:
                 message.append("Ash Twin project")
             elif goal == Goal.alias_high_energy_lab_break_spacetime:
                 message.append("High Energy Lab")
-            elif goal == Goal.alias_stuck_in_stranger or goal == Goal.alias_stuck_in_dream or goal == Goal.alias_stuck_with_solanum:
-                message.append("Adv. warp core")
-            if solanum and goal != Goal.alias_stuck_with_solanum:
-                message.append("Solanum")
+            if solanum or goal == Goal.alias_stuck_with_solanum:
+                message.append("Moon")
 
     #logging.info(message)
     contentmsg = " + ".join(message)
     location_count = len(multiworld.get_unfilled_locations(player))
-    logging.info(f"{world.game}:{world.player_name} ({player}):({contentmsg}) {len(item_pool)} items | {location_count} locations | Victory: {victory_message}")
+    logging.info(f"{world.game}:{world.player_name} ({player}) | Items: {len(item_pool)} | Locations: {location_count}")
+    logging.info(f"Content: {contentmsg} | Victory: {victory_message}")
 #endregion
     return item_pool
 

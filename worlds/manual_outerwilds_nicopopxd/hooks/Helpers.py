@@ -24,11 +24,14 @@ def before_is_item_enabled(multiworld: MultiWorld, player: int, item:  dict[str,
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the location, False to disable it, or None to use the default behavior
 def before_is_location_enabled(multiworld: MultiWorld, player: int, location:  dict[str, Any]) -> Optional[bool]:
+    world = multiworld.worlds[player]
     if "do_place_item_category" in location.get("category", []) or "no_place_item_category" in location.get("category", []):
-        world = multiworld.worlds[player]
         if not world.options.randomize_base_game.value:
              if location.get("region", "") == "Ship":
                  return "no_place_item_category" in location.get("category", [])
+    elif "DLC - Spooky" in location.get("category", []):
+        if not world.options.enable_spooks:
+            return False
     return checkobject(multiworld, player, location)
 
 def checkobject(multiworld: MultiWorld, player: int, obj: object) -> Optional[bool]:

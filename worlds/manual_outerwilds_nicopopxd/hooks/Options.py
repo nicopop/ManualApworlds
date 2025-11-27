@@ -121,7 +121,7 @@ class RequirePrisoner(ToggleIsRandom):
     display_name = "Require Talking to the Prisoner"
 class do_spooks(DefaultOnToggle):
     """Do you want to enable some of the Spookier DLC locations?"""
-    display_name = "ReduceSpooks"
+    display_name = "Enable Spooks"
 class MainDlcKnowledge(Toggle):
     """Should The main 2 dlc Progression items (stranger access and dreamworld access) be enabled?
     AKA lock going to the Stranger and the Dream behind an "access" mcguffin item each

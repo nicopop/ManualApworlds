@@ -60,36 +60,60 @@ def hook_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: in
 # region Init Options
     APMiscData[player] = {}
     goal = world.options.goal
-    rdm_base_game = world.options.randomize_base_game.value
-    rdm_dlc = world.options.randomize_dlc.value
+    rdm_base_game = world.options.randomize_base_game
+    rdm_dlc = world.options.randomize_dlc
     #Options Check for impossibilities
     if not (rdm_base_game or rdm_dlc):
-        raise OptionError(f"player {player} need to enable at least one of 'randomize_dlc' or 'randomize_base_game'")
+        if rdm_base_game.randomized or rdm_dlc.randomized:
+            choices = []
+            if rdm_base_game.randomized:
+                choices.append(rdm_base_game)
+            if rdm_dlc.randomized:
+                choices.append(rdm_dlc)
+            num_to_pick = world.random.randint(1, len(choices))
+            choices = world.random.sample(choices, num_to_pick)
+            for choice in choices:
+                choice.value = True
 
-    if world.options.reverse_teleporters.value:
-        raise ValueError("shush for now")
+        else:
+            raise OptionError(f"Player {world.player_name}({player}) need to enable at least one of 'randomize_dlc' or 'randomize_base_game'")
 
-    if rdm_base_game:
-        if goal == Goal.option_standard: goal.value = Goal.option_eye #Dynamic Goal
-    else:
-        if goal == Goal.option_standard: goal.value = Goal.option_prisoner #Dynamic Goal
+    #Dynamic Goal
+    if goal == Goal.alias_standard: goal.value = Goal.alias_vanilla if rdm_base_game else Goal.alias_prisoner
 
     if rdm_base_game and not rdm_dlc:
-        if world.options.require_prisoner.value:
-            raise OptionError(f"player {player} has disabled the dlc but also requires going to the end of the dlc")
+        require_prisoner = world.options.require_prisoner
+        if require_prisoner.value:
+            if require_prisoner.randomized or rdm_dlc.randomized:
+                require_prisoner.value = False
+                require_prisoner.automatically_disabled = True
+            else:
+                raise OptionError(f"Player {world.player_name}({player}) has disabled the dlc but also requires going to the end of the dlc")
 
-        if (goal == Goal.option_prisoner or goal == Goal.option_visit_all_archive or
-            goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream):
-            raise OptionError(f"player {player} set a goal for somewhere disabled by 'randomize_dlc'")
+        if (goal.isValueInDLC()):
+            if goal.randomized:
+                valid = goal.getRDMvalue(world, True)
+                if valid is None:
+                    if rdm_dlc.randomized:
+                        rdm_dlc.value = True
+                        if require_prisoner.automatically_disabled:
+                            require_prisoner.value = True
+                            require_prisoner.automatically_disabled = False
+                    else:
+                        raise OptionError(f"Player {world.player_name}({player})'s goal couldn't be corrected to a non DLC Goal since only the following are allowed by the player: {world.options.goal.randomized}")
+                else:
+                    goal.value = valid
+            else:
+                raise OptionError(f"Player {world.player_name}({player}) set a goal for somewhere disabled by 'randomize_dlc'")
 
-            # logger.warning(f"OW: Impossible goal for player '{multiworld.get_player_name(player)}'. Was changed to Default (Vanilla%)")
-
-        world.options.enable_spooks.value = 1 #Set to True to skip some code later
-        world.options.dlc_access_items.value = 0
+            # logging.warning(f"OW: Impossible goal for player '{multiworld.get_player_name(player)}'. Was changed to Default (Vanilla%)")
+        if not rdm_dlc:
+            world.options.enable_spooks.value = 1 #Set to True to skip some code later
+            world.options.dlc_access_items.value = 0
 
     elif rdm_dlc and not rdm_base_game:
         # if world.options.shuffle_spacesuit.value:
-        #     raise OptionError(f"player {player} You can't shuffle SpaceSuit when you only play the dlc")
+        #     raise OptionError(f"Player {player} You can't shuffle SpaceSuit when you only play the dlc")
         if world.options.dlc_access_items.value:
             world.OWStartItems["Stranger Access"] = 1
         world.OWStartItems["Signaloscope"] = 1
@@ -137,8 +161,6 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
 # Called after regions and locations are created, in case you want to see or modify that information. Victory location is included.
 def after_create_regions(world: World, multiworld: MultiWorld, player: int):
     # Use this hook to remove locations from the world
-    solanum = world.options.require_solanum.value
-    owlguy = world.options.require_prisoner.value
     goal = world.options.goal.value
 
 #region Removing locations
@@ -147,16 +169,16 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
     # Selecting what content to remove
     #region
 
-    if goal == Goal.option_ash_twin_project_break_spacetime:
+    if goal == Goal.alias_ash_twin_project_break_spacetime:
         locations_to_be_removed.append('1 - Break Space-Time in the Ash Twin Project')
 
-    elif goal == Goal.option_high_energy_lab_break_spacetime:
+    elif goal == Goal.alias_high_energy_lab_break_spacetime:
         locations_to_be_removed.append('1 - Break space time in the lab')
 
-    elif goal == Goal.option_visit_all_archive:
+    elif goal == Goal.alias_visit_all_archive:
         locations_to_be_removed.append('9 - In a loop visit all 3 archive without getting caught')
 
-    elif goal == Goal.option_prisoner:
+    elif goal == Goal.alias_prisoner:
 
         locations_to_be_removed.append('94 - Enter the Sealed Vault in the Subterranean Lake Dream')
 
@@ -292,15 +314,15 @@ def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", mult
     if rdm_dlc:
         message.append("DLC")
         if len("message") == 1:
-            if goal == Goal.option_eye:
+            if goal == Goal.alias_vanilla:
                 message.append("Eye")
-            elif goal == Goal.option_ash_twin_project_break_spacetime:
+            elif goal == Goal.alias_ash_twin_project_break_spacetime:
                 message.append("Ash Twin project")
-            elif goal == Goal.option_high_energy_lab_break_spacetime:
+            elif goal == Goal.alias_high_energy_lab_break_spacetime:
                 message.append("High Energy Lab")
-            elif goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream or goal == Goal.option_stuck_with_solanum:
+            elif goal == Goal.alias_stuck_in_stranger or goal == Goal.alias_stuck_in_dream or goal == Goal.alias_stuck_with_solanum:
                 message.append("Adv. warp core")
-            if solanum and goal != Goal.option_stuck_with_solanum:
+            if solanum and goal != Goal.alias_stuck_with_solanum:
                 message.append("Solanum")
 
     #logging.info(message)
@@ -341,7 +363,7 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
             if solanum:
                 add_rule(location,
                          lambda state: state.has("[Event] 6 - Explore the Sixth Location", player))
-            if owlguy and goal != Goal.option_prisoner:
+            if owlguy and goal != Goal.alias_prisoner:
                 add_rule(location,
                          lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
 #endregion

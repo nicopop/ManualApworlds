@@ -83,20 +83,20 @@ def InitCategories(base: World, player: int):
         if solanum:
             set_category_status(base, player, 'require_solanum', True)
 
-        if goal == Goal.option_eye:
+        if goal == Goal.alias_vanilla:
             set_category_status(base, player, 'Win_Eye', True)
             set_category_status(base, player, 'need_warpdrive', True)
-        elif goal == Goal.option_ash_twin_project_break_spacetime:
+        elif goal == Goal.alias_ash_twin_project_break_spacetime:
             set_category_status(base, player, 'need_warpdrive', True)
             set_category_status(base, player, 'Win_ATP_break_spacetime', True)
-        elif goal == Goal.option_high_energy_lab_break_spacetime:
+        elif goal == Goal.alias_high_energy_lab_break_spacetime:
             set_category_status(base, player, 'need_warpdrive', True)
             set_category_status(base, player, 'Win_HEL_break_spacetime', True)
-        elif goal == Goal.option_stuck_with_solanum:
+        elif goal == Goal.alias_stuck_with_solanum:
             set_category_status(base, player, 'need_warpdrive', True)
             set_category_status(base, player, 'require_solanum', True)
             set_category_status(base, player, 'Win_solanum', True)
-        elif (goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream):
+        elif (goal == Goal.alias_stuck_in_stranger or goal == Goal.alias_stuck_in_dream):
             set_category_status(base, player, 'need_warpdrive', True)
     base.categoryInit = True
 

@@ -25,10 +25,6 @@ from .Options import EarlyShipKey, Goal
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, is_item_enabled, get_option_value
 
-APMiscData: dict[int|str, Any] = {}
-"""
-Copy of any changed world item/locations
-"""
 ########################################################################################
 ## Order of method calls when the world generates:
 ##    1. create_regions - Creates regions and locations
@@ -51,14 +47,7 @@ def hook_get_filler_item_name(world: World, multiworld: MultiWorld, player: int)
 
 def hook_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: int):
     world.OWStartItems = {}
-    # Set version in yaml and log
-    if not APMiscData.get('version'):
-        APMiscData['version'] = world.world_version.as_simple_string()
-        logging.info(f"player(s) uses {world.game} version: {APMiscData['version']}")
-
-    world.options.game_version.value = APMiscData["version"]
 # region Init Options
-    APMiscData[player] = {}
     goal = world.options.goal
     rdm_base_game = world.options.randomize_base_game
     rdm_dlc = world.options.randomize_dlc

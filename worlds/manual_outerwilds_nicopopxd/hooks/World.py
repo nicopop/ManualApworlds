@@ -47,6 +47,7 @@ def hook_get_filler_item_name(world: World, multiworld: MultiWorld, player: int)
 
 def hook_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: int):
     world.OWStartItems = {}
+    world.options.game_version.value = world.world_version.as_simple_string()
 # region Init Options
     goal = world.options.goal
     rdm_base_game = world.options.randomize_base_game

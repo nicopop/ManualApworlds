@@ -154,7 +154,12 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                 requires_list = findAndRecursivelyExecuteFunctions(requires_list, recursionDepth + 1)
             return requires_list
 
+
         requires_list = findAndRecursivelyExecuteFunctions(requires_list)
+
+        for loc in re.findall(r'\[[^\]]+\]',requires_list):
+            loc_name = "|[Event] "+loc.lstrip('[').rstrip(']')+"|"
+            requires_list = requires_list.replace(loc,loc_name)
 
         # parse user written statement into list of each item
         for item in re.findall(r'\|[^|]+\|', requires_list):
@@ -310,6 +315,11 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
 
         locFromWorld = multiworld.get_location(location["name"], player)
 
+        EventLoc = None
+        if location.get("create_event"):
+            EventLoc = multiworld.get_location(f"[Event] {location['name']}", player)
+
+
         locationRegion = regionMap[location["region"]] if "region" in location else None
 
         if locationRegion:
@@ -327,16 +337,24 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                 return locationCheck and regionCheck
 
             set_rule(locFromWorld, checkBothLocationAndRegion)
+            if EventLoc:
+                set_rule(EventLoc, checkBothLocationAndRegion)
+
         elif "region" in location: # Only region access required, check the location's region's requires
             def fullRegionCheck(state, region=locationRegion):
                 return fullLocationOrRegionCheck(state, region)
 
             set_rule(locFromWorld, fullRegionCheck)
+            if EventLoc:
+                set_rule(EventLoc, fullRegionCheck)
         else: # No location region and no location requires? It's accessible.
             def allRegionsAccessible(state):
                 return True
 
             set_rule(locFromWorld, allRegionsAccessible)
+            if EventLoc:
+                set_rule(EventLoc, allRegionsAccessible)
+
 
     # Victory requirement
     multiworld.completion_condition[player] = lambda state: state.has("__Victory__", player)

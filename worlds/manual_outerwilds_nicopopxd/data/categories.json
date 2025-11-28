@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/ManualForArchipelago/Manual/raw/Schemas-in-json/schemas/Manual.categories.schema.json",
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.categories.schema.json",
   "2b Trap": {
     "hidden": true
   },
@@ -13,8 +13,12 @@
   },
   "Base Game":{
     "hidden": true,
-    "yaml_option_off": [ "Enable_Base_game"],
-    "create_item_group": false
+    "yaml_option_off": [ "randomize_base_game"],
+    "create_item_group": false,
+    "create_location_group": false
+  },
+  "FillerDummy":{
+    "hidden": true
   },
   "Win_Eye": {
     "hidden": true,
@@ -82,10 +86,11 @@
     "create_item_group": false,
     "create_location_group": false
   },
-  "EotE": {
+  "DLC - Eye": {
     "hidden": true,
-    "yaml_option_off": [ "Enable_EotE_DLC"],
-    "create_item_group": false
+    "yaml_option": [ "randomize_dlc"],
+    "create_item_group": false,
+    "create_location_group": false
   },
   "DLC - Stranger Entrance": {
     "hidden": true

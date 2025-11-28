@@ -1,6 +1,37 @@
 {
-    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/Schemas-in-json/schemas/Manual.items.schema.json",
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.items.schema.json",
     "data":[
+        {
+            "name": "Launch Codes",
+            "id": 1,
+            "early": true,
+            "local": true,
+            "progression": true,
+            "category": [ "3 Base Game", "3a Progression", "2 everything" ]
+        },
+        {
+            "name": "Ship Key",
+            "progression": true,
+            "local_early": true,
+            "category": [ "3 Base Game", "3a Progression", "2 everything" ]
+        },
+        {
+            "name": "SpaceSuit",
+            "progression": true,
+            "category": [ "3 Base Game", "3a Progression", "2 everything"]
+        },
+
+        {
+            "name": "Signaloscope",
+            "progression": true,
+            "category": [ "3 Base Game", "3a Progression", "3b Signals", "2 everything", "1 Need For End", "Goal Eye", "Goal Prisoner", "Goal GitM" ]
+        },
+        {
+            "name": "Scout",
+            "progression": true,
+            "category": [ "3 Base Game", "3a Progression", "2 everything", "1 Need For End", "Goal Eye" ]
+        },
+
         {
             "name": "Coords to the eye",
             "progression": true,
@@ -46,31 +77,6 @@
             "_comment": "added so validation doesn't yell when this is required",
             "count": 0
         },
-
-        {
-            "name": "Launch Codes",
-            "progression": true,
-            "early": true,
-            "local":  true,
-            "category": [ "3 Base Game", "3a Progression", "2 everything" ]
-        },
-        {
-            "name": "Ship Key",
-            "progression": true,
-            "early": true,
-            "local":  true,
-            "category": [ "3 Base Game", "3a Progression", "2 everything" ]
-        },
-        {
-            "name": "SpaceSuit",
-            "progression": true,
-            "category": [ "3 Base Game", "3a Progression", "2 everything"]
-        },
-        {
-            "name": "Scout",
-            "progression": true,
-            "category": [ "3 Base Game", "3a Progression", "2 everything", "1 Need For End", "Goal Eye" ]
-        },
         {
             "name": "Photos",
             "progression": true,
@@ -91,11 +97,6 @@
             "category": [ "3 Base Game", "2a Filler and Useful", "2 everything" ]
         },
 
-        {
-            "name": "Signaloscope",
-            "progression": true,
-            "category": [ "3 Base Game", "3a Progression", "3b Signals", "2 everything", "1 Need For End", "Goal Eye", "Goal Prisoner", "Goal GitM" ]
-        },
         {
             "name": "Signal > OW Ventures",
             "progression": true,
@@ -144,36 +145,51 @@
         },
         {
             "name": "Ticket for (1) free death",
-            "count": 14,
+            "count": 0,
             "category": [ "2a Filler and Useful", "2 everything" ]
         },
         {
             "name": "Owlish feather",
-            "count": 3,
-            "category": [ "2a Filler and Useful", "2 everything", "EotE" ]
+            "count": 0,
+            "category": [ "2a Filler and Useful", "2 everything", "DLC - Eye", "FillerDummy" ]
+        },
+        {
+            "name": "Marshmallow",
+            "count": 0,
+            "category": [ "2a Filler and Useful", "2 everything", "FillerDummy" ]
+        },
+        {
+            "name": "Perfect Marshmallow",
+            "count": 0,
+            "category": [ "2a Filler and Useful", "2 everything", "FillerDummy" ]
+        },
+        {
+            "name": "Burnt Marshmallow",
+            "count": 0,
+            "category": [ "2a Filler and Useful", "2 everything", "FillerDummy" ]
         },
 
         {
             "name": "Forced Meditation",
-            "count": 4,
+            "count": 0,
             "category": [ "2b Trap", "2 everything" ],
             "trap": true
         },
         {
             "name": "Disabled Ship controles 'Till next loop/meditation",
-            "count": 3,
+            "count": 0,
             "category": [ "2b Trap", "2 everything", "Base Game" ],
             "trap": true
         },
         {
             "name": "Minor Damage to ship",
-            "count": 3,
+            "count": 0,
             "category": [ "2b Trap", "2 everything", "Base Game" ],
             "trap": true
         },
         {
             "name": "Major Damage to ship",
-            "count": 2,
+            "count": 0,
             "category": [ "2b Trap", "2 everything", "Base Game" ],
             "trap": true
         },
@@ -181,119 +197,119 @@
         {
             "name": "Stranger Access",
             "progression": true,
-            "category": [ "4a Entrances", "4 Echoes of the Eye", "2 everything", "EotE", "DLC - Reduced Knowledge" ]
+            "category": [ "4a Entrances", "4 Echoes of the Eye", "2 everything", "DLC - Eye", "DLC - Reduced Knowledge" ]
         },
         {
             "name": "Stranger Projectors",
             "progression": true,
-            "category": [ "4a Progression", "4 Echoes of the Eye", "2 everything", "EotE" ]
+            "category": [ "4a Progression", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
         },
         {
             "name": "Stranger Main entrance",
             "progression": true,
-        "category": [ "4 Echoes of the Eye", "4a Entrances", "2 everything", "EotE", "DLC - Stranger Entrance" ]
+        "category": [ "4 Echoes of the Eye", "4a Entrances", "2 everything", "DLC - Eye", "DLC - Stranger Entrance" ]
         },
         {
             "name": "Stranger Dam entrance",
             "progression": true,
-            "category": [ "4 Echoes of the Eye", "4a Entrances", "2 everything", "EotE", "DLC - Stranger Entrance" ]
+            "category": [ "4 Echoes of the Eye", "4a Entrances", "2 everything", "DLC - Eye", "DLC - Stranger Entrance" ]
         },
         {
             "name": "Stranger Back entrance",
             "progression": true,
-            "category": [ "4 Echoes of the Eye", "4a Entrances", "2 everything", "EotE", "DLC - Stranger Entrance" ]
+            "category": [ "4 Echoes of the Eye", "4a Entrances", "2 everything", "DLC - Eye", "DLC - Stranger Entrance" ]
         },
         {
             "name": "Stranger Hull breach",
             "progression": true,
-            "category": [ "4 Echoes of the Eye", "4a Entrances", "2 everything", "EotE", "DLC - Stranger Entrance" ]
+            "category": [ "4 Echoes of the Eye", "4a Entrances", "2 everything", "DLC - Eye", "DLC - Stranger Entrance" ]
         },
         {
             "name": "Abandoned temple code",
             "progression": true,
-            "category": [ "4 Echoes of the Eye", "4e codes", "2 everything", "EotE" ]
+            "category": [ "4 Echoes of the Eye", "4e codes", "2 everything", "DLC - Eye" ]
         },
         {
             "name": "Broken Interface room code",
             "progression": true,
-            "category": [ "4 Echoes of the Eye", "4e codes", "2 everything", "EotE" ]
+            "category": [ "4 Echoes of the Eye", "4e codes", "2 everything", "DLC - Eye" ]
         },
         {
             "name": "Progressive Slide burning room",
             "count": 3,
             "progression": true,
-            "category": [ "4a Progression", "4e Progressive", "4 Echoes of the Eye", "2 everything", "EotE" ]
+            "category": [ "4a Progression", "4e Progressive", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
         },
         {
             "name": "River Lowlands Flame",
             "progression": true,
-            "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "EotE" ]
+            "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "DLC - Eye" ]
         },
         {
             "name": "Cinder Isles Flame",
             "progression": true,
-            "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "EotE", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
         },
         {
             "name": "Hidden Gorge Flame",
             "progression": true,
-            "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "EotE", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
         },
         {
             "name": "Submerged Structure Flame",
             "progression": true,
-            "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "EotE", "Goal Prisoner" ]
+            "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "DLC - Eye", "Goal Prisoner" ]
         },
         {
             "name": "DreamWorld Access",
             "progression": true,
-            "category": [ "4a Entrances", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "EotE", "DLC - Reduced Knowledge", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "4a Entrances", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye", "DLC - Reduced Knowledge", "Goal Prisoner", "Goal GitM" ]
         },
         {
             "name": "DreamWorld Loading Glitch",
             "progression": true,
-            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "DLC Glitch", "2 everything", "EotE", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "DLC Glitch", "2 everything", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
         },
         {
             "name": "DreamWorld Render Glitch",
             "progression": true,
-            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "DLC Glitch","2 everything", "EotE", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "DLC Glitch","2 everything", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
         },
         {
             "name": "DreamWorld Death Glitch",
             "progression": true,
-            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "DLC Glitch","2 everything", "EotE", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "DLC Glitch","2 everything", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
         },
         {
             "name": "DreamWorld Grabbing Hands",
             "progression": true,
-            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "EotE", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
         },
         {
             "name": "DreamWorld Door Candles",
             "progression": true,
-            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "EotE", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
         },
         {
             "name": "DreamWorld Fake Fireplace",
             "progression": true,
-            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "EotE" ]
+            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
         },
         {
             "name": "DreamWorld Fake Wall",
             "progression": true,
-            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "EotE", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
         },
         {
             "name": "DreamWorld Hidden Hand",
             "progression": true,
-            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "EotE", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
         },
         {
             "name": "Progressive Datamined Sealed Vault Code",
             "count": 3,
             "progression": true,
-            "category": [ "4a Progression", "4e codes", "4e Progressive", "4 Echoes of the Eye", "2 everything", "EotE", "Goal Prisoner" ]
+            "category": [ "4a Progression", "4e codes", "4e Progressive", "4 Echoes of the Eye", "2 everything", "DLC - Eye", "Goal Prisoner" ]
         }
     ]
 }

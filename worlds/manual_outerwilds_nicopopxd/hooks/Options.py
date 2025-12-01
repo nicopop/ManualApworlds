@@ -26,12 +26,7 @@ if TYPE_CHECKING:
 # To add an option, use the before_options_defined hook below and something like this:
 #   options["total_characters_to_win_with"] = TotalCharactersToWinWith
 #
-#class TotalCharactersToWinWith(Range):
-#    """Instead of having to beat the game with all characters, you can limit locations to a subset of character victory locations."""
-#    display_name = "Number of characters to beat the game with before victory"
-#    range_start = 10
-#    range_end = 50
-#    default = 50
+
 class ChoiceIsRandom(Choice):
     randomized: bool | list[str] = False
     supports_weighting = False
@@ -137,10 +132,6 @@ class ShuffleSpacesuit(ToggleIsRandom):
     This is a HIGHLY EXPERIMENTAL setting. Expect logic bugs. Feedback encouraged."""
     display_name = "Shuffle SpaceSuit"
 
-# class ShipKey(DefaultOnToggle):
-#     """Lock being able to move the ship behind this item, you still can grab the SpaceSuit and use it's jetpack but you can't take off with the ship"""
-#     display_name = "Ship Key Logic"
-
 class EarlyShipKey(Choice):
     """Do you want the Ship Key to be located in the early game
     Leave it as startswith to disable the Ship Key logic"""
@@ -232,7 +223,6 @@ class ApWorldVersion(FreeText):
 
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, Type[Option[Any]]]:
-#    options["total_characters_to_win_with"] = TotalCharactersToWinWith
     options["game_version"] = ApWorldVersion
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
@@ -241,7 +231,6 @@ def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, T
     options["ship_key_logic"] = EarlyShipKey
     options["shuffle_spacesuit"] = ShuffleSpacesuit
     options["do_place_item_category"] = LocalPlacedItems
-    # ptions["randomized_content"] = RandomContent
     options["randomize_base_game"] = RandomizeBaseGame
     options["randomize_dlc"] = RandomizeDLC
     options["dlc_access_items"] = MainDlcKnowledge
@@ -282,6 +271,9 @@ def after_options_defined(options: Type[PerGameCommonOptions]):
 
 # Use this Hook if you want to add your Option to an Option group (existing or not)
 def before_option_groups_created(groups: dict[str, list[Type[Option[Any]]]]) -> dict[str, list[Type[Option[Any]]]]:
+    groups["Randomized Content"] = [RandomizeBaseGame, RandomizeDLC, RandomizeMod1]
+    groups["Goal Logic"] = [Goal, RequireSolanum, RequirePrisoner]
+    groups["Tweaks"] = [EarlyShipKey, BiggerSphere1, LocalPlacedItems, ShuffleSpacesuit, MainDlcKnowledge, do_spooks]
     # Uses the format groups['GroupName'] = [TotalCharactersToWinWith]
     return groups
 

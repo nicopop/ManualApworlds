@@ -124,7 +124,7 @@
   },
   "All Archive": {
     "_requires": "((|DreamWorld Loading Glitch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))) and ((|DreamWorld Door Candles| and |DreamWorld Death Glitch|) or (|DreamWorld Door Candles| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|)) and (|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and |DreamWorld Grabbing Hands|))",
-    "requires": "[91 - Get in the Forbidden Archive of the Shrouded Woodlands] and ([92 - Lights on - Get in the Forbidden Archive of the Starlit Cove] or [92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove]) and ([93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon] or [93 - Sneak the long way in the Forbidden Archive of the Endless Canyon])",
+    "requires": "{Event(91 - Get in the Forbidden Archive of the Shrouded Woodlands)} and ({Event(92 - Lights on - Get in the Forbidden Archive of the Starlit Cove)} or {Event(92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove)}) and ({Event(93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon)} or {Event(93 - Sneak the long way in the Forbidden Archive of the Endless Canyon)})",
     "connects_to": []
   },
   "Subterranean Lake": {

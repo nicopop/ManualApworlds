@@ -3,7 +3,7 @@ from worlds.AutoWorld import World
 from worlds.generic.Rules import add_rule
 from typing import TYPE_CHECKING, cast, Any
 
-from BaseClasses import MultiWorld, CollectionState, Item
+from BaseClasses import MultiWorld, CollectionState, Item, ItemClassification
 from Options import OptionError
 import logging
 
@@ -147,14 +147,37 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     elif early_Ship == EarlyShipKey.option_global_anywhere:
         multiworld.local_early_items[player].pop(shipitem, "")
 #endregion
+# region item/loc groups removal
+    for name, category in world.category_table.items():
+        category = cast(dict[str,Any],category)
+        if not category.get("create_location_group", True):
+            world.location_name_groups.pop(name, "")
+        if not category.get("create_item_group", True):
+            world.item_name_groups.pop(name, "")
+#endregion
     pass
 # Called before regions and locations are created. Not clear why you'd want this, but it's here. Victory location is included, but Victory event is not placed yet.
 def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     pass
 
 # Called after regions and locations are created, in case you want to see or modify that information. Victory location is included.
-def after_create_regions(world: World, multiworld: MultiWorld, player: int):
+def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: int):
     # Use this hook to remove locations from the world
+    for location_dict in world.location_table:
+        name = location_dict["name"]
+        location = multiworld.regions.location_cache[player].get(name, None)
+        if location is None:
+            continue
+        ret = location.parent_region
+        if ret is None:
+            continue
+        if world.location_name_to_location[name].get("create_event", False):
+            event_name = "[Event] "+name
+            eventLocationObj = ManualLocation(player,event_name,None,ret)
+            eventLocationObj.show_in_spoiler = False
+            eventItemOjb = ManualItem(event_name,ItemClassification.progression, None, player)
+            eventLocationObj.place_locked_item(eventItemOjb)
+            ret.locations.append(eventLocationObj)
     goal = world.options.goal.value
 
 #region Removing locations
@@ -343,7 +366,7 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
     pass
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
-def after_set_rules(world: World, multiworld: MultiWorld, player: int):
+def after_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
     # Use this hook to modify the access rules for a given location
     #extra_data = load_data_file("extra.json")
     solanum = world.options.require_solanum.value
@@ -353,15 +376,19 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
 #Victory Location access rules mod
 #region
     for location in multiworld.get_filled_locations(player):
-        if location.address is None and location.item is not None and location.item.name == '__Victory__':
-            if solanum:
-                add_rule(location,
-                         lambda state: state.has("[Event] 6 - Explore the Sixth Location", player))
-            if owlguy and goal != Goal.alias_prisoner:
-                add_rule(location,
-                         lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
+        if location.address is None and location.item is not None:
+            if location.item.name == '__Victory__':
+                if solanum:
+                    add_rule(location,
+                            lambda state: state.has("[Event] 6 - Explore the Sixth Location", player))
+                if owlguy and goal != Goal.alias_prisoner:
+                    add_rule(location,
+                            lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
+            elif location.name.startswith("[Event] "):
+                regular_loc = multiworld.regions.location_cache[player].get(location.name.removeprefix("[Event] "), None)
+                if regular_loc is not None:
+                    add_rule(location, regular_loc.access_rule)
 #endregion
-
     def Example_Rule(state: CollectionState) -> bool:
         # Calculated rules take a CollectionState object and return a boolean
         # True if the player can access the location

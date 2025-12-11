@@ -370,6 +370,105 @@ def after_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
 
 #Victory Location access rules mod
 #region
+    import re
+    from math import ceil
+    from .Rules import Event
+    from ..Rules import infix_to_postfix, evaluate_postfix
+    from ..Helpers import clamp
+    def event_rule(state: CollectionState, player: int, area_name: str) -> bool:
+        def check_area(area: dict) -> bool:
+            requires_list = cast(str,area.get("requires", ""))
+            found_functions = re.findall(r'\{(\w+)\((.*?)\)\}', requires_list)
+            for func in found_functions:
+                func_name = func[0]
+                func_args = func[1].split(",")
+                if func_args == ['']:
+                    func_args.pop()
+
+                if func_name == "Event":
+                    result = Event(state, player, func_args[0])
+                    if isinstance(result, bool):
+                        requires_list = requires_list.replace("{" + func_name + "(" + func[1] + ")}", "1" if result else "0")
+                    else:
+                        requires_list = requires_list.replace("{" + func_name + "(" + func[1] + ")}", str(result))
+
+            items_counts = world.item_counts_progression[player]
+            for item in re.findall(r'\|[^|]+\|', requires_list):
+                require_category = False
+
+                if '|@' in item:
+                    require_category = True
+
+                item_base = item
+                item = item.lstrip('|@$').rstrip('|')
+
+                item_parts = item.split(":")  # type: list[str]
+                item_name = item
+                item_count = "1"
+
+
+                if len(item_parts) > 1:
+                    item_name = item_parts[0].strip()
+                    item_count = item_parts[1].strip()
+
+                total = 0
+
+                if require_category:
+                    category_items = [item for item in world.item_name_to_item.values() if "category" in item and item_name in item["category"]]
+                    category_items_counts = sum([items_counts.get(category_item["name"], 0) for category_item in category_items])
+                    if item_count.lower() == 'all':
+                        item_count = category_items_counts
+                    elif item_count.lower() == 'half':
+                        item_count = int(category_items_counts / 2)
+                    elif item_count.endswith('%') and len(item_count) > 1:
+                        percent = clamp(float(item_count[:-1]) / 100, 0, 1)
+                        item_count = ceil(category_items_counts * percent)
+                    else:
+                        try:
+                            item_count = int(item_count)
+                        except ValueError as e:
+                            raise ValueError(f"Invalid item count `{item_name}` in {area}.") from e
+
+                    for category_item in category_items:
+                        total += state.count(category_item["name"], player)
+
+                        if total >= item_count:
+                            requires_list = requires_list.replace(item_base, "1")
+                else:
+                    item_current_count = items_counts.get(item_name, 0)
+                    if item_count.lower() == 'all':
+                        item_count = item_current_count
+                    elif item_count.lower() == 'half':
+                        item_count = int(item_current_count / 2)
+                    elif item_count.endswith('%') and len(item_count) > 1:
+                        percent = clamp(float(item_count[:-1]) / 100, 0, 1)
+                        item_count = ceil(item_current_count * percent)
+                    else:
+                        item_count = int(item_count)
+
+                    total = state.count(item_name, player)
+
+                    if total >= item_count:
+                        requires_list = requires_list.replace(item_base, "1")
+
+                if total <= item_count:
+                    requires_list = requires_list.replace(item_base, "0")
+            requires_list = re.sub(r'\s?\bAND\b\s?', '&', requires_list, count=0, flags=re.IGNORECASE)
+            requires_list = re.sub(r'\s?\bOR\b\s?', '|', requires_list, count=0, flags=re.IGNORECASE)
+
+            requires_string = infix_to_postfix("".join(requires_list), area)
+            return (evaluate_postfix(requires_string, area)) # pyright: ignore[reportArgumentType]
+
+        manual_loc = world.location_name_to_location[area_name]
+
+        region_result = True
+        if manual_loc.get("region"):
+            region_result = check_area(region_table[manual_loc["region"]])
+        location_result = check_area(manual_loc)
+
+        return location_result and region_result
+
+
     for location in multiworld.get_filled_locations(player):
         if location.address is None and location.item is not None:
             if location.item.name == '__Victory__':
@@ -380,9 +479,8 @@ def after_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                     add_rule(location,
                             lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
             elif location.name.startswith("[Event] "):
-                regular_loc = multiworld.regions.location_cache[player].get(location.name.removeprefix("[Event] "), None)
-                if regular_loc is not None:
-                    add_rule(location, regular_loc.access_rule)
+                name = location.name.removeprefix("[Event] ")
+                add_rule(location, lambda state: event_rule(state, player, name))
 #endregion
     def Example_Rule(state: CollectionState) -> bool:
         # Calculated rules take a CollectionState object and return a boolean

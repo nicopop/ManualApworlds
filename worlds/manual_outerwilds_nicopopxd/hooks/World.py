@@ -45,7 +45,11 @@ def hook_get_filler_item_name(world: World, multiworld: MultiWorld, player: int)
     dummyfillers = list(world.item_name_groups.get("FillerDummy", set()).union({cast(str, world.filler_item_name)}))
     return world.random.choice(dummyfillers)
 
-def hook_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: int):
+def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: int):
+    """
+    This is the earliest hook called during generation, before anything else is done.
+    Use it to check or modify incompatible options, or to set up variables for later use.
+    """
     world.OWStartItems = {}
     world.options.game_version.value = world.world_version.as_simple_string()
 # region Init Options
@@ -442,12 +446,4 @@ def before_extend_hint_information(hint_data: dict[int, dict[int, str]], world: 
     pass
 
 def after_extend_hint_information(hint_data: dict[int, dict[int, str]], world: World, multiworld: MultiWorld, player: int) -> None:
-    pass
-
-
-def before_generate_early(world: World, multiworld: MultiWorld, player: int) -> None:
-    """
-    This is the earliest hook called during generation, before anything else is done.
-    Use it to check or modify incompatible options, or to set up variables for later use.
-    """
     pass

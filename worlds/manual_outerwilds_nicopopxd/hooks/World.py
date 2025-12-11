@@ -164,20 +164,15 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
 def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: int):
     # Use this hook to remove locations from the world
     for location_dict in world.location_table:
+        location_dict = cast(dict[str, Any], location_dict)
         name = location_dict["name"]
-        location = multiworld.regions.location_cache[player].get(name, None)
-        if location is None:
-            continue
-        ret = location.parent_region
-        if ret is None:
-            continue
         if world.location_name_to_location[name].get("create_event", False):
             event_name = "[Event] "+name
-            eventLocationObj = ManualLocation(player,event_name,None,ret)
-            eventLocationObj.show_in_spoiler = False
+            event_region = multiworld.get_region(location_dict["region"], player)
             eventItemOjb = ManualItem(event_name,ItemClassification.progression, None, player)
+            eventLocationObj = ManualLocation(player,event_name,None,event_region)
+            event_region.locations.append(eventLocationObj)
             eventLocationObj.place_locked_item(eventItemOjb)
-            ret.locations.append(eventLocationObj)
     goal = world.options.goal.value
 
 #region Removing locations

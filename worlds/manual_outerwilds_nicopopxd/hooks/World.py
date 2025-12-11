@@ -45,7 +45,7 @@ def hook_get_filler_item_name(world: World, multiworld: MultiWorld, player: int)
     dummyfillers = list(world.item_name_groups.get("FillerDummy", set()).union({cast(str, world.filler_item_name)}))
     return world.random.choice(dummyfillers)
 
-def hook_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: int):
+def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: int):
     world.OWStartItems = {}
     world.options.game_version.value = world.world_version.as_simple_string()
 # region Init Options
@@ -443,3 +443,10 @@ def before_extend_hint_information(hint_data: dict[int, dict[int, str]], world: 
 
 def after_extend_hint_information(hint_data: dict[int, dict[int, str]], world: World, multiworld: MultiWorld, player: int) -> None:
     pass
+
+def hook_interpret_slot_data(world: World, player: int, slot_data: dict[str, Any]) -> dict[str, Any]:
+    """
+        Called when Universal Tracker wants to perform a fake generation
+        Use this if you want to use or modify the slot_data for passed into re_gen_passthrough
+    """
+    return slot_data

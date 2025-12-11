@@ -154,7 +154,6 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                 requires_list = findAndRecursivelyExecuteFunctions(requires_list, recursionDepth + 1)
             return requires_list
 
-
         requires_list = findAndRecursivelyExecuteFunctions(requires_list)
 
         for loc in re.findall(r'\[[^\]]+\]',requires_list):

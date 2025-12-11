@@ -257,17 +257,7 @@ def after_options_defined(options: Type[PerGameCommonOptions]):
     options.type_hints['filler_traps'].range_end = 75
     options.type_hints['filler_traps'].default = 20
 
-    # generated_goal = options.type_hints.get('goal', {})
-    # if generated_goal and issubclass(your_goal_class, Choice) and not issubclass(type(generated_goal), your_goal_class):
-    #     goals = {'option_' + i: v for i, v in generated_goal.options.items() if i != 'default'}
-    #     for option, value in your_goal_class.options.items():
-    #         if option == 'default':
-    #             continue
-    #         goals[f"alias_{option}"] = value
-    #     options['goal'] = type('goal', (Choice,), goals)
-    #     options['goal'].default = your_goal_class.options.get('default', generated_goal.default)
-    #     options['goal'].__doc__ = your_goal_class.__doc__ or options['goal'].__doc__
-    # return options
+    pass
 
 # Use this Hook if you want to add your Option to an Option group (existing or not)
 def before_option_groups_created(groups: dict[str, list[Type[Option[Any]]]]) -> dict[str, list[Type[Option[Any]]]]:

@@ -92,9 +92,3 @@ def after_load_meta_file(meta_table: dict) -> dict:
     web['bug_report_page'] = "https://discord.com/channels/1097532591650910289/1101289500602286161"
 
     return meta_table
-
-# called when an external tool (eg Universal Tracker) ask for slot data to be read
-# use this if you want to restore more data
-# return True if you want to trigger a regeneration if you changed anything
-def hook_interpret_slot_data(world, player: int, slot_data: dict[str, Any]) -> dict | bool:
-    return False

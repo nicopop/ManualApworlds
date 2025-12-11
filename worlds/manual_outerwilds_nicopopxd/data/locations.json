@@ -81,7 +81,7 @@
             "name": "1 - Break Space-Time in the Ash Twin Project",
             "region": "Ash Twin",
             "category": [ "1 - Ash Twin", "Base Game" ],
-            "requires": "[1 - Get in the Ash Twin Project]"
+            "requires": "{Event(1 - Get in the Ash Twin Project)}"
         },
         {
             "name": "1 - Get to the sun station",
@@ -195,7 +195,7 @@
         {
             "name": "2 - Bring a core back to the museum",
             "region": "Timber Hearth Village",
-            "requires": "([1 - Get in the Ash Twin Project] and |Adv. warp core|) or (|Signaloscope| and |Signal > Distress|)",
+            "requires": "({Event(1 - Get in the Ash Twin Project)} and |Adv. warp core|) or (|Signaloscope| and |Signal > Distress|)",
             "category": [ "2 - Timber Hearth", "Base Game" ]
         },
         {
@@ -540,13 +540,13 @@
             "name": "8 - Get in Abandoned temple's secret basement",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Abandoned temple code| and [8 - Get in the Code Vault]"
+            "requires": "|Abandoned temple code| and {Event(8 - Get in the Code Vault)}"
         },
         {
             "name": "8 - Find the broken connection diagram in the reservoir area",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Broken Interface room code| and ((|Scout| and |Photos|) or [8 - Get in the Code Vault])"
+            "requires": "|Broken Interface room code| and ((|Scout| and |Photos|) or {Event(8 - Get in the Code Vault)})"
         },
         {
             "name": "8 - Find the stranger trajectory diagram in the reservoir area",
@@ -698,7 +698,7 @@
         {
             "name": "92 - Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
-            "requires": "[92 - Lights on - Get in the Forbidden Archive of the Starlit Cove] and [92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove]",
+            "requires": "{Event(92 - Lights on - Get in the Forbidden Archive of the Starlit Cove)} and {Event(92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove)}",
             "category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
         },
 
@@ -761,7 +761,7 @@
         {
             "name": "93 - Bonus item if you go in both ways to the Forbidden Archive of the Endless Canyon",
             "region": "Endless Canyon Archive",
-            "requires": "[93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon] and [93 - Sneak the long way in the Forbidden Archive of the Endless Canyon]",
+            "requires": "{Event(93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon)} and {Event(93 - Sneak the long way in the Forbidden Archive of the Endless Canyon)}",
             "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
         },
         {
@@ -814,14 +814,14 @@
             "name": "Standard",
             "_comment": "Only there so its an option, it will get changed to Any% or Prisoner% automatically",
             "victory": true,
-            "requires": "[5 - Get to the Vessel] and [4 - See the Coords] and |@Base Need For End:2|",
+            "requires": "{Event(5 - Get to the Vessel)} and {Event(4 - See the Coords)} and |@Base Need For End:2|",
             "category": [ "0 - Finale"]
         },
         {
             "name": "Vanilla%",
             "region": "Dark Bramble",
             "victory": true,
-            "requires": "[5 - Get to the Vessel] and [4 - See the Coords] and |@Base Need For End:2|",
+            "requires": "{Event(5 - Get to the Vessel)} and {Event(4 - See the Coords)} and |@Base Need For End:2|",
             "category": [ "0 - Finale"]
         },
         {
@@ -843,7 +843,7 @@
             "region": "Ash Twin",
             "category": [ "0 - Finale", "1 - Ash Twin"],
             "victory": true,
-            "requires": "[1 - Get in the Ash Twin Project]"
+            "requires": "{Event(1 - Get in the Ash Twin Project)}"
         },
         {
             "name": "Break_Space-Time_In_Lab%",
@@ -856,21 +856,21 @@
             "name": "Quantum_Stuck%",
             "victory": true,
             "region": "Quantum Moon",
-            "requires": "|Adv. warp core| and [1 - Get in the Ash Twin Project] and [6 - Explore the Sixth Location]",
+            "requires": "|Adv. warp core| and {Event(1 - Get in the Ash Twin Project)} and {Event(6 - Explore the Sixth Location)}",
             "category": [ "0 - Finale", "6 - Quantum Moon"]
         },
         {
             "name": "Stranger_Stuck%",
             "victory": true,
             "region": "The Stranger",
-            "requires": "|Adv. warp core| and [1 - Get in the Ash Twin Project]",
+            "requires": "|Adv. warp core| and {Event(1 - Get in the Ash Twin Project)}",
             "category": ["0 - Finale", "8 - The Stranger"]
         },
         {
             "name": "Dream_Stuck%",
             "victory": true,
             "region": "DreamWorld General",
-            "requires": "|Adv. warp core| and [1 - Get in the Ash Twin Project]",
+            "requires": "|Adv. warp core| and {Event(1 - Get in the Ash Twin Project)}",
             "category": ["0 - Finale", "9 - DreamWorld General"]
         }
     ]

@@ -65,13 +65,19 @@ def convert_req_function_args(state: CollectionState, multiworld: MultiWorld, pl
         args[index] = value
 
 def check_area(state: CollectionState, multiworld: MultiWorld, player: int, area: dict) -> bool:
-    """Taken straight out of Rules.py with slight modifications"""
-    world = multiworld.worlds[player]
+    """checkRequireStringForArea taken straight out of Rules.py with slight modifications"""
+    world = cast("ManualWorld", multiworld.worlds[player])
     requires_list = cast(str,area.get("requires", ""))
+
+    # Get the "real" item counts of item in the pool/placed/starting_items
+    items_counts = world.get_item_counts(player, only_progression=True)
 
     # Preparing some variables for exception messages
     area_type = "region" if area.get("is_region",False) else "location"
     area_name = area.get("name", f"unknown with these parameters: {area}")
+
+    if requires_list == "":
+        return True
 
     def findAndRecursivelyExecuteFunctions(requires_list: str, recursionDepth: int = 0) -> str:
         found_functions = re.findall(r'\{(\w+)\((.*?)\)\}', requires_list)
@@ -113,7 +119,7 @@ def check_area(state: CollectionState, multiworld: MultiWorld, player: int, area
 
     requires_list = findAndRecursivelyExecuteFunctions(requires_list)
 
-    items_counts = world.item_counts_progression[player]
+    # parse user written statement into list of each item
     for item in re.findall(r'\|[^|]+\|', requires_list):
         require_category = False
 

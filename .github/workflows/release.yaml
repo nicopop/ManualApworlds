@@ -38,12 +38,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Get Latest Regular AP Version
+        id: get-ap-version
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: ArchipelagoMW/Archipelago
+          excludes: prerelease, draft
       - name: Checkout AP
         uses: actions/checkout@v4
         with:
           repository: ArchipelagoMW/Archipelago
           path: .
-          ref: "0.6.4"
+          ref: ${{ steps.get-ap-version.outputs.release }}
       - name: Checkout this Repo
         uses: actions/checkout@v4
         with:
@@ -112,7 +118,7 @@ jobs:
           bodyFile: bodyFile.txt
           tag: "${{ env.VERSION_NUM }}"
           commit: "main"
-          generateReleaseNotes: true
+          generateReleaseNotes: false
           artifacts: |
             ${{ env.AP_WORLD_PATH }}
             ${{ env.AP_WORLD_YAML_PATH }}

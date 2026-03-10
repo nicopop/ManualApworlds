@@ -6,25 +6,29 @@
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth", "do_launch_codes" ],
             "place_item": ["Launch Codes"],
-            "dont_place_item_category": [ "2b Trap" ]
+            "dont_place_item_category": [ "2b Trap" ],
+            "sort-key": "0000"
         },
         {
             "name": "'Learn' the Launch Codes in the observatory.",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth", "no_launch_codes" ],
-            "dont_place_item_category": [ "2b Trap" ]
+            "dont_place_item_category": [ "2b Trap" ],
+            "sort-key": "0000"
         },
         {
             "name": "Do the repairs in the Zero-G Cave",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth" ],
-            "dont_place_item_category": [ "2b Trap" ]
+            "dont_place_item_category": [ "2b Trap" ],
+            "sort-key": "0001"
         },
         {
             "name": "Land the model Ship on the small landing pad",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth" ],
-            "dont_place_item_category": [ "2b Trap" ]
+            "dont_place_item_category": [ "2b Trap" ],
+            "sort-key": "0002"
         },
 
         {
@@ -33,26 +37,29 @@
             "category": [ "2 - Timber Hearth", "do_place_item_category" ],
             "requires": "|Launch Codes|",
             "place_item_category": [ "3b Signals" ],
-            "dont_place_item_category": [ "2b Trap" ]
+            "dont_place_item_category": [ "2b Trap" ],
+            "sort-key": "0003"
         },
         {
             "name": "Get in the ship for the first time.",
             "region": "Ship",
             "category": [ "2 - Timber Hearth", "no_place_item_category" ],
             "requires": "|Launch Codes|",
-            "dont_place_item_category": [ "2b Trap" ]
+            "dont_place_item_category": [ "2b Trap" ],
+            "sort-key": "0003"
         },
         {
             "name": "0 - Die within 60 seconds of a new loop",
             "region": "Ship",
             "category": [ "01 - Space" ],
             "dont_place_item_category": [ "2b Trap" ],
-            "dont_place_item": ["Ship Key", "SpaceSuit"]
+            "dont_place_item": ["Ship Key", "SpaceSuit"],
+            "id": 50
         },
         {
             "name": "0 - Use your suit's oxygen as jetpack fuel",
             "region": "Ship",
-            "category": [ "01 - Space" ],
+            "category": [ "01 - Space", "Base Game" ],
             "requires": "|SpaceSuit|",
             "dont_place_item": ["Ship Key"]
         },
@@ -75,13 +82,15 @@
             "category": [ "1 - Ash Twin", "Base Game", "need_warpdrive" ],
             "requires": "|Teleporters|",
             "create_event": true,
-            "dont_place_item_category": [ "2b Trap" ]
+            "dont_place_item_category": [ "2b Trap" ],
+            "id": 100
         },
         {
             "name": "1 - Break Space-Time in the Ash Twin Project",
             "region": "Ash Twin",
             "category": [ "1 - Ash Twin", "Base Game" ],
-            "requires": "{Event(1 - Get in the Ash Twin Project)}"
+            "requires": "{Event(1 - Get in the Ash Twin Project)}",
+            "remove_if_goal": "Break_Space-Time_In_ATP%"
         },
         {
             "name": "1 - Get to the sun station",
@@ -117,7 +126,8 @@
             "name": "1 - Break space time in the lab",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
-            "requires": "|SpaceSuit| and |Scout|"
+            "requires": "|SpaceSuit| and |Scout|",
+            "remove_if_goal": "Break_Space-Time_In_Lab%"
         },
         {
             "name": "1 - Read any Nomai wall in the Eye Shrine of the Sunless City",
@@ -160,7 +170,8 @@
             "name": "2 - Moon > Visit Eye Signal Locator and listen to the recording",
             "region": "Timber Hearth",
             "requires": "|SpaceSuit| and |Ship Key|",
-            "category": [ "2 - Timber Hearth", "Base Game" ]
+            "category": [ "2 - Timber Hearth", "Base Game" ],
+            "id": 200
         },
         {
             "name": "2 - Moon > Talk to Esker",
@@ -220,7 +231,8 @@
             "name": "3 - Get in Southern Observatory and witness the tornados",
             "region": "Brittle Hollow",
             "category": [ "3 - Brittle Hollow", "Base Game" ],
-            "requires": "|SpaceSuit|"
+            "requires": "|SpaceSuit|",
+            "id": 300
         },
         {
             "name": "3 - Find the 3 Pod murals in the Old Settlement",
@@ -297,7 +309,8 @@
             "name": "4 - Get in the Orbital Cannon",
             "region": "Giant's Deep InShip",
             "requires": "|SpaceSuit|",
-            "category": [ "4 - Giant's Deep", "Base Game" ]
+            "category": [ "4 - Giant's Deep", "Base Game" ],
+            "id": 400
         },
         {
             "name": "4 - Read the log on the Bramble Island",
@@ -353,7 +366,8 @@
             "name": "5 - Find Escape Pod 3",
             "region": "Dark Bramble",
             "category": [ "5 - Dark Bramble", "Base Game", "Win_Eye" ],
-            "requires": "|Signaloscope| and |Signal > Distress|"
+            "requires": "|Signaloscope| and |Signal > Distress|",
+            "id": 500
         },
         {
             "name": "5 - Get to the Vessel",
@@ -379,7 +393,8 @@
         {
             "name": "6 - Land on the Quantum moon",
             "region": "Quantum Moon",
-            "category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ]
+            "category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ],
+            "id": 600
         },
         {
             "name": "6 - Explore the Sixth Location",
@@ -442,7 +457,8 @@
             "name": "7 - Get in Ruptured Core and read the wheel",
             "region": "Interloper",
             "requires": "|Scout| and |Photos| and |SpaceSuit|",
-            "category": [ "7 - Interloper", "Base Game" ]
+            "category": [ "7 - Interloper", "Base Game" ],
+            "id": 700
         },
         {
             "name": "7 - Find the frozen shuttle's log",
@@ -454,7 +470,8 @@
             "name": "8 - Get in the stranger",
             "create_event": true,
             "region": "The Stranger",
-            "category": [ "8 - The Stranger", "DLC - Eye" ]
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
+            "id": 800
         },
         {
             "name": "8 - Get crushed by a chain elevator",
@@ -597,7 +614,8 @@
         {
             "name": "9 - Enter the DreamWorld",
             "region": "DreamWorld General",
-            "category": [ "9 - DreamWorld General", "DLC - Eye" ]
+            "category": [ "9 - DreamWorld General", "DLC - Eye" ],
+            "id": 1000
         },
         {
             "name": "9 - Get on the boat",
@@ -609,7 +627,7 @@
             "name": "9 - Get your spine adjusted by an Owlks",
             "region": "DreamWorld General",
             "requires": "|DreamWorld Render Glitch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|) or (|Hidden Gorge Flame| and |DreamWorld Fake Wall|) )",
-            "category": [ "9 - DreamWorld General", "DLC - Eye" ]
+            "category": [ "9 - DreamWorld General", "DLC - Eye", "DLC - Spooky" ]
         },
         {
             "name": "9 - Watch the vision torch outside the submerge structure in the dream",
@@ -621,17 +639,19 @@
             "name": "9 - In a loop visit all 3 archive without getting caught",
             "region": "All Archive",
             "requires": "",
-            "category": [ "9 - DreamWorld General", "DLC - Eye" ]
+            "category": [ "9 - DreamWorld General", "DLC - Eye" ],
+            "remove_if_goal": "Ghosts_In_The_Machine%"
         },
         {
             "name": "91 - Enter the Shrouded Woodlands Dream",
             "region": "Shrouded Woodlands",
-            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
+            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ],
+            "id": 1100
         },
         {
             "name": "91 - Find where the Wandering Owlks come from",
             "region": "Shrouded Woodlands",
-            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
+            "category": [ "91 - Shrouded Woodlands", "DLC - Eye", "DLC - Spooky" ]
         },
         {
             "name": "91 - Find where the Wandering Owlks are Going",
@@ -658,7 +678,8 @@
         {
             "name": "92 - Enter the Starlit Cove Dream",
             "region": "Starlit Cove",
-            "category": [ "92 - Starlit Cove", "DLC - Eye" ]
+            "category": [ "92 - Starlit Cove", "DLC - Eye" ],
+            "id": 1200
         },
         {
             "name": "92 - Visit the Burned Eye Church in the dream",
@@ -717,7 +738,8 @@
         {
             "name": "93 - Enter the Endless Canyon Dream",
             "region": "Endless Canyon",
-            "category": [ "93 - Endless Canyon", "DLC - Eye" ]
+            "category": [ "93 - Endless Canyon", "DLC - Eye" ],
+            "id": 1300
         },
         {
             "name": "93 - Find the Stage with the 2 musical instruments",
@@ -779,7 +801,8 @@
         {
             "name": "94 - Enter the Subterranean Lake Dream",
             "region": "Subterranean Lake",
-            "category": [ "94 - Subterranean Lake", "DLC - Eye" ]
+            "category": [ "94 - Subterranean Lake", "DLC - Eye" ],
+            "id": 1400
         },
         {
             "name": "94 - Disable the first lock on the vault",
@@ -805,7 +828,8 @@
             "create_event": true,
             "requires": "(|Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|) or (|Progressive Datamined Sealed Vault Code:2| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|) or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)",
             "category": [ "94 - Subterranean Lake", "DLC - Eye" ],
-            "dont_place_item_category": [ "2b Trap" ]
+            "dont_place_item_category": [ "2b Trap" ],
+            "remove_if_goal": "Prisoner%"
         },
 
 
@@ -814,20 +838,21 @@
             "name": "Standard",
             "_comment": "Only there so its an option, it will get changed to Any% or Prisoner% automatically",
             "victory": true,
-            "requires": "{Event(5 - Get to the Vessel)} and {Event(4 - See the Coords)} and |@Base Need For End:2|",
-            "category": [ "0 - Finale"]
+            "requires": "{Event(5 - Get to the Vessel)} and {Event(4 - See the Coords)} and |@Base Need For End:2| and {GoalPlus()}",
+            "category": [ "0 - Finale"],
+            "id": 2000
         },
         {
             "name": "Vanilla%",
             "region": "Dark Bramble",
             "victory": true,
-            "requires": "{Event(5 - Get to the Vessel)} and {Event(4 - See the Coords)} and |@Base Need For End:2|",
+            "requires": "{Event(5 - Get to the Vessel)} and {Event(4 - See the Coords)} and |@Base Need For End:2| and {GoalPlus()}",
             "category": [ "0 - Finale"]
         },
         {
             "name": "Prisoner%",
             "region": "Subterranean Lake",
-            "requires": "(|Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|) or (|Progressive Datamined Sealed Vault Code:2| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|) or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)",
+            "requires": "{GoalPlus()} and (|Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|) or (|Progressive Datamined Sealed Vault Code:2| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|) or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)",
             "category": [ "94 - Subterranean Lake"],
             "victory": true
         },
@@ -835,7 +860,7 @@
             "name": "Ghosts_In_The_Machine%",
             "victory": true,
             "region": "All Archive",
-            "requires": "",
+            "requires": "{GoalPlus()}",
             "category": [ "0 - Finale", "9 - DreamWorld General"]
         },
         {
@@ -843,34 +868,34 @@
             "region": "Ash Twin",
             "category": [ "0 - Finale", "1 - Ash Twin"],
             "victory": true,
-            "requires": "{Event(1 - Get in the Ash Twin Project)}"
+            "requires": "{Event(1 - Get in the Ash Twin Project)} and {GoalPlus()}"
         },
         {
             "name": "Break_Space-Time_In_Lab%",
             "region": "Ember Twin",
             "victory": true,
             "category": [ "0 - Finale", "1 - Ember Twin"],
-            "requires": "|SpaceSuit| and |Scout|"
+            "requires": "|SpaceSuit| and |Scout| and {GoalPlus()}"
         },
         {
             "name": "Quantum_Stuck%",
             "victory": true,
             "region": "Quantum Moon",
-            "requires": "|Adv. warp core| and {Event(1 - Get in the Ash Twin Project)} and {Event(6 - Explore the Sixth Location)}",
+            "requires": "|Adv. warp core| and {Event(1 - Get in the Ash Twin Project)} and {Event(6 - Explore the Sixth Location)} and {GoalPlus()}",
             "category": [ "0 - Finale", "6 - Quantum Moon"]
         },
         {
             "name": "Stranger_Stuck%",
             "victory": true,
             "region": "The Stranger",
-            "requires": "|Adv. warp core| and {Event(1 - Get in the Ash Twin Project)}",
+            "requires": "|Adv. warp core| and {Event(1 - Get in the Ash Twin Project)} and {GoalPlus()}",
             "category": ["0 - Finale", "8 - The Stranger"]
         },
         {
             "name": "Dream_Stuck%",
             "victory": true,
             "region": "DreamWorld General",
-            "requires": "|Adv. warp core| and {Event(1 - Get in the Ash Twin Project)}",
+            "requires": "|Adv. warp core| and {Event(1 - Get in the Ash Twin Project)} and {GoalPlus()}",
             "category": ["0 - Finale", "9 - DreamWorld General"]
         }
     ]

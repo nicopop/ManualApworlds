@@ -1,15 +1,18 @@
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from worlds.AutoWorld import World
 from ..Helpers import clamp, get_items_with_value
 from BaseClasses import MultiWorld, CollectionState
 
 import re
 
+if TYPE_CHECKING:
+    from .. import ManualWorld
+
 # Sometimes you have a requirement that is just too messy or repetitive to write out with boolean logic.
 # Define a function here, and you can use it in a requires string with {function_name()}.
 def overfishedAnywhere(world: World, state: CollectionState, player: int):
     """Has the player collected all fish from any fishing log?"""
-    for cat, items in world.item_name_groups:
+    for cat, items in world.item_name_groups.items():
         if cat.endswith("Fishing Log") and state.has_all(items, player):
             return True
     return False
@@ -31,3 +34,11 @@ def requiresMelee():
 def Event(location: str, count: int = 1) -> str:
     event_name = f"|[Event] {location.strip()}:{count}|"
     return event_name
+
+def GoalPlus(world: "ManualWorld") -> str:
+    needed = []
+    if world.options.require_solanum.value:
+        needed.append("{Event(6 - Explore the Sixth Location)}")
+    if world.options.require_prisoner.value:
+        needed.append("{Event(94 - Enter the Sealed Vault in the Subterranean Lake Dream)}")
+    return " and ".join(needed) or "1"

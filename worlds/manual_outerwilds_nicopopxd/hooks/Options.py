@@ -1,8 +1,9 @@
 # Object classes from AP that represent different types of options that you can create
-from Options import Visibility, Option, FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, NamedRange, OptionGroup, PerGameCommonOptions
+from Options import OptionError, Visibility, Option, FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, NamedRange, OptionGroup, PerGameCommonOptions
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
-from typing import Type, Any, cast, Counter, TYPE_CHECKING
-
+from typing import Type, Any, cast, Counter, TYPE_CHECKING, Collection
+import random
+from Generate import get_choice
 if TYPE_CHECKING:
     from .. import ManualWorld
 
@@ -31,31 +32,58 @@ class ChoiceIsRandom(Choice):
     randomized: bool | list[str] = False
     supports_weighting = False
     display_name = "ChoiceIsRandom"
+    option_randomized = -42
 
     def __init__(self, value: int, randomized: bool | list[str] = False):
         super().__init__(value)
         self.randomized = randomized
 
+    # Helper methods
+    @classmethod
+    def get_rdm_option_name(cls) -> str:
+        """Get the string representation of the "random" option value name"""
+        return cls.name_lookup[-42].removeprefix("option_")
+
+    @classmethod
+    def remove_random_pick(cls, data: dict[int, str]) -> dict[int, str]:
+        """Return the `data` dict with all its identified "random" values removed"""
+        return {i: v for i, v in data.items() if not cls.is_str_random(v)}
+
+    @classmethod
+    def get_clean_values(cls) -> dict[int, str]:
+        """Return original `cls.name_lookup` minus any random based option values"""
+        return cls.remove_random_pick(cls.name_lookup)
+
+    # Randomization detections methods grouped here for easy modification later
+    @classmethod
+    def is_str_random(cls, input: str) -> bool:
+        """Returns `True` if the input string is detected as "random" """
+        return input.startswith("random")
+
+    @classmethod
+    def is_random_in_list(cls, collection: Collection[str]) -> bool:
+        """Are any of the values in the collection detected as "random" """
+        return "random" in collection or cls.get_rdm_option_name() in collection
+
+    # Standard Option methods
     @classmethod
     def from_text(cls, text: str) -> Choice:
-        if text == "random":
-            ret = super().from_text(text)
-            return cls(int(ret), True)
+        if cls.is_str_random(text):
+            return cls(random.choice(list(cls.get_clean_values())), True)
         else:
             return super().from_text(text)
     @classmethod
     def from_any(cls, data: Any) -> Choice:
-        from Generate import get_choice
         if type(data) is str:
             return cls.from_text(data)
         elif type(data) is dict:
             filtered = +Counter(data) # remove all zero values
             randomized: bool|list = False
             ret = cast(str, get_choice(cls.display_name, {cls.display_name: dict(filtered)}))
-            if ret == "random":
+            if cls.is_str_random(ret):
                 randomized = True
             elif len(filtered) > 1:
-                if "random" in filtered.keys():
+                if cls.is_random_in_list(filtered.keys()):
                     randomized = True
                 else:
                     randomized = list(filtered.keys())
@@ -63,45 +91,35 @@ class ChoiceIsRandom(Choice):
         elif type(data) is list:
             randomized = False
             ret = cast(str, get_choice(cls.display_name, {cls.display_name: data}))
-            if ret == "random":
+            if cls.is_str_random(ret):
                 randomized = True
             elif len(data) > 1:
-                if "random" in data:
+                if cls.is_random_in_list(data):
                     randomized = True
                 else:
                     randomized = data
             return cls(int(cls.from_text(ret)), randomized)
         return super().from_any(data)
 
-class ToggleIsRandom(Toggle):
-    randomized: bool = False
-    supports_weighting = False
+class ToggleIsRandom(ChoiceIsRandom):
     display_name = "ToggleIsRandom"
-    def __init__(self, value: int, randomized: bool = False):
-        super().__init__(value)
-        self.randomized = randomized
+    option_false = 0
+    option_true = 1
 
     @classmethod
-    def from_text(cls, text: str) -> Toggle:
-        if text == "random":
-            ret = super().from_text(text)
-            return cls(int(ret), True)
+    def from_text(cls, text: str) -> Choice:
+        if cls.is_str_random(text):
+            return cls(random.choice(list(cls.get_clean_values())), True)
+        elif text.lower() in {"off", "0", "false", "none", "null", "no", "disabled"}:
+            return cls(0)
+        elif text.lower() in {"on", "1", "true", "yes", "enabled"}:
+            return cls(1)
         else:
-            return super().from_text(text)
-    @classmethod
-    def from_any(cls, data: Any) -> Toggle:
-        from Generate import get_choice
-        if type(data) is str:
-            return cls.from_text(data)
-        elif type(data) is dict:
-            filtered = +Counter(data) # remove all zero values
-            randomized = False
-            ret = cast(str, get_choice(cls.display_name, {cls.display_name: dict(filtered)}))
-            if ret == "random" or len(filtered.keys()) > 1:
-                randomized = True
-            return cls(int(cls.from_text(ret)), randomized)
-        return super().from_any(data)
+            raise OptionError(f"Option {cls.__name__} does not support a value of {text}")
 
+    @classmethod
+    def get_option_name(cls, value):
+        return {0: "No", 1: "Yes", -42: cls.get_rdm_option_name().capitalize()}[int(value)]
 class DefaultOnToggleIsRandom(ToggleIsRandom):
     default = 1
 
@@ -114,16 +132,16 @@ class RequirePrisoner(ToggleIsRandom):
     """Do you want to require Talking to the Prisoner before you can win?"""
     automatically_disabled = False
     display_name = "Require Talking to the Prisoner"
-class do_spooks(DefaultOnToggle):
+class do_spooks(DefaultOnToggleIsRandom):
     """Do you want to enable some of the Spookier DLC locations?"""
     display_name = "Enable Spooks"
-class MainDlcKnowledge(Toggle):
+class MainDlcKnowledge(ToggleIsRandom):
     """Should The main 2 dlc Progression items (stranger access and dreamworld access) be enabled?
     AKA lock going to the Stranger and the Dream behind an "access" mcguffin item each
     """
     display_name = "Enable Main 2 Dlc Access Items"
 
-class LocalPlacedItems(DefaultOnToggle):
+class LocalPlacedItems(DefaultOnToggleIsRandom):
     """Do you want some items to be predetermined to help with the flow of the game"""#todo find a better way to phrase this
     display_name = "Predetermined Local Items"
 
@@ -132,7 +150,7 @@ class ShuffleSpacesuit(ToggleIsRandom):
     This is a HIGHLY EXPERIMENTAL setting. Expect logic bugs. Feedback encouraged."""
     display_name = "Shuffle SpaceSuit"
 
-class EarlyShipKey(Choice):
+class EarlyShipKey(ChoiceIsRandom):
     """Do you want the Ship Key to be located in the early game
     Leave it as startswith to disable the Ship Key logic"""
     display_name = "Ship Key Logic"
@@ -158,12 +176,12 @@ class RandomizeMod1(ToggleIsRandom):
     display_name = "Randomize Mod X"
     visibility = Visibility.none
 
-class BiggerSphere1(Toggle):
+class BiggerSphere1(ToggleIsRandom):
     """when true remove the launch codes logic so Sphere 1 is bigger
     You will still need to talk to Hornfels to start the loop"""
     display_name = "Remove Launch codes"
 
-class ReverseTeleporter(Toggle):
+class ReverseTeleporter(ToggleIsRandom):
     """Turn this on if you want and use a mod to enable reverse teleporters,
     Warning No such mod exist as of writing this, and thus the logic is untested"""
     display_name = "Enable Reverse Teleporters Logic"
@@ -199,17 +217,17 @@ class Goal(ChoiceIsRandom):
         return self.isThisValueInDLC(self.value)
 
     @classmethod
-    def isThisValueInDLC(cls, value) -> bool:
+    def isThisValueInDLC(cls, value: int) -> bool:
         return value in cls.dlc_options
 
     def getRDMvalue(self, world: "ManualWorld", filter_dlc = False) -> int|None:
         randoms = self.randomized
 
         if isinstance(randoms, bool):
-            randoms = list(self.name_lookup.values())
+            randoms = list(self.get_clean_values().values())
 
         if filter_dlc:
-            randoms = cast(list[str], [o for o in randoms if self.options.get(o) and self.options[o] not in self.dlc_options])
+            randoms = cast(list[str], [o for o in randoms if not self.isThisValueInDLC(self.options[o])])
 
         if not randoms:
             return None
@@ -252,7 +270,7 @@ def after_options_defined(options: Type[PerGameCommonOptions]):
     for option, value in goal_gen_options_names.items():
         setattr(Goal, option, value)
     options.type_hints['goal'] = Goal
-    options.type_hints['goal'].name_lookup = goal_gen_name_lookup
+    options.type_hints['goal'].name_lookup.update(goal_gen_name_lookup)
     options.type_hints['goal'].options.update(goal_gen_options)
     options.type_hints['filler_traps'].range_end = 75
     options.type_hints['filler_traps'].default = 20

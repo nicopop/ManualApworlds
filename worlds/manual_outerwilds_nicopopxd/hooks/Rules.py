@@ -28,6 +28,6 @@ def requiresMelee():
     """Returns a requires string that checks if the player has unlocked the tank."""
     return "|Figher Level:15| or |Black Belt Level:15| or |Thief Level:15|"
 
-def Event(state: CollectionState, player: int, location: str, count: int = 1):
-    event_name = "[Event] " + location.lstrip('[').rstrip(']')
-    return state.has(event_name, player, count)
+def Event(location: str, count: int = 1) -> str:
+    event_name = f"|[Event] {location.strip()}:{count}|"
+    return event_name

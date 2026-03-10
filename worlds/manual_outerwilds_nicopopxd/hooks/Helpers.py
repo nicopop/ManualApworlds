@@ -32,7 +32,15 @@ def before_is_location_enabled(multiworld: MultiWorld, player: int, location:  d
     elif "DLC - Spooky" in location.get("category", []):
         if not world.options.enable_spooks:
             return False
+    if location.get("remove_if_goal"):
+        target_goal = world.options.goal.from_any(location["remove_if_goal"])
+        if target_goal == world.options.goal: return False
     return checkobject(multiworld, player, location)
+
+# Use this if you want to override the default behavior of is_option_enabled
+# Return True to enable the location, False to disable it, or None to use the default behavior
+def before_is_event_enabled(multiworld: MultiWorld, player: int, location:  dict[str, Any]) -> Optional[bool]:
+    return before_is_location_enabled(multiworld, player, location)
 
 def checkobject(multiworld: MultiWorld, player: int, obj: object) -> Optional[bool]:
     """Check if a Manual object as any category enabled/disabled

@@ -41,8 +41,10 @@ from ..Helpers import is_option_enabled, is_item_enabled, get_option_value
 
 # Use this function to change the valid filler items to be created to replace item links or starting items.
 # Default value is the `filler_item_name` from game.json
-def hook_get_filler_item_name(world: World, multiworld: MultiWorld, player: int) -> str | bool:
+def hook_get_filler_item_name(world: "ManualWorld", multiworld: MultiWorld, player: int) -> str | bool:
+    from ..Helpers import is_item_enabled
     dummyfillers = list(world.item_name_groups.get("FillerDummy", set()).union({cast(str, world.filler_item_name)}))
+    dummyfillers = [i for i in dummyfillers if is_item_enabled(multiworld, player, world.item_name_to_item[i])]
     return world.random.choice(dummyfillers)
 
 def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: int):
@@ -67,7 +69,7 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
             num_to_pick = world.random.randint(1, len(choices))
             choices = world.random.sample(choices, num_to_pick)
             for choice in choices:
-                choice.value = True
+                choice.value = 1
 
         else:
             raise OptionError(f"Player {world.player_name}({player}) need to enable at least one of 'randomize_dlc' or 'randomize_base_game'")
@@ -155,38 +157,12 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
 # Called after regions and locations are created, in case you want to see or modify that information. Victory location is included.
 def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: int):
     from ..Helpers import is_location_enabled
-    # Use this hook to remove locations from the world
-    for location_dict in world.location_table:
-        location_dict = cast(dict[str, Any], location_dict)
-        name = location_dict["name"]
-        enabled = is_location_enabled(multiworld, player, location_dict)
-        if enabled and world.location_name_to_location[name].get("create_event", False):
-            event_name = "[Event] "+name
-            event_region = multiworld.get_region(location_dict["region"], player)
-            eventItemOjb = ManualItem(event_name,ItemClassification.progression, None, player)
-            eventLocationObj = ManualLocation(player,event_name,None,event_region)
-            event_region.locations.append(eventLocationObj)
-            eventLocationObj.place_locked_item(eventItemOjb)
-    goal = world.options.goal.value
 
 #region Removing locations
     locations_to_be_removed = []
-
     # Selecting what content to remove
     #region
-
-    if goal == Goal.alias_ash_twin_project_break_spacetime:
-        locations_to_be_removed.append('1 - Break Space-Time in the Ash Twin Project')
-
-    elif goal == Goal.alias_high_energy_lab_break_spacetime:
-        locations_to_be_removed.append('1 - Break space time in the lab')
-
-    elif goal == Goal.alias_visit_all_archive:
-        locations_to_be_removed.append('9 - In a loop visit all 3 archive without getting caught')
-
-    elif goal == Goal.alias_prisoner:
-
-        locations_to_be_removed.append('94 - Enter the Sealed Vault in the Subterranean Lake Dream')
+    # place code that add location to locations_to_be_removed here
 
     #endregion
 
@@ -335,6 +311,8 @@ def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", mult
     location_count = len(multiworld.get_unfilled_locations(player))
     logging.info(f"{world.game}:{world.player_name} ({player}) | Items: {len(item_pool)} | Locations: {location_count}")
     logging.info(f"Content: {contentmsg} | Victory: {victory_message}")
+    traps = [i["name"] for i in world.item_table if i.get("trap") and is_item_enabled(multiworld, player, i)]
+    world.adjust_filler_items(item_pool, traps)
 #endregion
     return item_pool
 
@@ -358,36 +336,25 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
 def after_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
     # Use this hook to modify the access rules for a given location
     #extra_data = load_data_file("extra.json")
-    solanum = world.options.require_solanum.value
-    owlguy = world.options.require_prisoner.value
-    goal = world.options.goal.value
+    # solanum = world.options.require_solanum.value
+    # owlguy = world.options.require_prisoner.value
+    # goal = world.options.goal.value
 
 #Victory Location access rules mod
 #region
-    from .functions import check_area
-    def event_rule(state: CollectionState, player: int, area_name: str) -> bool:
-        manual_loc = world.location_name_to_location[area_name]
-
-        region_result = True
-        if manual_loc.get("region"):
-            region_result = check_area(state, multiworld, player, region_table[manual_loc["region"]])
-        location_result = check_area(state, multiworld, player, manual_loc)
-
-        return location_result and region_result
-
-
-    for location in multiworld.get_filled_locations(player):
-        if location.address is None and location.item is not None:
-            if location.item.name == '__Victory__':
-                if solanum:
-                    add_rule(location,
-                            lambda state: state.has("[Event] 6 - Explore the Sixth Location", player))
-                if owlguy and goal != Goal.alias_prisoner:
-                    add_rule(location,
-                            lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
-            elif location.name.startswith("[Event] "):
-                name = location.name.removeprefix("[Event] ")
-                add_rule(location, lambda state: event_rule(state, player, name))
+    # for location in multiworld.get_filled_locations(player):
+    #     if location.address is None and location.item is not None:
+    #         if location.item.name == '__Victory__':
+    #             if solanum:
+    #                 add_rule(location,
+    #                         lambda state: state.has("[Event] 6 - Explore the Sixth Location", player))
+    #             if owlguy and goal != Goal.alias_prisoner:
+    #                 add_rule(location,
+    #                         lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
+            # elif location.name.startswith("[Event] "):
+            #     name = location.name.removeprefix("[Event] ")
+            #     original = multiworld.get_location(name, player)
+            #     add_rule(location, lambda state: original.access_rule(state))
 #endregion
 
     def Example_Rule(state: CollectionState) -> bool:

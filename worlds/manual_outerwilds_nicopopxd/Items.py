@@ -1,6 +1,6 @@
 from BaseClasses import Item
 from .Data import item_table, category_table
-from .Game import filler_item_name, starting_index
+from .Game import filler_item_name, starting_index, game_name
 
 
 ######################
@@ -38,7 +38,7 @@ for key, val in enumerate(item_table):
     count += 1
 
 for item in item_table:
-    item_name = item["name"]
+    item_name = item.get("name", f"Unnamed Item {item['id']}")
     item_id_to_name[item["id"]] = item_name
     item_name_to_item[item_name] = item
 
@@ -70,4 +70,4 @@ item_name_to_id = {name: id for id, name in item_id_to_name.items()}
 
 
 class ManualItem(Item):
-    game = "Manual"
+    game = game_name

@@ -1,3 +1,4 @@
+from Options import Option, OptionGroup, PerGameCommonOptions
 # Object classes from AP that represent different types of options that you can create
 from Options import FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, NamedRange
 

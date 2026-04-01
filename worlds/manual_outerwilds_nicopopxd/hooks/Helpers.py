@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Optional
 from BaseClasses import MultiWorld
 from ..Locations import ManualLocation
@@ -103,3 +104,7 @@ def set_category_status(world, player: int, category_name: str, status: bool):
         if not world.category_table[category_name].get('enabled', {}):
             world.category_table[category_name]['enabled'] = {}
         world.category_table[category_name]['enabled'][player] = status
+
+
+def before_is_event_enabled(multiworld: MultiWorld, player: int, event: dict[str, Any]) -> Optional[bool]:
+    return None

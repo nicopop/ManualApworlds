@@ -208,6 +208,15 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
 
                     rule = rule_class(*func_args)
             elif partial[0] == "(":
+                func_founds: dict[int, str] = {}
+                id: int = 0
+                for match in FUNCTION_REGEX.finditer(partial):
+                    if match.group(0) not in partial:
+                        # already done all of them
+                        continue
+                    func_founds[id] = match.group(0)
+                    partial = partial.replace(match.group(0), f"{{%{{{id}}}%}}")
+                    id += 1
                 inner = ''
                 queue = list(partial[1:])
                 stack = 1
@@ -220,6 +229,9 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                     else:
                         inner += c
                 remaining = "".join(queue)
+                for key, func in func_founds.items():
+                    remaining = remaining.replace(f"{{%{{{key}}}%}}", func)
+                    inner = inner.replace(f"{{%{{{key}}}%}}", func)
                 rule = recursively_tokenize_manual_rule(inner)
             else:
                 print(f'Could not convert {partial} into a Rule')

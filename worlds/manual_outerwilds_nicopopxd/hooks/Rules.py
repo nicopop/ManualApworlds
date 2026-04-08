@@ -41,4 +41,4 @@ def GoalPlus(world: "ManualWorld") -> str:
         needed.append("{Event(6 - Explore the Sixth Location)}")
     if world.options.require_prisoner.value:
         needed.append("{Event(94 - Enter the Sealed Vault in the Subterranean Lake Dream)}")
-    return " and ".join(needed) or "1"
+    return " and ".join(needed) or ""

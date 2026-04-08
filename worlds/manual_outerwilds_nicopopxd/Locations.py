@@ -46,8 +46,9 @@ if not victory_names:
 
 location_id_to_name: dict[int, str] = {}
 location_name_to_location: dict[str, dict[str, Any]] = {}
-location_name_groups: dict[str, list[str]] = {}
+location_name_groups: dict[str, set[str]] = {}
 event_name_to_event: dict[str, dict[str, Any]] = {}
+event_name_groups: dict[str, set[str]] = {}
 
 for loc in location_table:
     loc_name = loc.get("name", f"Unnamed Location {loc['id']}")
@@ -57,16 +58,12 @@ for loc in location_table:
     for c in loc.get("category", []):
         if category_table.get(c,{}).get("create_location_group", True):
             if c not in location_name_groups:
-                location_name_groups[c] = []
-            location_name_groups[c].append(loc_name)
+                location_name_groups[c] = set()
+            location_name_groups[c].add(loc_name)
 
 
 # location_id_to_name[None] = "__Manual Game Complete__"
 location_name_to_id = {name: id for id, name in location_id_to_name.items()}
-
-for key, _ in enumerate(event_table):
-    if "copy_location" in event_table[key]:
-        event_table[key] = location_name_to_location[event_table[key]["copy_location"]] | event_table[key]
 
 id = 0
 for key, event in enumerate(event_table):
@@ -77,7 +74,7 @@ for key, event in enumerate(event_table):
     if "location_name" in event:
         if event["location_name"] in location_name_to_location:
             raise Exception(f"Cannot define event {event['location_name']} with the same name as a location.")
-        event_name_to_event[event_name] = event
+        event_name_to_event[event["location_name"]] = event
     else:
         event_name_to_event[event_name] = event
         event_name_to_event[event_name]["location_name"] = event_name
@@ -88,6 +85,11 @@ for key, event in enumerate(event_table):
     if 'region' not in event:
         event_name_to_event[event_name]['region'] = "Manual"
         event_table[key]['region'] = "Manual"
+    for c in event.get("category", []):
+        if c not in event_name_groups:
+            event_name_groups[c] = set()
+        event_name_groups[c].add(event['name'])
+
     id += 1
 
 ######################

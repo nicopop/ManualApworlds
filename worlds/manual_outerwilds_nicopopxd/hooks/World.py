@@ -254,42 +254,39 @@ def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", mult
     locations = multiworld.get_unfilled_locations(player)
     for location in locations:
         manual_loc = world.location_name_to_location.get(location.name, {})
-        if manual_loc.get("place_item") or manual_loc.get("make_place_item"):
-            p_items_names = manual_loc.get("place_item", manual_loc.get("make_place_item", []))
-            p_items = [i for i in item_pool if i.name in p_items_names]
-            if not p_items: #empty
-                raise ValueError(f"location {location.name} could not have any forced placed item from this list [{p_items_names}] none could be found in item_pool")
-            p_item = world.random.choice(p_items)
-            location.place_locked_item(p_item)
-            remove_specific_item(item_pool, p_item)
-            # raw_item["make_local"] = raw_item.pop("local",True)
-            if manual_loc.get("place_item"):
-                manual_loc.pop("place_item")
-                manual_loc["make_place_item"] = p_items_names
+        p_items_names = manual_loc.get("place_item", manual_loc.get("make_place_item", []))
 
-        elif manual_loc.get("place_item_category"):
+        # category
+        for cat in manual_loc.get("place_item_category", []):
+            p_items_names.extend(world.item_name_groups.get(cat, []))
+
+        if p_items_names:
+            if not manual_loc.get("make_place_item"):
+                logging.debug(f"Found the Manual location '{location.name}' that will get a fix to its place_item")
+            # forbidding
             forbid_names: list[str] = manual_loc.get("dont_place_item", [])
             for cat in manual_loc.get("dont_place_item_category", []):
                 forbid_names.extend(world.item_name_groups.get(cat, []))
-            p_items_names: list[str] = []
-            for cat in manual_loc["place_item_category"]:
-                p_items_names.extend(world.item_name_groups.get(cat, []))
 
             for name in forbid_names:
                 if name in p_items_names:
                     p_items_names.remove(name)
 
+            # Grabbing the existing items
             p_items = [i for i in item_pool if i.name in p_items_names]
             if not p_items: #empty
                 raise ValueError(f"location {location.name} could not have any forced placed item from this list [{p_items_names}] none could be found in item_pool")
             p_item = world.random.choice(p_items)
             location.place_locked_item(p_item)
             remove_specific_item(item_pool, p_item)
-            if manual_loc.get("place_item_category"):
-                manual_loc.pop("place_item_category")
-                manual_loc.pop("dont_place_item_category", None)
-                manual_loc.pop("dont_place_item", None)
-                manual_loc["make_place_item"] = p_items_names
+
+            manual_loc.pop("place_item", None)
+            manual_loc.pop("place_item_category", None)
+            manual_loc.pop("dont_place_item_category", None)
+            manual_loc.pop("dont_place_item", None)
+
+            # make_place_item exists so other players will still get the item placement just pre processed
+            manual_loc["make_place_item"] = p_items_names
             pass
 
 #endregion

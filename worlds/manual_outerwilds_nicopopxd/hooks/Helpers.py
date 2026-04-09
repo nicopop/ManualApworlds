@@ -40,7 +40,10 @@ def before_is_location_enabled(multiworld: MultiWorld, player: int, location:  d
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the event, False to disable it, or None to use the default behavior
 def before_is_event_enabled(multiworld: MultiWorld, player: int, event:  dict[str, Any]) -> Optional[bool]:
-    return before_is_location_enabled(multiworld, player, event)
+    location = event
+    if event.get("copy_location"):
+        location =  multiworld.worlds[player].location_name_to_location[event.get("copy_location")]
+    return before_is_location_enabled(multiworld, player, location)
 
 def checkobject(multiworld: MultiWorld, player: int, obj: object) -> Optional[bool]:
     """Check if a Manual object as any category enabled/disabled

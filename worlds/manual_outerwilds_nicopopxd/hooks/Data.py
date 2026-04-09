@@ -1,8 +1,9 @@
 from BaseClasses import Tutorial
-from typing import Any
+from typing import Any, cast
 from worlds.AutoWorld import World, WebWorld
 _game_table: dict[str, Any] = {}
 _location_table: list[dict[str, Any]] = []
+_item_table: list[dict[str, Any]] = []
 
 # called after the game.json file has been loaded
 def after_load_game_file(game_table: dict) -> dict:
@@ -13,12 +14,14 @@ def after_load_game_file(game_table: dict) -> dict:
 # called after the items.json file has been loaded, before any item loading or processing has occurred
 # if you need access to the items after processing to add ids, etc., you should use the hooks in World.py
 def after_load_item_file(item_table: list) -> list:
+    global _item_table
+    _item_table = item_table
     return item_table
 
 
 # called after the locations.json file has been loaded, before any location loading or processing has occurred
 # if you need access to the locations after processing to add ids, etc., you should use the hooks in World.py
-def after_load_location_file(location_table: list) -> list:
+def after_load_location_file(location_table: list[dict[str, Any]]) -> list:
     global _location_table
     _location_table = location_table
     return location_table
@@ -29,7 +32,7 @@ def after_load_event_file(event_table: list) -> list:
     for location in _location_table:
         if not location.get("create_event"):
             continue
-        event_table.append({"name": f"[Event] {location['name']}", "copy_location": location["name"], "visible": True})
+        event_table.append({"name": f"[Event] {location['name']}", "copy_location": location["name"], "category": ["2 everything", "2c Events"], "visible": True})
     return event_table
 # called after the regions.json file has been loaded, before any location loading or processing has occurred
 # if you need access to the locations after processing to add ids, etc., you should use the hooks in World.py
@@ -37,7 +40,18 @@ def after_load_region_file(region_table: dict) -> dict:
     return region_table
 
 # called after the categories.json file has been loaded
-def after_load_category_file(category_table: dict) -> dict:
+def after_load_category_file(category_table: dict[str, Any]) -> dict:
+    for obj in _item_table + _location_table:
+        if obj.get("old_name"):
+            old_name: str|list[str] = obj["old_name"]
+            if not isinstance(old_name, list):
+                old_name = [old_name]
+            for name in old_name:
+                if not obj.get("category"):
+                    obj["category"] = []
+                obj["category"].append(name)
+                if name not in category_table.keys():
+                    category_table[name] = {"hidden": True}
     return category_table
 
 # called after the categories.json file has been loaded

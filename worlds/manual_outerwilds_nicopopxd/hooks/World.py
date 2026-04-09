@@ -58,6 +58,7 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     goal = world.options.goal
     rdm_base_game = world.options.randomize_base_game
     rdm_dlc = world.options.randomize_dlc
+    require_prisoner = world.options.require_prisoner
     #Options Check for impossibilities
     if not (rdm_base_game or rdm_dlc):
         if rdm_base_game.randomized or rdm_dlc.randomized:
@@ -78,7 +79,6 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     if goal == Goal.alias_standard: goal.value = Goal.alias_vanilla if rdm_base_game else Goal.alias_prisoner
 
     if rdm_base_game and not rdm_dlc:
-        require_prisoner = world.options.require_prisoner
         if require_prisoner.value:
             if require_prisoner.randomized or rdm_dlc.randomized:
                 require_prisoner.value = False
@@ -114,6 +114,10 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
             world.OWStartItems["Stranger Access"] = 1
         world.OWStartItems["Signaloscope"] = 1
         world.OWStartItems["Signal > DeepSpace"] = 1
+
+    # Since the goal is already to do to the prisoner no need require it twice
+    if goal == Goal.alias_prisoner and require_prisoner:
+        require_prisoner.value = 0
     InitCategories(world, player)
 #endregion
 # region local override
@@ -151,7 +155,7 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
 #endregion
     pass
 # Called before regions and locations are created. Not clear why you'd want this, but it's here. Victory location is included, but Victory event is not placed yet.
-def before_create_regions(world: World, multiworld: MultiWorld, player: int):
+def before_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: int):
     pass
 
 # Called after regions and locations are created, in case you want to see or modify that information. Victory location is included.
@@ -169,13 +173,13 @@ def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: i
     #Removing Locations
     #region
 
-    if len(locations_to_be_removed) > 0:
-        for region in multiworld.regions:
-            if region.player != player:
-                continue
-            for location in list(region.locations):
-                if location.name in locations_to_be_removed:
-                    region.locations.remove(location)
+    for region in multiworld.regions:
+        if region.player != player:
+            continue
+        for location in list(region.locations):
+            manual_loc = world.location_name_to_location.get(location.name, {})
+            if manual_loc.get("id") and manual_loc.get("alias"):
+                world.location_id_to_alias[manual_loc["id"]] = manual_loc["alias"]
 
     #endregion
 #endregion
@@ -188,7 +192,7 @@ def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: i
 # {"Item Name": {0b0110: 5}} <- If you know the special flag for the item classes, you can also define non-standard options. This setup
 #       will create 5 items that are the "useful trap" class
 # {"Item Name": {ItemClassification.useful: 5}} <- You can also use the classification directly
-def before_create_items_all(item_config: dict[str, int|dict], world: World, multiworld: MultiWorld, player: int) -> dict[str, int|dict]:
+def before_create_items_all(item_config: dict[str, int|dict], world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict[str, int|dict]:
 #region Personal Item counts adjustment
     rdm_base_game = world.options.randomize_base_game.value
     rdm_dlc = world.options.randomize_dlc.value
@@ -200,10 +204,15 @@ def before_create_items_all(item_config: dict[str, int|dict], world: World, mult
         if not solanum:
             item_config["Musical Instrument"] = 5
 #endregion
+    for item_name in item_config.keys():
+        manual_item = world.item_name_to_item[item_name]
+        if manual_item.get("alias"):
+            world.item_id_to_alias[manual_item["id"]] = manual_item["alias"]
+
     return item_config
 
 # The item pool before starting items are processed, in case you want to see the raw item pool at that stage
-def before_create_items_starting(item_pool: list, world: World, multiworld: MultiWorld, player: int) -> list:
+def before_create_items_starting(item_pool: list, world: "ManualWorld", multiworld: MultiWorld, player: int) -> list:
     return item_pool
 
 # The item pool after starting items are processed but before filler is added, in case you want to see the raw item pool at that stage
@@ -286,8 +295,8 @@ def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", mult
 #endregion
 #region Personal log msg
     VictoryInfoToAdd = ""
-    if solanum: VictoryInfoToAdd += " + Vault"
-    if owlguy: VictoryInfoToAdd += " + 6th location"
+    if solanum: VictoryInfoToAdd += " + 6th location"
+    if owlguy: VictoryInfoToAdd += " + Vault"
     victory_message = goal.current_option_name + VictoryInfoToAdd
 
     message = []
@@ -325,11 +334,11 @@ def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", mult
     # remove_specific_item(item_pool, item_to_place)
 
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
-def after_create_items(item_pool: list, world: World, multiworld: MultiWorld, player: int) -> list:
+def after_create_items(item_pool: list, world: "ManualWorld", multiworld: MultiWorld, player: int) -> list:
     return item_pool
 
 # Called before rules for accessing regions and locations are created. Not clear why you'd want this, but it's here.
-def before_set_rules(world: World, multiworld: MultiWorld, player: int):
+def before_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
     pass
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
@@ -374,24 +383,24 @@ def after_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
     # location.access_rule = lambda state: old_rule(state) or Example_Rule(state)
 
 # The item name to create is provided before the item is created, in case you want to make changes to it
-def before_create_item(item_name: str, world: World, multiworld: MultiWorld, player: int) -> str:
+def before_create_item(item_name: str, world: "ManualWorld", multiworld: MultiWorld, player: int) -> str:
     return item_name
 
 # The item that was created is provided after creation, in case you want to modify the item
-def after_create_item(item: ManualItem, world: World, multiworld: MultiWorld, player: int) -> ManualItem:
+def after_create_item(item: ManualItem, world: "ManualWorld", multiworld: MultiWorld, player: int) -> ManualItem:
     return item
 
 # This method is run towards the end of pre-generation, before the place_item options have been handled and before AP generation occurs
-def before_generate_basic(world: World, multiworld: MultiWorld, player: int):
+def before_generate_basic(world: "ManualWorld", multiworld: MultiWorld, player: int):
     pass
 
 # This method is run at the very end of pre-generation, once the place_item options have been handled and before AP generation occurs
-def after_generate_basic(world: World, multiworld: MultiWorld, player: int):
+def after_generate_basic(world: "ManualWorld", multiworld: MultiWorld, player: int):
     pass
 
 # This method is run every time an item is added to the state, can be used to modify the value of an item.
 # IMPORTANT! Any changes made in this hook must be cancelled/undone in after_remove_item
-def after_collect_item(world: World, state: CollectionState, Changed: bool, item: Item):
+def after_collect_item(world: "ManualWorld", state: CollectionState, Changed: bool, item: Item):
     # the following let you add to the Potato Item Value count
     # if item.name == "Cooked Potato":
     #     state.prog_items[item.player][format_state_prog_items_key(ProgItemsCat.VALUE, "Potato")] += 1
@@ -399,7 +408,7 @@ def after_collect_item(world: World, state: CollectionState, Changed: bool, item
 
 # This method is run every time an item is removed from the state, can be used to modify the value of an item.
 # IMPORTANT! Any changes made in this hook must be first done in after_collect_item
-def after_remove_item(world: World, state: CollectionState, Changed: bool, item: Item):
+def after_remove_item(world: "ManualWorld", state: CollectionState, Changed: bool, item: Item):
     # the following let you undo the addition to the Potato Item Value count
     # if item.name == "Cooked Potato":
     #     state.prog_items[item.player][format_state_prog_items_key(ProgItemsCat.VALUE, "Potato")] -= 1
@@ -407,16 +416,16 @@ def after_remove_item(world: World, state: CollectionState, Changed: bool, item:
 
 
 # This is called before slot data is set and provides an empty dict ({}), in case you want to modify it before Manual does
-def before_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld, player: int) -> dict:
+def before_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict:
     return slot_data
 
 # This is called after slot data is set and provides the slot data at the time, in case you want to check and modify it after Manual is done with it
-def after_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld, player: int) -> dict:
+def after_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict:
     # slot_data["item_counts"] = world.item_counts[player]
     return slot_data
 
 # This is called right at the end, in case you want to write stuff to the spoiler log
-def before_write_spoiler(world: World, multiworld: MultiWorld, spoiler_handle) -> None:
+def before_write_spoiler(world: "ManualWorld", multiworld: MultiWorld, spoiler_handle) -> None:
     # Visualizing here shows the items too
     # from Utils import visualize_regions
     # visualize_regions(multiworld.get_region("Menu", world.player), f"{world.game}_{world.player}.puml")
@@ -425,7 +434,7 @@ def before_write_spoiler(world: World, multiworld: MultiWorld, spoiler_handle) -
     pass
 
 # This is called when you want to add information to the hint text
-def before_extend_hint_information(hint_data: dict[int, dict[int, str]], world: World, multiworld: MultiWorld, player: int) -> None:
+def before_extend_hint_information(hint_data: dict[int, dict[int, str]], world: "ManualWorld", multiworld: MultiWorld, player: int) -> None:
 
     ### Example way to use this hook:
     # if player not in hint_data:
@@ -440,10 +449,10 @@ def before_extend_hint_information(hint_data: dict[int, dict[int, str]], world: 
 
     pass
 
-def after_extend_hint_information(hint_data: dict[int, dict[int, str]], world: World, multiworld: MultiWorld, player: int) -> None:
+def after_extend_hint_information(hint_data: dict[int, dict[int, str]], world: "ManualWorld", multiworld: MultiWorld, player: int) -> None:
     pass
 
-def hook_interpret_slot_data(world: World, player: int, slot_data: dict[str, Any]) -> dict[str, Any]:
+def hook_interpret_slot_data(world: "ManualWorld", player: int, slot_data: dict[str, Any]) -> dict[str, Any]:
     """
         Called when Universal Tracker wants to perform a fake generation
         Use this if you want to use or modify the slot_data for passed into re_gen_passthrough

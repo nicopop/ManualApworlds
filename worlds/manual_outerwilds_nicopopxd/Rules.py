@@ -202,7 +202,7 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
 
                 if rule is None:
                     if not rule_class:
-                        print(f'Warning: Could not find Rule implmenentation of {func_name}.')
+                        logging.warning(f'Warning: Could not find Rule implementation of {func_name}.')
                         # By returning None, we're saying "This entire requires string can't be done with a Rule.  Fall back to the pre-rb lambdas"
                         return None
 
@@ -216,7 +216,8 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                         # already done all of them
                         continue
                     func_founds[id] = match.group(0)
-                    partial = partial.replace(match.group(0), f"{{%{{{id}}}%}}")
+                    # looks like : {{Function#0}}
+                    partial = partial.replace(match.group(0), f"{{{{Function#{id}}}}}")
                     id += 1
                 inner = ''
                 queue = list(partial[1:])
@@ -230,9 +231,9 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                     else:
                         inner += c
                 remaining = "".join(queue)
-                for key, func in func_founds.items():
-                    remaining = remaining.replace(f"{{%{{{key}}}%}}", func)
-                    inner = inner.replace(f"{{%{{{key}}}%}}", func)
+                for id, func in func_founds.items():
+                    remaining = remaining.replace(f"{{{{Function#{id}}}}}", func)
+                    inner = inner.replace(f"{{{{Function#{id}}}}}", func)
                 rule = recursively_tokenize_manual_rule(inner)
             else:
                 print(f'Could not convert {partial} into a Rule')

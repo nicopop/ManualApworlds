@@ -36,9 +36,16 @@ def Event(location: str, count: int = 1) -> str:
     return event_name
 
 def GoalPlus(world: "ManualWorld") -> str:
+    from .Options import Goal
     needed = []
     if world.options.require_solanum.value:
-        needed.append("{Event(6 - Explore the Sixth Location)}")
-    if world.options.require_prisoner.value:
-        needed.append("{Event(94 - Enter the Sealed Vault in the Subterranean Lake Dream)}")
-    return " and ".join(needed) or ""
+        needed.append(Event("6 - Travel"))
+    if world.options.require_prisoner.value and world.options.goal.value != Goal.alias_prisoner:
+        needed.append(Event("94 - Vault"))
+    return " and ".join(needed) or "1"
+
+def GoalPlusRule(world: "ManualWorld") -> str:
+    value = GoalPlus(world)
+    if value == "1":
+        return ""
+    return value

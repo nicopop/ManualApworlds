@@ -7,9 +7,9 @@
     "hidden": true,
     "create_item_group": false
   },
-  "Base Need For End": {
+  "Base Need For Eye": {
     "hidden": true,
-    "create_item_group": false
+    "create_item_group": true
   },
   "Base Game":{
     "hidden": true,

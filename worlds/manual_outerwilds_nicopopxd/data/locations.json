@@ -6,7 +6,6 @@
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth", "do_launch_codes" ],
             "place_item": ["Launch Codes"],
-            "dont_place_item_category": [ "2b Trap" ],
             "sort-key": "0000"
         },
         {
@@ -37,7 +36,6 @@
             "category": [ "2 - Timber Hearth", "do_place_item_category" ],
             "requires": "|Launch Codes|",
             "place_item_category": [ "3b Signals" ],
-            "dont_place_item_category": [ "2b Trap" ],
             "sort-key": "0003"
         },
         {
@@ -51,7 +49,7 @@
         {
             "name": "0 - Die within 60 seconds of a new loop",
             "region": "Ship",
-            "category": [ "01 - Space" ],
+            "category": [ "0 - Space" ],
             "dont_place_item_category": [ "2b Trap" ],
             "dont_place_item": ["Ship Key", "SpaceSuit"],
             "id": 50
@@ -59,107 +57,123 @@
         {
             "name": "0 - Use your suit's oxygen as jetpack fuel",
             "region": "Ship",
-            "category": [ "01 - Space", "Base Game" ],
+            "category": [ "0 - Space", "Base Game" ],
             "requires": "|SpaceSuit|",
             "dont_place_item": ["Ship Key"]
         },
         {
-            "name": "0 - Visit the deepspace satelite",
+            "name": "0 - DeepSpace A",
+            "alias": "Visit the deepspace satelite",
             "region": "Space",
-            "category": [ "01 - Space" ],
+            "category": [ "0 - Space" ],
             "requires": "|Signaloscope| and |Signal > DeepSpace| and |SpaceSuit|"
         },
         {
-            "name": "0 - Knock the deepspace satelite out of orbit",
+            "name": "0 - DeepSpace B",
+            "alias": "Knock the deepspace satelite out of orbit",
             "region": "Space",
-            "category": [ "01 - Space" ],
+            "category": [ "0 - Space" ],
             "requires": "|Signaloscope| and |Signal > DeepSpace|"
         },
 
         {
-            "name": "1 - Get in the Ash Twin Project",
+            "name": "1 - Visit",
+            "alias": "Get in the Ash Twin Project",
             "region": "Ash Twin",
             "category": [ "1 - Ash Twin", "Base Game", "need_warpdrive" ],
-            "requires": "|Teleporters|",
+            "requires": "|Nomai Warp Codes|",
             "create_event": true,
             "dont_place_item_category": [ "2b Trap" ],
             "id": 100
         },
         {
-            "name": "1 - Break Space-Time in the Ash Twin Project",
+            "name": "1 - Oopsies",
+            "alias": "1 - Break Space-Time in the Ash Twin Project",
             "region": "Ash Twin",
             "category": [ "1 - Ash Twin", "Base Game" ],
-            "requires": "{Event(1 - Get in the Ash Twin Project)}",
+            "requires": "{Event(1 - Visit)}",
             "remove_if_goal": "Break_Space-Time_In_ATP%"
         },
         {
-            "name": "1 - Get to the sun station",
+            "name": "0 - Sun",
+            "alias": "Get to the sun station",
             "region": "Sun Station",
             "category": [ "1 - Ash Twin", "Base Game" ]
         },
 
         {
-            "name": "1 - Find Escape Pod 2",
+            "name": "1 - Pod",
+            "alias": "Find Escape Pod 2's beacon",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
             "requires": "|SpaceSuit| and |Signaloscope| and |Signal > Distress|"
         },
         {
-            "name": "1 - Read the ship logs of Escape Pod 2",
+            "name": "1 - Pod Log",
+            "alias": "Read the ship logs of Escape Pod 2",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
             "requires": "|SpaceSuit|"
         },
         {
-            "name": "1 - Get in the High Energy Lab and read any wall",
+            "name": "1 - Lab log",
+            "alias": "Get in the High Energy Lab and read any wall",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
             "requires": "|SpaceSuit|"
         },
         {
-            "name": "1 - Get in the High Energy Lab and Discover how black holes work",
+            "name": "1 - Lab Science A",
+            "alias": "Get in the High Energy Lab and Discover how black holes work",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
             "requires": "|SpaceSuit| and |Scout|"
         },
         {
-            "name": "1 - Break space time in the lab",
+            "name": "1 - Lab Science B",
+            "alias": "Break space time in the lab",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
             "requires": "|SpaceSuit| and |Scout|",
             "remove_if_goal": "Break_Space-Time_In_Lab%"
         },
         {
-            "name": "1 - Read any Nomai wall in the Eye Shrine of the Sunless City",
+            "name": "1 - City Shrine",
+            "alias": "Read any Nomai wall in the Eye Shrine of the Sunless City",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
             "requires": "|SpaceSuit| and |Signaloscope| and |Signal > Distress|"
         },
         {
-            "name": "1 - Read any Nomai scroll near the Quantum Moon Locator",
+            "name": "1 - Scroll",
+            "alias": "Read any Nomai scroll near the Quantum Moon Locator",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ]
         },
         {
-            "name": "1 - Launch the gravity cannon's ship",
-            "region": "Ember Twin",
-            "requires": "|SpaceSuit|",
-            "category": [ "1 - Ember Twin", "Base Game" ]
-        },
-        {
-            "name": "1 - Read the log in the gravity cannon's ship",
+            "name": "1 - Cannon",
+            "alias": "Launch the gravity cannon's ship",
             "region": "Ember Twin",
             "requires": "|SpaceSuit|",
             "category": [ "1 - Ember Twin", "Base Game" ]
         },
         {
-            "name": "1 - Reach the Anglerfish Fossil and read the text left by the Nomai children",
+            "name": "1 - Ship",
+            "alias": "Read the log in the gravity cannon's ship",
+            "region": "Ember Twin",
+            "requires": "|SpaceSuit|",
+            "category": [ "1 - Ember Twin", "Base Game" ]
+        },
+        {
+            "name": "1 - Bones",
+            "alias": "Reach the Anglerfish Fossil and read the text left by the Nomai children",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
             "requires": "|SpaceSuit| and |Scout|"
         },
         {
-            "name": "1 - Talk to Chert",
+            "name": "1 - Talk",
+            "alias": "1 - Talk to Chert",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
             "requires": "|Signaloscope| and |Signal > OW Ventures|"
@@ -167,188 +181,222 @@
 
 
         {
-            "name": "2 - Moon > Visit Eye Signal Locator and listen to the recording",
+            "name": "2 - Moon > Visit",
+            "alias": "Visit the Eye Signal Locator and listen to the recording",
             "region": "Timber Hearth",
             "requires": "|SpaceSuit| and |Ship Key|",
             "category": [ "2 - Timber Hearth", "Base Game" ],
             "id": 200
         },
         {
-            "name": "2 - Moon > Talk to Esker",
+            "name": "2 - Moon > Talk",
+            "alias": "Talk to Esker",
             "region": "Timber Hearth",
             "category": [ "2 - Timber Hearth", "Base Game" ],
             "requires": "|Ship Key| and |Signaloscope| and |Signal > OW Ventures|"
         },
 
         {
-            "name": "2 - Visit the Nomai mines and read any Nomain wall",
+            "name": "2 - Visit",
+            "alias": "Visit the Nomai mines and read any Nomain wall",
             "region": "Timber Hearth",
             "requires": "|SpaceSuit|",
             "category": [ "2 - Timber Hearth", "Base Game" ]
         },
         {
-            "name": "2 - Play Hide & Seek with the kids",
+            "name": "2 - Hide & Seek A",
+            "alias": "Play Hide & Seek with the kids",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth", "Base Game" ]
         },
         {
-            "name": "2 - Scan Galena's Radio Signal",
+            "name": "2 - Hide & Seek B",
+            "alias": "Scan Galena's Radio Signal",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth", "Base Game" ],
             "requires": "|Signaloscope| and |Signal > Hide & Seek|"
         },
         {
-            "name": "2 - Scan Tephra's Radio Signal",
+            "name": "2 - Hide & Seek C",
+            "alias": "Scan Tephra's Radio Signal",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth", "Base Game" ],
             "requires": "|Signaloscope| and |Signal > Hide & Seek|"
         },
         {
-            "name": "2 - Bring a core back to the museum",
+            "name": "2 - Museum",
+            "alias": "Bring a core back to the museum",
             "region": "Timber Hearth Village",
-            "requires": "({Event(1 - Get in the Ash Twin Project)} and |Adv. warp core|) or (|Signaloscope| and |Signal > Distress|)",
+            "requires": "({Event(1 - Visit)} and |Warp Core Manual|) or (|Signaloscope| and |Signal > Distress|)",
             "category": [ "2 - Timber Hearth", "Base Game" ]
         },
         {
-            "name": "2 - Shoot your Scout in the Bramble seed and see the dead Anglerfish",
+            "name": "2 - Seed",
+            "alias": "Shoot your Scout in the Bramble seed and see the dead Anglerfish",
             "region": "Timber Hearth",
             "category": [ "2 - Timber Hearth", "Base Game" ],
             "requires": "|Scout| and |Photos|"
         },
         {
-            "name": "2 - Visit the Radio Station and get it's signal",
+            "name": "2 - Radio Station A",
+            "alias": "Visit the Radio Station and get it's signal",
             "region": "Timber Hearth",
             "category": [ "2 - Timber Hearth"],
             "requires": "|Signaloscope| and |Signal > DeepSpace|"
         },
         {
-            "name": "2 - Visit the Radio Station and listen to the recording",
+            "name": "2 - Radio Station B",
+            "alias": "Visit the Radio Station and listen to the recording",
             "region": "Timber Hearth",
             "category": [ "2 - Timber Hearth", "DLC - Eye" ]
         },
 
         {
-            "name": "3 - Get in Southern Observatory and witness the tornados",
+            "name": "3 - Observatory",
+            "alias": "Get in Southern Observatory and witness the tornados",
             "region": "Brittle Hollow",
             "category": [ "3 - Brittle Hollow", "Base Game" ],
             "requires": "|SpaceSuit|",
             "id": 300
         },
         {
-            "name": "3 - Find the 3 Pod murals in the Old Settlement",
+            "name": "3 - Murals",
+            "alias": "Find the 3 Pod murals in the Old Settlement",
             "region": "Brittle Hollow",
             "category": [ "3 - Brittle Hollow", "Base Game" ],
             "requires": "|SpaceSuit|"
         },
         {
-            "name": "3 - Light the Campfire in the Gravity Crystal Workshop",
+            "name": "3 - Workshop Campfire",
+            "alias": "Light the Campfire in the Gravity Crystal Workshop",
             "region": "Brittle Hollow",
             "category": [ "3 - Brittle Hollow", "Base Game", "Campfire" ]
         },
         {
-            "name": "3 - The message in the Gravity Crystal Workshop",
+            "name": "3 - Workshop Message",
+            "alias": "Listen to the message in the Gravity Crystal Workshop",
             "region": "Brittle Hollow",
             "category": [ "3 - Brittle Hollow", "Base Game" ]
         },
         {
-            "name": "3 - Read Solanum's report in the Classroom in the School District",
+            "name": "3 - School",
+            "alias": "Read Solanum's report in the Classroom in the School District",
             "region": "Brittle Hollow",
             "category": [ "3 - Brittle Hollow", "Base Game" ],
             "requires": "|SpaceSuit|"
         },
         {
-            "name": "3 - Find the 3 scrolls in the Meltwater District",
+            "name": "3 - Scrolls",
+            "alias": "Find the 3 scrolls in the Meltwater District",
             "region": "Brittle Hollow",
             "category": [ "3 - Brittle Hollow", "Base Game" ],
             "requires": "|Ship Key|"
         },
         {
-            "name": "3 - Launch the gravity cannon's ship",
+            "name": "3 - Cannon",
+            "alias": "Launch the gravity cannon's ship",
             "region": "Brittle Hollow",
             "requires": "|SpaceSuit|",
             "category": [ "3 - Brittle Hollow", "Base Game" ]
         },
         {
-            "name": "3 - Read the log in the gravity cannon's ship",
+            "name": "3 - Ship",
+            "alias": "Read the log in the gravity cannon's ship",
             "region": "Brittle Hollow",
             "requires": "|SpaceSuit|",
             "category": [ "3 - Brittle Hollow", "Base Game" ]
         },
         {
-            "name": "3 - Moon > Read a wall inside Hollow's lantern's volcanic testing site",
+            "name": "3 - Moon > Wall",
+            "alias": "Read a wall inside Hollow's lantern's volcanic testing site",
             "region": "Brittle Hollow",
             "requires": "|SpaceSuit|",
             "category": [ "3 - Brittle Hollow", "Base Game" ]
         },
         {
-            "name": "3 - Talk to Riebeck",
+            "name": "3 - Talk",
+            "alias": "Talk to Riebeck",
             "region": "Brittle Hollow",
             "category": [ "3 - Brittle Hollow", "Base Game" ],
             "requires": "|SpaceSuit| and |Signaloscope| and |Signal > OW Ventures|"
         },
         {
-            "name": "3 - Get in the Blackhole Forge",
+            "name": "3 - Forge",
+            "alias": "Get in the Blackhole Forge",
             "region": "Blackhole Forge",
             "category": [ "3 - Brittle Hollow", "Base Game" ],
             "requires": ""
         },
         {
-            "name": "3 - Find Escape Pod 1",
+            "name": "3 - Pod",
+            "alias": "Find Escape Pod 1's beacon",
             "region": "Brittle Hollow",
             "category": [ "3 - Brittle Hollow", "Base Game" ],
             "requires": "|Signaloscope| and |Signal > Distress|"
         },
         {
-            "name": "3 - Read the ship logs of Escape Pod 1",
+            "name": "3 - Pod Log",
+            "alias": "Read the ship logs of Escape Pod 1",
             "region": "Brittle Hollow",
             "category": [ "3 - Brittle Hollow", "Base Game" ],
             "requires": "|SpaceSuit|"
         },
 
         {
-            "name": "4 - Get in the Orbital Cannon",
+            "name": "4 - Cannon",
+            "alias": "Get in the Orbital Cannon",
             "region": "Giant's Deep InShip",
             "requires": "|SpaceSuit|",
             "category": [ "4 - Giant's Deep", "Base Game" ],
             "id": 400
         },
         {
-            "name": "4 - Read the log on the Bramble Island",
+            "name": "4 - Bramble Log",
+            "alias": "Read the log on the Bramble Island",
             "region": "Giant's Deep",
             "requires": "|Photos| and (|Scout| or |SpaceSuit|)",
             "category": [ "4 - Giant's Deep", "Base Game" ]
         },
         {
-            "name": "4 - Read any text wall in the Construction yard",
+            "name": "4 - Yard Wall",
+            "alias": "Read any text wall in the Construction yard",
             "region": "Giant's Deep",
             "category": [ "4 - Giant's Deep", "Base Game" ]
         },
 
         {
-            "name": "4 - Read any text wall in the Statue Island Workshop",
+            "name": "4 - Statue",
+            "alias": "Read any text wall in the Statue Island Workshop",
             "region": "Giant's Deep - Statue Island",
             "category": [ "4 - Giant's Deep", "Base Game" ]
         },
         {
-            "name": "4 - Read the Memory discussion text wall in the Statue Island Workshop",
+            "name": "4 - Memory",
+            "alias": "Read the Memory discussion text wall in the Statue Island Workshop",
             "region": "Giant's Deep",
             "requires": "|Clockwise Tornadoes|",
             "category": [ "4 - Giant's Deep", "Base Game" ]
         },
         {
-            "name": "4 - Get to the Ocean Depths and notice the electrical barrier",
+            "name": "4 - Barrier",
+            "sort-key": "4 - Depths A",
+            "alias": "Get to the Ocean Depths and notice the electrical barrier",
             "region": "Giant's Deep InShip",
             "category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
             "requires": "|Counter-Clockwise Tornadoes|"
         },
         {
-            "name": "4 - Reach the Planet's Core and find the Probe Tracking Module",
+            "name": "4 - Core",
+            "sort-key": "4 - Depths B",
+            "alias": "Reach the Planet's Core and find the Probe Tracking Module",
             "region": "Giant's Deep InShip",
             "category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
             "requires": "|Counter-Clockwise Tornadoes| and |Jellyfishes|"
         },
         {
-            "name": "4 - See the Coords",
+            "name": "4 - Display",
+            "sort-key": "4 - Depths C",
+            "alias": "See the Coords in the Probe Tracking Module",
             "region": "Giant's Deep InShip",
             "create_event": true,
             "category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
@@ -356,477 +404,592 @@
             "dont_place_item_category": [ "2b Trap" ]
         },
         {
-            "name": "4 - Get the Meditation dialog from Gabbro",
+            "name": "4 - Talk A",
+            "alias": "Talk to Gabbro",
+            "region": "Giant's Deep",
+            "category": [ "4 - Giant's Deep", "Base Game" ],
+            "requires": "|Signaloscope| and |Signal > OW Ventures|"
+        },
+        {
+            "name": "4 - Talk B",
+            "alias": "Get the Meditation dialog from Gabbro",
             "region": "Giant's Deep",
             "category": [ "4 - Giant's Deep", "Base Game" ],
             "requires": "|Signaloscope| and |Signal > OW Ventures|"
         },
 
         {
-            "name": "5 - Find Escape Pod 3",
+            "name": "5 - Pod",
+            "alias": "Find Escape Pod 3's beacon",
             "region": "Dark Bramble",
             "category": [ "5 - Dark Bramble", "Base Game", "Win_Eye" ],
             "requires": "|Signaloscope| and |Signal > Distress|",
             "id": 500
         },
         {
-            "name": "5 - Get to the Vessel",
+            "name": "5 - Pod Log",
+            "alias": "Read the ship logs of Escape Pod 3",
+            "region": "Dark Bramble",
+            "category": [ "5 - Dark Bramble", "Base Game", "Win_Eye" ],
+            "requires": "|Signaloscope| and |Signal > Distress|"
+        },
+        {
+            "name": "5 - Ship",
+            "alias": "Get to the Vessel",
             "region": "Dark Bramble",
             "create_event": true,
             "category": [ "5 - Dark Bramble", "Base Game", "Win_Eye" ],
             "requires": "|Signaloscope| and |Signal > Distress| and |Scout| and |Anglerfish Biology|"
         },
         {
-            "name": "5 - Get through at least 2 nodes and get out alive",
+            "name": "5 - Survive",
+            "alias": "Get through at least 2 nodes and get out alive",
             "region": "Dark Bramble",
             "requires": "|Scout| or (|Signaloscope| and (|Signal > OW Ventures| or |Signal > Distress|))",
             "_comment": "Added those requires because its not fun going in there blind",
             "category": [ "5 - Dark Bramble", "Base Game" ]
         },
         {
-            "name": "5 - Get the Jellyfish dialog from Feldspar",
+            "name": "5 - Talk A",
+            "alias": "Talk to Feldspar",
+            "region": "Dark Bramble",
+            "category": [ "5 - Dark Bramble", "Base Game" ],
+            "requires": "|Signaloscope| and |Signal > OW Ventures|"
+        },
+        {
+            "name": "5 - Talk B",
+            "alias": "Get the Jellyfish dialog from Feldspar",
             "region": "Dark Bramble",
             "category": [ "5 - Dark Bramble", "Base Game" ],
             "requires": "|Signaloscope| and |Signal > OW Ventures|"
         },
 
         {
-            "name": "6 - Land on the Quantum moon",
+            "name": "6 - Moon",
+            "alias": "Land on the Quantum moon",
             "region": "Quantum Moon",
             "category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ],
             "id": 600
         },
         {
-            "name": "6 - Explore the Sixth Location",
+            "name": "6 - Travel",
+            "alias": "Explore the Sixth Location",
             "region": "Quantum Moon",
             "create_event": true,
             "category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ],
-            "requires": "|SpaceSuit| and |Quantum Rule > entanglement| and |Quantum Rule > sixth location|",
+            "requires": "|SpaceSuit| and |Quantum Rule > B| and |Quantum Rule > C|",
             "dont_place_item_category": [ "2b Trap" ]
         },
         {
-            "name": "2 - Find the Museum Shard",
+            "name": "2 - Shard A",
+            "alias": "Find the Museum Shard",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth", "Base Game" ],
             "requires": "|Signal > Quantum| and |Signaloscope|"
         },
         {
-            "name": "2 - Find the Grove Shard",
+            "name": "2 - Shard B",
+            "alias": "Find the Grove Shard",
             "region": "Timber Hearth",
             "category": [ "2 - Timber Hearth", "Base Game" ],
             "requires": "|Signal > Quantum| and |Signaloscope|"
         },
         {
-            "name": "4 - Scan the Island Shard",
+            "name": "4 - Shard",
+            "alias": "Scan the Island Shard",
             "region": "Giant's Deep InShip",
             "category": [ "4 - Giant's Deep", "Base Game" ],
             "requires": "|Signal > Quantum| and |Signaloscope| and |SpaceSuit|"
         },
         {
-            "name": "3 - Find the Tower Shard",
+            "name": "3 - Shard",
+            "alias": "Find the Tower Shard",
             "region": "Brittle Hollow",
             "requires": "|Signal > Quantum| and |Signaloscope|",
             "category": [ "3 - Brittle Hollow", "Base Game" ]
         },
         {
-            "name": "4 - Complete the Tower",
+            "name": "4 - Tower",
+            "alias": "Complete the Tower",
             "region": "Giant's Deep",
             "category": [ "4 - Giant's Deep", "Base Game" ],
-            "requires": "|Quantum Rule > imaging| and |Photos| and (|Scout| or |SpaceSuit|)"
+            "requires": "|Quantum Rule > A| and |Photos| and (|Scout| or |SpaceSuit|)"
         },
         {
-            "name": "1 - Scan the Cave shard",
+            "name": "1 - Shard A",
+            "alias": "Scan the Cave shard",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
             "requires": "|Signal > Quantum| and |Signaloscope|"
         },
         {
-            "name": "1 - Ride the Cave shard",
+            "name": "1 - Shard B",
+            "alias": "1 - Ride the Cave shard",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
-            "requires": "|Signal > Quantum| and |Signaloscope| and |Quantum Rule > entanglement|"
+            "requires": "|Signal > Quantum| and |Signaloscope| and |Quantum Rule > B|"
         },
         {
-            "name": "3 - Get to the top of the Tower and read some Text",
+            "name": "3 - Tower",
+            "alias": "Get to the top of the Tower and read some Text wall",
             "region": "Brittle Hollow",
             "requires": "|SpaceSuit|",
             "category": [ "3 - Brittle Hollow", "Base Game" ]
         },
 
         {
-            "name": "7 - Get in Ruptured Core and read the wheel",
+            "name": "7 - Core",
+            "alias": "Get in Ruptured Core and read the wheel",
             "region": "Interloper",
             "requires": "|Scout| and |Photos| and |SpaceSuit|",
             "category": [ "7 - Interloper", "Base Game" ],
             "id": 700
         },
         {
-            "name": "7 - Find the frozen shuttle's log",
+            "name": "7 - Ship",
+            "alias": "Find the frozen shuttle's log",
             "region": "Interloper",
             "category": [ "7 - Interloper", "Base Game" ]
         },
 
         {
-            "name": "8 - Get in the stranger",
+            "name": "8 - Ship",
+            "alias": "Get in the stranger",
             "create_event": true,
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
             "id": 800
         },
         {
-            "name": "8 - Get crushed by a chain elevator",
+            "name": "8 - Flat",
+            "alias": "Get crushed by a chain elevator",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "8 - Attempt to use the artifact at a normal campfire",
+            "name": "8 - Campfire",
+            "alias": "Attempt to use the artifact at a normal campfire",
             "region": "The Stranger",
             "requires": "{OptOne(DreamWorld Access)}",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "8 - Ride the wave for more than 5 seconds",
+            "name": "8 - Surf",
+            "alias": "Ride the wave for more than 5 seconds",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "8 - Do a full loop on the boat in less than 2 minutes",
+            "name": "8 - Circle",
+            "alias": "Do a full loop on the boat in less than 2 minutes",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "8 - Burn a slide",
+            "name": "8 - Fire",
+            "alias": "8 - Burn a slide",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "8 - Watch a slide in River Lowlands",
+            "name": "8 - Watch A",
+            "alias": "a slide in River Lowlands",
             "region": "The Stranger",
             "requires": "|Stranger Projectors|",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "8 - Watch a slide in Cinder Isles",
+            "name": "8 - Watch B",
+            "alias": "a slide in Cinder Isles",
             "region": "The Stranger",
             "requires": "|Stranger Projectors|",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "8 - Find the cave diagram in Cinder Isles",
+            "name": "8 - Diagram A",
+            "alias": "Find the cave diagram in Cinder Isles",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "8 - Watch a slide in Hidden Gorge",
+            "name": "8 - Watch C",
+            "alias": "a slide in Hidden Gorge",
             "region": "The Stranger",
             "requires": "|Stranger Projectors|",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "8 - Get in the hidden Laboratory",
+            "name": "8 - Lab",
+            "alias": "Get in the hidden Laboratory",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Stranger Hull breach|"
+            "requires": "|Breach Override Codes|"
         },
         {
-            "name": "8 - Use the prototype artifact with explosive result",
+            "name": "8 - Oopsies",
+            "alias": "Use the prototype artifact with explosive result",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Stranger Hull breach|"
+            "requires": "|Breach Override Codes|"
         },
         {
-            "name": "8 - Watch the hidden lab's slide",
+            "name": "8 - Lab Watch",
+            "alias": "the hidden lab's slide",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Stranger Projectors| and |Stranger Hull breach|"
+            "requires": "|Stranger Projectors| and |Breach Override Codes|"
         },
         {
-            "name": "8 - Watch the hull anomaly slide in the Hidden Gorge",
+            "name": "8 - Watch D",
+            "alias": "the hull anomaly slide in the Hidden Gorge",
             "region": "The Stranger",
             "requires": "|Stranger Projectors| and |Scout| and |Photos|",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
 
         {
-            "name": "8 - Watch the slide in the reservoir",
+            "name": "8 - Watch E",
+            "alias": "the slide in the reservoir",
             "region": "The Stranger",
             "requires": "|Stranger Projectors|",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "8 - Get in Abandoned temple's secret basement",
+            "name": "8 - Basement",
+            "alias": "Get in Abandoned temple's secret basement",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Abandoned temple code| and {Event(8 - Get in the Code Vault)}"
+            "requires": "|Temple Code| and {Event(8 - Vault)}"
         },
         {
-            "name": "8 - Find the broken connection diagram in the reservoir area",
+            "name": "8 - Basement Watch",
+            "alias": "the Abandoned temple's secret basement's slide",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Broken Interface room code| and ((|Scout| and |Photos|) or {Event(8 - Get in the Code Vault)})"
+            "requires": "|Temple Code| and {Event(8 - Vault)}"
         },
         {
-            "name": "8 - Find the stranger trajectory diagram in the reservoir area",
+            "name": "8 - Diagram B",
+            "alias": "Find the broken connection diagram in the reservoir area",
+            "region": "The Stranger",
+            "category": [ "8 - The Stranger", "DLC - Eye" ],
+            "requires": "|Interface Code| and ((|Scout| and |Photos|) or {Event(8 - Vault)})"
+        },
+        {
+            "name": "8 - Diagram C",
+            "alias": "Find the stranger trajectory diagram in the reservoir area",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "8 - Find the Submerged structure diagram in the reservoir area",
+            "name": "8 - Diagram D",
+            "alias": "Find the Submerged structure diagram in the reservoir area",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "8 - Get in the hidden Slide burning room in River Lowlands",
+            "name": "8 - Burned A",
+            "alias": "Get in the hidden Slide burning room in River Lowlands",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Progressive Slide burning room:1|"
+            "requires": "|Progressive Secret Room:1|"
         },
         {
-            "name": "8 - Watch the Slide from the burning room in River Lowlands",
+            "name": "8 - Burned A Watch",
+            "alias": "the Slide from the burning room in River Lowlands",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Stranger Projectors| and |Progressive Slide burning room:1|"
+            "requires": "|Stranger Projectors| and |Progressive Secret Room:1|"
         },
         {
-            "name": "8 - Get in the hidden Slide burning room in Cinder Isles",
+            "name": "8 - Burned B",
+            "alias": "Get in the hidden Slide burning room in Cinder Isles",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Progressive Slide burning room:2|"
+            "requires": "|Progressive Secret Room:2|"
         },
         {
-            "name": "8 - Watch the Slide from the burning room in Cinder Isles",
+            "name": "8 - Burned B Watch",
+            "alias": "the Slide from the burning room in Cinder Isles",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Stranger Projectors| and |Progressive Slide burning room:2|"
+            "requires": "|Stranger Projectors| and |Progressive Secret Room:2|"
         },
         {
-            "name": "8 - Get in the hidden Slide burning room in Hidden Gorge",
+            "name": "8 - Burned C",
+            "alias": "Get in the hidden Slide burning room in Hidden Gorge",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Progressive Slide burning room:3|"
+            "requires": "|Progressive Secret Room:3|"
         },
         {
-            "name": "8 - Watch the Slide from the burning room in Hidden Gorge",
+            "name": "8 - Burned C Watch",
+            "alias": "the Slide from the burning room in Hidden Gorge",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Stranger Projectors| and |Progressive Slide burning room:3|"
+            "requires": "|Stranger Projectors| and |Progressive Secret Room:3|"
         },
         {
-            "name": "9 - Enter the DreamWorld",
+            "name": "9 - Sleep",
+            "alias": "Enter the DreamWorld",
             "region": "DreamWorld General",
             "category": [ "9 - DreamWorld General", "DLC - Eye" ],
             "id": 1000
         },
         {
-            "name": "9 - Get on the boat",
+            "name": "9 - Boat",
+            "alias": "Get on one",
             "region": "DreamWorld General",
-            "requires": "(|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )",
+            "requires": "(|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) )",
             "category": [ "9 - DreamWorld General", "DLC - Eye" ]
         },
         {
-            "name": "9 - Get your spine adjusted by an Owlks",
+            "name": "9 - Snap",
+            "alias": "Get your spine adjusted by an Owlks",
             "region": "DreamWorld General",
-            "requires": "|DreamWorld Render Glitch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|) or (|Hidden Gorge Flame| and |DreamWorld Fake Wall|) )",
+            "requires": "|Limbo Patch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |Totem Hands Patch|) or (|Hidden Gorge Flame| and |Ghost Wall Patch|) )",
             "category": [ "9 - DreamWorld General", "DLC - Eye", "DLC - Spooky" ]
         },
         {
-            "name": "9 - Watch the vision torch outside the submerge structure in the dream",
+            "name": "9 - Watch",
+            "alias": "the vision torch outside the submerge structure in the dream",
             "region": "DreamWorld General",
-            "requires": "|DreamWorld Grabbing Hands| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )",
+            "requires": "|Totem Hands Patch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) )",
             "category": [ "9 - DreamWorld General", "DLC - Eye" ]
         },
         {
-            "name": "9 - In a loop visit all 3 archive without getting caught",
+            "name": "9 - All Archives",
+            "alias": "In a loop visit all 3 archive without getting caught",
             "region": "All Archive",
             "requires": "",
             "category": [ "9 - DreamWorld General", "DLC - Eye" ],
             "remove_if_goal": "Ghosts_In_The_Machine%"
         },
         {
-            "name": "91 - Enter the Shrouded Woodlands Dream",
+            "name": "91 - Sleep",
+            "alias": "Enter the Shrouded Woodlands Dream",
             "region": "Shrouded Woodlands",
             "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ],
             "id": 1100
         },
         {
-            "name": "91 - Find where the Wandering Owlks come from",
+            "name": "91 - Where do they come from?",
+            "alias": "Find where the Wandering Owlks come from",
             "region": "Shrouded Woodlands",
             "category": [ "91 - Shrouded Woodlands", "DLC - Eye", "DLC - Spooky" ]
         },
         {
-            "name": "91 - Find where the Wandering Owlks are Going",
+            "name": "91 - Where do they go?",
+            "alias": "Find where the Wandering Owlks are Going",
             "region": "Shrouded Woodlands",
             "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
-            "name": "91 - Get in the Forbidden Archive of the Shrouded Woodlands",
+            "name": "91 - Archive",
+            "alias": "Get in the Forbidden Archive of the Shrouded Woodlands",
             "region": "Shrouded Woodlands Archive",
             "create_event": true,
-            "requires": "(|DreamWorld Loading Glitch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))",
+            "requires": "(|Boat Patch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) )) or (|River Lowlands Flame| and |Ghost Wall Patch| and ((|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|))))",
             "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
-            "name": "91 - Watch the Loading Glitch Slide",
+            "name": "91 - Archive Watch",
+            "alias": "the Loading Glitch Slide",
             "region": "Shrouded Woodlands Archive",
             "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
-            "name": "91 - Discover the burned code",
+            "name": "91 - Archive Burned",
+            "alias": "Discover the burned code",
             "region": "Shrouded Woodlands Archive",
             "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
-            "name": "92 - Enter the Starlit Cove Dream",
+            "name": "92 - Sleep",
+            "alias": "Enter the Starlit Cove Dream",
             "region": "Starlit Cove",
             "category": [ "92 - Starlit Cove", "DLC - Eye" ],
             "id": 1200
         },
         {
-            "name": "92 - Visit the Burned Eye Church in the dream",
+            "name": "92 - Burned",
+            "alias": "Visit the Burned Eye Church in the dream",
             "region": "Starlit Cove",
             "category": [ "92 - Starlit Cove", "DLC - Eye" ]
         },
         {
-            "name": "92 - Get to the top of the Tower in the Starlit Cove",
+            "name": "92 - Tower",
+            "alias": "Get to the top of the Tower in the Starlit Cove",
             "region": "Starlit Cove",
-            "requires": "|DreamWorld Door Candles|",
+            "requires": "|Door Candles Patch|",
             "category": [ "92 - Starlit Cove", "DLC - Eye" ]
         },
         {
-            "name": "8 - Get in the Code Vault",
+            "name": "8 - Vault",
+            "alias": "Get in the Code Vault",
             "region": "Starlit Cove",
             "create_event": true,
-            "requires": "|DreamWorld Door Candles|",
+            "requires": "|Door Candles Patch|",
             "dont_place_item_category": [ "2b Trap" ],
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "92 - Lights on - Get in the Forbidden Archive of the Starlit Cove",
+            "name": "92 - Archive Safe",
+            "sort-key": "92 - Archive 1",
+            "alias": "Lights on - Get in the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
             "create_event": true,
-            "requires": "|DreamWorld Death Glitch|",
+            "requires": "|Alarm Bypass Patch|",
             "dont_place_item_category": [ "2b Trap" ],
             "category": [ "92 - Starlit Cove", "DLC - Eye" ]
         },
         {
-            "name": "92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove",
+            "name": "92 - Archive Spooky",
+            "sort-key": "92 - Archive 2",
+            "alias": "Lights out - Sneak in the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
             "create_event": true,
-            "requires": "|DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|",
+            "requires": "|Totem Hands Patch|",
             "dont_place_item_category": [ "2b Trap" ],
             "category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
         },
         {
-            "name": "92 - Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
+            "name": "92 - Archive Both",
+            "sort-key": "92 - Archive 3",
+            "alias": "92 - Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
-            "requires": "{Event(92 - Lights on - Get in the Forbidden Archive of the Starlit Cove)} and {Event(92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove)}",
+            "requires": "{Event(92 - Archive Safe)} and {Event(92 - Archive Spooky)}",
             "category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
         },
 
         {
-            "name": "92 - Watch the Death Glitch Slide",
+            "name": "92 - Archive Watch",
+            "alias": "the Death Glitch Slide",
             "region": "Starlit Cove Archive",
             "requires": "",
             "category": [ "92 - Starlit Cove", "DLC - Eye" ]
         },
         {
-            "name": "92 - Discover the burned code",
+            "name": "92 - Archive Burned",
+            "alias": "Discover the burned code",
             "region": "Starlit Cove Archive",
             "requires": "",
             "category": [ "92 - Starlit Cove", "DLC - Eye" ]
         },
         {
-            "name": "93 - Enter the Endless Canyon Dream",
+            "name": "93 - Sleep",
+            "alias": "Enter the Endless Canyon Dream",
             "region": "Endless Canyon",
             "category": [ "93 - Endless Canyon", "DLC - Eye" ],
             "id": 1300
         },
         {
-            "name": "93 - Find the Stage with the 2 musical instruments",
+            "name": "93 - Music",
+            "alias": "Find the Stage with the 2 musical instruments",
             "region": "Endless Canyon",
             "category": [ "93 - Endless Canyon", "DLC - Eye" ]
         },
         {
-            "name": "93 - Lights on - Make the bridge appear inside the mansion",
+            "name": "93 - Bridge Safe",
+            "alias": "Lights on - Make the bridge appear inside the mansion",
             "region": "Endless Canyon",
             "category": [ "93 - Endless Canyon", "DLC - Eye" ],
-            "requires": "|DreamWorld Grabbing Hands|"
+            "requires": "|Totem Hands Patch|"
         },
         {
-            "name": "93 - Lights out - Make the bridge appear inside the mansion",
+            "name": "93 - Bridge Spooky",
+            "alias": "Lights out - Make the bridge appear inside the mansion",
             "region": "Endless Canyon",
             "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ],
-            "requires": "|DreamWorld Grabbing Hands| and (|DreamWorld Render Glitch| or |DreamWorld Fake Wall|)"
+            "requires": "|Totem Hands Patch| and (|Limbo Patch| or |Ghost Wall Patch|)"
         },
         {
-            "name": "93 - Lights out - Get the 1 / 900 achievement",
+            "name": "93 - Spooky Yahaha!",
+            "alias": "93 - Lights out - Get the 1 / 900 achievement",
             "region": "Endless Canyon",
-            "requires": "|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and ( |DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))",
+            "requires": "|Limbo Patch| or (|Ghost Wall Patch| and ( |Limbo Patch| or |Totem Hands Patch|))",
             "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
         },
         {
-            "name": "93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon",
+            "name": "93 - Archive Safe",
+            "sort-key": "93 - Archive 1",
+            "alias": "Sneak the easy way in the Forbidden Archive of the Endless Canyon",
             "region": "Endless Canyon Archive",
             "create_event": true,
-            "requires": "|DreamWorld Render Glitch|",
+            "requires": "|Limbo Patch|",
             "dont_place_item_category": [ "2b Trap" ],
             "category": [ "93 - Endless Canyon", "DLC - Eye" ]
         },
         {
-            "name": "93 - Sneak the long way in the Forbidden Archive of the Endless Canyon",
+            "name": "93 - Archive Spooky",
+            "sort-key": "93 - Archive 2",
+            "alias": "Sneak the long way in the Forbidden Archive of the Endless Canyon",
             "region": "Endless Canyon Archive",
             "create_event": true,
-            "requires": "(|DreamWorld Render Glitch| or |DreamWorld Fake Wall|) and |DreamWorld Grabbing Hands|",
+            "requires": "(|Limbo Patch| or |Ghost Wall Patch|) and |Totem Hands Patch|",
             "dont_place_item_category": [ "2b Trap" ],
             "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
         },
         {
-            "name": "93 - Bonus item if you go in both ways to the Forbidden Archive of the Endless Canyon",
+            "name": "93 - Archive Both",
+            "sort-key": "93 - Archive 3",
+            "alias": "Bonus item if you go in both ways to the Forbidden Archive of the Endless Canyon",
             "region": "Endless Canyon Archive",
-            "requires": "{Event(93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon)} and {Event(93 - Sneak the long way in the Forbidden Archive of the Endless Canyon)}",
+            "requires": "{Event(93 - Archive Safe)} and {Event(93 - Archive Spooky)}",
             "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
         },
         {
-            "name": "93 - Watch the Render Glitch Slide",
+            "name": "93 - Archive Watch",
+            "alias": "the Render Glitch Slide",
             "region": "Endless Canyon Archive",
             "requires": "",
             "category": [ "93 - Endless Canyon", "DLC - Eye" ]
         },
         {
-            "name": "93 - Discover the burned code",
+            "name": "93 - Archive Burned",
+            "alias": "Discover the burned code",
             "region": "Endless Canyon Archive",
-            "requires": "|DreamWorld Render Glitch|",
+            "requires": "|Limbo Patch|",
             "category": [ "93 - Endless Canyon", "DLC - Eye" ]
         },
         {
-            "name": "94 - Enter the Subterranean Lake Dream",
+            "name": "94 - Sleep",
+            "alias": "Enter the Subterranean Lake Dream",
             "region": "Subterranean Lake",
             "category": [ "94 - Subterranean Lake", "DLC - Eye" ],
             "id": 1400
         },
         {
-            "name": "94 - Disable the first lock on the vault",
+            "name": "94 - Lock A",
+            "alias": "Disable the first lock on the vault",
+            "create_event": true,
             "region": "Subterranean Lake",
-            "requires": "|DreamWorld Render Glitch|",
+            "requires": "|Limbo Patch|",
             "category": [ "94 - Subterranean Lake", "DLC - Eye" ]
         },
         {
-            "name": "94 - Disable the second lock on the vault",
+            "name": "94 - Lock B",
+            "alias": "Disable the second lock on the vault",
+            "create_event": true,
             "region": "Subterranean Lake",
-            "requires": "(|DreamWorld Loading Glitch| and (|River Lowlands Flame| or |Cinder Isles Flame| or |Hidden Gorge Flame|)) or |Progressive Datamined Sealed Vault Code:2|",
+            "requires": "(|Boat Patch| and (|River Lowlands Flame| or |Cinder Isles Flame| or |Hidden Gorge Flame|)) or |Datamined Code:2|",
             "category": [ "94 - Subterranean Lake", "DLC - Eye" ]
         },
         {
-            "name": "94 - Disable the third lock on the vault",
+            "name": "94 - Lock C",
+            "alias": "Disable the third lock on the vault",
+            "create_event": true,
             "region": "Subterranean Lake",
-            "requires": "|DreamWorld Death Glitch| or |Progressive Datamined Sealed Vault Code:3|",
+            "requires": "|Alarm Bypass Patch| or |Datamined Code:3|",
             "category": [ "94 - Subterranean Lake", "DLC - Eye" ]
         },
         {
-            "name": "94 - Enter the Sealed Vault in the Subterranean Lake Dream",
+            "name": "94 - Vault",
+            "alias": "Enter the Sealed Vault in the Subterranean Lake Dream",
             "region": "Subterranean Lake",
             "create_event": true,
-            "requires": "(|Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|) or (|Progressive Datamined Sealed Vault Code:2| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|) or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)",
+            "requires": "{Event(94 - Lock A)} and {Event(94 - Lock B)} and {Event(94 - Lock C)}",
+            "_requires": "(|Datamined Code:3| and |Limbo Patch|) or (|Datamined Code:2| and |Limbo Patch| and |Alarm Bypass Patch|) or (|Boat Patch| and |Limbo Patch| and |Alarm Bypass Patch|)",
             "category": [ "94 - Subterranean Lake", "DLC - Eye" ],
             "dont_place_item_category": [ "2b Trap" ],
             "remove_if_goal": "Prisoner%"
@@ -838,26 +1001,30 @@
             "name": "Standard",
             "_comment": "Only there so its an option, it will get changed to Any% or Prisoner% automatically",
             "victory": true,
-            "requires": "{Event(5 - Get to the Vessel)} and {Event(4 - See the Coords)} and |@Base Need For End:2| and {GoalPlus()}",
+            "requires": "{Event(5 - Ship)} and {Event(4 - Display)} and |@Base Need For Eye:2| and {GoalPlus()}",
             "category": [ "0 - Finale"],
             "id": 2000
         },
         {
             "name": "Vanilla%",
+            "_comment": [],
+            "alias": "Go to the eye",
             "region": "Dark Bramble",
             "victory": true,
-            "requires": "{Event(5 - Get to the Vessel)} and {Event(4 - See the Coords)} and |@Base Need For End:2| and {GoalPlus()}",
-            "category": [ "0 - Finale"]
+            "requires": "{Event(5 - Ship)} and {Event(4 - Display)} and {Event(1 - Visit)} and |@Base Need For Eye:2| and {GoalPlus()}",
+            "category": [ "0 - Finale", "5 - Dark Bramble"]
         },
         {
             "name": "Prisoner%",
+            "alias": "Talk to the prisoner in the vault",
             "region": "Subterranean Lake",
-            "requires": "{GoalPlus()} and (|Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|) or (|Progressive Datamined Sealed Vault Code:2| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|) or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)",
-            "category": [ "94 - Subterranean Lake"],
+            "requires": "{GoalPlus()} and {Event(94 - Lock A)} and {Event(94 - Lock B)} and {Event(94 - Lock C)}",
+            "category": ["0 - Finale", "94 - Subterranean Lake"],
             "victory": true
         },
         {
             "name": "Ghosts_In_The_Machine%",
+            "alias": "Visit all Archive in a single loop",
             "victory": true,
             "region": "All Archive",
             "requires": "{GoalPlus()}",
@@ -865,13 +1032,15 @@
         },
         {
             "name": "Break_Space-Time_In_ATP%",
+            "alias": "Break SpaceTime in the Ash Twin Project",
             "region": "Ash Twin",
             "category": [ "0 - Finale", "1 - Ash Twin"],
             "victory": true,
-            "requires": "{Event(1 - Get in the Ash Twin Project)} and {GoalPlus()}"
+            "requires": "|SpaceSuit| and {Event(1 - Visit)} and {GoalPlus()}"
         },
         {
             "name": "Break_Space-Time_In_Lab%",
+            "alias": "Break SpaceTime in the High Energy Lab",
             "region": "Ember Twin",
             "victory": true,
             "category": [ "0 - Finale", "1 - Ember Twin"],
@@ -879,23 +1048,26 @@
         },
         {
             "name": "Quantum_Stuck%",
+            "alias": "Get the Adv. warp core to Solanum and wait for Credits.",
             "victory": true,
             "region": "Quantum Moon",
-            "requires": "|Adv. warp core| and {Event(1 - Get in the Ash Twin Project)} and {Event(6 - Explore the Sixth Location)} and {GoalPlus()}",
+            "requires": "|Warp Core Manual| and {Event(1 - Visit)} and {Event(6 - Travel)} and {GoalPlus()}",
             "category": [ "0 - Finale", "6 - Quantum Moon"]
         },
         {
             "name": "Stranger_Stuck%",
+            "alias": "Get the Adv. warp core to the Stranger and wait for Credits.",
             "victory": true,
             "region": "The Stranger",
-            "requires": "|Adv. warp core| and {Event(1 - Get in the Ash Twin Project)} and {GoalPlus()}",
+            "requires": "|Warp Core Manual| and {Event(1 - Visit)} and {GoalPlus()}",
             "category": ["0 - Finale", "8 - The Stranger"]
         },
         {
             "name": "Dream_Stuck%",
+            "alias": "Get the Adv. warp core to the Stranger and die to get to the Dreamworld.",
             "victory": true,
             "region": "DreamWorld General",
-            "requires": "|Adv. warp core| and {Event(1 - Get in the Ash Twin Project)} and {GoalPlus()}",
+            "requires": "|Warp Core Manual| and {Event(1 - Visit)} and {GoalPlus()}",
             "category": ["0 - Finale", "9 - DreamWorld General"]
         }
     ]

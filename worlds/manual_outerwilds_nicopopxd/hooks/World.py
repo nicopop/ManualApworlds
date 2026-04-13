@@ -211,6 +211,10 @@ def before_create_items_all(item_config: dict[str, int|dict], world: "ManualWorl
 
     return item_config
 
+# The item pool before place_item(_category) are processed, in case you want to see the raw item pool at that stage
+def before_create_items_place_items(item_pool: list, world: "ManualWorld", multiworld: MultiWorld, player: int) -> list:
+    return item_pool
+
 # The item pool before starting items are processed, in case you want to see the raw item pool at that stage
 def before_create_items_starting(item_pool: list, world: "ManualWorld", multiworld: MultiWorld, player: int) -> list:
     return item_pool

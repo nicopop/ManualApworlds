@@ -1,7 +1,7 @@
 # Object classes from AP core, to represent an entire MultiWorld and this individual World that's part of it
 from worlds.AutoWorld import World
 from worlds.generic.Rules import add_rule
-from typing import TYPE_CHECKING, cast, Any
+from typing import TYPE_CHECKING, cast, Any, Callable
 
 from BaseClasses import MultiWorld, CollectionState, Item, ItemClassification
 from Options import OptionError
@@ -37,8 +37,42 @@ from ..Helpers import is_option_enabled, is_item_enabled, get_option_value
 ## The fill_slot_data method will be used to send data to the Manual client for later use, like deathlink.
 ########################################################################################
 
+# region Custom Client
+from worlds.LauncherComponents import Component, SuffixIdentifier, components, Type, launch, icon_paths
+def launch_client(*args):
+    import CommonClient
+    from ..ManualClient import launch as Main
 
+    if CommonClient.gui_enabled:
+        launch(Main, name="Manual client", args=args)
+    else:
+        Main(*args)
 
+class VersionedComponent(Component):
+    def __init__(self, display_name: str, script_name: str|None = None, func: Callable|None = None, version: int = 0, file_identifier: Callable[[str], bool]|None = None, icon: str = ""):
+        super().__init__(display_name=display_name, script_name=script_name, func=func, component_type=Type.CLIENT, file_identifier=file_identifier, icon=icon)
+        self.version = version
+
+def add_client_to_launcher() -> None:
+    import Utils
+    version = 2026_04_13 # YYYYMMDD
+    found = False
+
+    if "manual" not in icon_paths:
+        icon_paths["manual"] = Utils.user_path('data', 'manual.png')
+
+    for c in components:
+        if c.display_name == "Manual Client Experimental":
+            found = True
+            if getattr(c, "version", 0) < version:
+                c.version = version
+                c.func = launch_client
+                c.icon = "manual"
+
+    if not found:
+        components.append(VersionedComponent("Manual Client Experimental", "ManualClient", func=launch_client, version=version, file_identifier=SuffixIdentifier('.apmanual'), icon="manual"))
+add_client_to_launcher()
+# endregion
 # Use this function to change the valid filler items to be created to replace item links or starting items.
 # Default value is the `filler_item_name` from game.json
 def hook_get_filler_item_name(world: "ManualWorld", multiworld: MultiWorld, player: int) -> str | bool:

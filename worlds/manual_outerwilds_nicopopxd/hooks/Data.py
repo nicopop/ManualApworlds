@@ -32,7 +32,7 @@ def after_load_event_file(event_table: list) -> list:
     for location in _location_table:
         if not location.get("create_event"):
             continue
-        event_table.append({"name": f"[Event] {location['name']}", "copy_location": location["name"], "category": ["2 everything", "2c Events"], "visible": True})
+        event_table.append({"name": f"[Event] {location['name']}", "copy_location": location["name"], "category": ["2c Events"], "visible": True})
     return event_table
 # called after the regions.json file has been loaded, before any location loading or processing has occurred
 # if you need access to the locations after processing to add ids, etc., you should use the hooks in World.py

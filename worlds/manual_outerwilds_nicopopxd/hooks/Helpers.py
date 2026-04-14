@@ -19,6 +19,7 @@ def before_is_item_enabled(multiworld: MultiWorld, player: int, item:  dict[str,
         if not world.options.randomize_dlc.value:
             return False
         return bool(world.options.dlc_access_items.value)
+
     return checkobject(multiworld, player, item)
 
 # Use this if you want to override the default behavior of is_option_enabled
@@ -32,9 +33,7 @@ def before_is_location_enabled(multiworld: MultiWorld, player: int, location:  d
     elif "DLC - Spooky" in location.get("category", []):
         if not world.options.enable_spooks:
             return False
-    if location.get("remove_if_goal"):
-        target_goal = world.options.goal.from_any(location["remove_if_goal"])
-        if target_goal == world.options.goal: return False
+
     return checkobject(multiworld, player, location)
 
 # Use this if you want to override the default behavior of is_option_enabled
@@ -45,13 +44,13 @@ def before_is_event_enabled(multiworld: MultiWorld, player: int, event:  dict[st
         location =  multiworld.worlds[player].location_name_to_location[event.get("copy_location")]
     return before_is_location_enabled(multiworld, player, location)
 
-def checkobject(multiworld: MultiWorld, player: int, obj: object) -> Optional[bool]:
+def checkobject(multiworld: MultiWorld, player: int, obj: dict[str, Any]) -> Optional[bool]:
     """Check if a Manual object as any category enabled/disabled
 
     Args:
         multiworld: Multiworld
         player (int): Player id
-        obj (object): Manual Object to test
+        obj (dict[str, Any]): Manual Object to test
 
     Returns:
         Optional[bool]: enabled or not,
@@ -60,6 +59,15 @@ def checkobject(multiworld: MultiWorld, player: int, obj: object) -> Optional[bo
     world = multiworld.worlds.get(player)
     if world is not None and not hasattr(world, 'categoryInit'):
         InitCategories(world, player)
+
+    if obj.get("remove_if_goal"):
+        value: str = obj["remove_if_goal"]
+        reverse = False
+        if value.strip().startswith("!"):
+            reverse = True
+            value = value.lstrip("!")
+        target_goal = world.options.goal.from_any(value)
+        if (target_goal == world.options.goal) != reverse: return False
 
     resultYes = False
     resultNo = False

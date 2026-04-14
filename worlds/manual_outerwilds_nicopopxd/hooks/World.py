@@ -456,7 +456,22 @@ def before_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: Mul
 
 # This is called after slot data is set and provides the slot data at the time, in case you want to check and modify it after Manual is done with it
 def after_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict:
-    # slot_data["item_counts"] = world.item_counts[player]
+    victory_name: str = world.victory_names[world.options.goal.value]
+    Manual_victory = world.location_name_to_location[victory_name]
+    needed: list[str] = []
+    if world.options.require_solanum.value:
+        needed.append("Solanum")
+    if world.options.require_prisoner.value and world.options.goal.value != Goal.alias_prisoner:
+        needed.append("the Prisoner")
+    if needed:
+        base_alias = Manual_victory.get('alias', None)
+        if base_alias is not None:
+            alias = f"{base_alias} + {' and '.join(needed)}"
+        else:
+            alias = f"{' and '.join(needed)}"
+        if "location_id_to_alias" not in slot_data.keys():
+            slot_data["location_id_to_alias"] = {}
+        slot_data["location_id_to_alias"][Manual_victory["id"]] = alias
     return slot_data
 
 # This is called right at the end, in case you want to write stuff to the spoiler log

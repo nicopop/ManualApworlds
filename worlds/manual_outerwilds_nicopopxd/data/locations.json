@@ -2,28 +2,32 @@
     "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.locations.schema.json",
     "data": [
         {
-            "name": "'Learn' the Launch Codes in the observatory",
+            "name": "2 - Observatory",
+            "alias": "'Learn' the Launch Codes",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth", "do_launch_codes" ],
             "place_item": ["Launch Codes"],
             "sort-key": "0000"
         },
         {
-            "name": "'Learn' the Launch Codes in the observatory.",
+            "name": "2 - Observatory.",
+            "alias": "'Learn' the Launch Codes",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth", "no_launch_codes" ],
             "dont_place_item_category": [ "1b Trap" ],
             "sort-key": "0000"
         },
         {
-            "name": "Do the repairs in the Zero-G Cave",
+            "name": "2 - Repairs",
+            "alias": "Do the repairs in the Zero-G Cave",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth" ],
             "dont_place_item_category": [ "1b Trap" ],
             "sort-key": "0001"
         },
         {
-            "name": "Land the model Ship on the small landing pad",
+            "name": "2 - Model",
+            "alias": "Land the model Ship on the small landing pad",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth" ],
             "dont_place_item_category": [ "1b Trap" ],
@@ -31,18 +35,18 @@
         },
 
         {
-            "name": "Get in the ship for the first time",
+            "name": "2 - Ship",
+            "alias": "Get in the ship for the first time",
             "region": "Ship",
             "category": [ "2 - Timber Hearth", "do_place_item_category" ],
-            "requires": "|Launch Codes|",
             "place_item_category": [ "2b Signals" ],
             "sort-key": "0003"
         },
         {
-            "name": "Get in the ship for the first time.",
+            "name": "2 - Ship.",
+            "alias": "Get in the ship for the first time.",
             "region": "Ship",
             "category": [ "2 - Timber Hearth", "no_place_item_category" ],
-            "requires": "|Launch Codes|",
             "dont_place_item_category": [ "1b Trap" ],
             "sort-key": "0003"
         },

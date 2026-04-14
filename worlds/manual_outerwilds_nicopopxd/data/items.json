@@ -241,6 +241,7 @@
         },
         {
             "name": "Stranger Dam entrance",
+            "alias": "Go up the elevator",
             "progression": true,
             "category": [ "3 Echoes of the Eye", "3a Entrances", "1 Everything", "1a All Progression", "DLC - Eye", "DLC - Stranger Entrance" ]
         },

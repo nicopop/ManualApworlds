@@ -34,10 +34,13 @@
   },
   "Ember Twin": {
     "requires": "",
-    "connects_to": [ "Ash Twin", "Teleporters" ],
+    "connects_to": [ "Ash Twin", "Teleporters", "Sunless City" ],
     "entrance_requires": {
       "Teleporters": "|SpaceSuit|"
     }
+  },
+  "Sunless City": {
+    "requires": "|SpaceSuit|"
   },
   "Timber Hearth": {
     "requires": "|SpaceSuit| or |Ship Key|",

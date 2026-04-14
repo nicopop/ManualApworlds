@@ -118,21 +118,20 @@
         {
             "name": "1 - Lab log",
             "alias": "Get in the High Energy Lab and read any wall",
-            "region": "Ember Twin",
-            "category": [ "1 - Ember Twin", "Base Game" ],
-            "requires": "|SpaceSuit|"
+            "region": "Sunless City",
+            "category": [ "1 - Ember Twin", "Base Game" ]
         },
         {
             "name": "1 - Lab Science A",
             "alias": "Get in the High Energy Lab and Discover how black holes work",
-            "region": "Ember Twin",
+            "region": "Sunless City",
             "category": [ "1 - Ember Twin", "Base Game" ],
-            "requires": "|SpaceSuit| and |Scout|"
+            "requires": "|Scout|"
         },
         {
             "name": "1 - Lab Science B",
             "alias": "Break space time in the lab",
-            "region": "Ember Twin",
+            "region": "Sunless City",
             "category": [ "1 - Ember Twin", "Base Game" ],
             "requires": "|SpaceSuit| and |Scout|",
             "remove_if_goal": "Break_Space-Time_In_Lab%"
@@ -140,9 +139,8 @@
         {
             "name": "1 - City Shrine",
             "alias": "Read any Nomai wall in the Eye Shrine of the Sunless City",
-            "region": "Ember Twin",
-            "category": [ "1 - Ember Twin", "Base Game" ],
-            "requires": "|SpaceSuit| and |Signaloscope| and |Signal > Distress|"
+            "region": "Sunless City",
+            "category": [ "1 - Ember Twin", "Base Game" ]
         },
         {
             "name": "1 - Scroll",
@@ -167,9 +165,9 @@
         {
             "name": "1 - Bones",
             "alias": "Reach the Anglerfish Fossil and read the text left by the Nomai children",
-            "region": "Ember Twin",
+            "region": "Sunless City",
             "category": [ "1 - Ember Twin", "Base Game" ],
-            "requires": "|SpaceSuit| and |Scout|"
+            "requires": "|Scout|"
         },
         {
             "name": "1 - Talk",

@@ -12,21 +12,21 @@
             "name": "'Learn' the Launch Codes in the observatory.",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth", "no_launch_codes" ],
-            "dont_place_item_category": [ "2b Trap" ],
+            "dont_place_item_category": [ "1b Trap" ],
             "sort-key": "0000"
         },
         {
             "name": "Do the repairs in the Zero-G Cave",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth" ],
-            "dont_place_item_category": [ "2b Trap" ],
+            "dont_place_item_category": [ "1b Trap" ],
             "sort-key": "0001"
         },
         {
             "name": "Land the model Ship on the small landing pad",
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth" ],
-            "dont_place_item_category": [ "2b Trap" ],
+            "dont_place_item_category": [ "1b Trap" ],
             "sort-key": "0002"
         },
 
@@ -35,7 +35,7 @@
             "region": "Ship",
             "category": [ "2 - Timber Hearth", "do_place_item_category" ],
             "requires": "|Launch Codes|",
-            "place_item_category": [ "3b Signals" ],
+            "place_item_category": [ "2b Signals" ],
             "sort-key": "0003"
         },
         {
@@ -43,14 +43,14 @@
             "region": "Ship",
             "category": [ "2 - Timber Hearth", "no_place_item_category" ],
             "requires": "|Launch Codes|",
-            "dont_place_item_category": [ "2b Trap" ],
+            "dont_place_item_category": [ "1b Trap" ],
             "sort-key": "0003"
         },
         {
             "name": "0 - Die within 60 seconds of a new loop",
             "region": "Ship",
             "category": [ "0 - Space" ],
-            "dont_place_item_category": [ "2b Trap" ],
+            "dont_place_item_category": [ "1b Trap" ],
             "dont_place_item": ["Ship Key", "SpaceSuit"],
             "id": 50
         },
@@ -83,7 +83,7 @@
             "category": [ "1 - Ash Twin", "Base Game", "need_warpdrive" ],
             "requires": "|Nomai Warp Codes|",
             "create_event": true,
-            "dont_place_item_category": [ "2b Trap" ],
+            "dont_place_item_category": [ "1b Trap" ],
             "id": 100
         },
         {
@@ -399,7 +399,7 @@
             "create_event": true,
             "category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
             "requires":  "|Counter-Clockwise Tornadoes| and |Jellyfishes|",
-            "dont_place_item_category": [ "2b Trap" ]
+            "dont_place_item_category": [ "1b Trap" ]
         },
         {
             "name": "4 - Talk A",
@@ -477,7 +477,7 @@
             "scoutable": true,
             "category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ],
             "requires": "|SpaceSuit| and |Quantum Rule > B| and |Quantum Rule > C|",
-            "dont_place_item_category": [ "2b Trap" ]
+            "dont_place_item_category": [ "1b Trap" ]
         },
         {
             "name": "2 - Shard A",
@@ -845,7 +845,7 @@
             "region": "Starlit Cove",
             "create_event": true,
             "requires": "|Door Candles Patch|",
-            "dont_place_item_category": [ "2b Trap" ],
+            "dont_place_item_category": [ "1b Trap" ],
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
@@ -855,7 +855,7 @@
             "region": "Starlit Cove Archive",
             "create_event": true,
             "requires": "|Alarm Bypass Patch|",
-            "dont_place_item_category": [ "2b Trap" ],
+            "dont_place_item_category": [ "1b Trap" ],
             "category": [ "9B - Starlit Cove", "DLC - Eye" ]
         },
         {
@@ -865,7 +865,7 @@
             "region": "Starlit Cove Archive",
             "create_event": true,
             "requires": "|Totem Hands Patch|",
-            "dont_place_item_category": [ "2b Trap" ],
+            "dont_place_item_category": [ "1b Trap" ],
             "category": [ "9B - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
         },
         {
@@ -935,7 +935,7 @@
             "region": "Endless Canyon Archive",
             "create_event": true,
             "requires": "|Limbo Patch|",
-            "dont_place_item_category": [ "2b Trap" ],
+            "dont_place_item_category": [ "1b Trap" ],
             "category": [ "9C - Endless Canyon", "DLC - Eye" ]
         },
         {
@@ -945,7 +945,7 @@
             "region": "Endless Canyon Archive",
             "create_event": true,
             "requires": "(|Limbo Patch| or |Ghost Wall Patch|) and |Totem Hands Patch|",
-            "dont_place_item_category": [ "2b Trap" ],
+            "dont_place_item_category": [ "1b Trap" ],
             "category": [ "9C - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
         },
         {
@@ -1016,7 +1016,7 @@
             "requires": "{Event(9D - Lock A)} and {Event(9D - Lock B)} and {Event(9D - Lock C)}",
             "_requires": "(|Datamined Code:3| and |Limbo Patch|) or (|Datamined Code:2| and |Limbo Patch| and |Alarm Bypass Patch|) or (|Boat Patch| and |Limbo Patch| and |Alarm Bypass Patch|)",
             "category": [ "9D - Subterranean Lake", "DLC - Eye" ],
-            "dont_place_item_category": [ "2b Trap" ],
+            "dont_place_item_category": [ "1b Trap" ],
             "remove_if_goal": "Prisoner%"
         },
 

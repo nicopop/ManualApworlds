@@ -11,11 +11,34 @@ jobs:
         id: get_latest_ap_version
         run: |
           echo "AP_VERSION=`wget https://github.com/ArchipelagoMW/Archipelago/releases/latest 2>&1 | grep Location: | awk '{print $2}' | rev | cut -d "/" -f 1 | rev`" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v6
+      - uses: dorny/paths-filter@v4
+        id: changes
+        with:
+          filters: |
+            outerwilds:
+              - 'worlds/manual_outerwilds_nicopopxd/**'
+            plateup:
+              - 'worlds/manual_plateup_nicopopxd/**'
+
       - uses: Eijebong/ap-actions/fuzz@main
         name: Run fuzz for manual_outerwilds_nicopopxd
+        if: steps.changes.outputs.outerwilds == 'true'
         with:
           apworld-path: worlds/manual_outerwilds_nicopopxd/
           ap-version: ${{ env.AP_VERSION }}
           python-version: '3.12'
           runs: 500 # This is optional
           yamls-per-run: 1 # This is optional
+          checkout: false
+
+      - uses: Eijebong/ap-actions/fuzz@main
+        name: Run fuzz for manual_plateup_nicopopxd
+        if: steps.changes.outputs.plateup == 'true'
+        with:
+          apworld-path: worlds/manual_plateup_nicopopxd/
+          ap-version: ${{ env.AP_VERSION }}
+          python-version: '3.12'
+          runs: 500 # This is optional
+          yamls-per-run: 1 # This is optional
+          checkout: false

@@ -78,6 +78,11 @@
             "count": 0,
             "category": [ "1b Filler and Useful", "1 Everything", "FillerDummy" ]
         },
+        {
+            "name": "Quantum dust",
+            "count": 0,
+            "category": [ "1b Filler and Useful", "1 Everything", "FillerDummy", "Base Game" ]
+        },
 
         {
             "name": "Forced Meditation",

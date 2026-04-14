@@ -237,15 +237,15 @@ class ManualContext(SuperContext):
         return Utils.persistent_load().get("client", {}).get("last_manual_game", game_name)
 
     def get_location_alias_by_id(self, id) -> str|None:
+        # First we try to get it from slotdata for dynamic aliases
         alias = self.location_id_to_alias.get(str(id), None)
-        # Kept a fallback if its not in slotdata
+        # Secondly we try to get it from the world itself for a more static alias
         if alias is None and hasattr(AutoWorldRegister.world_types[self.game], "location_id_to_alias"):
             alias = AutoWorldRegister.world_types[self.game].location_id_to_alias.get(id, None)
         return alias
 
     def get_item_alias_by_id(self, id) -> str|None:
         alias = self.item_id_to_alias.get(str(id), None)
-        # Kept a fallback if its not in slotdata
         if alias is None and hasattr(AutoWorldRegister.world_types[self.game], "item_id_to_alias"):
             alias = AutoWorldRegister.world_types[self.game].item_id_to_alias.get(id, None)
         return alias
@@ -1337,7 +1337,6 @@ class ManualContext(SuperContext):
                 if location_id:
                     self.ctx.locations_scouted.append(location_id)
                     self.ctx.syncing = True
-                    # TODO Replace the scout button with the placeholder spacer to maintain 2-column grid structure (did not manage to make it work)
 
             def victory_button_callback(self, button: TreeViewButton):
                 # if the mouse is currently hovering over any of the controls/tabs at the top of the client, ignore clicks for location buttons underneath

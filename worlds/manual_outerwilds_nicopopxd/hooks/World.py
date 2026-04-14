@@ -62,7 +62,7 @@ def add_client_to_launcher() -> None:
         icon_paths["manual"] = Utils.user_path('data', 'manual.png')
 
     for c in components:
-        if c.display_name == "Manual Client Experimental":
+        if c.display_name == "Manual Client Nico's Experiment":
             found = True
             if getattr(c, "version", 0) < version:
                 c.version = version
@@ -70,7 +70,7 @@ def add_client_to_launcher() -> None:
                 c.icon = "manual"
 
     if not found:
-        components.append(VersionedComponent("Manual Client Experimental", "ManualClient", func=launch_client, version=version, file_identifier=SuffixIdentifier('.apmanual'), icon="manual"))
+        components.append(VersionedComponent("Manual Client Nico's Experiment", "ManualClient", func=launch_client, version=version, file_identifier=SuffixIdentifier('.apmanual'), icon="manual"))
 add_client_to_launcher()
 # endregion
 # Use this function to change the valid filler items to be created to replace item links or starting items.

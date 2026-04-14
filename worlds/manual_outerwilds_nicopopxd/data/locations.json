@@ -732,6 +732,7 @@
         {
             "name": "9 - Sleep",
             "alias": "Enter the DreamWorld",
+            "disabled": true,
             "region": "DreamWorld General",
             "category": [ "9 - DreamWorld General", "DLC - Eye" ],
             "id": 1000
@@ -766,63 +767,63 @@
             "remove_if_goal": "Ghosts_In_The_Machine%"
         },
         {
-            "name": "91 - Sleep",
+            "name": "9A - Sleep",
             "alias": "Enter the Shrouded Woodlands Dream",
             "region": "Shrouded Woodlands",
-            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ],
+            "category": [ "9A - Shrouded Woodlands", "DLC - Eye" ],
             "id": 1100
         },
         {
-            "name": "91 - Where do they come from?",
+            "name": "9A - Where do they come from?",
             "alias": "Find where the Wandering Owlks come from",
             "region": "Shrouded Woodlands",
-            "category": [ "91 - Shrouded Woodlands", "DLC - Eye", "DLC - Spooky" ]
+            "category": [ "9A - Shrouded Woodlands", "DLC - Eye", "DLC - Spooky" ]
         },
         {
-            "name": "91 - Where do they go?",
+            "name": "9A - Where do they go?",
             "alias": "Find where the Wandering Owlks are Going",
             "region": "Shrouded Woodlands",
-            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
+            "category": [ "9A - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
-            "name": "91 - Archive",
+            "name": "9A - Archive",
             "alias": "Get in the Forbidden Archive of the Shrouded Woodlands",
             "region": "Shrouded Woodlands Archive",
             "create_event": true,
             "requires": "(|Boat Patch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) )) or (|River Lowlands Flame| and |Ghost Wall Patch| and ((|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|))))",
-            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
+            "category": [ "9A - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
-            "name": "91 - Archive Watch",
+            "name": "9A - Archive Watch",
             "alias": "the Loading Glitch Slide",
             "region": "Shrouded Woodlands Archive",
-            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
+            "category": [ "9A - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
-            "name": "91 - Archive Burned",
+            "name": "9A - Archive Burned",
             "alias": "Discover the burned code",
             "region": "Shrouded Woodlands Archive",
-            "category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
+            "category": [ "9A - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
-            "name": "92 - Sleep",
+            "name": "9B - Sleep",
             "alias": "Enter the Starlit Cove Dream",
             "region": "Starlit Cove",
-            "category": [ "92 - Starlit Cove", "DLC - Eye" ],
+            "category": [ "9B - Starlit Cove", "DLC - Eye" ],
             "id": 1200
         },
         {
-            "name": "92 - Burned",
+            "name": "9B - Burned",
             "alias": "Visit the Burned Eye Church in the dream",
             "region": "Starlit Cove",
-            "category": [ "92 - Starlit Cove", "DLC - Eye" ]
+            "category": [ "9B - Starlit Cove", "DLC - Eye" ]
         },
         {
-            "name": "92 - Tower",
+            "name": "9B - Tower",
             "alias": "Get to the top of the Tower in the Starlit Cove",
             "region": "Starlit Cove",
             "requires": "|Door Candles Patch|",
-            "category": [ "92 - Starlit Cove", "DLC - Eye" ]
+            "category": [ "9B - Starlit Cove", "DLC - Eye" ]
         },
         {
             "name": "8 - Vault",
@@ -834,163 +835,163 @@
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
-            "name": "92 - Archive Safe",
-            "sort-key": "92 - Archive 1",
+            "name": "9B - Archive Safe",
+            "sort-key": "9B - Archive 1",
             "alias": "Lights on - Get in the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
             "create_event": true,
             "requires": "|Alarm Bypass Patch|",
             "dont_place_item_category": [ "2b Trap" ],
-            "category": [ "92 - Starlit Cove", "DLC - Eye" ]
+            "category": [ "9B - Starlit Cove", "DLC - Eye" ]
         },
         {
-            "name": "92 - Archive Spooky",
-            "sort-key": "92 - Archive 2",
+            "name": "9B - Archive Spooky",
+            "sort-key": "9B - Archive 2",
             "alias": "Lights out - Sneak in the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
             "create_event": true,
             "requires": "|Totem Hands Patch|",
             "dont_place_item_category": [ "2b Trap" ],
-            "category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
+            "category": [ "9B - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
         },
         {
-            "name": "92 - Archive Both",
-            "sort-key": "92 - Archive 3",
-            "alias": "92 - Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
+            "name": "9B - Archive Both",
+            "sort-key": "9B - Archive 3",
+            "alias": "9B - Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
-            "requires": "{Event(92 - Archive Safe)} and {Event(92 - Archive Spooky)}",
-            "category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
+            "requires": "{Event(9B - Archive Safe)} and {Event(9B - Archive Spooky)}",
+            "category": [ "9B - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
         },
 
         {
-            "name": "92 - Archive Watch",
+            "name": "9B - Archive Watch",
             "alias": "the Death Glitch Slide",
             "region": "Starlit Cove Archive",
             "requires": "",
-            "category": [ "92 - Starlit Cove", "DLC - Eye" ]
+            "category": [ "9B - Starlit Cove", "DLC - Eye" ]
         },
         {
-            "name": "92 - Archive Burned",
+            "name": "9B - Archive Burned",
             "alias": "Discover the burned code",
             "region": "Starlit Cove Archive",
             "requires": "",
-            "category": [ "92 - Starlit Cove", "DLC - Eye" ]
+            "category": [ "9B - Starlit Cove", "DLC - Eye" ]
         },
         {
-            "name": "93 - Sleep",
+            "name": "9C - Sleep",
             "alias": "Enter the Endless Canyon Dream",
             "region": "Endless Canyon",
-            "category": [ "93 - Endless Canyon", "DLC - Eye" ],
+            "category": [ "9C - Endless Canyon", "DLC - Eye" ],
             "id": 1300
         },
         {
-            "name": "93 - Music",
+            "name": "9C - Music",
             "alias": "Find the Stage with the 2 musical instruments",
             "region": "Endless Canyon",
-            "category": [ "93 - Endless Canyon", "DLC - Eye" ]
+            "category": [ "9C - Endless Canyon", "DLC - Eye" ]
         },
         {
-            "name": "93 - Bridge Safe",
+            "name": "9C - Bridge Safe",
             "alias": "Lights on - Make the bridge appear inside the mansion",
             "region": "Endless Canyon",
-            "category": [ "93 - Endless Canyon", "DLC - Eye" ],
+            "category": [ "9C - Endless Canyon", "DLC - Eye" ],
             "requires": "|Totem Hands Patch|"
         },
         {
-            "name": "93 - Bridge Spooky",
+            "name": "9C - Bridge Spooky",
             "alias": "Lights out - Make the bridge appear inside the mansion",
             "region": "Endless Canyon",
-            "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ],
+            "category": [ "9C - Endless Canyon", "DLC - Eye", "DLC - Spooky" ],
             "requires": "|Totem Hands Patch| and (|Limbo Patch| or |Ghost Wall Patch|)"
         },
         {
-            "name": "93 - Spooky Yahaha!",
-            "alias": "93 - Lights out - Get the 1 / 900 achievement",
+            "name": "9C - Spooky Yahaha!",
+            "alias": "9C - Lights out - Get the 1 / 900 achievement",
             "region": "Endless Canyon",
             "requires": "|Limbo Patch| or (|Ghost Wall Patch| and ( |Limbo Patch| or |Totem Hands Patch|))",
-            "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
+            "category": [ "9C - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
         },
         {
-            "name": "93 - Archive Safe",
-            "sort-key": "93 - Archive 1",
+            "name": "9C - Archive Safe",
+            "sort-key": "9C - Archive 1",
             "alias": "Sneak the easy way in the Forbidden Archive of the Endless Canyon",
             "region": "Endless Canyon Archive",
             "create_event": true,
             "requires": "|Limbo Patch|",
             "dont_place_item_category": [ "2b Trap" ],
-            "category": [ "93 - Endless Canyon", "DLC - Eye" ]
+            "category": [ "9C - Endless Canyon", "DLC - Eye" ]
         },
         {
-            "name": "93 - Archive Spooky",
-            "sort-key": "93 - Archive 2",
+            "name": "9C - Archive Spooky",
+            "sort-key": "9C - Archive 2",
             "alias": "Sneak the long way in the Forbidden Archive of the Endless Canyon",
             "region": "Endless Canyon Archive",
             "create_event": true,
             "requires": "(|Limbo Patch| or |Ghost Wall Patch|) and |Totem Hands Patch|",
             "dont_place_item_category": [ "2b Trap" ],
-            "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
+            "category": [ "9C - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
         },
         {
-            "name": "93 - Archive Both",
-            "sort-key": "93 - Archive 3",
+            "name": "9C - Archive Both",
+            "sort-key": "9C - Archive 3",
             "alias": "Bonus item if you go in both ways to the Forbidden Archive of the Endless Canyon",
             "region": "Endless Canyon Archive",
-            "requires": "{Event(93 - Archive Safe)} and {Event(93 - Archive Spooky)}",
-            "category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
+            "requires": "{Event(9C - Archive Safe)} and {Event(9C - Archive Spooky)}",
+            "category": [ "9C - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
         },
         {
-            "name": "93 - Archive Watch",
+            "name": "9C - Archive Watch",
             "alias": "the Render Glitch Slide",
             "region": "Endless Canyon Archive",
             "requires": "",
-            "category": [ "93 - Endless Canyon", "DLC - Eye" ]
+            "category": [ "9C - Endless Canyon", "DLC - Eye" ]
         },
         {
-            "name": "93 - Archive Burned",
+            "name": "9C - Archive Burned",
             "alias": "Discover the burned code",
             "region": "Endless Canyon Archive",
             "requires": "|Limbo Patch|",
-            "category": [ "93 - Endless Canyon", "DLC - Eye" ]
+            "category": [ "9C - Endless Canyon", "DLC - Eye" ]
         },
         {
-            "name": "94 - Sleep",
+            "name": "9D - Sleep",
             "alias": "Enter the Subterranean Lake Dream",
             "region": "Subterranean Lake",
-            "category": [ "94 - Subterranean Lake", "DLC - Eye" ],
+            "category": [ "9D - Subterranean Lake", "DLC - Eye" ],
             "id": 1400
         },
         {
-            "name": "94 - Lock A",
+            "name": "9D - Lock A",
             "alias": "Disable the first lock on the vault",
             "create_event": true,
             "region": "Subterranean Lake",
             "requires": "|Limbo Patch|",
-            "category": [ "94 - Subterranean Lake", "DLC - Eye" ]
+            "category": [ "9D - Subterranean Lake", "DLC - Eye" ]
         },
         {
-            "name": "94 - Lock B",
+            "name": "9D - Lock B",
             "alias": "Disable the second lock on the vault",
             "create_event": true,
             "region": "Subterranean Lake",
             "requires": "(|Boat Patch| and (|River Lowlands Flame| or |Cinder Isles Flame| or |Hidden Gorge Flame|)) or |Datamined Code:2|",
-            "category": [ "94 - Subterranean Lake", "DLC - Eye" ]
+            "category": [ "9D - Subterranean Lake", "DLC - Eye" ]
         },
         {
-            "name": "94 - Lock C",
+            "name": "9D - Lock C",
             "alias": "Disable the third lock on the vault",
             "create_event": true,
             "region": "Subterranean Lake",
             "requires": "|Alarm Bypass Patch| or |Datamined Code:3|",
-            "category": [ "94 - Subterranean Lake", "DLC - Eye" ]
+            "category": [ "9D - Subterranean Lake", "DLC - Eye" ]
         },
         {
-            "name": "94 - Vault",
+            "name": "9D - Vault",
             "alias": "Enter the Sealed Vault in the Subterranean Lake Dream",
             "region": "Subterranean Lake",
             "create_event": true,
-            "requires": "{Event(94 - Lock A)} and {Event(94 - Lock B)} and {Event(94 - Lock C)}",
+            "requires": "{Event(9D - Lock A)} and {Event(9D - Lock B)} and {Event(9D - Lock C)}",
             "_requires": "(|Datamined Code:3| and |Limbo Patch|) or (|Datamined Code:2| and |Limbo Patch| and |Alarm Bypass Patch|) or (|Boat Patch| and |Limbo Patch| and |Alarm Bypass Patch|)",
-            "category": [ "94 - Subterranean Lake", "DLC - Eye" ],
+            "category": [ "9D - Subterranean Lake", "DLC - Eye" ],
             "dont_place_item_category": [ "2b Trap" ],
             "remove_if_goal": "Prisoner%"
         },
@@ -1018,8 +1019,8 @@
             "name": "Prisoner%",
             "alias": "Talk to the prisoner in the vault",
             "region": "Subterranean Lake",
-            "requires": "{GoalPlus()} and {Event(94 - Lock A)} and {Event(94 - Lock B)} and {Event(94 - Lock C)}",
-            "category": ["0 - Finale", "94 - Subterranean Lake"],
+            "requires": "{GoalPlus()} and {Event(9D - Lock A)} and {Event(9D - Lock B)} and {Event(9D - Lock C)}",
+            "category": ["0 - Finale", "9D - Subterranean Lake"],
             "victory": true
         },
         {

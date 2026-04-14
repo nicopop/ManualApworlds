@@ -41,7 +41,7 @@ def GoalPlus(world: "ManualWorld") -> str:
     if world.options.require_solanum.value:
         needed.append(Event("6 - Travel"))
     if world.options.require_prisoner.value and world.options.goal.value != Goal.alias_prisoner:
-        needed.append(Event("94 - Vault"))
+        needed.append(Event("9D - Vault"))
     return " and ".join(needed) or "1"
 
 def GoalPlusRule(world: "ManualWorld") -> str:

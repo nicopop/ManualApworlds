@@ -124,7 +124,7 @@
   },
   "All Archive": {
     "_requires": "((|Boat Patch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) )) or (|River Lowlands Flame| and |Ghost Wall Patch| and ((|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|))))) and ((|Door Candles Patch| and |Alarm Bypass Patch|) or (|Door Candles Patch| and |Totem Hands Patch|)) and (|Limbo Patch| or (|Ghost Wall Patch| and |Totem Hands Patch|))",
-    "requires": "{Event(91 - Archive)} and ({Event(92 - Archive Safe)} or {Event(92 - Archive Spooky)}) and ({Event(93 - Archive Safe)} or {Event(93 - Archive Spooky)})",
+    "requires": "{Event(9A - Archive)} and ({Event(9B - Archive Safe)} or {Event(9B - Archive Spooky)}) and ({Event(9C - Archive Safe)} or {Event(9C - Archive Spooky)})",
     "connects_to": []
   },
   "Subterranean Lake": {

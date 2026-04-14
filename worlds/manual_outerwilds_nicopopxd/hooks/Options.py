@@ -221,17 +221,22 @@ class Goal(ChoiceIsRandom):
         return value in cls.dlc_options
 
     def getRDMvalue(self, world: "ManualWorld", filter_dlc = False) -> int|None:
-        randoms = self.randomized
+        randoms: bool|list[int]|list[str] = self.randomized
 
         if isinstance(randoms, bool):
-            randoms = list(self.get_clean_values().values())
+            randoms = list(self.get_clean_values().keys())
+        elif isinstance(randoms, list):
+            randoms = [self.options[o] for o in randoms]
 
         if filter_dlc:
-            randoms = cast(list[str], [o for o in randoms if not self.isThisValueInDLC(self.options[o])])
+            randoms = [o for o in randoms if not self.isThisValueInDLC(o)]
+
+        if self.alias_standard in randoms:
+            randoms.remove(self.alias_standard)
 
         if not randoms:
             return None
-        return self.options[world.random.choice(randoms)]
+        return world.random.choice(randoms)
 
 class ApWorldVersion(FreeText):
     """Do not change this, it will get set to the apworld version"""

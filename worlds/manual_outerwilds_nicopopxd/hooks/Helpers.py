@@ -60,6 +60,9 @@ def checkobject(multiworld: MultiWorld, player: int, obj: dict[str, Any]) -> Opt
     if world is not None and not hasattr(world, 'categoryInit'):
         InitCategories(world, player)
 
+    if obj.get("disabled") == True:
+        return False
+
     if obj.get("remove_if_goal"):
         value: str = obj["remove_if_goal"]
         reverse = False

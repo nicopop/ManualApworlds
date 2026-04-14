@@ -346,7 +346,6 @@
             "name": "4 - Cannon",
             "alias": "Get in the Orbital Cannon",
             "region": "Giant's Deep InShip",
-            "requires": "|SpaceSuit|",
             "category": [ "4 - Giant's Deep", "Base Game" ],
             "id": 400
         },
@@ -396,6 +395,7 @@
         {
             "name": "4 - Display",
             "sort-key": "4 - Depths C",
+            "scoutable": true,
             "alias": "See the Coords in the Probe Tracking Module",
             "region": "Giant's Deep InShip",
             "create_event": true,
@@ -476,6 +476,7 @@
             "alias": "Explore the Sixth Location",
             "region": "Quantum Moon",
             "create_event": true,
+            "scoutable": true,
             "category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ],
             "requires": "|SpaceSuit| and |Quantum Rule > B| and |Quantum Rule > C|",
             "dont_place_item_category": [ "2b Trap" ]
@@ -555,6 +556,7 @@
         {
             "name": "8 - Ship",
             "alias": "Get in the stranger",
+            "sort-key": "00000",
             "create_event": true,
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
@@ -576,12 +578,14 @@
         {
             "name": "8 - Surf",
             "alias": "Ride the wave for more than 5 seconds",
+            "sort-key": "8 - Boat A",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
         {
             "name": "8 - Circle",
             "alias": "Do a full loop on the boat in less than 2 minutes",
+            "sort-key": "8 - Boat B",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
@@ -594,6 +598,7 @@
         {
             "name": "8 - Watch A",
             "alias": "a slide in River Lowlands",
+            "sort-key": "1 Watch A",
             "region": "The Stranger",
             "requires": "|Stranger Projectors|",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
@@ -601,6 +606,7 @@
         {
             "name": "8 - Watch B",
             "alias": "a slide in Cinder Isles",
+            "sort-key": "1 Watch B",
             "region": "The Stranger",
             "requires": "|Stranger Projectors|",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
@@ -614,6 +620,7 @@
         {
             "name": "8 - Watch C",
             "alias": "a slide in Hidden Gorge",
+            "sort-key": "1 Watch C",
             "region": "The Stranger",
             "requires": "|Stranger Projectors|",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
@@ -642,6 +649,7 @@
         {
             "name": "8 - Watch D",
             "alias": "the hull anomaly slide in the Hidden Gorge",
+            "sort-key": "1 Watch D",
             "region": "The Stranger",
             "requires": "|Stranger Projectors| and |Scout| and |Photos|",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
@@ -650,6 +658,7 @@
         {
             "name": "8 - Watch E",
             "alias": "the slide in the reservoir",
+            "sort-key": "1 Watch E",
             "region": "The Stranger",
             "requires": "|Stranger Projectors|",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
@@ -733,6 +742,7 @@
             "name": "9 - Sleep",
             "alias": "Enter the DreamWorld",
             "disabled": true,
+            "sort-key": "0000",
             "region": "DreamWorld General",
             "category": [ "9 - DreamWorld General", "DLC - Eye" ],
             "id": 1000
@@ -762,6 +772,7 @@
             "name": "9 - All Archives",
             "alias": "In a loop visit all 3 archive without getting caught",
             "region": "All Archive",
+            "scoutable": true,
             "requires": "",
             "category": [ "9 - DreamWorld General", "DLC - Eye" ],
             "remove_if_goal": "Ghosts_In_The_Machine%"
@@ -769,6 +780,7 @@
         {
             "name": "9A - Sleep",
             "alias": "Enter the Shrouded Woodlands Dream",
+            "sort-key": "0000",
             "region": "Shrouded Woodlands",
             "category": [ "9A - Shrouded Woodlands", "DLC - Eye" ],
             "id": 1100
@@ -787,6 +799,7 @@
         },
         {
             "name": "9A - Archive",
+            "sort-key": "9A - Z Archive 1",
             "alias": "Get in the Forbidden Archive of the Shrouded Woodlands",
             "region": "Shrouded Woodlands Archive",
             "create_event": true,
@@ -795,12 +808,14 @@
         },
         {
             "name": "9A - Archive Watch",
+            "sort-key": "9A - Z Archive 2",
             "alias": "the Loading Glitch Slide",
             "region": "Shrouded Woodlands Archive",
             "category": [ "9A - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
             "name": "9A - Archive Burned",
+            "sort-key": "9A - Z Archive 3",
             "alias": "Discover the burned code",
             "region": "Shrouded Woodlands Archive",
             "category": [ "9A - Shrouded Woodlands", "DLC - Eye" ]
@@ -808,6 +823,7 @@
         {
             "name": "9B - Sleep",
             "alias": "Enter the Starlit Cove Dream",
+            "sort-key": "0000",
             "region": "Starlit Cove",
             "category": [ "9B - Starlit Cove", "DLC - Eye" ],
             "id": 1200
@@ -836,7 +852,7 @@
         },
         {
             "name": "9B - Archive Safe",
-            "sort-key": "9B - Archive 1",
+            "sort-key": "9B - Z Archive 1",
             "alias": "Lights on - Get in the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
             "create_event": true,
@@ -846,7 +862,7 @@
         },
         {
             "name": "9B - Archive Spooky",
-            "sort-key": "9B - Archive 2",
+            "sort-key": "9B - Z Archive 2",
             "alias": "Lights out - Sneak in the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
             "create_event": true,
@@ -856,7 +872,7 @@
         },
         {
             "name": "9B - Archive Both",
-            "sort-key": "9B - Archive 3",
+            "sort-key": "9B - Z Archive 3",
             "alias": "9B - Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
             "requires": "{Event(9B - Archive Safe)} and {Event(9B - Archive Spooky)}",
@@ -865,6 +881,7 @@
 
         {
             "name": "9B - Archive Watch",
+            "sort-key": "9B - Z Archive 4",
             "alias": "the Death Glitch Slide",
             "region": "Starlit Cove Archive",
             "requires": "",
@@ -872,6 +889,7 @@
         },
         {
             "name": "9B - Archive Burned",
+            "sort-key": "9B - Z Archive 5",
             "alias": "Discover the burned code",
             "region": "Starlit Cove Archive",
             "requires": "",
@@ -880,6 +898,7 @@
         {
             "name": "9C - Sleep",
             "alias": "Enter the Endless Canyon Dream",
+            "sort-key": "0000",
             "region": "Endless Canyon",
             "category": [ "9C - Endless Canyon", "DLC - Eye" ],
             "id": 1300
@@ -913,7 +932,7 @@
         },
         {
             "name": "9C - Archive Safe",
-            "sort-key": "9C - Archive 1",
+            "sort-key": "9C - Z Archive 1",
             "alias": "Sneak the easy way in the Forbidden Archive of the Endless Canyon",
             "region": "Endless Canyon Archive",
             "create_event": true,
@@ -923,7 +942,7 @@
         },
         {
             "name": "9C - Archive Spooky",
-            "sort-key": "9C - Archive 2",
+            "sort-key": "9C - Z Archive 2",
             "alias": "Sneak the long way in the Forbidden Archive of the Endless Canyon",
             "region": "Endless Canyon Archive",
             "create_event": true,
@@ -933,7 +952,7 @@
         },
         {
             "name": "9C - Archive Both",
-            "sort-key": "9C - Archive 3",
+            "sort-key": "9C - Z Archive 3",
             "alias": "Bonus item if you go in both ways to the Forbidden Archive of the Endless Canyon",
             "region": "Endless Canyon Archive",
             "requires": "{Event(9C - Archive Safe)} and {Event(9C - Archive Spooky)}",
@@ -941,6 +960,7 @@
         },
         {
             "name": "9C - Archive Watch",
+            "sort-key": "9C - Z Archive 4",
             "alias": "the Render Glitch Slide",
             "region": "Endless Canyon Archive",
             "requires": "",
@@ -948,6 +968,7 @@
         },
         {
             "name": "9C - Archive Burned",
+            "sort-key": "9C - Z Archive 5",
             "alias": "Discover the burned code",
             "region": "Endless Canyon Archive",
             "requires": "|Limbo Patch|",
@@ -956,6 +977,7 @@
         {
             "name": "9D - Sleep",
             "alias": "Enter the Subterranean Lake Dream",
+            "sort-key": "0000",
             "region": "Subterranean Lake",
             "category": [ "9D - Subterranean Lake", "DLC - Eye" ],
             "id": 1400
@@ -964,6 +986,7 @@
             "name": "9D - Lock A",
             "alias": "Disable the first lock on the vault",
             "create_event": true,
+            "scoutable": true,
             "region": "Subterranean Lake",
             "requires": "|Limbo Patch|",
             "category": [ "9D - Subterranean Lake", "DLC - Eye" ]
@@ -972,6 +995,7 @@
             "name": "9D - Lock B",
             "alias": "Disable the second lock on the vault",
             "create_event": true,
+            "scoutable": true,
             "region": "Subterranean Lake",
             "requires": "(|Boat Patch| and (|River Lowlands Flame| or |Cinder Isles Flame| or |Hidden Gorge Flame|)) or |Datamined Code:2|",
             "category": [ "9D - Subterranean Lake", "DLC - Eye" ]
@@ -980,6 +1004,7 @@
             "name": "9D - Lock C",
             "alias": "Disable the third lock on the vault",
             "create_event": true,
+            "scoutable": true,
             "region": "Subterranean Lake",
             "requires": "|Alarm Bypass Patch| or |Datamined Code:3|",
             "category": [ "9D - Subterranean Lake", "DLC - Eye" ]
@@ -989,6 +1014,7 @@
             "alias": "Enter the Sealed Vault in the Subterranean Lake Dream",
             "region": "Subterranean Lake",
             "create_event": true,
+            "scoutable": true,
             "requires": "{Event(9D - Lock A)} and {Event(9D - Lock B)} and {Event(9D - Lock C)}",
             "_requires": "(|Datamined Code:3| and |Limbo Patch|) or (|Datamined Code:2| and |Limbo Patch| and |Alarm Bypass Patch|) or (|Boat Patch| and |Limbo Patch| and |Alarm Bypass Patch|)",
             "category": [ "9D - Subterranean Lake", "DLC - Eye" ],

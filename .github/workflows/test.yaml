@@ -17,9 +17,9 @@ jobs:
         with:
           filters: |
             outerwilds:
-              - 'worlds/manual_outerwilds_nicopopxd/**'
+              - 'worlds/manual_outerwilds_nicopopxd/**/!(*.md)'
             plateup:
-              - 'worlds/manual_plateup_nicopopxd/**'
+              - 'worlds/manual_plateup_nicopopxd/**/!(*.md)'
 
       - uses: Eijebong/ap-actions/ap-tests@main
         name: Test manual_outerwilds_nicopopxd

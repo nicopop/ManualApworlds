@@ -21,8 +21,7 @@ Last-Updated 2026-04-14 (yyyy-mm-dd)
  / [Switch](https://www.nintendo.com/en-ca/store/products/outer-wilds-switch/))
 
 - The latest stable [Archipelago Launcher](https://archipelago.gg/)
-- [Universal Tracker](https://discord.com/channels/731205301247803413/1367270230635839539)
-  - An apworld that shows you what location you can go to in real time
+- [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases?q=Tracker)
 
 ## Optional Software
 
@@ -72,11 +71,10 @@ Install those from the Mod Manager:
 Make sure a copy of the Manual world is in the custom_worlds directory of your client-side installation.
 For more general information on this Apworld check the [Guide (Webhost)](/games/Manual_OuterWilds_Nicopopxd/info/en)/ [Guide (Github)](en_Manual_OuterWilds_Nicopopxd.md)
 
-1. Open the link in [Required Software](#required-software) or using this [direct link](https://discord.com/channels/731205301247803413/1367270230635839539)
-2. Check the pins for the download of the version of archipelago you use
-3. Place the tracker.apworld in the *custom_worlds* folder of your archipelago install.
-4. Also place the manual_outerwilds_nicopopxd.apworld in that folder.
-5. Make sure a copy of your current player.yaml is in the *Players* folder of your archipelago install.
+1. To download Universal tracker Open this [direct link](https://github.com/FarisTheAncient/Archipelago/releases?q=Tracker)
+   - it can also be found in the [#universal-tracker](https://discord.com/channels/731205301247803413/1367270230635839539) channel of the Archipelago Official Discord.
+2. Place the tracker.apworld in the *custom_worlds* folder of your archipelago install.
+3. Also place the manual_outerwilds_nicopopxd.apworld that you can find in the [release page on github](https://github.com/nicopop/ManualApworlds/releases?q=Manual_OuterWilds_Nicopopxd&expanded=true) in that folder.
 
 ### Optional installs
 

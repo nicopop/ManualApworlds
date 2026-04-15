@@ -21,7 +21,7 @@ Last-Updated 2026-04-14 (yyyy-mm-dd)
  / [Switch](https://www.nintendo.com/en-ca/store/products/outer-wilds-switch/))
 
 - The latest stable [Archipelago Launcher](https://archipelago.gg/)
-- [Universal Tracker](https://discord.com/channels/731205301247803413/1367270230635839539)*
+- [Universal Tracker](https://discord.com/channels/731205301247803413/1367270230635839539)
   - An apworld that shows you what location you can go to in real time
 
 ## Optional Software
@@ -69,8 +69,14 @@ Install those from the Mod Manager:
 
 ## Installation Procedures
 
-Make sure a copy of the Manual world is in the lib/world directory of your client-side installation.
+Make sure a copy of the Manual world is in the custom_worlds directory of your client-side installation.
 For more general information on this Apworld check the [Guide (Webhost)](/games/Manual_OuterWilds_Nicopopxd/info/en)/ [Guide (Github)](en_Manual_OuterWilds_Nicopopxd.md)
+
+1. Open the link in [Required Software](#required-software) or using this [direct link](https://discord.com/channels/731205301247803413/1367270230635839539)
+2. Check the pins for the download of the version of archipelago you use
+3. Place the tracker.apworld in the *custom_worlds* folder of your archipelago install.
+4. Also place the manual_outerwilds_nicopopxd.apworld in that folder.
+5. Make sure a copy of your current player.yaml is in the *Players* folder of your archipelago install.
 
 ### Optional installs
 
@@ -89,29 +95,13 @@ or you can search for them by name at the top of the Mod tab
 7. Once you have all the mods you want press the Start Game button at the top, it will enable all the mods  
 you installed and after that you'll only need to start from the Mod Manager when you add/remove/update mods
 
-#### Universal Tracker install
-
-1. Open the link in [Required Software](#required-software) or using this [direct link](https://discord.com/channels/731205301247803413/1367270230635839539)
-2. Check the pins for the download of the version of archipelago you use, at the time of writing its 0.4.3. (nov 18)
-3. Place the tracker.apworld in the *custom_worlds* folder of your archipelago install.
-    - ([ArchipellagoFolder]\lib\worlds or \worlds if using dev version of archipelago)
-4. Also place the manual_outerwilds_nicopopxd.apworld in the world folder if its not there already.
-5. Make sure a copy of your current player.yaml is in the *Players* folder of your archipelago install.
-
 ## Joining a MultiWorld Game
 
 1. Launch the launcher.
-2. Click on Manual client on the right.
+2. Click on Manual client.
 3. At the top enter your server's ip with the port provided (by default archipelago.gg:38281).
-4. In Manual Game ID put "Manual_OuterWilds_Nicopopxd" then press the Connect button on the top right.
+4. In Manual Game ID select "Manual_OuterWilds_Nicopopxd" then press the Connect button on the top right.
 5. In the command field at the bottom enter the name of your slot you chose in your Player.yaml then press enter.
-
-### Universal Tracker
-
-1. Open the Archipelago Launcher
-2. Click on the Universal Tracker button
-3. At the top enter your server's ip with the port provided (by default archipelago.gg:38281).
-4. In the command field at the bottom enter the name of your slot you chose in your Player.yaml then press enter.
 
 ## Manual Client
 

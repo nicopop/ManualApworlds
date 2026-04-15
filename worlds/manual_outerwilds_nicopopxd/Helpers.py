@@ -1,19 +1,18 @@
 import ast
 import csv
-import os
 import pkgutil
 import json
+import re
 
-from BaseClasses import MultiWorld, Item
+from BaseClasses import MultiWorld, Item, ItemClassification
 from enum import IntEnum
-from typing import Optional, List, TYPE_CHECKING, Union, get_args, get_origin, Any
+from typing import Optional, List, Union, get_args, get_origin, Any, TYPE_CHECKING
 from types import GenericAlias
 from worlds.AutoWorld import World
-from .hooks.Helpers import before_is_category_enabled, before_is_item_enabled, before_is_location_enabled
+from .hooks.Helpers import before_is_category_enabled, before_is_item_enabled, before_is_location_enabled, before_is_event_enabled
 
 if TYPE_CHECKING:
-    from .Items import ManualItem
-    from .Locations import ManualLocation
+    from . import ManualWorld
 
 # blatantly copied from the minecraft ap world because why not
 def load_data_file(*args) -> dict:
@@ -87,7 +86,7 @@ def is_item_name_enabled(multiworld: MultiWorld, player: int, item_name: str) ->
 
     return is_item_enabled(multiworld, player, item)
 
-def is_item_enabled(multiworld: MultiWorld, player: int, item: "ManualItem") -> bool:
+def is_item_enabled(multiworld: MultiWorld, player: int, item: dict[str, Any]) -> bool:
     """Check if an item has been disabled by a yaml option."""
     hook_result = before_is_item_enabled(multiworld, player, item)
     if hook_result is not None:
@@ -103,7 +102,7 @@ def is_location_name_enabled(multiworld: MultiWorld, player: int, location_name:
 
     return is_location_enabled(multiworld, player, location)
 
-def is_location_enabled(multiworld: MultiWorld, player: int, location: "ManualLocation") -> bool:
+def is_location_enabled(multiworld: MultiWorld, player: int, location: dict[str, Any]) -> bool:
     """Check if a location has been disabled by a yaml option."""
     hook_result = before_is_location_enabled(multiworld, player, location)
     if hook_result is not None:
@@ -111,7 +110,15 @@ def is_location_enabled(multiworld: MultiWorld, player: int, location: "ManualLo
 
     return _is_manualobject_enabled(multiworld, player, location)
 
-def _is_manualobject_enabled(multiworld: MultiWorld, player: int, object: Any) -> bool:
+def is_event_enabled(multiworld: MultiWorld, player: int, event: dict[str, Any]) -> bool:
+    """Check if an event has been disabled by a yaml option."""
+    hook_result = before_is_event_enabled(multiworld, player, event)
+    if hook_result is not None:
+        return hook_result
+
+    return _is_manualobject_enabled(multiworld, player, event)
+
+def _is_manualobject_enabled(multiworld: MultiWorld, player: int, object: dict[str, Any]) -> bool:
     """Internal method: Check if a Manual Object has any category disabled by a yaml option.
     \nPlease use the proper is_'item/location'_enabled or is_'item/location'_name_enabled methods instead.
     """
@@ -130,17 +137,17 @@ def get_items_for_player(multiworld: MultiWorld, player: int, includePrecollecte
         items.extend(multiworld.precollected_items.get(player, []))
     return items
 
-def reset_specific_item_value_cache_for_player(world: World, value: str, player: Optional[int] = None) -> dict[str, int]:
+def reset_specific_item_value_cache_for_player(world: "ManualWorld", value: str, player: Optional[int] = None) -> dict[str, int]:
     if player is None:
         player = world.player
     return world.item_values[player].pop(value, {})
 
-def reset_item_value_cache_for_player(world: World, player: Optional[int] = None):
+def reset_item_value_cache_for_player(world: "ManualWorld", player: Optional[int] = None):
     if player is None:
         player = world.player
     world.item_values[player] = {}
 
-def get_items_with_value(world: World, multiworld: MultiWorld, value: str, player: Optional[int] = None, skipCache: bool = False) -> dict[str, int]:
+def get_items_with_value(world: "ManualWorld", multiworld: MultiWorld, value: str, player: Optional[int] = None, skipCache: bool = False) -> dict[str, int]:
     """Return a dict of every items with a specific value type present in their respective 'value' dict\n
     Output in the format 'Item Name': 'value count'\n
     Keep a cache of the result, it can be skipped with 'skipCache == True'\n
@@ -210,10 +217,34 @@ def convert_to_long_string(input: str | list[str]) -> str:
 
 def format_to_valid_identifier(input: str) -> str:
     """Make sure the input is a valid python identifier"""
+    from keyword import iskeyword
     input = input.strip()
-    if input[:1].isdigit():
+    if input.isidentifier() and not iskeyword(input):
+        return input
+
+    if iskeyword(input):
         input = "_" + input
-    return input.replace(" ", "_")
+        # if its already a valid keyword no need to check all its characters
+        return input
+
+    if input[:1].isdecimal():
+        input = "_" + input
+
+    input = "".join([c if f"_{c}".isidentifier() else "_" for c in input])
+
+    return input
+
+def remove_specific_item(source: list[Item], item: Item) -> Item:
+    """Remove and return an item from a list in a more precise way, base AP only check for name and player id before removing.
+    \nThis checks that the item IS the exact same in the list.
+    \nRaise ValueError if the item is not in the list."""
+    # Inspired by https://stackoverflow.com/a/58761459
+    for i in range(len(source)): # check all elements of the list like a normal remove does
+        if item is source[i]:
+            return source.pop(i)
+
+    # if we reach here we didn't get any item
+    raise ValueError(f"Item '{item.name}' could not be found in source list")
 
 class ProgItemsCat(IntEnum):
     VALUE = 1
@@ -231,6 +262,25 @@ def format_state_prog_items_key(category: str|ProgItemsCat ,key: str) -> str:
         cat_key = category.name
 
     return f"MANUAL_{cat_key}_{format_to_valid_identifier(key.lower())}"
+
+def convert_string_to_itemclassification(string: str) ->  ItemClassification:
+    def stringCheck(string):
+        if string.isdigit():
+            true_class = ItemClassification(int(string))
+        elif string.startswith('0b'):
+            true_class = ItemClassification(int(string, base=0))
+        else:
+            true_class = ItemClassification[string]
+        return true_class
+
+    if "+" in string or "," in string:
+        true_class = ItemClassification.filler
+        for substring in re.split(r'[+,]', string):
+            true_class |= stringCheck(substring.strip())
+
+    else:
+        true_class = stringCheck(string)
+    return true_class
 
 def convert_string_to_type(input: str, target_type: type) -> Any:
     """Take a string and attempt to convert it to {target_type}

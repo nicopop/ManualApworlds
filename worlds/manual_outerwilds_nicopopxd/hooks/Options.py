@@ -1,10 +1,12 @@
 # Object classes from AP that represent different types of options that you can create
-from Options import FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, NamedRange
-
+from Options import OptionError, Visibility, Option, FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice,\
+    Range, NamedRange, OptionGroup, PerGameCommonOptions, OptionSet
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
-from ..Helpers import is_option_enabled, get_option_value
-
-
+from typing import Type, Any, cast, Counter, TYPE_CHECKING, Collection
+import random
+from Generate import get_choice
+if TYPE_CHECKING:
+    from .. import ManualWorld
 
 ####################################################################
 # NOTE: At the time that options are created, Manual has no concept of the multiworld or its own world.
@@ -26,41 +28,130 @@ from ..Helpers import is_option_enabled, get_option_value
 # To add an option, use the before_options_defined hook below and something like this:
 #   options["total_characters_to_win_with"] = TotalCharactersToWinWith
 #
-#class TotalCharactersToWinWith(Range):
-#    """Instead of having to beat the game with all characters, you can limit locations to a subset of character victory locations."""
-#    display_name = "Number of characters to beat the game with before victory"
-#    range_start = 10
-#    range_end = 50
-#    default = 50
 
-class RequireSolanum(Toggle):
+class ChoiceIsRandom(Choice):
+    randomized: bool | list[str] = False
+    supports_weighting = False
+    display_name = "ChoiceIsRandom"
+    option_randomized = -42
+
+    def __init__(self, value: int, randomized: bool | list[str] = False):
+        super().__init__(value)
+        self.randomized = randomized
+
+    # Helper methods
+    @classmethod
+    def get_rdm_option_name(cls) -> str:
+        """Get the string representation of the "random" option value name"""
+        return cls.name_lookup[-42].removeprefix("option_")
+
+    @classmethod
+    def remove_random_pick(cls, data: dict[int, str]) -> dict[int, str]:
+        """Return the `data` dict with all its identified "random" values removed"""
+        return {i: v for i, v in data.items() if not cls.is_str_random(v)}
+
+    @classmethod
+    def get_clean_values(cls) -> dict[int, str]:
+        """Return original `cls.name_lookup` minus any random based option values"""
+        return cls.remove_random_pick(cls.name_lookup)
+
+    # Randomization detections methods grouped here for easy modification later
+    @classmethod
+    def is_str_random(cls, input: str) -> bool:
+        """Returns `True` if the input string is detected as "random" """
+        return input.startswith("random")
+
+    @classmethod
+    def is_random_in_list(cls, collection: Collection[str]) -> bool:
+        """Are any of the values in the collection detected as "random" """
+        return "random" in collection or cls.get_rdm_option_name() in collection
+
+    # Standard Option methods
+    @classmethod
+    def from_text(cls, text: str) -> Choice:
+        if cls.is_str_random(text):
+            return cls(random.choice(list(cls.get_clean_values())), True)
+        else:
+            return super().from_text(text)
+    @classmethod
+    def from_any(cls, data: Any) -> Choice:
+        if type(data) is str:
+            return cls.from_text(data)
+        elif type(data) is dict:
+            filtered = +Counter(data) # remove all zero values
+            randomized: bool|list = False
+            ret = cast(str, get_choice(cls.display_name, {cls.display_name: dict(filtered)}))
+            if cls.is_str_random(ret):
+                randomized = True
+            elif len(filtered) > 1:
+                if cls.is_random_in_list(filtered.keys()):
+                    randomized = True
+                else:
+                    randomized = list(filtered.keys())
+            return cls(int(cls.from_text(ret)), randomized)
+        elif type(data) is list:
+            randomized = False
+            ret = cast(str, get_choice(cls.display_name, {cls.display_name: data}))
+            if cls.is_str_random(ret):
+                randomized = True
+            elif len(data) > 1:
+                if cls.is_random_in_list(data):
+                    randomized = True
+                else:
+                    randomized = data
+            return cls(int(cls.from_text(ret)), randomized)
+        return super().from_any(data)
+
+class ToggleIsRandom(ChoiceIsRandom):
+    display_name = "ToggleIsRandom"
+    option_false = 0
+    option_true = 1
+
+    @classmethod
+    def from_text(cls, text: str) -> Choice:
+        if cls.is_str_random(text):
+            return cls(random.choice(list(cls.get_clean_values())), True)
+        elif text.lower() in {"off", "0", "false", "none", "null", "no", "disabled"}:
+            return cls(0)
+        elif text.lower() in {"on", "1", "true", "yes", "enabled"}:
+            return cls(1)
+        else:
+            raise OptionError(f"Option {cls.__name__} does not support a value of {text}")
+
+    @classmethod
+    def get_option_name(cls, value):
+        return {0: "No", 1: "Yes", -42: cls.get_rdm_option_name().capitalize()}[int(value)]
+class DefaultOnToggleIsRandom(ToggleIsRandom):
+    default = 1
+
+
+class RequireSolanum(ToggleIsRandom):
     """Do you want to require Talking to Solanum before you can win?"""
     display_name = "Require Talking to Solanum"
 
-class RequirePrisoner(Toggle):
+class RequirePrisoner(ToggleIsRandom):
     """Do you want to require Talking to the Prisoner before you can win?"""
+    automatically_disabled = False
     display_name = "Require Talking to the Prisoner"
-class do_spooks(DefaultOnToggle):
+class do_spooks(DefaultOnToggleIsRandom):
     """Do you want to enable some of the Spookier DLC locations?"""
-    display_name = "ReduceSpooks"
-class MainDlcKnowledge(Toggle):
-    """Should The main 2 dlc Progression items (stranger access and dreamworld access) be enabled?"""
+    display_name = "Enable Spooks"
+class MainDlcKnowledge(ToggleIsRandom):
+    """Should The main 2 dlc Progression items (stranger access and dreamworld access) be enabled?
+    AKA lock going to the Stranger and the Dream behind an "access" mcguffin item each
+    """
     display_name = "Enable Main 2 Dlc Access Items"
 
-class LocalPlacedItems(DefaultOnToggle):
+class LocalPlacedItems(DefaultOnToggleIsRandom):
     """Do you want some items to be predetermined to help with the flow of the game"""#todo find a better way to phrase this
     display_name = "Predetermined Local Items"
 
-class ShuffleSpacesuit(Toggle):
+class ShuffleSpacesuit(ToggleIsRandom):
     """Puts the spacesuit into the Archipelago item pool, forcing you to play suitless until it's found.
     This is a HIGHLY EXPERIMENTAL setting. Expect logic bugs. Feedback encouraged."""
     display_name = "Shuffle SpaceSuit"
 
-# class ShipKey(DefaultOnToggle):
-#     """Lock being able to move the ship behind this item, you still can grab the SpaceSuit and use it's jetpack but you can't take off with the ship"""
-#     display_name = "Ship Key Logic"
-
-class EarlyShipKey(Choice):
+class EarlyShipKey(ChoiceIsRandom):
     """Do you want the Ship Key to be located in the early game
     Leave it as startswith to disable the Ship Key logic"""
     display_name = "Ship Key Logic"
@@ -72,33 +163,32 @@ class EarlyShipKey(Choice):
     option_startswith = 4
     default = 4
 
-class RandomContent(Choice):
-    """What part of the game do you want to play + minimum content for your goal,
-    Base Game: disable the dlc
-    DLC: disable every base game locations except for those needed by the goal
-    both(default): everything's allowed
-    """
-    display_name = "Randomized content"
-    option_both = 0
-    alias_everything = 0
-    option_base_game = 1
-    alias_no_dlc = 1
-    alias_base = 1
-    option_dlc = 2
-    alias_only_dlc = 2
-    default = 0
+class RandomizeDLC(DefaultOnToggleIsRandom):
+    """Should the dlc location and items be enabled"""
+    display_name = "Randomize DLC"
 
-class BiggerSphere1(Toggle):
+class RandomizeBaseGame(DefaultOnToggleIsRandom):
+    """Should the base location and items be enabled
+    If an location/item is required for you goal it will be enabled"""
+    display_name = "Randomize Base Game"
+
+class RandomizeMod1(ToggleIsRandom):
+    """Should locations and item from mod X be enabled"""
+    display_name = "Randomize Mod X"
+    visibility = Visibility.none
+
+class BiggerSphere1(ToggleIsRandom):
     """when true remove the launch codes logic so Sphere 1 is bigger
     You will still need to talk to Hornfels to start the loop"""
     display_name = "Remove Launch codes"
 
-class ReverseTeleporter(Toggle):
+class ReverseTeleporter(ToggleIsRandom):
     """Turn this on if you want and use a mod to enable reverse teleporters,
     Warning No such mod exist as of writing this, and thus the logic is untested"""
     display_name = "Enable Reverse Teleporters Logic"
+    visibility = Visibility.none
 
-class Goal(Choice):
+class Goal(ChoiceIsRandom):
     """Where do you want to end,
     standard(default): for dlc only will end on prisoner, for base and base+dlc will end at the eye.
     Vanilla% aka eye: Will require going to the eye.
@@ -111,59 +201,121 @@ class Goal(Choice):
     DreamStuck% aka stuck_in_dream: Get the Adv. warp core to the Stranger and die to get to the Dreamworld.
     """
     display_name = "Goal"
-    option_standard = 0
-    alias_default = 0
-    option_eye = 1
-    option_prisoner = 2
-    option_visit_all_archive = 3
-    option_ash_twin_project_break_spacetime = 4
-    option_high_energy_lab_break_spacetime = 5
-    option_stuck_with_solanum = 6
-    option_stuck_in_stranger = 7
-    option_stuck_in_dream = 8
+    alias_standard = 0
+    alias_vanilla = 1
+    alias_prisoner = 2
+    alias_visit_all_archive = 3
+    alias_ash_twin_project_break_spacetime = 4
+    alias_high_energy_lab_break_spacetime = 5
+    alias_stuck_with_solanum = 6
+    alias_stuck_in_stranger = 7
+    alias_stuck_in_dream = 8
     default = 0
+
+    dlc_options = [alias_prisoner, alias_visit_all_archive, alias_stuck_in_stranger, alias_stuck_in_dream]
+
+    def isValueInDLC(self) -> bool:
+        return self.isThisValueInDLC(self.value)
+
+    @classmethod
+    def isThisValueInDLC(cls, value: int) -> bool:
+        return value in cls.dlc_options
+
+    def getRDMvalue(self, world: "ManualWorld", filter_dlc = False) -> int|None:
+        randoms: bool|list[int]|list[str] = self.randomized
+
+        if isinstance(randoms, bool):
+            randoms = list(self.get_clean_values().keys())
+        elif isinstance(randoms, list):
+            randoms = [self.options[o] for o in randoms]
+
+        if filter_dlc:
+            randoms = [o for o in randoms if not self.isThisValueInDLC(o)]
+
+        if self.alias_standard in randoms:
+            randoms.remove(self.alias_standard)
+
+        if not randoms:
+            return None
+        return world.random.choice(randoms)
+
+from ..Items import item_name_to_item
+from ..Game import filler_item_name
+removable_items = {n for n, item in item_name_to_item.items() if item.get("removable", True) and not item.get("disabled")}
+if filler_item_name in removable_items:
+    removable_items.remove(filler_item_name)
+class RemoveItems(OptionSet):
+    """WARNING CAN BREAK GENERATION: Specified items will be removed from the pool but not logic"""
+    display_name = "Remove Items"
+    valid_keys =  removable_items
+    visibility = Visibility.complex_ui | Visibility.spoiler
+
+from ..Locations import location_name_to_location
+removable_locations = {n for n, location in location_name_to_location.items() if location.get("removable", True) \
+    and not location.get("disabled") and not location.get("create_event") and not location.get("victory") \
+    and not set(location.get("category", [])).intersection(["do_launch_codes", "no_launch_codes", "do_place_item_category", "no_place_item_category"])}
+class RemoveLocation(OptionSet):
+    """WARNING CAN BREAK GENERATION: Specified locations will be removed from the world"""
+    display_name = "Remove Locations"
+    valid_keys = removable_locations
+    visibility = Visibility.complex_ui | Visibility.spoiler
 
 class ApWorldVersion(FreeText):
     """Do not change this, it will get set to the apworld version"""
     display_name = "Game Version (Detected)"
     default = "Should Be Detected"
+    visibility = Visibility.spoiler
 
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
-def before_options_defined(options: dict) -> dict:
-#    options["total_characters_to_win_with"] = TotalCharactersToWinWith
+def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, Type[Option[Any]]]:
     options["game_version"] = ApWorldVersion
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
-    options["enable_spooks"] = do_spooks #we'll need to talk on what need to be disabled/modified when this is enabled
+    options["enable_spooks"] = do_spooks
     options["remove_launch_codes"] = BiggerSphere1
     options["ship_key_logic"] = EarlyShipKey
     options["shuffle_spacesuit"] = ShuffleSpacesuit
     options["do_place_item_category"] = LocalPlacedItems
-    options["randomized_content"] = RandomContent
+    options["randomize_base_game"] = RandomizeBaseGame
+    options["randomize_dlc"] = RandomizeDLC
     options["dlc_access_items"] = MainDlcKnowledge
     options["reverse_teleporters"] = ReverseTeleporter
+    options["remove_items"] = RemoveItems
+    options["remove_locations"] = RemoveLocation
     return options
 
 # This is called after any manual options are defined, in case you want to see what options are defined or want to modify the defined options
-def after_options_defined(options: dict) -> dict:
-    # the generated goal option will not keep your defined values or documentation string you'll need to add them here:
-    # To automatically convert your own goal to alias of the generated goal uncomment this below and replace 'Goal' with your own option of type Choice
-    your_goal_class = Goal #Your Goal class here
-    generated_goal = options.get('goal', {})
-    if generated_goal and issubclass(your_goal_class, Choice) and not issubclass(generated_goal, your_goal_class):
-        goals = {'option_' + i: v for i, v in generated_goal.options.items() if i != 'default'}
-        for option, value in your_goal_class.options.items():
-            if option == 'default':
-                continue
-            goals[f"alias_{option}"] = value
-        options['goal'] = type('goal', (Choice,), goals)
-        options['goal'].default = your_goal_class.options.get('default', generated_goal.default)
-        options['goal'].__doc__ = your_goal_class.__doc__ or options['goal'].__doc__
-    return options
+def after_options_defined(options: Type[PerGameCommonOptions]):
+    # To access a modifiable version of options check the dict in options.type_hints
+    # For example if you want to change DLC_enabled's display name you would do:
+    # options.type_hints["DLC_enabled"].display_name = "New Display Name"
 
+    #  Here's an example on how to add your aliases to the generated goal
+    # options.type_hints['goal'].aliases.update({"example": 0, "second_alias": 1})
+    # options.type_hints['goal'].options.update({"example": 0, "second_alias": 1})  #for an alias to be valid it must also be in options
+    goal_gen_options = dict(options.type_hints['goal'].options)
+    goal_gen_name_lookup = dict(options.type_hints['goal'].name_lookup)
+    goal_gen_options_names = {a:v for a,v in dict(options.type_hints['goal'].__dict__).items() if a.startswith("option_")}
+    for option, value in goal_gen_options_names.items():
+        setattr(Goal, option, value)
+    options.type_hints['goal'] = Goal
+    options.type_hints['goal'].name_lookup.update(goal_gen_name_lookup)
+    options.type_hints['goal'].options.update(goal_gen_options)
+    options.type_hints['filler_traps'].range_end = 75
+    options.type_hints['filler_traps'].default = 20
+
+    pass
+
+# Use this Hook if you want to add your Option to an Option group (existing or not)
 def before_option_groups_created(groups: dict[str, list[Type[Option[Any]]]]) -> dict[str, list[Type[Option[Any]]]]:
+    groups["Randomized Content"] = [RandomizeBaseGame, RandomizeDLC, RandomizeMod1,]
+    groups["Goal Logic"] = [Goal, RequireSolanum, RequirePrisoner]
+    groups["Tweaks"] = [EarlyShipKey, BiggerSphere1, LocalPlacedItems, ShuffleSpacesuit, MainDlcKnowledge, do_spooks]
+    # Uses the format groups['GroupName'] = [TotalCharactersToWinWith]
     return groups
 
-
 def after_option_groups_created(groups: list[OptionGroup]) -> list[OptionGroup]:
+    for group in groups:
+        if group.name == 'Item & Location Options':
+            group.options.extend([RemoveItems, RemoveLocation])
     return groups

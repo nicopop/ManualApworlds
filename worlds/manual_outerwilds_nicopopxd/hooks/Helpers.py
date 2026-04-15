@@ -1,7 +1,6 @@
-from typing import Optional
-from BaseClasses import MultiWorld
-from ..Locations import ManualLocation
-from ..Items import ManualItem
+from typing import Optional, Any
+from BaseClasses import MultiWorld, Item, Location
+from worlds.AutoWorld import World
 
 
 # Use this if you want to override the default behavior of is_option_enabled
@@ -14,31 +13,68 @@ def before_is_category_enabled(multiworld: MultiWorld, player: int, category_nam
 
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the item, False to disable it, or None to use the default behavior
-def before_is_item_enabled(multiworld: MultiWorld, player: int, item: ManualItem) -> Optional[bool]:
-    if item.get('name','').endswith('Access') and 'DLC - Eye' in item.get('category', []):
-        return bool(multiworld.worlds[player].options.dlc_access_items.value)
+def before_is_item_enabled(multiworld: MultiWorld, player: int, item:  dict[str, Any]) -> Optional[bool]:
+    world = multiworld.worlds[player]
+    if item["name"] in world.options.remove_items.value:
+        return False
+    if "DLC - Reduced Knowledge" in item.get('category', []):
+        if not world.options.randomize_dlc.value:
+            return False
+        return bool(world.options.dlc_access_items.value)
+
     return checkobject(multiworld, player, item)
 
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the location, False to disable it, or None to use the default behavior
-def before_is_location_enabled(multiworld: MultiWorld, player: int, location: ManualLocation) -> Optional[bool]:
+def before_is_location_enabled(multiworld: MultiWorld, player: int, location:  dict[str, Any]) -> Optional[bool]:
+    world = multiworld.worlds[player]
+    if location["name"] in world.options.remove_locations.value and not location.get("create_event") and not location.get("victory"):
+        return False
+    if "do_place_item_category" in location.get("category", []) or "no_place_item_category" in location.get("category", []):
+        if not world.options.randomize_base_game.value:
+             if location.get("region", "") == "Ship":
+                 return "no_place_item_category" in location.get("category", [])
+    elif "DLC - Spooky" in location.get("category", []):
+        if not world.options.enable_spooks:
+            return False
+
     return checkobject(multiworld, player, location)
 
-def checkobject(multiworld: MultiWorld, player: int, obj: object) -> Optional[bool]:
+# Use this if you want to override the default behavior of is_option_enabled
+# Return True to enable the event, False to disable it, or None to use the default behavior
+def before_is_event_enabled(multiworld: MultiWorld, player: int, event:  dict[str, Any]) -> Optional[bool]:
+    location = event
+    if event.get("copy_location"):
+        location =  multiworld.worlds[player].location_name_to_location[event.get("copy_location")]
+    return before_is_location_enabled(multiworld, player, location)
+
+def checkobject(multiworld: MultiWorld, player: int, obj: dict[str, Any]) -> Optional[bool]:
     """Check if a Manual object as any category enabled/disabled
 
     Args:
         multiworld: Multiworld
         player (int): Player id
-        obj (object): Manual Object to test
+        obj (dict[str, Any]): Manual Object to test
 
     Returns:
         Optional[bool]: enabled or not,
         return None if no category are enable or disabled
     """
     world = multiworld.worlds.get(player)
-    if not hasattr(world, 'categoryInit'):
+    if world is not None and not hasattr(world, 'categoryInit'):
         InitCategories(world, player)
+
+    if obj.get("disabled") == True:
+        return False
+
+    if obj.get("remove_if_goal"):
+        value: str = obj["remove_if_goal"]
+        reverse = False
+        if value.strip().startswith("!"):
+            reverse = True
+            value = value.lstrip("!")
+        target_goal = world.options.goal.from_any(value)
+        if (target_goal == world.options.goal) != reverse: return False
 
     resultYes = False
     resultNo = False
@@ -57,44 +93,39 @@ def checkobject(multiworld: MultiWorld, player: int, obj: object) -> Optional[bo
         return False
     return None
 
-def InitCategories(MultiWorld: MultiWorld, player: int):
+def InitCategories(base: World, player: int):
     """Mark categories as Enabled or Disabled based on options"""
-    from .Options import RandomContent, Goal #imported here because otherwise cause circular import
-    if not hasattr(MultiWorld, 'worlds'):
-        raise Exception("wrong multiworld type")
-
-    base = MultiWorld.worlds.get(player)
+    from .Options import Goal #imported here because otherwise cause circular import
 
     goal = base.options.goal.value
-    solanum = base.options.require_solanum.value
-    content = base.options.randomized_content.value
+    rdm_base_game = bool(base.options.randomize_base_game.value)
+    rdm_dlc = bool(base.options.randomize_dlc.value)
+    solanum = bool(base.options.require_solanum.value)
 
-    if content == RandomContent.option_both:
-        set_category_status(base, player, 'Base Game', True)
-        set_category_status(base, player, 'DLC - Eye', True)
-    elif content == RandomContent.option_base_game:
-        set_category_status(base, player, 'Base Game', True)
-        set_category_status(base, player, 'DLC - Eye', False)
-    elif content == RandomContent.option_dlc:
-        set_category_status(base, player, 'Base Game', False)
-        set_category_status(base, player, 'DLC - Eye', True)
+    if not rdm_dlc or not base.options.dlc_access_items.value:
+        set_category_status(base, player, 'DLC - Reduced Knowledge', False)
+
+    set_category_status(base, player, 'Base Game', rdm_base_game)
+    set_category_status(base, player, 'DLC - Eye', rdm_dlc)
+
+    if rdm_dlc and not rdm_base_game: # content == RandomContent.option_dlc:
         if solanum:
             set_category_status(base, player, 'require_solanum', True)
 
-        if goal == Goal.option_eye:
+        if goal == Goal.alias_vanilla:
             set_category_status(base, player, 'Win_Eye', True)
             set_category_status(base, player, 'need_warpdrive', True)
-        elif goal == Goal.option_ash_twin_project_break_spacetime:
+        elif goal == Goal.alias_ash_twin_project_break_spacetime:
             set_category_status(base, player, 'need_warpdrive', True)
             set_category_status(base, player, 'Win_ATP_break_spacetime', True)
-        elif goal == Goal.option_high_energy_lab_break_spacetime:
+        elif goal == Goal.alias_high_energy_lab_break_spacetime:
             set_category_status(base, player, 'need_warpdrive', True)
             set_category_status(base, player, 'Win_HEL_break_spacetime', True)
-        elif goal == Goal.option_stuck_with_solanum:
+        elif goal == Goal.alias_stuck_with_solanum:
             set_category_status(base, player, 'need_warpdrive', True)
             set_category_status(base, player, 'require_solanum', True)
             set_category_status(base, player, 'Win_solanum', True)
-        elif (goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream):
+        elif (goal == Goal.alias_stuck_in_stranger or goal == Goal.alias_stuck_in_dream):
             set_category_status(base, player, 'need_warpdrive', True)
     base.categoryInit = True
 
@@ -102,4 +133,4 @@ def set_category_status(world, player: int, category_name: str, status: bool):
     if world.category_table.get(category_name, {}):
         if not world.category_table[category_name].get('enabled', {}):
             world.category_table[category_name]['enabled'] = {}
-        world.category_table[category_name]['enabled'][player] = status
+        world.category_table[category_name]['enabled'][player] = bool(status)

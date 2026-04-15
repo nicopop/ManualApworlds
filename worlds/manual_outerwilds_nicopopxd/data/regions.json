@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/ManualForArchipelago/Manual/raw/Schemas-in-json/schemas/Manual.regions.schema.json",
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.regions.schema.json",
   "Timber Hearth Village": {
     "_comment": "Contains the 4 starting locations",
     "requires": "",
@@ -22,10 +22,10 @@
     "connects_to": ["Ember Twin", "Teleporters" ]
   },
   "Teleporters":{
-    "requires": "|Teleporters| and |SpaceSuit|",
-    "connects_to": ["Sun Station", "Ember Twin", "Timber Hearth" , "Brittle Hollow - TP", "Giant's Deep - Statue Island"],
+    "requires": "|Nomai Warp Codes| and |SpaceSuit|",
+    "connects_to": ["Ash Twin", "Sun Station", "Ember Twin", "Timber Hearth" , "Brittle Hollow - TP", "Giant's Deep - Statue Island"],
     "_comment": "Adding those entrance rule so logic doesn't try to reverse teleport until I find a mod to do it",
-    "entrance_rules": {
+    "entrance_requires": {
       "Ember Twin": "|Reverse Teleporters|",
       "Timber Hearth": "|Reverse Teleporters|",
       "Brittle Hollow - TP": "|Reverse Teleporters|",
@@ -34,10 +34,13 @@
   },
   "Ember Twin": {
     "requires": "",
-    "connects_to": [ "Ash Twin", "Teleporters" ],
-        "entrance_rules": {
+    "connects_to": [ "Ash Twin", "Teleporters", "Sunless City" ],
+    "entrance_requires": {
       "Teleporters": "|SpaceSuit|"
     }
+  },
+  "Sunless City": {
+    "requires": "|SpaceSuit|"
   },
   "Timber Hearth": {
     "requires": "|SpaceSuit| or |Ship Key|",
@@ -46,7 +49,7 @@
   "Brittle Hollow": {
     "requires": "",
     "connects_to": [ "Blackhole Forge"],
-    "entrance_rules": {
+    "entrance_requires": {
       "Blackhole Forge": "|SpaceSuit|"
     }
   },
@@ -57,9 +60,9 @@
   "Blackhole Forge": {
     "requires": "",
     "connects_to": ["Brittle Hollow"],
-    "entrance_rules": {
+    "entrance_requires": {
       "Brittle Hollow": "|SpaceSuit| and |Ship Key|",
-      "Brittle Hollow - TP": "|SpaceSuit| and|Teleporters| and |Ship Key|"
+      "Brittle Hollow - TP": "|SpaceSuit| and |Nomai Warp Codes| and |Ship Key|"
     }
   },
   "Giant's Deep": {
@@ -80,7 +83,7 @@
   },
   "Quantum Moon": {
     "_comment": "Contains everything Quantum related",
-    "requires": "|Quantum Rule > imaging| and |Photos| and (|Scout| or |SpaceSuit|)",
+    "requires": "|Quantum Rule > A| and |Photos| and (|Scout| or |SpaceSuit|)",
     "connects_to": []
   },
   "Interloper": {
@@ -103,7 +106,7 @@
     "connects_to": ["Shrouded Woodlands Archive", "Subterranean Lake", "Starlit Cove", "Endless Canyon" ]
   },
   "Shrouded Woodlands Archive": {
-    "requires": "(|DreamWorld Loading Glitch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))",
+    "requires": "(|Boat Patch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) )) or (|River Lowlands Flame| and |Ghost Wall Patch| and ((|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|))))",
     "connects_to": ["All Archive"]
   },
   "Starlit Cove": {
@@ -111,7 +114,7 @@
     "connects_to": ["Starlit Cove Archive", "Subterranean Lake", "Shrouded Woodlands", "Endless Canyon" ]
   },
   "Starlit Cove Archive": {
-    "requires": "(|DreamWorld Door Candles| and |DreamWorld Death Glitch|) or (|DreamWorld Door Candles| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|)",
+    "requires": "(|Door Candles Patch| and |Alarm Bypass Patch|) or (|Door Candles Patch| and |Totem Hands Patch|)",
     "connects_to": ["All Archive"]
   },
   "Endless Canyon": {
@@ -119,15 +122,16 @@
     "connects_to": ["Endless Canyon Archive",  "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove" ]
   },
   "Endless Canyon Archive": {
-    "requires": "|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and |DreamWorld Grabbing Hands|)",
+    "requires": "|Limbo Patch| or (|Ghost Wall Patch| and |Totem Hands Patch|)",
     "connects_to": ["All Archive"]
   },
   "All Archive": {
-    "requires": "((|DreamWorld Loading Glitch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))) and ((|DreamWorld Door Candles| and |DreamWorld Death Glitch|) or (|DreamWorld Door Candles| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|)) and (|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and |DreamWorld Grabbing Hands|))",
+    "_requires": "((|Boat Patch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) )) or (|River Lowlands Flame| and |Ghost Wall Patch| and ((|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|))))) and ((|Door Candles Patch| and |Alarm Bypass Patch|) or (|Door Candles Patch| and |Totem Hands Patch|)) and (|Limbo Patch| or (|Ghost Wall Patch| and |Totem Hands Patch|))",
+    "requires": "{Event(9A - Archive)} and ({Event(9B - Archive Safe)} or {Event(9B - Archive Spooky)}) and ({Event(9C - Archive Safe)} or {Event(9C - Archive Spooky)})",
     "connects_to": []
   },
   "Subterranean Lake": {
-    "requires": "(|Submerged Structure Flame| or ((|DreamWorld Loading Glitch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |DreamWorld Door Candles|) or (|Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) ))) )",
+    "requires": "(|Submerged Structure Flame| or ((|Boat Patch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) ))) )",
     "connects_to": []
   }
 }

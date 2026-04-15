@@ -1,9 +1,13 @@
-from BaseClasses import Entrance, MultiWorld, Region
-from .Helpers import is_category_enabled, is_location_enabled
+from BaseClasses import Entrance, MultiWorld, Region, ItemClassification
+from .Helpers import is_category_enabled, is_location_enabled, is_event_enabled
 from .Data import region_table
 from .Locations import ManualLocation, location_name_to_location
+from .Items import ManualItem
 from worlds.AutoWorld import World
+from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from . import ManualWorld
 
 if not region_table:
     region_table = {}
@@ -20,7 +24,7 @@ regionMap["Manual"] = {
 }
 
 
-def create_regions(world: World, multiworld: MultiWorld, player: int):
+def create_regions(world: "ManualWorld", multiworld: MultiWorld, player: int):
     # Create regions and assign locations to each region
     for region in regionMap:
         if "connects_to" not in regionMap[region]:
@@ -41,11 +45,6 @@ def create_regions(world: World, multiworld: MultiWorld, player: int):
         new_region = create_region(world, multiworld, player, region, locations, exit_array)
         multiworld.regions += [new_region]
 
-    menu = create_region(world, multiworld, player, "Menu", None, ["Manual"])
-    multiworld.regions += [menu]
-    menuConn = multiworld.get_entrance("MenuToManual", player)
-    menuConn.connect(multiworld.get_region("Manual", player))
-
     # Link regions together
     for region in regionMap:
         if "connects_to" in regionMap[region] and regionMap[region]["connects_to"]:
@@ -53,7 +52,7 @@ def create_regions(world: World, multiworld: MultiWorld, player: int):
                 connection = multiworld.get_entrance(getConnectionName(region, linkedRegion), player)
                 connection.connect(multiworld.get_region(linkedRegion, player))
 
-def create_region(world: World, multiworld: MultiWorld, player: int, name: str, locations=None, exits=None):
+def create_region(world: "ManualWorld", multiworld: MultiWorld, player: int, name: str, locations=None, exits=None):
     ret = Region(name, player, multiworld)
 
     if locations:
@@ -70,3 +69,13 @@ def create_region(world: World, multiworld: MultiWorld, player: int, name: str, 
 
 def getConnectionName(entranceName: str, exitName: str):
     return entranceName + "To" + exitName
+
+def create_events(world: "ManualWorld", multiworld: MultiWorld, player: int):
+    for name, event in world.event_name_to_event.items():
+        if not is_event_enabled(multiworld, player, event):
+            continue
+        region = multiworld.get_region(event.get("region", "Manual"), player)
+        item = ManualItem(event["name"], ItemClassification.progression, None, player=player)
+        location = ManualLocation(player, name, None, region)
+        region.locations.append(location)
+        location.place_locked_item(item)

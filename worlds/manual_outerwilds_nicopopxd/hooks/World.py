@@ -10,7 +10,6 @@ import logging
 # Object classes from Manual -- extending AP core -- representing items and locations that are used in generation
 from ..Items import ManualItem
 from ..Locations import ManualLocation
-from ..Helpers import remove_specific_item
 from .Helpers import InitCategories
 
 if TYPE_CHECKING:
@@ -23,7 +22,7 @@ from ..Data import game_table, item_table, location_table, region_table
 from .Options import EarlyShipKey, Goal
 
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
-from ..Helpers import is_option_enabled, is_item_enabled, get_option_value
+from ..Helpers import remove_specific_item, is_item_enabled
 
 ########################################################################################
 ## Order of method calls when the world generates:

@@ -1,5 +1,6 @@
 # Object classes from AP that represent different types of options that you can create
-from Options import OptionError, Visibility, Option, FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, NamedRange, OptionGroup, PerGameCommonOptions
+from Options import OptionError, Visibility, Option, FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice,\
+    Range, NamedRange, OptionGroup, PerGameCommonOptions, OptionSet
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from typing import Type, Any, cast, Counter, TYPE_CHECKING, Collection
 import random
@@ -238,6 +239,27 @@ class Goal(ChoiceIsRandom):
             return None
         return world.random.choice(randoms)
 
+from ..Items import item_name_to_item
+from ..Game import filler_item_name
+removable_items = {n for n, item in item_name_to_item.items() if item.get("removable", True) and not item.get("disabled")}
+if filler_item_name in removable_items:
+    removable_items.remove(filler_item_name)
+class RemoveItems(OptionSet):
+    """WARNING CAN BREAK GENERATION: Specified items will be removed from the pool but not logic"""
+    display_name = "Remove Items"
+    valid_keys =  removable_items
+    visibility = Visibility.complex_ui | Visibility.spoiler
+
+from ..Locations import location_name_to_location
+removable_locations = {n for n, location in location_name_to_location.items() if location.get("removable", True) \
+    and not location.get("disabled") and not location.get("create_event") and not location.get("victory") \
+    and not set(location.get("category", [])).intersection(["do_launch_codes", "no_launch_codes", "do_place_item_category", "no_place_item_category"])}
+class RemoveLocation(OptionSet):
+    """WARNING CAN BREAK GENERATION: Specified locations will be removed from the world"""
+    display_name = "Remove Locations"
+    valid_keys = removable_locations
+    visibility = Visibility.complex_ui | Visibility.spoiler
+
 class ApWorldVersion(FreeText):
     """Do not change this, it will get set to the apworld version"""
     display_name = "Game Version (Detected)"
@@ -258,6 +280,8 @@ def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, T
     options["randomize_dlc"] = RandomizeDLC
     options["dlc_access_items"] = MainDlcKnowledge
     options["reverse_teleporters"] = ReverseTeleporter
+    options["remove_items"] = RemoveItems
+    options["remove_locations"] = RemoveLocation
     return options
 
 # This is called after any manual options are defined, in case you want to see what options are defined or want to modify the defined options
@@ -284,11 +308,14 @@ def after_options_defined(options: Type[PerGameCommonOptions]):
 
 # Use this Hook if you want to add your Option to an Option group (existing or not)
 def before_option_groups_created(groups: dict[str, list[Type[Option[Any]]]]) -> dict[str, list[Type[Option[Any]]]]:
-    groups["Randomized Content"] = [RandomizeBaseGame, RandomizeDLC, RandomizeMod1]
+    groups["Randomized Content"] = [RandomizeBaseGame, RandomizeDLC, RandomizeMod1,]
     groups["Goal Logic"] = [Goal, RequireSolanum, RequirePrisoner]
     groups["Tweaks"] = [EarlyShipKey, BiggerSphere1, LocalPlacedItems, ShuffleSpacesuit, MainDlcKnowledge, do_spooks]
     # Uses the format groups['GroupName'] = [TotalCharactersToWinWith]
     return groups
 
 def after_option_groups_created(groups: list[OptionGroup]) -> list[OptionGroup]:
+    for group in groups:
+        if group.name == 'Item & Location Options':
+            group.options.extend([RemoveItems, RemoveLocation])
     return groups

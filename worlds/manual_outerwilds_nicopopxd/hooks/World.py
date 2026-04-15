@@ -77,8 +77,10 @@ add_client_to_launcher()
 # Default value is the `filler_item_name` from game.json
 def hook_get_filler_item_name(world: "ManualWorld", multiworld: MultiWorld, player: int) -> str | bool:
     from ..Helpers import is_item_enabled
-    dummyfillers = list(world.item_name_groups.get("FillerDummy", set()).union({cast(str, world.filler_item_name)}))
+    dummyfillers = list(world.item_name_groups.get("FillerDummy", set()))
     dummyfillers = [i for i in dummyfillers if is_item_enabled(multiworld, player, world.item_name_to_item[i])]
+    if not dummyfillers:
+        return world.filler_item_name
     return world.random.choice(dummyfillers)
 
 def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: int):

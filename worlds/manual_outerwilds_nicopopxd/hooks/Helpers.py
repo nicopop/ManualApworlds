@@ -14,8 +14,10 @@ def before_is_category_enabled(multiworld: MultiWorld, player: int, category_nam
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the item, False to disable it, or None to use the default behavior
 def before_is_item_enabled(multiworld: MultiWorld, player: int, item:  dict[str, Any]) -> Optional[bool]:
+    world = multiworld.worlds[player]
+    if item["name"] in world.options.remove_items.value:
+        return False
     if "DLC - Reduced Knowledge" in item.get('category', []):
-        world = multiworld.worlds[player]
         if not world.options.randomize_dlc.value:
             return False
         return bool(world.options.dlc_access_items.value)
@@ -26,6 +28,8 @@ def before_is_item_enabled(multiworld: MultiWorld, player: int, item:  dict[str,
 # Return True to enable the location, False to disable it, or None to use the default behavior
 def before_is_location_enabled(multiworld: MultiWorld, player: int, location:  dict[str, Any]) -> Optional[bool]:
     world = multiworld.worlds[player]
+    if location["name"] in world.options.remove_locations.value and not location.get("create_event") and not location.get("victory"):
+        return False
     if "do_place_item_category" in location.get("category", []) or "no_place_item_category" in location.get("category", []):
         if not world.options.randomize_base_game.value:
              if location.get("region", "") == "Ship":

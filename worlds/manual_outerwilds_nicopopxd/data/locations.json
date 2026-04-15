@@ -926,8 +926,8 @@
             "requires": "|Totem Hands Patch| and (|Limbo Patch| or |Ghost Wall Patch|)"
         },
         {
-            "name": "9C - Spooky Yahaha!",
-            "alias": "9C - Lights out - Get the 1 / 900 achievement",
+            "name": "9C - Yahaha! Spooky",
+            "alias": "Lights out - Get the 1 / 900 achievement",
             "region": "Endless Canyon",
             "requires": "|Limbo Patch| or (|Ghost Wall Patch| and ( |Limbo Patch| or |Totem Hands Patch|))",
             "category": [ "9C - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]

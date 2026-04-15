@@ -52,6 +52,7 @@
         },
         {
             "name": "Ticket for (1) free death",
+            "disabled": true,
             "count": 0,
             "category": [ "1b Filler and Useful", "1 Everything" ]
         },
@@ -196,6 +197,7 @@
         {
             "name": "Reverse Teleporters",
             "progression": true,
+            "disabled": true,
             "_comment": "added so validation doesn't yell when this is required",
             "count": 0
         },

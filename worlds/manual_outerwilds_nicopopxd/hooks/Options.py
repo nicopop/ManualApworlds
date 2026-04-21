@@ -30,16 +30,24 @@ if TYPE_CHECKING:
 #
 
 class ChoiceIsRandom(Choice):
-    randomized: bool | list[str] = False
+    randomized: bool | list[int] = False
     supports_weighting = False
     display_name = "ChoiceIsRandom"
     option_randomized = -42
 
-    def __init__(self, value: int, randomized: bool | list[str] = False):
+    def __init__(self, value: int, randomized: bool | list[int] = False):
         super().__init__(value)
         self.randomized = randomized
 
     # Helper methods
+    @classmethod
+    def get_randomized_values(cls) -> list[int]:
+        if isinstance(cls.randomized, bool):
+            if not cls.randomized:
+                return []
+            return list(cls.get_clean_values().keys())
+        return cls._convert_str_list_to_int_list(cls.randomized)
+
     @classmethod
     def get_rdm_option_name(cls) -> str:
         """Get the string representation of the "random" option value name"""
@@ -59,13 +67,19 @@ class ChoiceIsRandom(Choice):
     @classmethod
     def is_str_random(cls, input: str) -> bool:
         """Returns `True` if the input string is detected as "random" """
-        return input.startswith("random")
+        return input.startswith("random") or input == cls.get_rdm_option_name()
 
     @classmethod
     def is_random_in_list(cls, collection: Collection[str]) -> bool:
         """Are any of the values in the collection detected as "random" """
-        return "random" in collection or cls.get_rdm_option_name() in collection
+        return any(v for v in collection if cls.is_str_random(v))
 
+    @classmethod
+    def _convert_str_list_to_int_list(cls, data: list) -> list[int]:
+        if isinstance(data[0], int):
+            return cast(list[int], data)
+        data_str = cast(list[str], data)
+        return [cls.options[k] for k in data_str]
     # Standard Option methods
     @classmethod
     def from_text(cls, text: str) -> Choice:
@@ -79,7 +93,7 @@ class ChoiceIsRandom(Choice):
             return cls.from_text(data)
         elif type(data) is dict:
             filtered = +Counter(data) # remove all zero values
-            randomized: bool|list = False
+            randomized: bool|list[int] = False
             ret = cast(str, get_choice(cls.display_name, {cls.display_name: dict(filtered)}))
             if cls.is_str_random(ret):
                 randomized = True
@@ -87,7 +101,7 @@ class ChoiceIsRandom(Choice):
                 if cls.is_random_in_list(filtered.keys()):
                     randomized = True
                 else:
-                    randomized = list(filtered.keys())
+                    randomized = cls._convert_str_list_to_int_list(list(filtered.keys()))
             return cls(int(cls.from_text(ret)), randomized)
         elif type(data) is list:
             randomized = False
@@ -98,7 +112,7 @@ class ChoiceIsRandom(Choice):
                 if cls.is_random_in_list(data):
                     randomized = True
                 else:
-                    randomized = data
+                    randomized = cls._convert_str_list_to_int_list(data)
             return cls(int(cls.from_text(ret)), randomized)
         return super().from_any(data)
 
@@ -222,12 +236,7 @@ class Goal(ChoiceIsRandom):
         return value in cls.dlc_options
 
     def getRDMvalue(self, world: "ManualWorld", filter_dlc = False) -> int|None:
-        randoms: bool|list[int]|list[str] = self.randomized
-
-        if isinstance(randoms, bool):
-            randoms = list(self.get_clean_values().keys())
-        elif isinstance(randoms, list):
-            randoms = [self.options[o] for o in randoms]
+        randoms = self.get_randomized_values()
 
         if filter_dlc:
             randoms = [o for o in randoms if not self.isThisValueInDLC(o)]
@@ -245,20 +254,21 @@ removable_items = {n for n, item in item_name_to_item.items() if item.get("remov
 if filler_item_name in removable_items:
     removable_items.remove(filler_item_name)
 class RemoveItems(OptionSet):
-    """WARNING CAN BREAK GENERATION: Specified items will be removed from the pool but not logic"""
+    """ADVANCED: Remove these items from the item pool but not logic"""
     display_name = "Remove Items"
     valid_keys =  removable_items
-    visibility = Visibility.complex_ui | Visibility.spoiler
+    visibility = Visibility.complex_ui | Visibility.spoiler | Visibility.simple_ui
 
 from ..Locations import location_name_to_location
 removable_locations = {n for n, location in location_name_to_location.items() if location.get("removable", True) \
-    and not location.get("disabled") and not location.get("create_event") and not location.get("victory") \
-    and not set(location.get("category", [])).intersection(["do_launch_codes", "no_launch_codes", "do_place_item_category", "no_place_item_category"])}
+    and not location.get("disabled") and not location.get("victory") \
+    and not n.endswith(".") #identical alternate copy of loc but with no place_item
+    }
 class RemoveLocation(OptionSet):
-    """WARNING CAN BREAK GENERATION: Specified locations will be removed from the world"""
+    """ADVANCED: Remove these locations from the generation"""
     display_name = "Remove Locations"
     valid_keys = removable_locations
-    visibility = Visibility.complex_ui | Visibility.spoiler
+    visibility = Visibility.complex_ui | Visibility.spoiler | Visibility.simple_ui
 
 class ApWorldVersion(FreeText):
     """Do not change this, it will get set to the apworld version"""
@@ -301,7 +311,7 @@ def after_options_defined(options: Type[PerGameCommonOptions]):
     options.type_hints['goal'] = Goal
     options.type_hints['goal'].name_lookup.update(goal_gen_name_lookup)
     options.type_hints['goal'].options.update(goal_gen_options)
-    options.type_hints['filler_traps'].range_end = 75
+    options.type_hints['filler_traps'].range_end = 75 # type: ignore
     options.type_hints['filler_traps'].default = 20
 
     pass

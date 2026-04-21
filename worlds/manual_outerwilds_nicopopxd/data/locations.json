@@ -5,6 +5,7 @@
             "name": "2 - Observatory",
             "alias": "'Learn' the Launch Codes",
             "region": "Timber Hearth Village",
+            "removable": false,
             "category": [ "2 - Timber Hearth", "do_launch_codes" ],
             "place_item": ["Launch Codes"],
             "sort-key": "0000"
@@ -13,6 +14,7 @@
             "name": "2 - Observatory.",
             "alias": "'Learn' the Launch Codes",
             "region": "Timber Hearth Village",
+            "removable": false,
             "category": [ "2 - Timber Hearth", "no_launch_codes" ],
             "dont_place_item_category": [ "1b Trap" ],
             "sort-key": "0000"
@@ -23,7 +25,7 @@
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth" ],
             "dont_place_item_category": [ "1b Trap" ],
-            "sort-key": "0001"
+            "sort-key": "0002"
         },
         {
             "name": "2 - Model",
@@ -31,25 +33,39 @@
             "region": "Timber Hearth Village",
             "category": [ "2 - Timber Hearth" ],
             "dont_place_item_category": [ "1b Trap" ],
-            "sort-key": "0002"
+            "sort-key": "0003"
         },
 
         {
             "name": "2 - Ship",
             "alias": "Get in the ship for the first time",
             "region": "Ship",
+            "removable": false,
             "category": [ "2 - Timber Hearth", "do_place_item_category" ],
             "place_item_category": [ "2b Signals" ],
-            "sort-key": "0003"
+            "sort-key": "0004"
         },
         {
             "name": "2 - Ship.",
             "alias": "Get in the ship for the first time.",
+            "removable": false,
             "region": "Ship",
             "category": [ "2 - Timber Hearth", "no_place_item_category" ],
             "dont_place_item_category": [ "1b Trap" ],
-            "sort-key": "0003"
+            "sort-key": "0004"
         },
+
+        {
+            "name": "2 - Talk",
+            "alias": "Talk to Slate",
+            "removable": false,
+            "region": "Timber Hearth Village",
+            "category": [ "2 - Timber Hearth" ],
+            "dont_place_item_category": [ "1b Trap" ],
+            "sort-key": "0001"
+
+        },
+
         {
             "name": "0 - Die within 60 seconds of a new loop",
             "region": "Ship",
@@ -84,7 +100,7 @@
             "name": "1 - Visit",
             "alias": "Get in the Ash Twin Project",
             "region": "Ash Twin",
-            "category": [ "1 - Ash Twin", "Base Game", "need_warpdrive" ],
+            "category": [ "1 - Ash Twin", "Base Game", "required for warpdrive" ],
             "requires": "|Nomai Warp Codes|",
             "create_event": true,
             "dont_place_item_category": [ "1b Trap" ],
@@ -92,7 +108,7 @@
         },
         {
             "name": "1 - Oopsies",
-            "alias": "1 - Break Space-Time in the Ash Twin Project",
+            "alias": "Break Space-Time in the Ash Twin Project",
             "region": "Ash Twin",
             "category": [ "1 - Ash Twin", "Base Game" ],
             "requires": "{Event(1 - Visit)}",
@@ -175,7 +191,7 @@
         },
         {
             "name": "1 - Talk",
-            "alias": "1 - Talk to Chert",
+            "alias": "Talk to Chert",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
             "requires": "|Signaloscope| and |Signal > OW Ventures|"
@@ -383,7 +399,7 @@
             "sort-key": "4 - Depths A",
             "alias": "Get to the Ocean Depths and notice the electrical barrier",
             "region": "Giant's Deep InShip",
-            "category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
+            "category": [ "4 - Giant's Deep", "Base Game", "Goal Eye" ],
             "requires": "|Counter-Clockwise Tornadoes|"
         },
         {
@@ -391,7 +407,7 @@
             "sort-key": "4 - Depths B",
             "alias": "Reach the Planet's Core and find the Probe Tracking Module",
             "region": "Giant's Deep InShip",
-            "category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
+            "category": [ "4 - Giant's Deep", "Base Game", "Goal Eye" ],
             "requires": "|Counter-Clockwise Tornadoes| and |Jellyfishes|"
         },
         {
@@ -401,7 +417,7 @@
             "alias": "See the Coords in the Probe Tracking Module",
             "region": "Giant's Deep InShip",
             "create_event": true,
-            "category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
+            "category": [ "4 - Giant's Deep", "Base Game", "Goal Eye" ],
             "requires":  "|Counter-Clockwise Tornadoes| and |Jellyfishes|",
             "dont_place_item_category": [ "1b Trap" ]
         },
@@ -424,7 +440,7 @@
             "name": "5 - Pod",
             "alias": "Find Escape Pod 3's beacon",
             "region": "Dark Bramble",
-            "category": [ "5 - Dark Bramble", "Base Game", "Win_Eye" ],
+            "category": [ "5 - Dark Bramble", "Base Game", "Goal Eye" ],
             "requires": "|Signaloscope| and |Signal > Distress|",
             "id": 500
         },
@@ -432,7 +448,7 @@
             "name": "5 - Pod Log",
             "alias": "Read the ship logs of Escape Pod 3",
             "region": "Dark Bramble",
-            "category": [ "5 - Dark Bramble", "Base Game", "Win_Eye" ],
+            "category": [ "5 - Dark Bramble", "Base Game", "Goal Eye" ],
             "requires": "|Signaloscope| and |Signal > Distress|"
         },
         {
@@ -440,7 +456,7 @@
             "alias": "Get to the Vessel",
             "region": "Dark Bramble",
             "create_event": true,
-            "category": [ "5 - Dark Bramble", "Base Game", "Win_Eye" ],
+            "category": [ "5 - Dark Bramble", "Base Game", "Goal Eye" ],
             "requires": "|Signaloscope| and |Signal > Distress| and |Scout| and |Anglerfish Biology|"
         },
         {
@@ -470,7 +486,7 @@
             "name": "6 - Moon",
             "alias": "Land on the Quantum moon",
             "region": "Quantum Moon",
-            "category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ],
+            "category": [ "6 - Quantum Moon", "Base Game", "required for solanum" ],
             "id": 600
         },
         {
@@ -479,7 +495,7 @@
             "region": "Quantum Moon",
             "create_event": true,
             "scoutable": true,
-            "category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ],
+            "category": [ "6 - Quantum Moon", "Base Game", "required for solanum" ],
             "requires": "|SpaceSuit| and |Quantum Rule > B| and |Quantum Rule > C|",
             "dont_place_item_category": [ "1b Trap" ]
         },
@@ -527,7 +543,7 @@
         },
         {
             "name": "1 - Shard B",
-            "alias": "1 - Ride the Cave shard",
+            "alias": "Ride the Cave shard",
             "region": "Ember Twin",
             "category": [ "1 - Ember Twin", "Base Game" ],
             "requires": "|Signal > Quantum| and |Signaloscope| and |Quantum Rule > B|"
@@ -573,6 +589,7 @@
         {
             "name": "8 - Campfire",
             "alias": "Attempt to use the artifact at a normal campfire",
+            "removable": false,
             "region": "The Stranger",
             "requires": "{OptOne(DreamWorld Access)}",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
@@ -593,7 +610,8 @@
         },
         {
             "name": "8 - Fire",
-            "alias": "8 - Burn a slide",
+            "alias": "Burn a slide",
+            "removable": false,
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ]
         },
@@ -639,7 +657,7 @@
             "alias": "Use the prototype artifact with explosive result",
             "region": "The Stranger",
             "category": [ "8 - The Stranger", "DLC - Eye" ],
-            "requires": "|Breach Override Codes|"
+            "requires": "|Breach Override Codes| and |@DLC Flame:1|"
         },
         {
             "name": "8 - Lab Watch",
@@ -752,6 +770,7 @@
         {
             "name": "9 - Boat",
             "alias": "Get on one",
+            "create_event": true,
             "region": "DreamWorld General",
             "requires": "(|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) )",
             "category": [ "9 - DreamWorld General", "DLC - Eye" ]
@@ -767,7 +786,7 @@
             "name": "9 - Watch",
             "alias": "the vision torch outside the submerge structure in the dream",
             "region": "DreamWorld General",
-            "requires": "|Totem Hands Patch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) )",
+            "requires": "|Totem Hands Patch| and {Event(9 - Boat)}",
             "category": [ "9 - DreamWorld General", "DLC - Eye" ]
         },
         {
@@ -805,7 +824,6 @@
             "alias": "Get in the Forbidden Archive of the Shrouded Woodlands",
             "region": "Shrouded Woodlands Archive",
             "create_event": true,
-            "requires": "(|Boat Patch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) )) or (|River Lowlands Flame| and |Ghost Wall Patch| and ((|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|))))",
             "category": [ "9A - Shrouded Woodlands", "DLC - Eye" ]
         },
         {
@@ -875,7 +893,7 @@
         {
             "name": "9B - Archive Both",
             "sort-key": "9B - Z Archive 3",
-            "alias": "9B - Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
+            "alias": "Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
             "region": "Starlit Cove Archive",
             "requires": "{Event(9B - Archive Safe)} and {Event(9B - Archive Spooky)}",
             "category": [ "9B - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
@@ -999,7 +1017,7 @@
             "create_event": true,
             "scoutable": true,
             "region": "Subterranean Lake",
-            "requires": "(|Boat Patch| and (|River Lowlands Flame| or |Cinder Isles Flame| or |Hidden Gorge Flame|)) or |Datamined Code:2|",
+            "requires": "(|Boat Patch| and {Event(9 - Boat)}) or |Datamined Code:2|",
             "category": [ "9D - Subterranean Lake", "DLC - Eye" ]
         },
         {
@@ -1070,7 +1088,7 @@
         {
             "name": "Break_Space-Time_In_Lab%",
             "alias": "Break SpaceTime in the High Energy Lab",
-            "region": "Ember Twin",
+            "region": "Sunless City",
             "victory": true,
             "category": [ "0 - Finale", "1 - Ember Twin"],
             "requires": "|SpaceSuit| and |Scout| and {GoalPlus()}"

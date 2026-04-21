@@ -19,10 +19,10 @@ if TYPE_CHECKING:
 #          data/game.json, data/items.json, data/locations.json, data/regions.json
 #
 from ..Data import game_table, item_table, location_table, region_table
-from .Options import EarlyShipKey, Goal
+from .Options import EarlyShipKey, Goal, RandomizeBaseGame, RandomizeDLC, RequirePrisoner, RequireSolanum, ShuffleSpacesuit, BiggerSphere1, EarlyShipKey
 
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
-from ..Helpers import remove_specific_item, is_item_enabled
+from ..Helpers import remove_specific_item, is_item_enabled, is_location_enabled
 
 ########################################################################################
 ## Order of method calls when the world generates:
@@ -64,7 +64,7 @@ def add_client_to_launcher() -> None:
         if c.display_name == "Manual Client Nico's Experiment":
             found = True
             if getattr(c, "version", 0) < version:
-                c.version = version
+                c.version = version # pyright: ignore[reportAttributeAccessIssue]
                 c.func = launch_client
                 c.icon = "manual"
 
@@ -87,13 +87,17 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     This is the earliest hook called during generation, before anything else is done.
     Use it to check or modify incompatible options, or to set up variables for later use.
     """
-    world.OWStartItems = {}
-    world.options.game_version.value = world.world_version.as_simple_string()
+    world.OWStartItems = {} # pyright: ignore[reportAttributeAccessIssue]
+    world.options.game_version.value = world.world_version.as_simple_string() # pyright: ignore[reportAttributeAccessIssue]
 # region Init Options
-    goal = world.options.goal
-    rdm_base_game = world.options.randomize_base_game
-    rdm_dlc = world.options.randomize_dlc
-    require_prisoner = world.options.require_prisoner
+    goal = cast(Goal, world.options.goal) # pyright: ignore[reportAttributeAccessIssue]
+    rdm_base_game = cast(RandomizeBaseGame, world.options.randomize_base_game) # pyright: ignore[reportAttributeAccessIssue]
+    rdm_dlc = cast(RandomizeDLC, world.options.randomize_dlc) # pyright: ignore[reportAttributeAccessIssue]
+    require_prisoner = cast(RequirePrisoner, world.options.require_prisoner) # pyright: ignore[reportAttributeAccessIssue]
+    require_solanum = cast(RequireSolanum, world.options.require_solanum) # pyright: ignore[reportAttributeAccessIssue]
+    shuffle_spacesuit = cast(ShuffleSpacesuit, world.options.shuffle_spacesuit) # pyright: ignore[reportAttributeAccessIssue]
+    remove_launch_codes = cast(BiggerSphere1, world.options.remove_launch_codes) # pyright: ignore[reportAttributeAccessIssue]
+    ship_key_logic = cast(EarlyShipKey, world.options.ship_key_logic) # pyright: ignore[reportAttributeAccessIssue]
     #Options Check for impossibilities
     if not (rdm_base_game or rdm_dlc):
         if rdm_base_game.randomized or rdm_dlc.randomized:
@@ -111,7 +115,7 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
             raise OptionError(f"Player {world.player_name}({player}) need to enable at least one of 'randomize_dlc' or 'randomize_base_game'")
 
     #Dynamic Goal
-    if goal == Goal.alias_standard: goal.value = Goal.alias_vanilla if rdm_base_game else Goal.alias_prisoner
+    if goal == goal.alias_standard: goal.value = goal.alias_vanilla if rdm_base_game else goal.alias_prisoner
 
     if rdm_base_game and not rdm_dlc:
         if require_prisoner.value:
@@ -131,7 +135,7 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
                             require_prisoner.value = True
                             require_prisoner.automatically_disabled = False
                     else:
-                        raise OptionError(f"Player {world.player_name}({player})'s goal couldn't be corrected to a non DLC Goal since only the following are allowed by the player: {world.options.goal.randomized}")
+                        raise OptionError(f"Player {world.player_name}({player})'s goal couldn't be corrected to a non DLC Goal since only the following are allowed by the player: {goal.randomized}")
                 else:
                     goal.value = valid
             else:
@@ -139,24 +143,110 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
 
             # logging.warning(f"OW: Impossible goal for player '{multiworld.get_player_name(player)}'. Was changed to Default (Vanilla%)")
         if not rdm_dlc:
-            world.options.enable_spooks.value = 1 #Set to True to skip some code later
-            world.options.dlc_access_items.value = 0
+            world.options.enable_spooks.value = 1 #Set to True to skip some code later # pyright: ignore[reportAttributeAccessIssue]
+            world.options.dlc_access_items.value = 0 # pyright: ignore[reportAttributeAccessIssue]
 
     elif rdm_dlc and not rdm_base_game:
         # if world.options.shuffle_spacesuit.value:
         #     raise OptionError(f"Player {player} You can't shuffle SpaceSuit when you only play the dlc")
-        if world.options.dlc_access_items.value:
+        if world.options.dlc_access_items.value: # pyright: ignore[reportAttributeAccessIssue]
             world.OWStartItems["Stranger Access"] = 1
         world.OWStartItems["Signaloscope"] = 1
         world.OWStartItems["Signal > DeepSpace"] = 1
+
+    if not rdm_base_game and not rdm_base_game.randomized and (shuffle_spacesuit or shuffle_spacesuit.randomized):
+            raise OptionError(f"Player {player} You can't shuffle SpaceSuit when you only play the dlc")
 
     # Since the goal is already to do to the prisoner no need require it twice
     if goal == Goal.alias_prisoner and require_prisoner:
         require_prisoner.value = 0
     InitCategories(world, player)
 #endregion
+# region Item removal validation
+    from Options import Accessibility
+    removed_items = cast(set[str], world.options.remove_items.value) # pyright: ignore[reportAttributeAccessIssue]
+    goal_randomized_values = frozenset(goal.get_randomized_values())
+    # removed_items = {i for i in removed_items if is_item_enabled(multiworld, player, world.item_name_to_item[i])}
+    if not rdm_base_game and not rdm_base_game.randomized and not require_solanum and not require_solanum.randomized\
+        and not goal.isValueInDLC() or any(i for i in goal_randomized_values if not goal.isThisValueInDLC(i)):
+        removed_items -= world.item_name_groups["Base Game"]
+    if not rdm_dlc and not rdm_base_game.randomized:
+        removed_items -= world.item_name_groups["DLC - Eye"]
+
+    if removed_items:
+        if any(i for i in removed_items if world.item_name_to_item[i].get("progression")) and world.options.accessibility.value != Accessibility.option_minimal:
+            raise OptionError('removed_items has some progression items listed while Accessibility is not set to Minimal. Generation would not like this!')
+        logging.info(f"Scanning removed items for impossible goal requirement for player {player}.")
+        required: set[str] = set()
+        if goal.randomized or goal == goal.alias_vanilla or goal.alias_vanilla in goal_randomized_values:
+            required = required.union(world.item_name_groups["Goal Eye"])
+
+        if goal == goal.alias_prisoner or goal.alias_prisoner in goal_randomized_values or require_prisoner.value or require_prisoner.randomized:
+            if "Datamined Code" in removed_items:
+                required = required.union(world.item_name_groups["Goal Prisoner No Datamine"])
+                if world.item_name_groups["DLC Main Flames"].issubset(removed_items):
+                    # todo add code to check if you can get in boat here
+                    raise OptionError(f'removed_items made getting to the Prisoner impossible, either remove "Datamined Code" from it or any of the main flames ({", ".join(world.item_name_groups["DLC Main Flames"])})')
+            elif not removed_items.isdisjoint(world.item_name_groups["Goal Prisoner No Datamine"]):
+                required.add("Datamined Code")
+                if "Submerged Structure Flame" in removed_items:
+                    if "Boat Patch" in removed_items:
+                        raise OptionError(f'removed_items made getting to the Prisoner impossible, remove either "Submerged Structure Flame" or "Boat Patch" from it')
+                    elif world.item_name_groups["DLC Main Flames"].issubset(removed_items):
+                        raise OptionError(f'removed_items made getting to the Prisoner impossible, either remove "Submerged Structure Flame" from it or any of the main flames ({", ".join(world.item_name_groups["DLC Main Flames"])})')
+            required = required.union(world.item_name_groups["Goal Prisoner"])
+
+        if goal.value in goal.dlc_options or require_prisoner.value or require_prisoner.randomized\
+            or not goal_randomized_values.isdisjoint(goal.dlc_options)\
+            or (not rdm_base_game and rdm_dlc):
+            if world.item_name_groups["DLC - Stranger Entrance"].issubset(removed_items):
+                nl = '"\n - "'
+                raise OptionError(f'removed_items made getting into the Stranger impossible, but its is possibly required by your options\
+                    \nRemove any of the following for generation to work:\n - "{nl.join(world.item_name_groups["DLC - Stranger Entrance"])}"')
+            required = required.union(["Signaloscope", "Signal > DeepSpace"])
+
+        if goal == goal.alias_visit_all_archive or goal.alias_visit_all_archive in goal_randomized_values:
+            required = required.union(world.item_name_groups["Goal GitM"])
+
+        goal_goes_to_atp = [goal.alias_ash_twin_project_break_spacetime, goal.alias_vanilla, goal.alias_stuck_in_dream, goal.alias_stuck_in_stranger, goal.alias_stuck_with_solanum]
+        if goal.value in goal_goes_to_atp or not goal_randomized_values.isdisjoint(goal_goes_to_atp):
+            required = required.union(world.item_name_groups["required for warpdrive"])
+
+        if require_solanum or require_solanum.randomized or goal.value == goal.alias_stuck_with_solanum or goal.alias_stuck_with_solanum in goal_randomized_values:
+            required = required.union(world.item_name_groups["required for solanum"])
+
+        if goal.value == goal.alias_high_energy_lab_break_spacetime or goal.alias_ash_twin_project_break_spacetime in goal_randomized_values:
+            required.add("Scout")
+
+        missing = removed_items.intersection(required)
+        if missing:
+            if len(missing) > 10:
+                raise OptionError(f'Some items required by your goal and objectives are listed in "remove_item".\
+                              \nEither change your goal or remove the following from "remove_item":\n{", ".join(missing)}')
+            else:
+                nl = "\n - "
+                raise OptionError(f'Some items required by your goal and objectives are listed in "remove_item".\
+                                \nEither change your goal or remove the following from "remove_item":{nl}{nl.join(missing)}')
+# endregion
+# region Location removal validation
+    items = [i for i in world.item_name_to_item.values() if i.get("progression") and is_item_enabled(multiworld, player, i)]
+    item_count = sum([i.get("count", 1) for i in items])
+    locations = [l for l in world.location_name_to_location.values() if not l.get("victory") and is_location_enabled(multiworld, player, l)]
+    if item_count > len(locations):
+        raise OptionError(f"Your options Choices made it so there are not enough locations for progression items. There are {item_count - len(locations)} more progression items than there are available locations")
+    starter_locs = [l for l in locations if l.get("region", "") == "Timber Hearth Village" and not l.get("requires")]
+    early_required = 0
+    if shuffle_spacesuit or shuffle_spacesuit.randomized:
+        early_required += 1
+    if ship_key_logic != ship_key_logic.option_startswith or ship_key_logic.option_startswith in ship_key_logic.get_randomized_values():
+        early_required += 1
+    if not remove_launch_codes or remove_launch_codes.randomized:
+        early_required += 1
+    if len(starter_locs) < early_required and len(multiworld.worlds) == 1:
+        raise OptionError("Too many early locations are disabled for logic to work correctly")
+# endregion
 # region local override
-    # All the local items are added here since thats where you are suposed to do it according to the unit tests
+    # All the local items are added here since thats where you are supposed to do it according to the unit tests
     for raw_item in item_table:
         raw_item = cast(dict[str, Any], raw_item)
         name = raw_item["name"]
@@ -172,20 +262,19 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     # option_global_early = 2
     # option_global_anywhere = 3
     # option_startswith = 4 default option value
-    early_Ship = world.options.ship_key_logic.value
     shipitem = "Ship Key"
-    if early_Ship == EarlyShipKey.option_startswith:
+    if ship_key_logic == ship_key_logic.option_startswith:
         multiworld.local_early_items[player].pop(shipitem, "")
         world.OWStartItems[shipitem] = 1
-    elif early_Ship == EarlyShipKey.option_local_early:
+    elif ship_key_logic == ship_key_logic.option_local_early:
         pass
-    elif early_Ship == EarlyShipKey.option_local_anywhere:
+    elif ship_key_logic == ship_key_logic.option_local_anywhere:
         multiworld.local_early_items[player].pop(shipitem, "")
         world.options.local_items.value.add(shipitem)
-    elif early_Ship == EarlyShipKey.option_global_early:
+    elif ship_key_logic == ship_key_logic.option_global_early:
         multiworld.local_early_items[player].pop(shipitem, "")
         multiworld.early_items[player][shipitem] = 1
-    elif early_Ship == EarlyShipKey.option_global_anywhere:
+    elif ship_key_logic == ship_key_logic.option_global_anywhere:
         multiworld.local_early_items[player].pop(shipitem, "")
 #endregion
     pass
@@ -229,9 +318,9 @@ def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: i
 # {"Item Name": {ItemClassification.useful: 5}} <- You can also use the classification directly
 def before_create_items_all(item_config: dict[str, int|dict], world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict[str, int|dict]:
 #region Personal Item counts adjustment
-    rdm_base_game = world.options.randomize_base_game.value
-    rdm_dlc = world.options.randomize_dlc.value
-    solanum = world.options.require_solanum
+    rdm_base_game = world.options.randomize_base_game.value # pyright: ignore[reportAttributeAccessIssue]
+    rdm_dlc = world.options.randomize_dlc.value # pyright: ignore[reportAttributeAccessIssue]
+    solanum = world.options.require_solanum.value # pyright: ignore[reportAttributeAccessIssue]
 
     if rdm_base_game and not rdm_dlc:
         item_config["Musical Instrument"] = 5
@@ -256,27 +345,25 @@ def before_create_items_starting(item_pool: list, world: "ManualWorld", multiwor
 
 # The item pool after starting items are processed but before filler is added, in case you want to see the raw item pool at that stage
 def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", multiworld: MultiWorld, player: int) -> list:
-    solanum = world.options.require_solanum
-    owlguy = world.options.require_prisoner
-    rdm_base_game = world.options.randomize_base_game.value
-    rdm_dlc = world.options.randomize_dlc.value
-    goal = world.options.goal
-    do_spooks = world.options.enable_spooks
-    DlcMainItemsRequired = world.options.dlc_access_items
+    solanum = cast(RequireSolanum, world.options.require_solanum) # pyright: ignore[reportAttributeAccessIssue]
+    owlguy = cast(RequirePrisoner, world.options.require_prisoner) # pyright: ignore[reportAttributeAccessIssue]
+    rdm_base_game = cast(RandomizeBaseGame, world.options.randomize_base_game) # pyright: ignore[reportAttributeAccessIssue]
+    rdm_dlc = cast(RandomizeDLC, world.options.randomize_dlc) # pyright: ignore[reportAttributeAccessIssue]
+    goal = cast(Goal, world.options.goal) # pyright: ignore[reportAttributeAccessIssue]
 #region StartItems
     StartItems = cast(dict[str, int], world.OWStartItems)
 
 # SuitShuffle
-    if not world.options.shuffle_spacesuit.value:
+    if not world.options.shuffle_spacesuit.value: # pyright: ignore[reportAttributeAccessIssue]
         StartItems["SpaceSuit"] = 1
 
 # Reverse Teleporters:
-    if world.options.reverse_teleporters.value:
+    if world.options.reverse_teleporters.value: # pyright: ignore[reportAttributeAccessIssue]
         multiworld.push_precollected(world.create_item("Reverse Teleporters"))
 
 # Early Launch Codes
 
-    if world.options.remove_launch_codes.value:
+    if world.options.remove_launch_codes.value: # pyright: ignore[reportAttributeAccessIssue]
         StartItems["Launch Codes"] = 1
 
 # Loop item and apply as requested
@@ -341,14 +428,14 @@ def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", mult
     if rdm_dlc:
         message.append("DLC")
         if len(message) == 1:
-            if goal == Goal.alias_vanilla:
+            if goal == goal.alias_vanilla:
                 message.append("Eye")
-            elif goal == Goal.alias_ash_twin_project_break_spacetime or goal == Goal.alias_stuck_in_stranger\
-                or goal == Goal.alias_stuck_in_dream or goal == Goal.alias_stuck_with_solanum:
+            elif goal == goal.alias_ash_twin_project_break_spacetime or goal == goal.alias_stuck_in_stranger\
+                or goal == goal.alias_stuck_in_dream or goal == goal.alias_stuck_with_solanum:
                 message.append("Ash Twin project")
-            elif goal == Goal.alias_high_energy_lab_break_spacetime:
+            elif goal == goal.alias_high_energy_lab_break_spacetime:
                 message.append("High Energy Lab")
-            if solanum or goal == Goal.alias_stuck_with_solanum:
+            if solanum or goal == goal.alias_stuck_with_solanum:
                 message.append("Moon")
 
     #logging.info(message)
@@ -380,26 +467,15 @@ def before_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
 def after_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
     # Use this hook to modify the access rules for a given location
-    #extra_data = load_data_file("extra.json")
-    # solanum = world.options.require_solanum.value
-    # owlguy = world.options.require_prisoner.value
-    # goal = world.options.goal.value
 
 #Victory Location access rules mod
 #region
     # for location in multiworld.get_filled_locations(player):
     #     if location.address is None and location.item is not None:
-    #         if location.item.name == '__Victory__':
-    #             if solanum:
-    #                 add_rule(location,
-    #                         lambda state: state.has("[Event] 6 - Explore the Sixth Location", player))
-    #             if owlguy and goal != Goal.alias_prisoner:
-    #                 add_rule(location,
-    #                         lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
-            # elif location.name.startswith("[Event] "):
-            #     name = location.name.removeprefix("[Event] ")
-            #     original = multiworld.get_location(name, player)
-            #     add_rule(location, lambda state: original.access_rule(state))
+    #         # if location.item.name == '__Victory__':
+
+    #         if location.item.name.startswith("[Event] "):
+    #             tmp = location.access_rule
 #endregion
 
     def Example_Rule(state: CollectionState) -> bool:
@@ -457,12 +533,14 @@ def before_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: Mul
 
 # This is called after slot data is set and provides the slot data at the time, in case you want to check and modify it after Manual is done with it
 def after_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict:
-    victory_name: str = world.victory_names[world.options.goal.value]
+    goal = cast(Goal, world.options.goal) # pyright: ignore[reportAttributeAccessIssue]
+
+    victory_name: str = world.victory_names[goal.value] # pyright: ignore[reportAttributeAccessIssue]
     Manual_victory = world.location_name_to_location[victory_name]
     needed: list[str] = []
-    if world.options.require_solanum.value:
+    if world.options.require_solanum.value: # pyright: ignore[reportAttributeAccessIssue]
         needed.append("Solanum")
-    if world.options.require_prisoner.value and world.options.goal.value != Goal.alias_prisoner:
+    if world.options.require_prisoner.value and goal != goal.alias_prisoner: # pyright: ignore[reportAttributeAccessIssue]
         needed.append("the Prisoner")
     if needed:
         base_alias = Manual_victory.get('alias', None)

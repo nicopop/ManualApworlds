@@ -1,6 +1,5 @@
 from typing import Optional, cast, Any, TYPE_CHECKING
 from BaseClasses import MultiWorld, Item, Location
-from worlds.AutoWorld import World
 
 if TYPE_CHECKING:
     from .. import ManualWorld
@@ -17,12 +16,12 @@ def before_is_category_enabled(multiworld: MultiWorld, player: int, category_nam
 # Return True to enable the item, False to disable it, or None to use the default behavior
 def before_is_item_enabled(multiworld: MultiWorld, player: int, item:  dict[str, Any]) -> Optional[bool]:
     world = cast("ManualWorld", multiworld.worlds[player])
-    if item["name"] in world.options.remove_items.value: # pyright: ignore[reportAttributeAccessIssue]
+    if item["name"] in world.options.remove_items.value: # type: ignore
         return False
     if "DLC - Reduced Knowledge" in item.get('category', []):
-        if not world.options.randomize_dlc.value: # pyright: ignore[reportAttributeAccessIssue]
+        if not world.options.randomize_dlc.value: # type: ignore
             return False
-        return bool(world.options.dlc_access_items.value) # pyright: ignore[reportAttributeAccessIssue]
+        return bool(world.options.dlc_access_items.value) # type: ignore
 
     return checkobject(multiworld, player, item)
 
@@ -31,14 +30,14 @@ def before_is_item_enabled(multiworld: MultiWorld, player: int, item:  dict[str,
 def before_is_location_enabled(multiworld: MultiWorld, player: int, location:  dict[str, Any], check_removed = True) -> Optional[bool]:
     world = cast("ManualWorld", multiworld.worlds[player])
     name = cast(str, location["name"])
-    if check_removed and (name in world.options.remove_locations.value or name.rstrip(".") in world.options.remove_locations.value): # pyright: ignore[reportAttributeAccessIssue]
+    if check_removed and (name in world.options.remove_locations.value or name.rstrip(".") in world.options.remove_locations.value): # type: ignore
         return False
     if "do_place_item_category" in location.get("category", []) or "no_place_item_category" in location.get("category", []):
-        if not world.options.randomize_base_game.value: # pyright: ignore[reportAttributeAccessIssue]
+        if not world.options.randomize_base_game.value: # type: ignore
              if location.get("region", "") == "Ship":
                  return "no_place_item_category" in location.get("category", [])
     elif "DLC - Spooky" in location.get("category", []):
-        if not world.options.enable_spooks: # pyright: ignore[reportAttributeAccessIssue]
+        if not world.options.enable_spooks: # type: ignore
             return False
 
     return checkobject(multiworld, player, location)
@@ -76,8 +75,8 @@ def checkobject(multiworld: MultiWorld, player: int, obj: dict[str, Any]) -> Opt
         if value.strip().startswith("!"):
             reverse = True
             value = value.lstrip("!")
-        target_goal = world.options.goal.from_any(value) # pyright: ignore[reportAttributeAccessIssue]
-        if (target_goal == world.options.goal) != reverse: return False # pyright: ignore[reportAttributeAccessIssue]
+        target_goal = world.options.goal.from_any(value) # type: ignore
+        if (target_goal == world.options.goal) != reverse: return False # type: ignore
 
     resultYes = False
     resultNo = False
@@ -96,16 +95,16 @@ def checkobject(multiworld: MultiWorld, player: int, obj: dict[str, Any]) -> Opt
         return False
     return None
 
-def InitCategories(base: World, player: int):
+def InitCategories(base: "ManualWorld", player: int):
     """Mark categories as Enabled or Disabled based on options"""
     from .Options import Goal #imported here because otherwise cause circular import
 
-    goal = cast(Goal, base.options.goal) # pyright: ignore[reportAttributeAccessIssue]
-    rdm_base_game = bool(base.options.randomize_base_game.value) # pyright: ignore[reportAttributeAccessIssue]
-    rdm_dlc = bool(base.options.randomize_dlc.value) # pyright: ignore[reportAttributeAccessIssue]
-    solanum = bool(base.options.require_solanum.value) # pyright: ignore[reportAttributeAccessIssue]
+    goal = cast(Goal, base.options.goal) # type: ignore
+    rdm_base_game = bool(base.options.randomize_base_game.value) # type: ignore
+    rdm_dlc = bool(base.options.randomize_dlc.value) # type: ignore
+    solanum = bool(base.options.require_solanum.value) # type: ignore
 
-    if not rdm_dlc or not base.options.dlc_access_items.value: # pyright: ignore[reportAttributeAccessIssue]
+    if not rdm_dlc or not base.options.dlc_access_items.value: # type: ignore
         set_category_status(base, player, 'DLC - Reduced Knowledge', False)
 
     set_category_status(base, player, 'Base Game', rdm_base_game)
@@ -126,7 +125,7 @@ def InitCategories(base: World, player: int):
             set_category_status(base, player, 'required for solanum', True)
         elif (goal == goal.alias_stuck_in_stranger or goal == goal.alias_stuck_in_dream):
             set_category_status(base, player, 'required for warpdrive', True)
-    base.categoryInit = True # pyright: ignore[reportAttributeAccessIssue]
+    base.categoryInit = True # type: ignore
 
 def set_category_status(world, player: int, category_name: str, status: bool):
     if world.category_table.get(category_name, {}):

@@ -1,6 +1,5 @@
 # Object classes from AP core, to represent an entire MultiWorld and this individual World that's part of it
 from worlds.AutoWorld import World
-from worlds.generic.Rules import add_rule
 from typing import TYPE_CHECKING, cast, Any, Callable
 
 from BaseClasses import MultiWorld, CollectionState, Item, ItemClassification
@@ -64,7 +63,7 @@ def add_client_to_launcher() -> None:
         if c.display_name == "Manual Client Nico's Experiment":
             found = True
             if getattr(c, "version", 0) < version:
-                c.version = version # pyright: ignore[reportAttributeAccessIssue]
+                c.version = version # type: ignore
                 c.func = launch_client
                 c.icon = "manual"
 
@@ -87,21 +86,22 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     This is the earliest hook called during generation, before anything else is done.
     Use it to check or modify incompatible options, or to set up variables for later use.
     """
-    world.OWStartItems = {} # pyright: ignore[reportAttributeAccessIssue]
-    world.options.game_version.value = world.world_version.as_simple_string() # pyright: ignore[reportAttributeAccessIssue]
+    from .Options import ToggleIsRandom
+    world.OWStartItems = {} # type: ignore
+    world.options.game_version.value = world.world_version.as_simple_string() # type: ignore
 # region Init Options
-    goal = cast(Goal, world.options.goal) # pyright: ignore[reportAttributeAccessIssue]
-    rdm_base_game = cast(RandomizeBaseGame, world.options.randomize_base_game) # pyright: ignore[reportAttributeAccessIssue]
-    rdm_dlc = cast(RandomizeDLC, world.options.randomize_dlc) # pyright: ignore[reportAttributeAccessIssue]
-    require_prisoner = cast(RequirePrisoner, world.options.require_prisoner) # pyright: ignore[reportAttributeAccessIssue]
-    require_solanum = cast(RequireSolanum, world.options.require_solanum) # pyright: ignore[reportAttributeAccessIssue]
-    shuffle_spacesuit = cast(ShuffleSpacesuit, world.options.shuffle_spacesuit) # pyright: ignore[reportAttributeAccessIssue]
-    remove_launch_codes = cast(BiggerSphere1, world.options.remove_launch_codes) # pyright: ignore[reportAttributeAccessIssue]
-    ship_key_logic = cast(EarlyShipKey, world.options.ship_key_logic) # pyright: ignore[reportAttributeAccessIssue]
+    goal = cast(Goal, world.options.goal) # type: ignore
+    rdm_base_game = cast(RandomizeBaseGame, world.options.randomize_base_game) # type: ignore
+    rdm_dlc = cast(RandomizeDLC, world.options.randomize_dlc) # type: ignore
+    require_prisoner = cast(RequirePrisoner, world.options.require_prisoner) # type: ignore
+    require_solanum = cast(RequireSolanum, world.options.require_solanum) # type: ignore
+    shuffle_spacesuit = cast(ShuffleSpacesuit, world.options.shuffle_spacesuit) # type: ignore
+    remove_launch_codes = cast(BiggerSphere1, world.options.remove_launch_codes) # type: ignore
+    ship_key_logic = cast(EarlyShipKey, world.options.ship_key_logic) # type: ignore
     #Options Check for impossibilities
     if not (rdm_base_game or rdm_dlc):
         if rdm_base_game.randomized or rdm_dlc.randomized:
-            choices = []
+            choices: list[ToggleIsRandom] = []
             if rdm_base_game.randomized:
                 choices.append(rdm_base_game)
             if rdm_dlc.randomized:
@@ -143,13 +143,13 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
 
             # logging.warning(f"OW: Impossible goal for player '{multiworld.get_player_name(player)}'. Was changed to Default (Vanilla%)")
         if not rdm_dlc:
-            world.options.enable_spooks.value = 1 #Set to True to skip some code later # pyright: ignore[reportAttributeAccessIssue]
-            world.options.dlc_access_items.value = 0 # pyright: ignore[reportAttributeAccessIssue]
+            world.options.enable_spooks.value = 1 # type: ignore #Set to True to skip some code later
+            world.options.dlc_access_items.value = 0 # type: ignore
 
     elif rdm_dlc and not rdm_base_game:
         # if world.options.shuffle_spacesuit.value:
         #     raise OptionError(f"Player {player} You can't shuffle SpaceSuit when you only play the dlc")
-        if world.options.dlc_access_items.value: # pyright: ignore[reportAttributeAccessIssue]
+        if world.options.dlc_access_items.value: # type: ignore
             world.OWStartItems["Stranger Access"] = 1
         world.OWStartItems["Signaloscope"] = 1
         world.OWStartItems["Signal > DeepSpace"] = 1
@@ -164,7 +164,7 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
 #endregion
 # region Item removal validation
     from Options import Accessibility
-    removed_items = cast(set[str], world.options.remove_items.value) # pyright: ignore[reportAttributeAccessIssue]
+    removed_items = cast(set[str], world.options.remove_items.value) # type: ignore
     goal_randomized_values = frozenset(goal.get_randomized_values())
     # removed_items = {i for i in removed_items if is_item_enabled(multiworld, player, world.item_name_to_item[i])}
     if not rdm_base_game and not rdm_base_game.randomized and not require_solanum and not require_solanum.randomized\
@@ -318,9 +318,9 @@ def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: i
 # {"Item Name": {ItemClassification.useful: 5}} <- You can also use the classification directly
 def before_create_items_all(item_config: dict[str, int|dict], world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict[str, int|dict]:
 #region Personal Item counts adjustment
-    rdm_base_game = world.options.randomize_base_game.value # pyright: ignore[reportAttributeAccessIssue]
-    rdm_dlc = world.options.randomize_dlc.value # pyright: ignore[reportAttributeAccessIssue]
-    solanum = world.options.require_solanum.value # pyright: ignore[reportAttributeAccessIssue]
+    rdm_base_game = world.options.randomize_base_game.value # type: ignore
+    rdm_dlc = world.options.randomize_dlc.value # type: ignore
+    solanum = world.options.require_solanum.value # type: ignore
 
     if rdm_base_game and not rdm_dlc:
         item_config["Musical Instrument"] = 5
@@ -345,25 +345,25 @@ def before_create_items_starting(item_pool: list, world: "ManualWorld", multiwor
 
 # The item pool after starting items are processed but before filler is added, in case you want to see the raw item pool at that stage
 def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", multiworld: MultiWorld, player: int) -> list:
-    solanum = cast(RequireSolanum, world.options.require_solanum) # pyright: ignore[reportAttributeAccessIssue]
-    owlguy = cast(RequirePrisoner, world.options.require_prisoner) # pyright: ignore[reportAttributeAccessIssue]
-    rdm_base_game = cast(RandomizeBaseGame, world.options.randomize_base_game) # pyright: ignore[reportAttributeAccessIssue]
-    rdm_dlc = cast(RandomizeDLC, world.options.randomize_dlc) # pyright: ignore[reportAttributeAccessIssue]
-    goal = cast(Goal, world.options.goal) # pyright: ignore[reportAttributeAccessIssue]
+    solanum = cast(RequireSolanum, world.options.require_solanum) # type: ignore
+    owlguy = cast(RequirePrisoner, world.options.require_prisoner) # type: ignore
+    rdm_base_game = cast(RandomizeBaseGame, world.options.randomize_base_game) # type: ignore
+    rdm_dlc = cast(RandomizeDLC, world.options.randomize_dlc) # type: ignore
+    goal = cast(Goal, world.options.goal) # type: ignore
 #region StartItems
     StartItems = cast(dict[str, int], world.OWStartItems)
 
 # SuitShuffle
-    if not world.options.shuffle_spacesuit.value: # pyright: ignore[reportAttributeAccessIssue]
+    if not world.options.shuffle_spacesuit.value: # type: ignore
         StartItems["SpaceSuit"] = 1
 
 # Reverse Teleporters:
-    if world.options.reverse_teleporters.value: # pyright: ignore[reportAttributeAccessIssue]
+    if world.options.reverse_teleporters.value: # type: ignore
         multiworld.push_precollected(world.create_item("Reverse Teleporters"))
 
 # Early Launch Codes
 
-    if world.options.remove_launch_codes.value: # pyright: ignore[reportAttributeAccessIssue]
+    if world.options.remove_launch_codes.value: # type: ignore
         StartItems["Launch Codes"] = 1
 
 # Loop item and apply as requested
@@ -533,14 +533,14 @@ def before_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: Mul
 
 # This is called after slot data is set and provides the slot data at the time, in case you want to check and modify it after Manual is done with it
 def after_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict:
-    goal = cast(Goal, world.options.goal) # pyright: ignore[reportAttributeAccessIssue]
+    goal = cast(Goal, world.options.goal) # type: ignore
 
-    victory_name: str = world.victory_names[goal.value] # pyright: ignore[reportAttributeAccessIssue]
+    victory_name: str = world.victory_names[goal.value] # type: ignore
     Manual_victory = world.location_name_to_location[victory_name]
     needed: list[str] = []
-    if world.options.require_solanum.value: # pyright: ignore[reportAttributeAccessIssue]
+    if world.options.require_solanum.value: # type: ignore
         needed.append("Solanum")
-    if world.options.require_prisoner.value and goal != goal.alias_prisoner: # pyright: ignore[reportAttributeAccessIssue]
+    if world.options.require_prisoner.value and goal != goal.alias_prisoner: # type: ignore
         needed.append("the Prisoner")
     if needed:
         base_alias = Manual_victory.get('alias', None)

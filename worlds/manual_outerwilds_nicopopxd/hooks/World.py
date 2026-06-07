@@ -175,7 +175,7 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
 
     if removed_items:
         if any(i for i in removed_items if world.item_name_to_item[i].get("progression")) and world.options.accessibility.value != Accessibility.option_minimal:
-            raise OptionError('removed_items has some progression items listed while Accessibility is not set to Minimal. Generation would not like this!')
+            logging.warning(f'Player {world.player_name}\'s removed_items has some progression items listed while Accessibility is not set to Minimal. Generation might not like this!')
         logging.info(f"Scanning removed items for impossible goal requirement for player {player}.")
         required: set[str] = set()
         if goal.randomized or goal == goal.alias_vanilla or goal.alias_vanilla in goal_randomized_values:

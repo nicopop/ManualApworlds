@@ -284,29 +284,6 @@ def before_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: 
 
 # Called after regions and locations are created, in case you want to see or modify that information. Victory location is included.
 def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: int):
-    from ..Helpers import is_location_enabled
-
-#region Removing locations
-    locations_to_be_removed = []
-    # Selecting what content to remove
-    #region
-    # place code that add location to locations_to_be_removed here
-
-    #endregion
-
-    #Removing Locations
-    #region
-
-    for region in multiworld.regions:
-        if region.player != player:
-            continue
-        for location in list(region.locations):
-            manual_loc = world.location_name_to_location.get(location.name, {})
-            if manual_loc.get("id") and manual_loc.get("alias"):
-                world.location_id_to_alias[manual_loc["id"]] = manual_loc["alias"]
-
-    #endregion
-#endregion
     pass
 # This hook allows you to access the item names & counts before the items are created. Use this to increase/decrease the amount of a specific item in the pool
 # Valid item_config key/values:
@@ -328,11 +305,6 @@ def before_create_items_all(item_config: dict[str, int|dict], world: "ManualWorl
         if not solanum:
             item_config["Musical Instrument"] = 5
 #endregion
-    for item_name in item_config.keys():
-        manual_item = world.item_name_to_item[item_name]
-        if manual_item.get("alias"):
-            world.item_id_to_alias[manual_item["id"]] = manual_item["alias"]
-
     return item_config
 
 # The item pool before place_item(_category) are processed, in case you want to see the raw item pool at that stage
@@ -543,14 +515,14 @@ def after_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: Mult
     if world.options.require_prisoner.value and goal != goal.alias_prisoner: # type: ignore
         needed.append("the Prisoner")
     if needed:
-        base_alias = Manual_victory.get('alias', None)
-        if base_alias is not None:
-            alias = f"{base_alias} + {' and '.join(needed)}"
+        base_description = Manual_victory.get('description', None)
+        if base_description is not None:
+            description = f"{base_description} + {' and '.join(needed)}"
         else:
-            alias = f"{' and '.join(needed)}"
-        if "location_id_to_alias" not in slot_data.keys():
-            slot_data["location_id_to_alias"] = {}
-        slot_data["location_id_to_alias"][Manual_victory["id"]] = alias
+            description = f"{' and '.join(needed)}"
+        if "location_name_to_description" not in slot_data.keys():
+            slot_data["location_name_to_description"] = {}
+        slot_data["location_name_to_description"][victory_name] = description
     return slot_data
 
 # This is called right at the end, in case you want to write stuff to the spoiler log

@@ -10,9 +10,9 @@ def before_is_category_enabled(multiworld: MultiWorld, player: int, category_nam
     from .Options import CorruptionType
     world = cast("ManualWorld", multiworld.worlds[player])
     weird_biome = cast(CorruptionType, world.options.weird_biome) # type: ignore
-    if category_name == "Corruption" and weird_biome.value != weird_biome.option_corruption:
+    if category_name == "Corruption" and weird_biome.value == weird_biome.option_crimson:
         return False
-    elif category_name == "Crimson" and weird_biome.value != weird_biome.option_crimson:
+    elif category_name == "Crimson" and weird_biome.value == weird_biome.option_corruption:
         return False
     category_data = world.category_table.get(category_name, {})
 
@@ -30,9 +30,9 @@ def before_is_item_enabled(multiworld: MultiWorld, player: int, item:  dict[str,
 # Return True to enable the location, False to disable it, or None to use the default behavior
 def before_is_location_enabled(multiworld: MultiWorld, player: int, location:  dict[str, Any], check_removed = True) -> Optional[bool]:
     world = cast("ManualWorld", multiworld.worlds[player])
-    name = cast(str, location["name"])
-    if check_removed and (name in world.options.remove_locations.value or name.rstrip(".") in world.options.remove_locations.value): # type: ignore
-        return False
+    # name = cast(str, location["name"])
+    # if check_removed and (name in world.options.remove_locations.value or name.rstrip(".") in world.options.remove_locations.value): # type: ignore
+    #     return False
 
     return checkobject(multiworld, player, location)
 
@@ -57,7 +57,7 @@ def checkobject(multiworld: MultiWorld, player: int, obj: dict[str, Any]) -> Opt
         return None if no category are enable or disabled
     """
     world = cast("ManualWorld", multiworld.worlds[player])
-    if world is not None and not hasattr(world, 'categoryInit'):
+    if not hasattr(world, 'categoryInit'):
         InitCategories(world, player)
 
     if obj.get("disabled") == True:
@@ -119,7 +119,7 @@ def InitCategories(world: "ManualWorld", player: int):
     #         set_category_status(base, player, 'required for solanum', True)
     #     elif (goal == goal.alias_stuck_in_stranger or goal == goal.alias_stuck_in_dream):
     #         set_category_status(base, player, 'required for warpdrive', True)
-    base.categoryInit = True # type: ignore
+    world.categoryInit = True # type: ignore
 
 def set_category_status(world: "ManualWorld", player: int, category_name: str, status: bool):
     if world.category_table.get(category_name, {}):

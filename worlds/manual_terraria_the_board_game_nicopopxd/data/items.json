@@ -10,31 +10,38 @@
         },
         {
             "name": "Snow Biome",
+            "progression": true,
             "category": ["Biome Token", "Snow"]
         },
         {
             "name": "Desert Biome",
+            "progression": true,
             "category": ["Biome Token", "Desert"]
         },
         {
             "name": "Jungle Biome",
+            "progression": true,
             "category": ["Biome Token", "Jungle"]
         },
         {
             "name": "Corruption Biome",
+            "progression": true,
             "category": ["Biome Token", "Corruption"]
         },
         {
             "name": "Crimson Biome",
+            "progression": true,
             "category": ["Biome Token", "Crimson"]
         },
         {
             "name": "Left Ocean Biome",
-            "category": ["Ocean Token", "Beach"]
+            "progression": true,
+            "category": ["Ocean Token", "Ocean"]
         },
         {
             "name": "Right Ocean Biome",
-            "category": ["Ocean Token", "Beach"]
+            "progression": true,
+            "category": ["Ocean Token", "Ocean"]
         }
     ]
 }

@@ -64,7 +64,7 @@ def add_client_to_launcher() -> None:
         if c.display_name == "Manual Client Nico's Experiment":
             found = True
             if getattr(c, "version", 0) < version:
-                c.version = version
+                c.version = version # type: ignore
                 c.func = launch_client
                 c.icon = "manual"
 
@@ -108,8 +108,6 @@ def before_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: 
 
 # Called after regions and locations are created, in case you want to see or modify that information. Victory location is included.
 def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: int):
-    from ..Helpers import is_location_enabled
-
     pass
 # This hook allows you to access the item names & counts before the items are created. Use this to increase/decrease the amount of a specific item in the pool
 # Valid item_config key/values:

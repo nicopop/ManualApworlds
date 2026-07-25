@@ -41,32 +41,38 @@
 
         {
             "name": "Forest Surface Chest",
-            "region": "Forest"
+            "region": "Forest",
+            "category": ["Forest"]
         },
         {
             "name": "Snow Surface Chest",
-            "region": "Snow"
+            "region": "Snow",
+            "category": ["Snow"]
         },
         {
             "name": "Desert Surface Chest",
-            "region": "Desert"
+            "region": "Desert",
+            "category": ["Desert"]
         },
         {
             "name": "Jungle Surface Chest",
-            "region": "Jungle"
+            "region": "Jungle",
+            "category": ["Jungle"]
         },
         {
             "name": "Corruption Surface Chest",
-            "region": "Corruption"
+            "region": "Corruption",
+            "category": ["Corruption"]
         },
         {
             "name": "Crimson Surface Chest",
-            "region": "Crimson"
+            "region": "Crimson",
+            "category": ["Crimson"]
         },
         {
             "name": "Victory TMP",
             "victory": true,
-            "requires": "|@Ocean Token:All|"
+            "requires": "|@Ocean Token:all|"
         }
     ]
 }

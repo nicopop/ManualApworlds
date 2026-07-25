@@ -106,7 +106,7 @@
     "connects_to": ["Shrouded Woodlands Archive", "Subterranean Lake", "Starlit Cove", "Endless Canyon" ]
   },
   "Shrouded Woodlands Archive": {
-    "requires": "(|Boat Patch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) )) or (|River Lowlands Flame| and |Ghost Wall Patch| and ((|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|))))",
+    "requires": "(|Boat Patch| and {Event(9 - Boat)}) or (|River Lowlands Flame| and |Ghost Wall Patch| and ((|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|))))",
     "connects_to": ["All Archive"]
   },
   "Starlit Cove": {
@@ -131,7 +131,7 @@
     "connects_to": []
   },
   "Subterranean Lake": {
-    "requires": "(|Submerged Structure Flame| or ((|Boat Patch| and (|River Lowlands Flame| or (|Cinder Isles Flame| and |Door Candles Patch|) or (|Hidden Gorge Flame| and (|Limbo Patch| or |Totem Hands Patch|)) ))) )",
+    "requires": "|Submerged Structure Flame| or (|Boat Patch| and {Event(9 - Boat)})",
     "connects_to": []
   }
 }

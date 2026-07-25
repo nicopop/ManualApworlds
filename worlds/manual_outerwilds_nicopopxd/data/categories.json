@@ -11,22 +11,28 @@
     "Base Game": {
         "hidden": true,
         "yaml_option_off": [ "randomize_base_game"],
-        "create_item_group": false,
         "create_location_group": false
     },
     "FillerDummy": {
         "hidden": true
-    },
-    "Win_Eye": {
-        "hidden": true,
-        "create_item_group": false,
-        "create_location_group": false
     },
     "Goal Eye": {
         "hidden": true,
         "create_location_group": false
     },
     "Goal Prisoner": {
+        "hidden": true,
+        "create_location_group": false
+    },
+    "Goal Prisoner Patches": {
+        "hidden": true,
+        "create_location_group": false
+    },
+    "Goal Prisoner Datamine": {
+        "hidden": true,
+        "create_location_group": false
+    },
+    "Goal Prisoner No Datamine": {
         "hidden": true,
         "create_location_group": false
     },
@@ -58,35 +64,17 @@
         "_comment": "Might turn into an objective or something idk ;)",
         "hidden": true
     },
-    "Win_ATP_break_spacetime": {
+    "required for solanum": {
         "hidden": true,
-        "create_item_group": false,
         "create_location_group": false
     },
-    "Win_HEL_break_spacetime": {
+    "required for warpdrive": {
         "hidden": true,
-        "create_item_group": false,
-        "create_location_group": false
-    },
-    "Win_solanum": {
-        "hidden": true,
-        "create_item_group": false,
-        "create_location_group": false
-    },
-    "require_solanum": {
-        "hidden": true,
-        "create_item_group": false,
-        "create_location_group": false
-    },
-    "need_warpdrive": {
-        "hidden": true,
-        "create_item_group": false,
         "create_location_group": false
     },
     "DLC - Eye": {
         "hidden": true,
         "yaml_option": [ "randomize_dlc" ],
-        "create_item_group": false,
         "create_location_group": false
     },
     "DLC - Stranger Entrance": {

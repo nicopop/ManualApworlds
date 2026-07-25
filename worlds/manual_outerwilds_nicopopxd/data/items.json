@@ -6,17 +6,20 @@
             "id": 1,
             "early": true,
             "local": true,
+            "removable": false,
             "progression": true,
             "category": [ "2 Base Game", "2a Progression", "1 Everything", "1a All Progression" ]
         },
         {
             "name": "Ship Key",
             "progression": true,
+            "removable": false,
             "local_early": true,
             "category": [ "2 Base Game", "2a Progression", "1 Everything", "1a All Progression" ]
         },
         {
             "name": "SpaceSuit",
+            "removable": false,
             "progression": true,
             "category": [ "2 Base Game", "2a Progression", "1 Everything", "1a All Progression"]
         },
@@ -29,7 +32,7 @@
         {
             "name": "Photos",
             "progression": true,
-            "category": [ "2 Base Game", "2a Progression", "1 Everything", "1a All Progression", "Goal Eye" ]
+            "category": [ "2 Base Game", "2a Progression", "1 Everything", "1a All Progression", "Goal Eye", "required for solanum" ]
         },
         {
             "name": "Meditation",
@@ -63,19 +66,19 @@
         },
         {
             "name": "Marshmallow",
-            "alias": "Mostly Sugar",
+            "description": "Mostly Sugar",
             "count": 0,
             "category": [ "1b Filler and Useful", "1 Everything", "FillerDummy" ]
         },
         {
             "name": "Perfect Marshmallow",
-            "alias": "Sweet perfection",
+            "description": "Sweet perfection",
             "count": 0,
             "category": [ "1b Filler and Useful", "1 Everything", "FillerDummy" ]
         },
         {
             "name": "Burnt Marshmallow",
-            "alias": "mmm crispy",
+            "description": "mmm crispy",
             "count": 0,
             "category": [ "1b Filler and Useful", "1 Everything", "FillerDummy" ]
         },
@@ -115,7 +118,8 @@
             "name": "Signaloscope",
             "id": 300,
             "progression": true,
-            "category": [ "2 Base Game", "2a Progression", "2b Signals", "1 Everything", "1a All Progression", "Goal Eye", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "2 Base Game", "2a Progression", "2b Signals", "1 Everything", "1a All Progression",
+            "Goal Eye", "Goal Prisoner", "Goal GitM", "required for solanum" ]
         },
 
         {
@@ -131,12 +135,12 @@
         {
             "name": "Signal > Quantum",
             "progression": true,
-            "category": [ "2 Base Game", "2b Signals", "2d Quantum", "1 Everything", "1a All Progression", "Base Game", "require_solanum" ]
+            "category": [ "2 Base Game", "2b Signals", "2d Quantum", "1 Everything", "1a All Progression", "Base Game", "required for solanum" ]
         },
         {
             "name": "Signal > Distress",
             "progression": true,
-            "category": [ "2 Base Game", "2b Signals", "1 Everything", "1a All Progression", "Base Game", "Win_Eye", "Win_HEL_break_spacetime", "Goal Eye" ]
+            "category": [ "2 Base Game", "2b Signals", "1 Everything", "1a All Progression", "Base Game", "Goal Eye" ]
         },
         {
             "name": "Signal > DeepSpace",
@@ -147,52 +151,56 @@
         {
             "name": "Coordinates",
             "id": 400,
-            "alias": "Coords to the eye",
+            "description": "Coords to the eye",
             "old_name": "Coords to the eye",
             "progression": true,
             "count": 1,
             "remove_if_goal": "!Vanilla%",
-            "category": [ "2 Base Game", "Base Need For Eye", "1 Everything", "1a All Progression", "Base Game", "Win_Eye", "Goal Eye" ]
+            "category": [ "2 Base Game", "Base Need For Eye", "1 Everything", "1a All Progression", "Base Game", "Goal Eye" ]
         },
         {
             "name": "Warp Core Manual",
             "old_name": "Adv. warp core",
             "progression": true,
             "count": 1,
-            "category": [ "2 Base Game", "Base Need For Eye", "1 Everything", "1a All Progression", "Base Game", "need_warpdrive", "Goal Eye" ]
+            "category": [ "2 Base Game", "Base Need For Eye", "1 Everything", "1a All Progression",
+                        "Base Game", "required for warpdrive", "Goal Eye" ]
         },
 
         {
             "name": "Counter-Clockwise Tornadoes",
-            "alias": "Make you go Down",
+            "description": "Make you go Down",
             "progression": true,
-            "category": [ "2 Base Game", "2a Progression", "Base Game Main Progression", "1 Everything", "1a All Progression", "Base Game", "Win_Eye", "Goal Eye"]
+            "category": [ "2 Base Game", "2a Progression", "Base Game Main Progression",
+                        "1 Everything", "1a All Progression", "Base Game", "Goal Eye"]
         },
         {
             "name": "Clockwise Tornadoes",
-            "alias": "Make you go Up",
+            "description": "Make you go Up",
             "progression": true,
             "category": [ "2 Base Game", "2a Progression", "1 Everything", "1a All Progression", "Base Game"]
         },
         {
             "name": "Jellyfishes",
-            "alias": "Let you go past the electric barrier",
+            "description": "Let you go past the electric barrier",
             "progression": true,
-            "category": [ "2 Base Game", "2a Progression", "Base Game Main Progression", "1 Everything", "1a All Progression", "Base Game", "Win_Eye", "Goal Eye"]
+            "category": [ "2 Base Game", "2a Progression", "Base Game Main Progression",
+                        "1 Everything", "1a All Progression", "Base Game", "Goal Eye"]
         },
         {
             "name": "Nomai Warp Codes",
             "old_name": "Teleporters",
-            "alias": "Unlocks using Teleporters",
+            "description": "Unlocks using Teleporters",
             "progression": true,
             "category": [ "2 Base Game", "2a Progression", "Base Game Main Progression",
-                        "1 Everything", "1a All Progression", "Base Game", "need_warpdrive", "Goal Eye"]
+                        "1 Everything", "1a All Progression", "Base Game", "required for warpdrive", "Goal Eye"]
         },
         {
             "name": "Anglerfish Biology",
-            "alias": "Unlocks Dark Brambles",
+            "description": "Unlocks Dark Brambles",
             "progression": true,
-            "category": [ "2 Base Game", "2a Progression", "Base Game Main Progression", "1 Everything", "1a All Progression", "Base Game", "Win_Eye", "Goal Eye"]
+            "category": [ "2 Base Game", "2a Progression", "Base Game Main Progression",
+                        "1 Everything", "1a All Progression", "Base Game", "Goal Eye"]
         },
         {
             "name": "Reverse Teleporters",
@@ -204,25 +212,25 @@
 
         {
             "name": "Quantum Rule > A",
-            "alias": "imaging",
+            "description": "Imaging",
             "old_name": "Quantum Rule > imaging",
             "id": 500,
             "progression": true,
-            "category": [ "2 Base Game", "2d Quantum", "1 Everything", "1a All Progression", "Base Game", "require_solanum" ]
+            "category": [ "2 Base Game", "2d Quantum", "1 Everything", "1a All Progression", "Base Game", "required for solanum" ]
         },
         {
             "name": "Quantum Rule > B",
-            "alias": "entanglement",
+            "description": "Entanglement",
             "old_name": "Quantum Rule > entanglement",
             "progression": true,
-            "category": [ "2 Base Game", "2d Quantum", "1 Everything", "1a All Progression", "Base Game", "require_solanum" ]
+            "category": [ "2 Base Game", "2d Quantum", "1 Everything", "1a All Progression", "Base Game", "required for solanum" ]
         },
         {
             "name": "Quantum Rule > C",
-            "alias": "sixth location",
+            "description": "Sixth location",
             "old_name": "Quantum Rule > sixth location",
             "progression": true,
-            "category": [ "2 Base Game", "2d Quantum", "1 Everything", "1a All Progression", "Base Game", "require_solanum" ]
+            "category": [ "2 Base Game", "2d Quantum", "1 Everything", "1a All Progression", "Base Game", "required for solanum" ]
         },
 
         {
@@ -243,7 +251,7 @@
         },
         {
             "name": "Stranger Dam entrance",
-            "alias": "Go up the elevator",
+            "description": "Go up the elevator",
             "progression": true,
             "category": [ "3 Echoes of the Eye", "3a Entrances", "1 Everything", "1a All Progression", "DLC - Eye", "DLC - Stranger Entrance" ]
         },
@@ -260,30 +268,31 @@
         },
         {
             "name": "Temple Code",
-            "alias": "Abandoned Temple Basement",
+            "description": "Abandoned Temple Basement",
             "old_name": "Abandoned temple code",
             "progression": true,
             "category": [ "3 Echoes of the Eye", "3e codes", "1 Everything", "1a All Progression", "DLC - Eye" ]
         },
         {
             "name": "Interface Code",
-            "alias": "Broken Interface room",
+            "description": "Broken Interface room",
             "old_name": "Broken Interface room code",
             "progression": true,
             "category": [ "3 Echoes of the Eye", "3e codes", "1 Everything", "1a All Progression", "DLC - Eye" ]
         },
         {
             "name": "Datamined Code",
-            "alias": "Datamined Sealed Vault codes",
+            "description": "Datamined Sealed Vault codes",
             "old_name": "Progressive Datamined Sealed Vault Code",
             "count": 3,
             "progression": true,
-            "category": [ "3a Progression", "3e codes", "3e Progressive", "3 Echoes of the Eye", "1 Everything", "1a All Progression", "DLC - Eye", "Goal Prisoner" ]
+            "category": [ "3a Progression", "3e codes", "3e Progressive", "3 Echoes of the Eye",
+                        "1 Everything", "1a All Progression", "DLC - Eye" ]
         },
 
         {
             "name": "Progressive Secret Room",
-            "alias": "Unlocks Slides burning rooms",
+            "description": "Unlocks Slides burning rooms",
             "old_name": "Progressive Slide burning room",
             "count": 3,
             "progression": true,
@@ -293,69 +302,80 @@
             "name": "River Lowlands Flame",
             "id": 1100,
             "progression": true,
-            "category": [ "3 Echoes of the Eye", "3a Entrances", "DLC Flame", "1 Everything", "1a All Progression", "DLC - Eye" ]
+            "category": [ "3 Echoes of the Eye", "3a Entrances", "DLC Flame", "DLC Main Flames",
+                        "1 Everything", "1a All Progression", "DLC - Eye" ]
         },
         {
             "name": "Cinder Isles Flame",
             "progression": true,
-            "category": [ "3 Echoes of the Eye", "3a Entrances", "DLC Flame", "1 Everything", "1a All Progression", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "3 Echoes of the Eye", "3a Entrances", "DLC Flame", "1 Everything", "1a All Progression",
+            "DLC - Eye", "DLC Main Flames", "Goal GitM" ]
         },
         {
             "name": "Hidden Gorge Flame",
             "progression": true,
-            "category": [ "3 Echoes of the Eye", "3a Entrances", "DLC Flame", "1 Everything", "1a All Progression", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "3 Echoes of the Eye", "3a Entrances", "DLC Flame", "1 Everything", "1a All Progression",
+            "DLC - Eye", "DLC Main Flames", "Goal GitM" ]
         },
         {
             "name": "Submerged Structure Flame",
             "progression": true,
-            "category": [ "3 Echoes of the Eye", "3a Entrances", "DLC Flame", "1 Everything", "1a All Progression", "DLC - Eye", "Goal Prisoner" ]
+            "category": [ "3 Echoes of the Eye", "3a Entrances", "DLC Flame", "1 Everything", "1a All Progression",
+            "DLC - Eye", "Goal Prisoner Datamine"]
         },
         {
             "name": "DreamWorld Access",
             "progression": true,
-            "category": [ "3a Entrances", "3c DreamWorld", "3 Echoes of the Eye", "1 Everything", "1a All Progression", "DLC - Eye", "DLC - Reduced Knowledge", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "3a Entrances", "3c DreamWorld", "3 Echoes of the Eye", "1 Everything", "1a All Progression",
+            "DLC - Eye", "DLC - Reduced Knowledge", "Goal GitM" ]
         },
         {
             "name": "Boat Patch",
-            "alias": "Loading Glitch",
+            "description": "Loading Glitch",
             "old_name": "DreamWorld Loading Glitch",
             "progression": true,
-            "category": [ "3a Progression", "3c DreamWorld", "3 Echoes of the Eye", "DLC Glitch", "1 Everything", "1a All Progression", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "3a Progression", "3c DreamWorld", "3 Echoes of the Eye", "DLC Glitch", "1 Everything", "1a All Progression",
+            "DLC - Eye", "Goal GitM", "Goal Prisoner No Datamine", "Goal Prisoner Datamine" ]
         },
         {
             "name": "Limbo Patch",
-            "alias": "Render Glitch",
+            "description": "Render Glitch",
             "old_name": "DreamWorld Render Glitch",
             "progression": true,
-            "category": [ "3a Progression", "3c DreamWorld", "3 Echoes of the Eye", "DLC Glitch","1 Everything", "1a All Progression", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "3a Progression", "3c DreamWorld", "3 Echoes of the Eye", "DLC Glitch","1 Everything", "1a All Progression",
+            "DLC - Eye", "Goal GitM", "Goal Prisoner" ]
         },
         {
             "name": "Alarm Bypass Patch",
-            "alias": "Death Glitch",
+            "description": "Death Glitch",
             "old_name": "DreamWorld Death Glitch",
             "progression": true,
-            "category": [ "3a Progression", "3c DreamWorld", "3 Echoes of the Eye", "DLC Glitch","1 Everything", "1a All Progression", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "3a Progression", "3c DreamWorld", "3 Echoes of the Eye", "DLC Glitch","1 Everything", "1a All Progression",
+            "DLC - Eye", "Goal GitM", "Goal Prisoner No Datamine" ]
         },
         {
             "name": "Totem Hands Patch",
-            "alias": "DreamWorld Grabbing Hands",
+            "description": "DreamWorld Grabbing Hands",
             "old_name": ["DreamWorld Grabbing Hands", "DreamWorld Hidden Hand"],
             "progression": true,
-            "category": [ "3a Progression", "3c DreamWorld", "3 Echoes of the Eye", "1 Everything", "1a All Progression", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "3a Progression", "3c DreamWorld", "3 Echoes of the Eye", "1 Everything", "1a All Progression",
+            "DLC - Eye", "Goal GitM", "Goal Prisoner No Datamine" ]
         },
         {
             "name": "Door Candles Patch",
-            "alias": "DreamWorld",
+            "description": "DreamWorld",
             "old_name": "DreamWorld Door Candles",
             "progression": true,
-            "category": [ "3a Progression", "3c DreamWorld", "3 Echoes of the Eye", "1 Everything", "1a All Progression", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "3a Progression", "3c DreamWorld", "3 Echoes of the Eye", "1 Everything", "1a All Progression",
+            "DLC - Eye", "Goal Prisoner No Datamine", "Goal GitM" ]
         },
         {
             "name": "Ghost Wall Patch",
-            "alias": "Fake Fireplace & Wall",
+            "description": "Fake Fireplace & Wall",
             "old_name": ["DreamWorld Fake Fireplace", "DreamWorld Fake Wall"],
             "progression": true,
-            "category": [ "3a Progression", "3c DreamWorld", "3 Echoes of the Eye", "1 Everything", "1a All Progression", "DLC - Eye", "Goal Prisoner", "Goal GitM" ]
+            "category": [ "3a Progression", "3c DreamWorld", "3 Echoes of the Eye", "1 Everything", "1a All Progression",
+            "DLC - Eye", "Goal Prisoner No Datamine", "Goal GitM" ]
         }
     ]
 }

@@ -1,6 +1,6 @@
 # Object classes from AP core, to represent an entire MultiWorld and this individual World that's part of it
 from worlds.AutoWorld import World
-from typing import TYPE_CHECKING, cast, Any, Callable
+from typing import TYPE_CHECKING, cast, Any, Callable, TextIO
 
 from BaseClasses import MultiWorld, CollectionState, Item, Location, ItemClassification
 from Options import OptionError
@@ -102,8 +102,19 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     weird_type.value = world.biome_random.choice(weird_type.get_randomized_values())
 
     # ? maybe do the entrance order here and adapt later
+# endregion
 
+# region spoiler_header
+    def write_spoiler_header(spoiler_handle: TextIO) -> None:
+        """
+        Write to the spoiler header. If individual it's right at the end of that player's options,
+        if as stage it's right under the common header before per-player options.
+        """
+        biomes = cast(list[str], world.biomes_order)  # type: ignore
+        spoiler_handle.write(f"\nBiome Order:\n[{', '.join(biomes)}]")
+        pass
 
+    setattr(world, "write_spoiler_header", write_spoiler_header)
 # endregion
     pass
 # Called before regions and locations are created. Not clear why you'd want this, but it's here. Victory location is included, but Victory event is not placed yet.
@@ -160,7 +171,7 @@ def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", mult
     #                          0          1       2       3
     biomes = [i.name.removesuffix(" Biome") for i in tokens]
     biomes.insert(2, "Forest")
-
+    ER_pairs: dict[str,str] = {}
     for index, biome in enumerate(biomes):
         left = index < 3
         name = f"{biome} Discover Biome"
@@ -179,12 +190,15 @@ def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", mult
         token = tokens[token_idx] if -1 < token_idx < len(tokens)\
             else ocean_tokens["Left" if left else "Right"]
 
-        # TODO save `name` to token description or maybe just `biome`
-        logging.debug(f"({world.game}) {world.player_name}({player}): {name} -> {token.name}")
+        logging.debug(f"{world.game}: {world.player_name}({player}): {name} -> {token.name}")
+        ER_pairs[token.name] = biome
+
         location.place_locked_item(token)
         remove_specific_item(item_pool, token)
     # ! there's probably a more inteligent way to do this but I don't know right now
-    logging.info(f"({world.game}) biome layout for player {world.player_name}({player}): {', '.join(biomes)}")
+    logging.info(f"{world.game}: ER for {world.player_name}({player}): {', '.join(biomes)}")
+    world.biomes_order = biomes # type: ignore
+    world.ER_pairs = ER_pairs # type: ignore
     # endregion
     return item_pool
 
@@ -284,26 +298,16 @@ def before_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: Mul
 
 # This is called after slot data is set and provides the slot data at the time, in case you want to check and modify it after Manual is done with it
 def after_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict:
-    # victory_name: str = world.victory_names[world.options.goal.value]
-    # Manual_victory = world.location_name_to_location[victory_name]
-    # needed: list[str] = []
-    # if world.options.require_solanum.value:
-    #     needed.append("Solanum")
-    # if world.options.require_prisoner.value and world.options.goal.value != Goal.alias_prisoner:
-    #     needed.append("the Prisoner")
-    # if needed:
-    #     base_alias = Manual_victory.get('alias', None)
-    #     if base_alias is not None:
-    #         alias = f"{base_alias} + {' and '.join(needed)}"
-    #     else:
-    #         alias = f"{' and '.join(needed)}"
-    #     if "location_id_to_alias" not in slot_data.keys():
-    #         slot_data["location_id_to_alias"] = {}
-    #     slot_data["location_id_to_alias"][Manual_victory["id"]] = alias
+    ER_pairs = cast(dict[str,str], world.ER_pairs) # type: ignore
+
+    if "item_name_to_description" not in slot_data.keys():
+        slot_data["item_name_to_description"] = {}
+    for token, biome in ER_pairs.items():
+        slot_data["item_name_to_description"][token] = f"from {biome}"
     return slot_data
 
 # This is called right at the end, in case you want to write stuff to the spoiler log
-def before_write_spoiler(world: "ManualWorld", multiworld: MultiWorld, spoiler_handle) -> None:
+def before_write_spoiler(world: "ManualWorld", multiworld: MultiWorld, spoiler_handle: TextIO) -> None:
     # Visualizing here shows the items too
     # from Utils import visualize_regions
     # visualize_regions(multiworld.get_region("Menu", world.player), f"{world.game}_{world.player}.puml")

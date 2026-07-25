@@ -157,7 +157,18 @@ class CorruptionType(ChoiceIsRandom):
     """Choose which Corruption biome type will be in your game"""
     option_corruption = 1
     option_crimson = 2
-    default = -42
+    option_both = 3
+    option_random_1 = -41
+    default = -41
+
+    @classmethod
+    def is_str_random(cls, input: str, return_list = True) -> bool | list[int]:
+        """Returns a `list[int]` of possible values if input is a known random, `True` if unknown and `False` if not random"""
+        # override here for the random_1
+        if input == "random_1":
+            return [cls.option_corruption, cls.option_crimson] if return_list else True
+        else:
+            return super().is_str_random(input, return_list)
 
 class BiomeRdmSeed(TextChoice):
     """If set to anything other than default aka 0, the value will be used for the biome seed"""

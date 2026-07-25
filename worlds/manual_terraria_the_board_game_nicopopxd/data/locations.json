@@ -1,0 +1,72 @@
+{
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.locations.schema.json",
+    "data": [
+        {
+            "name": "Forest Discover Biome Left",
+            "region": "Forest",
+            "category": ["Forest", "Discover"]
+        },
+        {
+            "name": "Forest Discover Biome Right",
+            "region": "Forest",
+            "category": ["Forest", "Discover"]
+        },
+        {
+            "name": "Snow Discover Biome",
+            "region": "Snow",
+            "category": ["Snow", "Discover"]
+        },
+        {
+            "name": "Desert Discover Biome",
+            "region": "Desert",
+            "category": ["Desert", "Discover"]
+        },
+        {
+            "name": "Jungle Discover Biome",
+            "region": "Jungle",
+            "category": ["Jungle", "Discover"]
+        },
+        {
+            "name": "Corruption Discover Biome",
+            "region": "Corruption",
+            "category": ["Corruption", "Discover"]
+        },
+        {
+            "name": "Crimson Discover Biome",
+            "region": "Crimson",
+            "category": ["Crimson", "Discover"]
+        },
+
+
+
+        {
+            "name": "Forest Surface Chest",
+            "region": "Forest"
+        },
+        {
+            "name": "Snow Surface Chest",
+            "region": "Snow"
+        },
+        {
+            "name": "Desert Surface Chest",
+            "region": "Desert"
+        },
+        {
+            "name": "Jungle Surface Chest",
+            "region": "Jungle"
+        },
+        {
+            "name": "Corruption Surface Chest",
+            "region": "Corruption"
+        },
+        {
+            "name": "Crimson Surface Chest",
+            "region": "Crimson"
+        },
+        {
+            "name": "Victory TMP",
+            "victory": true,
+            "requires": "|@Ocean Token:All|"
+        }
+    ]
+}

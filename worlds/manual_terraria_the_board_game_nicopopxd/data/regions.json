@@ -1,0 +1,35 @@
+{
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.regions.schema.json",
+    "Forest": {
+        "starting": true,
+        "connects_to": ["Snow"]
+    },
+    "Snow": {
+        "starting": false,
+        "requires": "|Snow Biome|"
+    },
+    "Desert": {
+        "starting": false,
+        "requires": "|Desert Biome|"
+    },
+    "Jungle": {
+        "starting": false,
+        "requires": "|Jungle Biome|"
+    },
+    "Corruption": {
+        "starting": false,
+        "requires": "|Corruption Biome|"
+    },
+    "Crimson": {
+        "starting": false,
+        "requires": "|Crimson Biome|"
+    },
+    "Left Ocean": {
+        "starting": false,
+        "requires": "|Left Ocean Biome|"
+    },
+    "Right Ocean": {
+        "starting": false,
+        "requires": "|Right Ocean Biome|"
+    }
+}

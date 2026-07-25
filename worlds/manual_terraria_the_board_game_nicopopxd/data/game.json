@@ -1,0 +1,9 @@
+{
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.game.schema.json",
+    "game": "Terraria_The_Board_Game",
+    "creator": "Nicopopxd",
+
+    "filler_item_name": "Nothing",
+    "version": "0.1.0",
+    "death_link": true
+}

@@ -1,0 +1,40 @@
+{
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.items.schema.json",
+    "data":[
+        {
+            "name": "Progressive Armor",
+            "count": 4,
+            "id": 1,
+            "progression": true,
+            "category": []
+        },
+        {
+            "name": "Snow Biome",
+            "category": ["Biome Token", "Snow"]
+        },
+        {
+            "name": "Desert Biome",
+            "category": ["Biome Token", "Desert"]
+        },
+        {
+            "name": "Jungle Biome",
+            "category": ["Biome Token", "Jungle"]
+        },
+        {
+            "name": "Corruption Biome",
+            "category": ["Biome Token", "Corruption"]
+        },
+        {
+            "name": "Crimson Biome",
+            "category": ["Biome Token", "Crimson"]
+        },
+        {
+            "name": "Left Ocean Biome",
+            "category": ["Ocean Token", "Beach"]
+        },
+        {
+            "name": "Right Ocean Biome",
+            "category": ["Ocean Token", "Beach"]
+        }
+    ]
+}

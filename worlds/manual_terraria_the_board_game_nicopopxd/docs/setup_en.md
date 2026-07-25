@@ -1,0 +1,114 @@
+# Outer Wilds Archipelago Manual Randomizer Setup Guide
+
+<p align="center">
+    <img alt="OuterWilds Logo"
+     src="https://www.pngkey.com/png/full/717-7172218_outer-wilds-logo.png"
+    >
+    <h1 align="center">Base Game + DLC Customizable Edition</h1>
+    <p align="center">v7.0.0</p>
+</p>
+
+Last-Updated 2026-04-14 (yyyy-mm-dd)
+
+***A star/asterisk (\*) next to a line mean recommended.***
+
+## Required Software
+
+- OuterWilds Game ([Steam](https://store.steampowered.com/app/753640/Outer_Wilds/)
+ / [Epic Games](https://launcher.store.epicgames.com/en-US/p/outerwilds)
+ / [Xbox](https://www.xbox.com/en-CA/games/store/outer-wilds/C596FKDKMQN7)
+ / [PS4/5](https://store.playstation.com/en-us/product/UP2470-PPSA08101_00-OUTERWILDSSIEA00)
+ / [Switch](https://www.nintendo.com/en-ca/store/products/outer-wilds-switch/))
+
+- The latest stable [Archipelago Launcher](https://archipelago.gg/)
+- [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases?q=Tracker)
+
+## Optional Software
+
+- Echoes of the Eye DLC* ([Steam](https://store.steampowered.com/app/1622100/Outer_Wilds__Echoes_of_the_Eye/)
+ / [Epic Games](https://store.epicgames.com/en-US/p/outerwilds--echoes-of-the-eye)
+ / [Xbox](https://www.xbox.com/en-CA/games/store/outer-wilds-echoes-of-the-eye/9N9MB73Q36FQ/0010)
+ / [PS4/5](https://store.playstation.com/en-us/product/UP2470-PPSA08101_00-OWEOTESIEA000000)
+ / [Switch](https://www.nintendo.com/en-ca/store/products/outer-wilds-echoes-of-the-eye-70050000045020-switch/))
+
+- [OuterWilds Mod Manager](https://outerwildsmods.com/mod-manager/)*
+  - PC versions only (Steam or Epic Games)
+
+## ↑ Recommended* and Optional mods from manager↑
+
+Install those from the Mod Manager:
+
+### Base Game mods
+
+- [Clock](https://outerwildsmods.com/mods/clock/)*
+  - Shows a timer with the main event at the bottom right of the screen.
+- [Hiker's Mod](https://outerwildsmods.com/mods/hikersmod/)*
+  - By default only add sprint but can also add walljumps(not in logic)
+- [Achievements+](https://outerwildsmods.com/mods/achievements/)*
+  - Add popup when you would get an achievement on new save even if you already have that steam achievement.
+- [Enable Meditation](https://outerwildsmods.com/mods/enablemeditation/)*
+  - Like the name might suggest you always have the "meditate until next loop button" in the pause menu.
+- [Traveler's Pack](https://outerwildsmods.com/mods/travelerspack/)*
+  - Gives you a placeable backpack to store items in
+- [Suit Log](https://outerwildsmods.com/mods/suitlog/)
+  - Allows you to open your ship log from anywhere.
+- [Resource Management](https://outerwildsmods.com/mods/resourcemanagement/)
+  - A mod that makes the oxygen and fuel in your ship matter.
+  - Oxygen regen when in area with oxygen and fuel regenerate while the ship is landed.
+- [Ship Enhancements](https://outerwildsmods.com/mods/shipenhancements/)
+  - Ship Enhancements adds way too much stuff to the ship, all of which you can find in the mod settings menu. Any changes to the ship will be applied on the next loop. Experiment and have fun!
+
+#### DLC Mods
+
+- [EotE Brighter Dreams](https://outerwildsmods.com/mods/eotebrighterdreams/)*
+  - Highly configurable night vision for the dreamworld.
+  - By default allows you to see in a small radius around you to help you know where you are.
+- [Peaceful Ghost](https://outerwildsmods.com/mods/peacefulghosts/)
+  - If you're afraid of the OwlPeoples this mod make them ignore you.
+
+## Installation Procedures
+
+Make sure a copy of the Manual world is in the custom_worlds directory of your client-side installation.
+For more general information on this Apworld check the [Guide (Webhost)](/games/Manual_OuterWilds_Nicopopxd/info/en)/ [Guide (Github)](en_Manual_OuterWilds_Nicopopxd.md)
+
+1. To download Universal tracker Open this [direct link](https://github.com/FarisTheAncient/Archipelago/releases?q=Tracker)
+   - it can also be found in the [#universal-tracker](https://discord.com/channels/731205301247803413/1367270230635839539) channel of the Archipelago Official Discord.
+2. Place the tracker.apworld in the *custom_worlds* folder of your archipelago install.
+3. Also place the manual_outerwilds_nicopopxd.apworld that you can find in the [release page on github](https://github.com/nicopop/ManualApworlds/releases?q=Manual_OuterWilds_Nicopopxd&expanded=true) in that folder.
+
+### Optional installs
+
+#### Mod Manager install
+
+1. Open the link in [Optional Software](#optional-software) or using this [direct link](https://outerwildsmods.com/mod-manager/)
+2. Press the 'Big Green Download Button' or the portable version link under it.
+3. Save the downloaded installer somewhere.
+    - If you downloaded the portable version save it somewhere easy to access and that you wont forget.
+4. Run the installer, the Mod Manager should start automatically.
+    - If you downloaded the portable version launch the OuterWilds Mod Manager.
+5. First you have to install the OWML mod (should be the first in the list)  
+by pressing the download icon (third button from the right)
+6. To install the mods you either find them in the list and press download icon  
+or you can search for them by name at the top of the Mod tab
+7. Once you have all the mods you want press the Start Game button at the top, it will enable all the mods  
+you installed and after that you'll only need to start from the Mod Manager when you add/remove/update mods
+
+## Joining a MultiWorld Game
+
+1. Launch the launcher.
+2. Click on Manual client.
+3. At the top enter your server's ip with the port provided (by default archipelago.gg:38281).
+4. In Manual Game ID select "Manual_OuterWilds_Nicopopxd" then press the Connect button on the top right.
+5. In the command field at the bottom enter the name of your slot you chose in your Player.yaml then press enter.
+
+## Manual Client
+
+In the "Tracker and Locations" tab you'll find buttons corresponding with all the available locations in the Randomizer.  
+Since this is a manual game its built on trust™ and Universal Tracker Magic you press the locations when you get to them (Marked in Green in the client)
+
+## Main Game
+
+- Launch the game
+- Either make a new Profile (maybe call it randomizer) or start a expedition(will wipe the save on the current profile)
+- Press new expedition
+  - (or continue expedition if you are loading a save from the randomizer)

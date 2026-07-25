@@ -87,6 +87,7 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     Use it to check or modify incompatible options, or to set up variables for later use.
     """
     world.options.game_version.value = world.world_version.as_simple_string() # type: ignore
+    # ? maybe remove the game_version option and move to before_write_spoiler
 # region Init Options
     weird_type = cast(CorruptionType, world.options.weird_biome) # type: ignore
     biome_seed = cast(BiomeRdmSeed, world.options.biome_seed) # type: ignore
@@ -96,10 +97,13 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     else:
         world.biome_random = world.random # type: ignore
 
-    if weird_type.randomized:
-        weird_type.value = world.biome_random.choice(weird_type.get_randomized_values())
-    else:
-        world.biome_random.choice(list(weird_type.get_clean_values().keys()))
+    # running the random choice here either way so the seed can stay on the same step
+    # TODO Check for UT and skip all random
+    weird_type.value = world.biome_random.choice(weird_type.get_randomized_values())
+
+    # ? maybe do the entrance order here and adapt later
+
+
 # endregion
     pass
 # Called before regions and locations are created. Not clear why you'd want this, but it's here. Victory location is included, but Victory event is not placed yet.

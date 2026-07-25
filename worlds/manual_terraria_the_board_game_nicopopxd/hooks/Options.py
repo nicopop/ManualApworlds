@@ -34,19 +34,19 @@ class ChoiceIsRandom(Choice):
     supports_weighting = False
     display_name = "ChoiceIsRandom"
     option_randomized = -42
+    clean_values: None|dict = None
 
     def __init__(self, value: int, randomized: bool | list[int] = False):
         super().__init__(value)
         self.randomized = randomized
 
     # Helper methods
-    @classmethod
-    def get_randomized_values(cls) -> list[int]:
-        if isinstance(cls.randomized, bool):
-            if not cls.randomized:
-                return []
-            return list(cls.get_clean_values().keys())
-        return cls._convert_str_list_to_int_list(cls.randomized)
+    def get_randomized_values(self) -> list[int]:
+        if isinstance(self.randomized, bool):
+            if not self.randomized:
+                return [self.value]
+            return list(self.get_clean_values().keys())
+        return self._convert_str_list_to_int_list(self.randomized)
 
     @classmethod
     def get_rdm_option_name(cls) -> str:
@@ -56,18 +56,23 @@ class ChoiceIsRandom(Choice):
     @classmethod
     def remove_random_pick(cls, data: dict[int, str]) -> dict[int, str]:
         """Return the `data` dict with all its identified "random" values removed"""
-        return {i: v for i, v in data.items() if not cls.is_str_random(v)}
+        return {i: v for i, v in data.items() if not cls.is_str_random(v, return_list=False)}
 
     @classmethod
     def get_clean_values(cls) -> dict[int, str]:
         """Return original `cls.name_lookup` minus any random based option values"""
-        return cls.remove_random_pick(cls.name_lookup)
+        if cls.clean_values is None:
+            cls.clean_values = cls.remove_random_pick(cls.name_lookup)
+        return cls.clean_values
 
     # Randomization detections methods grouped here for easy modification later
     @classmethod
-    def is_str_random(cls, input: str) -> bool:
-        """Returns `True` if the input string is detected as "random" """
-        return input.startswith("random") or input == cls.get_rdm_option_name()
+    def is_str_random(cls, input: str, return_list = True) -> bool | list[int]:
+        """Returns a `list[int]` of possible values if input is a known random, `True` if unknown and `False` if not random"""
+        if input == cls.get_rdm_option_name():
+            return list(cls.get_clean_values()) if return_list else True
+        else:
+            return input.startswith("random")
 
     @classmethod
     def is_random_in_list(cls, collection: Collection[str]) -> bool:
@@ -83,37 +88,47 @@ class ChoiceIsRandom(Choice):
     # Standard Option methods
     @classmethod
     def from_text(cls, text: str) -> Choice:
-        if cls.is_str_random(text):
-            return cls(random.choice(list(cls.get_clean_values())), True)
+        values = cls.is_str_random(text)
+        if isinstance(values, list):
+            return cls(random.choice(list(values)), values)
+        elif values:
+            return cls(super().from_text(text).value, True)
         else:
             return super().from_text(text)
     @classmethod
     def from_any(cls, data: Any) -> Choice:
         if type(data) is str:
             return cls.from_text(data)
-        elif type(data) is dict:
-            filtered = +Counter(data) # remove all zero values
-            randomized: bool|list[int] = False
-            ret = cast(str, get_choice(cls.display_name, {cls.display_name: dict(filtered)}))
-            if cls.is_str_random(ret):
-                randomized = True
-            elif len(filtered) > 1:
-                if cls.is_random_in_list(filtered.keys()):
-                    randomized = True
-                else:
-                    randomized = cls._convert_str_list_to_int_list(list(filtered.keys()))
-            return cls(int(cls.from_text(ret)), randomized)
-        elif type(data) is list:
-            randomized = False
-            ret = cast(str, get_choice(cls.display_name, {cls.display_name: data}))
-            if cls.is_str_random(ret):
-                randomized = True
-            elif len(data) > 1:
-                if cls.is_random_in_list(data):
-                    randomized = True
-                else:
-                    randomized = cls._convert_str_list_to_int_list(data)
-            return cls(int(cls.from_text(ret)), randomized)
+        elif type(data) is int:
+            return cls.from_text(cls.name_lookup[data])
+        elif type(data) is dict or type(data) is list:
+            if type(data) is list:
+                data = Counter({v:50 for v in data})
+            else:
+                data = +Counter(data) # remove all zero values
+            counter: Counter[str] = Counter(data)
+            randomized: bool|list[int] = []
+
+            for key, value in Counter(counter).items():
+                ret = cls.is_str_random(key)
+                if isinstance(ret, list):
+                    for v in ret:
+                        name = cls.name_lookup[v]
+                        if name not in counter.keys():
+                            counter[name] = value
+                    del counter[key]
+                elif ret:
+                    counter = Counter({v: (value if v not in counter.keys() else counter[v]) for v in cls.get_clean_values().values()})
+                    break
+
+            if len(counter) > 1:
+                randomized = cls._convert_str_list_to_int_list(list(counter.keys()))
+            else:
+                randomized = False
+            name = cast(str, get_choice(cls.display_name, {cls.display_name: dict(counter)}))
+
+            return cls(int(super().from_text(name)), randomized)
+
         return super().from_any(data)
 
 class ToggleIsRandom(ChoiceIsRandom):
@@ -124,7 +139,7 @@ class ToggleIsRandom(ChoiceIsRandom):
     @classmethod
     def from_text(cls, text: str) -> Choice:
         if cls.is_str_random(text):
-            return cls(random.choice(list(cls.get_clean_values())), True)
+            return cls(random.choice([0,1]), [0,1])
         elif text.lower() in {"off", "0", "false", "none", "null", "no", "disabled"}:
             return cls(0)
         elif text.lower() in {"on", "1", "true", "yes", "enabled"}:

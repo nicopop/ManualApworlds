@@ -40,13 +40,12 @@ class ChoiceIsRandom(Choice):
         self.randomized = randomized
 
     # Helper methods
-    @classmethod
-    def get_randomized_values(cls) -> list[int]:
-        if isinstance(cls.randomized, bool):
-            if not cls.randomized:
+    def get_randomized_values(self) -> list[int]:
+        if isinstance(self.randomized, bool):
+            if not self.randomized:
                 return []
-            return list(cls.get_clean_values().keys())
-        return cls._convert_str_list_to_int_list(cls.randomized)
+            return list(self.get_clean_values().keys())
+        return self._convert_str_list_to_int_list(self.randomized)
 
     @classmethod
     def get_rdm_option_name(cls) -> str:

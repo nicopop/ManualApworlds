@@ -1,14 +1,27 @@
 from BaseClasses import Tutorial
 from typing import Any, cast
 from worlds.AutoWorld import World, WebWorld
-_game_table: dict[str, Any] = {}
+
 _location_table: list[dict[str, Any]] = []
 _item_table: list[dict[str, Any]] = []
 
+def load_manifest() -> dict[str, Any]:
+    import json, pkgutil
+    try:
+        file = pkgutil.get_data(__name__, "archipelago.json")
+        if file is not None:
+            filedata = json.loads(file.decode())
+        else:
+            filedata = {}
+    except:
+        filedata = {}
+
+    return filedata
+
+_manifest: dict[str, Any] = load_manifest()
+
 # called after the game.json file has been loaded
 def after_load_game_file(game_table: dict) -> dict:
-    global _game_table
-    _game_table = game_table
     return game_table
 
 # called after the items.json file has been loaded, before any item loading or processing has occurred
@@ -70,44 +83,23 @@ def after_load_meta_file(meta_table: dict) -> dict:
 
     meta_table["docs"]["apworld_description"] = f"""
     Manual games allow you to set custom check locations and custom item names that will be rolled into a multiworld.
-    In this case a game from 2019: OuterWilds
+    In this case a board game released in 2026: Terraria: The Board Game
     the player must manually refrain from using these gathered items until the tracker shows that they have been acquired or sent.
-    [Apworld Version: {_game_table.get('version', 'Unknown')}]
+    [Apworld Version: {_manifest.get('world_version', 'Unknown')}]
     """
     web = meta_table['docs']['web']
-    web['options_presets'] = {
-        "Short":{
-            "goal": "standard"
-        },
-        "Long":{
-            "require_solanum": True,
-            "require_prisoner": True,
-            "do_place_item_category": False,
-            "goal": "standard"
-        },
-        "Short (BaseGame)":{
-            "randomize_dlc": False,
-            "goal": "standard"
-        },
-        "Long (BaseGame)":{
-            "randomize_dlc": False,
-            "require_solanum": True,
-            "do_place_item_category": False,
-            "goal": "standard"
-        },
-        "Short (DLC)":{
-            "randomize_base_game": False,
-            "goal": "standard"
-        },
-        "Long (DLC)":{
-            "randomize_base_game": False,
-            "require_prisoner": True,
-            "require_solanum": True,
-            "do_place_item_category": False,
-            "goal": "standard"
-        }
-    }
+    # web['options_presets'] = {
+    #     "Short":{
+    #         "goal": "standard"
+    #     },
+    #     "Long":{
+    #         "require_solanum": True,
+    #         "require_prisoner": True,
+    #         "do_place_item_category": False,
+    #         "goal": "standard"
+    #     }
+    # }
     web['theme'] = "ocean"
-    web['bug_report_page'] = "https://discord.com/channels/1097532591650910289/1101289500602286161"
+    web['bug_report_page'] = "https://discord.com/channels/1097532591650910289/1495111996150906880"
 
     return meta_table

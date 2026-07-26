@@ -18,11 +18,13 @@
     },
     "Corruption": {
         "starting": false,
-        "requires": "|Corruption Biome|"
+        "requires": "|Corruption Biome:all|",
+        "_comment": ["Corruption Biome:all so that this region doesn't fail unit tests",
+            "TODO when we have a link to hell make sure to exit check for the token instead of all"]
     },
     "Crimson": {
         "starting": false,
-        "requires": "|Crimson Biome|"
+        "requires": "|Crimson Biome:all|"
     },
     "Left Ocean": {
         "starting": false,

@@ -18,10 +18,10 @@ if TYPE_CHECKING:
 #          data/game.json, data/items.json, data/locations.json, data/regions.json
 #
 from ..Data import game_table, item_table, location_table, region_table
-from .Options import CorruptionType, BiomeRdmSeed
+from .Options import EvilBiomeType, BiomeRdmSeed
 
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
-from ..Helpers import remove_specific_item, is_item_enabled, is_location_name_enabled
+from ..Helpers import remove_specific_item, is_item_enabled, is_item_name_enabled, is_location_name_enabled
 from random import Random
 
 ########################################################################################
@@ -54,7 +54,7 @@ class VersionedComponent(Component):
 
 def add_client_to_launcher() -> None:
     import Utils
-    version = 2026_04_13 # YYYYMMDD
+    version = 2026_08_05 # YYYYMMDD
     found = False
 
     if "manual" not in icon_paths:
@@ -86,22 +86,44 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     This is the earliest hook called during generation, before anything else is done.
     Use it to check or modify incompatible options, or to set up variables for later use.
     """
-    world.options.game_version.value = world.world_version.as_simple_string() # type: ignore
-    # ? maybe remove the game_version option and move to before_write_spoiler
 # region Init Options
-    weird_type = cast(CorruptionType, world.options.weird_biome) # type: ignore
+    evil_type = cast(EvilBiomeType, world.options.evil_biome) # type: ignore
     biome_seed = cast(BiomeRdmSeed, world.options.biome_seed) # type: ignore
+    world.is_ut = cast(bool, getattr(multiworld, "generation_is_fake", False)) # type: ignore
+
 
     if biome_seed.value != biome_seed.option_default:
         world.biome_random = Random(biome_seed.value) # type: ignore
     else:
         world.biome_random = world.random # type: ignore
 
-    # running the random choice here either way so the seed can stay on the same step
-    # TODO Check for UT and skip all random
-    weird_type.value = world.biome_random.choice(weird_type.get_randomized_values())
+    if not world.is_ut:
+        # running the random choice here either way so the seed can stay on the same step
+        evil_type.value = world.biome_random.choice(evil_type.get_randomized_values())
 
-    # ? maybe do the entrance order here and adapt later
+
+# endregion
+
+# region Biome ER
+    def is_item_on(name: str) -> bool:
+        if world.is_ut:
+            return True
+        return is_item_name_enabled(multiworld, player, name)
+
+    if world.is_ut and (passthrough := dict[str, Any](getattr(multiworld, "re_gen_passthrough", {}).get(world.game, {}))):
+        world.is_ut_regen = True # type: ignore
+        slot_data = passthrough["UT"]
+        biomes = cast(list[str], slot_data["Biomes"])
+    else:
+        world.is_ut_regen = False  # type: ignore
+        biomes = [i.removesuffix(" Biome") for i in sorted(world.item_name_groups["Biome Token"]) if is_item_on(i)]
+        if not world.is_ut:
+            world.biome_random.shuffle(biomes)
+        biomes.insert(2, "Forest")
+        logging.info(f"{world.game}: ER for {world.player_name}({player}): {', '.join(biomes)}")
+
+    world.biomes_order = biomes # type: ignore
+
 # endregion
 
 # region spoiler_header
@@ -110,8 +132,9 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
         Write to the spoiler header. If individual it's right at the end of that player's options,
         if as stage it's right under the common header before per-player options.
         """
-        biomes = cast(list[str], world.biomes_order)  # type: ignore
-        spoiler_handle.write(f"\nBiome Order:\n[{', '.join(biomes)}]")
+        # biomes = cast(list[str], world.biomes_order)  # type: ignore
+        spoiler_handle.write(f"Apworld Version: {world.world_version.as_simple_string()}")
+        spoiler_handle.write(f"\nBiome Order:\n[{', '.join(biomes)}]\n")
         pass
 
     setattr(world, "write_spoiler_header", write_spoiler_header)
@@ -133,6 +156,11 @@ def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: i
 #       will create 5 items that are the "useful trap" class
 # {"Item Name": {ItemClassification.useful: 5}} <- You can also use the classification directly
 def before_create_items_all(item_config: dict[str, int|dict], world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict[str, int|dict]:
+    evil_type = cast(EvilBiomeType, world.options.evil_biome) # type: ignore
+
+    if item_config["Progressive Biome"]:
+        if evil_type != evil_type.option_both:
+            item_config["Progressive Biome"] = 3
     return item_config
 
 # The item pool before place_item(_category) are processed, in case you want to see the raw item pool at that stage
@@ -147,58 +175,59 @@ def before_create_items_starting(item_pool: list, world: "ManualWorld", multiwor
 def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", multiworld: MultiWorld, player: int) -> list:
     # region Biome Gen
     # AKA jank entrance rando
-    _random = cast(Random, world.biome_random)
+    if not world.is_ut:
+        tokens: list[Item] = []
+        ocean_tokens: dict[str, Item] = {}
+        for item in item_pool:
+            if item.name in world.item_name_groups["Biome Token"]:
+                tokens.append(item)
+            elif item.name in world.item_name_groups["Ocean Token"]:
+                ocean_tokens[item.name.removesuffix(" Ocean Biome")] = item
 
-    tokens: list[Item] = []
-    ocean_tokens: dict[str, Item] = {}
-    for item in item_pool:
-        if item.name in world.item_name_groups["Biome Token"]:
-            tokens.append(item)
-        elif item.name in world.item_name_groups["Ocean Token"]:
-            ocean_tokens[item.name.removesuffix(" Ocean Biome")] = item
+        discovery_locs: dict[str, Location] = {}
+        for loc_name in world.location_name_groups["Discover"]:
+            if is_location_name_enabled(multiworld, player, loc_name):
+                discovery_locs[loc_name] = world.get_location(loc_name)
 
-    discovery_locs: dict[str, Location] = {}
-    for loc_name in world.location_name_groups["Discover"]:
-        if is_location_name_enabled(multiworld, player, loc_name):
-            discovery_locs[loc_name] = world.get_location(loc_name)
+        #         ocean, biome,  biome,  forest l, forest r, biome, biome, ocean
+        #
+        # biome:  ocean, desert, jungle,       forest,       snow,  corup, ocean
+        #                   0       1            2              3      4
+        #                Left 2  Left 1                     Right 1 Right 2
+        # prog biome needed 3       2         1       1         2      3    (4 if both evil)
+        # tokens: none,  ocean,  desert,    jungle + snow,   corup, ocean, none
+        #                          0          1       2       3
 
-    _random.shuffle(tokens)
+        biomes: list[str] = world.biomes_order
 
-    #         ocean, biome,  biome,  forest l, forest r, biome, biome, ocean
-    # biome:  ocean, desert, jungle,       forest,       snow,  corup, ocean
-    #                   0       1            2              3      4
-    # tokens: none,  ocean,  desert,    jungle + snow,   corup, ocean, none
-    #                          0          1       2       3
-    biomes = [i.name.removesuffix(" Biome") for i in tokens]
-    biomes.insert(2, "Forest")
-    ER_pairs: dict[str,str] = {}
-    for index, biome in enumerate(biomes):
-        left = index < 3
-        name = f"{biome} Discover Biome"
-        if biome == "Forest":
-            # right forest done here and let the code below do left
-            location = discovery_locs.pop(name + " Right")
-            token = tokens[index]
+        tokens.sort(key=lambda token: biomes.index(token.name.removesuffix(" Biome")))
+
+        for index, biome in enumerate(biomes):
+            left = index < 3
+            name = f"{biome} Discover Biome"
+            if biome == "Forest":
+                # right forest done here and let the code below do left
+                location = discovery_locs.pop(name + " Right")
+                token = tokens[index]
+
+                logging.debug(f"{world.game}: {world.player_name}({player}): {name} Right -> {token.name}")
+                location.place_locked_item(token)
+                remove_specific_item(item_pool, token)
+
+                name += " Left"
+            location = discovery_locs.pop(name)
+
+            token_idx = index - 1 if left else index
+            token = tokens[token_idx] if -1 < token_idx < len(tokens)\
+                else ocean_tokens["Left" if left else "Right"]
+
+            logging.debug(f"{world.game}: {world.player_name}({player}): {name} -> {token.name}")
 
             location.place_locked_item(token)
             remove_specific_item(item_pool, token)
+        # ! there's probably a more inteligent way to do this but I don't know IT right now
+        # logging.info(f"{world.game}: ER for {world.player_name}({player}): {', '.join(biomes)}")
 
-            name += " Left"
-        location = discovery_locs.pop(name)
-
-        token_idx = index - 1 if left else index
-        token = tokens[token_idx] if -1 < token_idx < len(tokens)\
-            else ocean_tokens["Left" if left else "Right"]
-
-        logging.debug(f"{world.game}: {world.player_name}({player}): {name} -> {token.name}")
-        ER_pairs[token.name] = biome
-
-        location.place_locked_item(token)
-        remove_specific_item(item_pool, token)
-    # ! there's probably a more inteligent way to do this but I don't know right now
-    logging.info(f"{world.game}: ER for {world.player_name}({player}): {', '.join(biomes)}")
-    world.biomes_order = biomes # type: ignore
-    world.ER_pairs = ER_pairs # type: ignore
     # endregion
     return item_pool
 
@@ -298,12 +327,17 @@ def before_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: Mul
 
 # This is called after slot data is set and provides the slot data at the time, in case you want to check and modify it after Manual is done with it
 def after_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict:
-    ER_pairs = cast(dict[str,str], world.ER_pairs) # type: ignore
+    biomes: list[str] = world.biomes_order # type: ignore
 
     if "item_name_to_description" not in slot_data.keys():
         slot_data["item_name_to_description"] = {}
-    for token, biome in ER_pairs.items():
-        slot_data["item_name_to_description"][token] = f"from {biome}"
+
+    for biome in biomes:
+        token = biome + " Biome"
+        index = biomes.index(biome)
+        column = f"Left {2 - index}" if index < 3 else f"Right {index - 2}"
+        slot_data["item_name_to_description"][token] = column
+    slot_data["UT"] = {"Biomes": biomes}
     return slot_data
 
 # This is called right at the end, in case you want to write stuff to the spoiler log
@@ -311,8 +345,6 @@ def before_write_spoiler(world: "ManualWorld", multiworld: MultiWorld, spoiler_h
     # Visualizing here shows the items too
     # from Utils import visualize_regions
     # visualize_regions(multiworld.get_region("Menu", world.player), f"{world.game}_{world.player}.puml")
-
-    #spoiler_handle.write(f"\nIncluded in this Async: {world.game} version {APMiscData['version']}")
     pass
 
 # This is called when you want to add information to the hint text

@@ -7,12 +7,12 @@ if TYPE_CHECKING:
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the category, False to disable it, or None to use the default behavior
 def before_is_category_enabled(multiworld: MultiWorld, player: int, category_name: str) -> Optional[bool]:
-    from .Options import CorruptionType
+    from .Options import EvilBiomeType
     world = cast("ManualWorld", multiworld.worlds[player])
-    weird_biome = cast(CorruptionType, world.options.weird_biome) # type: ignore
-    if category_name == "Corruption" and weird_biome.value == weird_biome.option_crimson:
+    evil_biome = cast(EvilBiomeType, world.options.evil_biome) # type: ignore
+    if category_name == "Corruption" and evil_biome.value == evil_biome.option_crimson:
         return False
-    elif category_name == "Crimson" and weird_biome.value == weird_biome.option_corruption:
+    elif category_name == "Crimson" and evil_biome.value == evil_biome.option_corruption:
         return False
     category_data = world.category_table.get(category_name, {})
 
@@ -60,7 +60,7 @@ def checkobject(multiworld: MultiWorld, player: int, obj: dict[str, Any]) -> Opt
     if not hasattr(world, 'categoryInit'):
         InitCategories(world, player)
 
-    if obj.get("disabled") == True:
+    if obj.get("disabled"):
         return False
 
     # if obj.get("remove_if_goal"):

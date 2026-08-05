@@ -153,8 +153,8 @@ class ToggleIsRandom(ChoiceIsRandom):
 class DefaultOnToggleIsRandom(ToggleIsRandom):
     default = 1
 
-class CorruptionType(ChoiceIsRandom):
-    """Choose which Corruption biome type will be in your game"""
+class EvilBiomeType(ChoiceIsRandom):
+    """Choose which type of Evil biome will be in your game"""
     option_corruption = 1
     option_crimson = 2
     option_both = 3
@@ -196,16 +196,10 @@ class BiomeRdmSeed(TextChoice):
 #     valid_keys = removable_locations
 #     visibility = Visibility.complex_ui | Visibility.spoiler
 
-class ApWorldVersion(FreeText):
-    """Do not change this, it will get set to the apworld version"""
-    display_name = "Game Version (Detected)"
-    default = "Should Be Detected"
-    visibility = Visibility.spoiler
 
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, Type[Option[Any]]]:
-    options["game_version"] = ApWorldVersion
-    options["weird_biome"] = CorruptionType
+    options["evil_biome"] = EvilBiomeType
     options["biome_seed"] = BiomeRdmSeed
 
 

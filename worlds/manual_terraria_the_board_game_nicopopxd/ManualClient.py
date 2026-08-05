@@ -149,14 +149,14 @@ class ManualContext(SuperContext):
     deathlink_out = False
 
     visible_events: dict[str, dict[str, Any]]  = {}
-    location_id_to_alias: dict[str, str] = {}
-    item_id_to_alias: dict[str, str] = {}
+    location_name_to_description: dict[str, str] = {}
+    item_name_to_description: dict[str, str] = {}
 
     search_term = ""
     items_sorting = SortingOrderItem.default.name
-    items_categories_sorting = SortingOrderCategories.default.name
+    item_categories_sorting = SortingOrderCategories.default.name
     locations_sorting = SortingOrderLoc.default.name
-    locations_categories_sorting = SortingOrderCategories.default.name
+    location_categories_sorting = SortingOrderCategories.default.name
     block_unreachable_location_press = True
     display_glitched_locations = True
     allow_glitched_location_press = True
@@ -234,21 +234,21 @@ class ManualContext(SuperContext):
         if self.game:
             return self.game
         from .Game import game_name  # This will at least give us the name of a manual they've installed
-        return Utils.persistent_load().get("client", {}).get("last_manual_game", game_name)
+        return Utils.persistent_load().get("client", {}).get("last_manual_game", None) or game_name
 
-    def get_location_alias_by_id(self, id) -> str|None:
-        # First we try to get it from slotdata for dynamic aliases
-        alias = self.location_id_to_alias.get(str(id), None)
-        # Secondly we try to get it from the world itself for a more static alias
-        if alias is None and hasattr(AutoWorldRegister.world_types[self.game], "location_id_to_alias"):
-            alias = AutoWorldRegister.world_types[self.game].location_id_to_alias.get(id, None)
-        return alias
+    def get_location_description_by_name(self, name: str) -> str|None:
+        # First we try to get it from slotdata for dynamic descriptions
+        description = self.location_name_to_description.get(name, None)
+        # Secondly we try to get it from the world itself for a more static description
+        if description is None:
+            description = AutoWorldRegister.world_types[self.game].web.location_descriptions.get(name, None)
+        return description
 
-    def get_item_alias_by_id(self, id) -> str|None:
-        alias = self.item_id_to_alias.get(str(id), None)
-        if alias is None and hasattr(AutoWorldRegister.world_types[self.game], "item_id_to_alias"):
-            alias = AutoWorldRegister.world_types[self.game].item_id_to_alias.get(id, None)
-        return alias
+    def get_item_description_by_name(self, name: str) -> str|None:
+        description = self.item_name_to_description.get(name, None)
+        if description is None:
+            description = AutoWorldRegister.world_types[self.game].web.item_descriptions.get(name, None)
+        return description
 
     def get_location_by_name(self, name) -> dict[str, Any]:
         location = self.location_table.get(name)
@@ -312,9 +312,9 @@ class ManualContext(SuperContext):
                         self.set_deathlink = True
                         self.last_death_link = 0
                     self.visible_events = args['slot_data'].get('visible_events', {})
-                    self.location_id_to_alias = args['slot_data'].get('location_id_to_alias', {})
-                    self.item_id_to_alias = args['slot_data'].get('item_id_to_alias', {})
-                    logger.info(f"Slot data: {args['slot_data']}")
+                    self.location_name_to_description = args['slot_data'].get('location_name_to_description', {})
+                    self.item_name_to_description = args['slot_data'].get('item_name_to_description', {})
+                    # logger.info(f"Slot data: {args['slot_data']}")
 
             self.ui.build_tracker_and_locations_table()
             self.ui.request_update_tracker_and_locations_table(update_highlights=True)
@@ -429,7 +429,7 @@ class ManualContext(SuperContext):
             item_id: int|None = None
             item_count: int = 1
             item_name: str = ""
-            item_alias: str = ""
+            item_description: str = ""
 
         class TreeViewScrollView(ScrollView, TreeViewNode):
             pass
@@ -482,8 +482,8 @@ class ManualContext(SuperContext):
 
                 self.ctx.items_sorting = self.config.get('manual', 'items_sorting_order')
                 self.ctx.locations_sorting = self.config.get('manual', 'locations_sorting_order')
-                self.ctx.items_categories_sorting = self.config.get('manual', 'items_categories_sorting_order')
-                self.ctx.locations_categories_sorting = self.config.get('manual', 'locations_categories_sorting_order')
+                self.ctx.item_categories_sorting = self.config.get('manual', 'item_categories_sorting_order')
+                self.ctx.location_categories_sorting = self.config.get('manual', 'location_categories_sorting_order')
                 self.ctx.block_unreachable_location_press = True if self.config.get('universal-tracker', 'block_unreachable_location_press') == "Yes" else False
                 self.ctx.display_glitched_locations = True if self.config.get('universal-tracker', 'display_glitched_locations') == "Yes" else False
                 self.ctx.allow_glitched_location_press = True if self.config.get('universal-tracker', 'allow_glitched_location_press') == "Yes" else False
@@ -521,8 +521,8 @@ class ManualContext(SuperContext):
                 config.setdefaults("manual", {
                     "items_sorting_order": SortingOrderItem.default.name,
                     "locations_sorting_order": SortingOrderLoc.default.name,
-                    "items_categories_sorting_order": SortingOrderCategories.default.name,
-                    "locations_categories_sorting_order": SortingOrderCategories.default.name
+                    "item_categories_sorting_order": SortingOrderCategories.default.name,
+                    "location_categories_sorting_order": SortingOrderCategories.default.name
                 })
                 config.setdefaults("universal-tracker", {
                     "block_unreachable_location_press": "Yes",
@@ -556,17 +556,17 @@ class ManualContext(SuperContext):
                         },
                         {
                             "type": "options",
-                            "title": "Items Category Sorting Order",
+                            "title": "Item Categories Sorting Order",
                             "section": "manual",
-                            "key": "items_categories_sorting_order",
+                            "key": "item_categories_sorting_order",
                             "options": list(SortingOrderCategories._member_names_),
                             "desc": '\n'.join([f'[b]{i.name}/inverted_{i.name}[/b]: {i.__doc__}' for i in SortingOrderCategories if i.__doc__ is not None])
                         },
                         {
                             "type": "options",
-                            "title": "Locations Sorting Order",
+                            "title": "Location Categories Sorting Order",
                             "section": "manual",
-                            "key": "locations_categories_sorting_order",
+                            "key": "location_categories_sorting_order",
                             "options": list(SortingOrderCategories._member_names_),
                             "desc": "Same Options as Items Category Sorting Order."
                         },
@@ -616,14 +616,14 @@ class ManualContext(SuperContext):
                             self.ctx.locations_sorting = value
                             self.build_tracker_and_locations_table()
                             self.request_update_tracker_and_locations_table()
-                    elif key == "locations_categories_sorting_order":
+                    elif key == "location_categories_sorting_order":
                         if value in SortingOrderCategories._member_names_:
-                            self.ctx.locations_categories_sorting = value
+                            self.ctx.location_categories_sorting = value
                             self.build_tracker_and_locations_table()
                             self.request_update_tracker_and_locations_table()
-                    elif key == "items_categories_sorting_order":
+                    elif key == "item_categories_sorting_order":
                         if value in SortingOrderCategories._member_names_:
-                            self.ctx.items_categories_sorting = value
+                            self.ctx.item_categories_sorting = value
                             self.build_tracker_and_locations_table()
                             self.request_update_tracker_and_locations_table()
                 elif section == "universal-tracker":
@@ -877,7 +877,7 @@ class ManualContext(SuperContext):
                     result = natural_sort_key(key)
                     return [0 if key.lstrip().startswith("(") else 1] + result
                 # Sorting items categories
-                item_cat_sorting = SortingOrderCategories[self.ctx.items_categories_sorting]
+                item_cat_sorting = SortingOrderCategories[self.ctx.item_categories_sorting]
                 if abs(item_cat_sorting) == SortingOrderCategories.natural:
                     self.listed_items = {key: self.listed_items[key] for key in sorted(self.listed_items.keys(), key=category_sort_key, reverse=item_cat_sorting < 0)}
                 else:
@@ -904,7 +904,7 @@ class ManualContext(SuperContext):
                     raise Exception("The apworld for %s is too outdated for this client. Please update it." % (self.ctx.game))
 
                 # Sorting location categories
-                loc_cat_sorting = SortingOrderCategories[self.ctx.locations_categories_sorting]
+                loc_cat_sorting = SortingOrderCategories[self.ctx.location_categories_sorting]
                 if abs(loc_cat_sorting) == SortingOrderCategories.natural:
                     self.listed_locations = {key: self.listed_locations[key] for key in sorted(self.listed_locations.keys(), key=category_sort_key, reverse=loc_cat_sorting < 0)}
                 else:
@@ -928,13 +928,13 @@ class ManualContext(SuperContext):
 
                     for location_id in self.listed_locations[location_category]:
                         has_hint = location_id in hinted_locations or location_id in scoutable_locations
-                        extra = f' ({alias})' if (alias := self.ctx.get_location_alias_by_id(location_id)) is not None else ''
-                        text = f"{self.ctx.location_names.lookup_in_game(location_id)}{extra}"
-
+                        location_name = self.ctx.location_names.lookup_in_game(location_id)
+                        extra = f' ({description})' if (description := self.ctx.get_location_description_by_name(location_name)) is not None else ''
+                        text = f"{location_name}{extra}"
                         location_button = TreeViewButton(text=text, size_hint=(.75 if has_hint else 1, None), height=30)
                         location_button.bind(on_release=lambda *args, loc_id=location_id: self.location_button_callback(loc_id, *args))
                         location_button.id = location_id
-                        location_button.location_name = self.ctx.location_names.lookup_in_game(location_id)
+                        location_button.location_name = location_name
                         category_layout.add_widget(location_button)
 
                         if location_id in hinted_locations:
@@ -953,11 +953,12 @@ class ManualContext(SuperContext):
                     #     ("category" not in victory_location_data and location_category == "(No Category)"):
                     if location_category in victory_categories:
                         # Add the Victory location to be marked at any point, which is why locations length has 1 added to it above
-                        extra = f' ({alias})' if (alias := self.ctx.get_location_alias_by_id(victory_location["id"])) is not None else ''
-                        victory_text: str = "VICTORY! (seed finished)" if victory_location["name"] == "__Manual Game Complete__" else "GOAL: " + victory_location["name"] + extra
+                        location_name = victory_location["name"]
+                        extra = f' ({description})' if (description := self.ctx.get_location_description_by_name(location_name)) is not None else ''
+                        victory_text: str = "VICTORY! (seed finished)" if location_name == "__Manual Game Complete__" else "GOAL: " + location_name + extra
                         location_button = TreeViewButton(text=victory_text, size_hint=(1, None), height=dp(30), width=dp(400))
                         location_button.victory = True
-                        location_button.location_name = victory_location["name"]
+                        location_button.location_name = location_name
                         location_button.bind(on_release=self.victory_button_callback)
                         category_layout.add_widget(location_button)
 
@@ -1055,7 +1056,7 @@ class ManualContext(SuperContext):
                                             bold_item_labels.append(item_name)
                                             item.item_count = item_count
 
-                                        item.text="%s %s(%s)" % (item_name, item.item_alias, item_count)
+                                        item.text="%s %s(%s)" % (item_name, item.item_description, item_count)
 
                                         existing_item_labels.append(item_name)
 
@@ -1101,13 +1102,13 @@ class ManualContext(SuperContext):
 
                                     if category_name in item_data["category"] and network_item not in self.listed_items[category_name]:
                                         item_count = len(list(i for i in self.ctx.items_received if i.item == network_item))
-                                        alias = f'({alias}) ' if (alias := self.ctx.get_item_alias_by_id(network_item)) is not None else ''
-                                        item_text = ItemLabel(text="%s %s(%s)" % (item_name, alias, item_count),
+                                        description = f'({description}) ' if (description := self.ctx.get_item_description_by_name(item_name)) is not None else ''
+                                        item_text = ItemLabel(text="%s %s(%s)" % (item_name, description, item_count),
                                                     size_hint=(None, None), height=dp(30), width=dp(400), bold=True)
                                         item_text.item_name = item_name
                                         item_text.item_count = item_count
                                         item_text.item_id = network_item
-                                        item_text.item_alias = alias
+                                        item_text.item_description = description
 
                                         # if the item was previously listed and was bold, or if it wasn't previously listed at all, make it bold
                                         item_text.bold = (update_highlights and (item_name in bold_item_labels or item_name not in existing_item_labels))

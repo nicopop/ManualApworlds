@@ -4,75 +4,336 @@
         {
             "name": "Forest Discover Biome Left",
             "region": "Forest",
+            "requires": "{Discover(Forest)}",
             "category": ["Forest", "Discover"]
         },
         {
             "name": "Forest Discover Biome Right",
             "region": "Forest",
+            "requires": "{Discover(Forest)}",
             "category": ["Forest", "Discover"]
         },
         {
             "name": "Snow Discover Biome",
             "region": "Snow",
+            "requires": "{Discover(Snow)}",
             "category": ["Snow", "Discover"]
         },
         {
             "name": "Desert Discover Biome",
             "region": "Desert",
+            "requires": "{Discover(Desert)}",
             "category": ["Desert", "Discover"]
         },
         {
             "name": "Jungle Discover Biome",
             "region": "Jungle",
+            "requires": "{Discover(Jungle)}",
             "category": ["Jungle", "Discover"]
         },
         {
             "name": "Corruption Discover Biome",
             "region": "Corruption",
+            "requires": "{Discover(Corruption)}",
             "category": ["Corruption", "Discover"]
         },
         {
             "name": "Crimson Discover Biome",
             "region": "Crimson",
+            "requires": "{Discover(Crimson)}",
             "category": ["Crimson", "Discover"]
         },
-
+        {
+            "name": "Kill King Slime",
+            "region": "Forest",
+            "sort-key": "Boss 1",
+            "category": ["Forest", "Bosses"]
+        },
+        {
+            "name": "Kill Eye of Cthulhu",
+            "region": "Forest",
+            "sort-key": "Boss 1",
+            "category": ["Forest", "Bosses"]
+        },
+        {
+            "name": "Kill Eater of Worlds",
+            "region": "Corruption Upper Cavern",
+            "sort-key": "Boss 3",
+            "category": ["Corruption", "Bosses"]
+        },
+        {
+            "name": "Kill Brain of Cthulhu",
+            "sort-key": "Boss 3",
+            "region": "Crimson Upper Cavern",
+            "category": ["Crimson", "Bosses"]
+        },
+        {
+            "name": "Kill Queen Bee",
+            "region": "Jungle Lower Cavern",
+            "sort-key": "Boss 4",
+            "category": ["Jungle", "Bosses"]
+        },
+        {
+            "name": "Kill Wall Of Flesh",
+            "region": "Underworld",
+            "sort-key": "Boss 5",
+            "create_event": true,
+            "category": ["Underworld", "Bosses"]
+        },
 
 
         {
             "name": "Forest Surface Chest",
             "region": "Forest",
+            "id": 200,
+            "category": ["Forest"],
+            "sort-key": "Chest A"
+        },
+        {
+            "name": "Forest Underground Chest",
+            "region": "Forest Underground",
+            "category": ["Forest"],
+            "sort-key": "Chest B"
+        },
+        {
+            "name": "Forest Upper Cavern Chest",
+            "region": "Forest Upper Cavern",
+            "category": ["Forest"],
+            "sort-key": "Chest C"
+        },
+        {
+            "name": "Forest Lower Cavern Chest",
+            "region": "Forest Lower Cavern",
+            "category": ["Forest"],
+            "sort-key": "Chest D"
+        },
+        {
+            "name": "Chop a tree - Forest",
+            "region": "Forest",
             "category": ["Forest"]
         },
         {
+            "name": "Kill a Forest Biome Enemy",
+            "region": "Forest",
+            "category": ["Forest"]
+        },
+        {
+            "name": "Kill a Forest Biome Night Enemy",
+            "region": "Forest",
+            "category": ["Forest"]
+        },
+
+
+        {
             "name": "Snow Surface Chest",
+            "region": "Snow",
+            "id": 300,
+            "category": ["Snow"],
+            "sort-key": "Chest A"
+        },
+        {
+            "name": "Snow Underground Chest",
+            "region": "Snow Underground",
+            "category": ["Snow"],
+            "sort-key": "Chest B"
+        },
+        {
+            "name": "Snow Upper Cavern Chest",
+            "region": "Snow Upper Cavern",
+            "category": ["Snow"],
+            "sort-key": "Chest C"
+        },
+        {
+            "name": "Snow Lower Cavern Chest",
+            "region": "Snow Lower Cavern",
+            "category": ["Snow"],
+            "sort-key": "Chest D"
+        },
+        {
+            "name": "Chop a tree - Snow",
             "region": "Snow",
             "category": ["Snow"]
         },
         {
+            "name": "Kill a Snow Biome Enemy",
+            "region": "Snow",
+            "category": ["Snow"]
+        },
+        {
+            "name": "Kill a Snow Biome Night Enemy",
+            "region": "Snow",
+            "category": ["Snow"]
+        },
+
+        {
             "name": "Desert Surface Chest",
+            "region": "Desert",
+            "id": 400,
+            "category": ["Desert"],
+            "sort-key": "Chest A"
+        },
+        {
+            "name": "Desert Underground Chest",
+            "region": "Desert Underground",
+            "category": ["Desert"],
+            "sort-key": "Chest B"
+        },
+        {
+            "name": "Desert Upper Cavern Chest",
+            "region": "Desert Upper Cavern",
+            "category": ["Desert"],
+            "sort-key": "Chest C"
+        },
+        {
+            "name": "Desert Lower Cavern Chest",
+            "region": "Desert Lower Cavern",
+            "category": ["Desert"],
+            "sort-key": "Chest D"
+        },
+        {
+            "name": "Chop a Cactus - Desert",
             "region": "Desert",
             "category": ["Desert"]
         },
         {
+            "name": "Kill a Desert Biome Enemy",
+            "region": "Desert",
+            "category": ["Desert"]
+        },
+        {
+            "name": "Kill a Desert Biome Night Enemy",
+            "region": "Desert",
+            "category": ["Desert"]
+        },
+
+        {
             "name": "Jungle Surface Chest",
+            "region": "Jungle",
+            "id": 500,
+            "category": ["Jungle"],
+            "sort-key": "Chest A"
+        },
+        {
+            "name": "Jungle Underground Chest",
+            "region": "Jungle Underground",
+            "category": ["Jungle"],
+            "sort-key": "Chest B"
+        },
+        {
+            "name": "Jungle Upper Cavern Chest",
+            "region": "Jungle Upper Cavern",
+            "category": ["Jungle"],
+            "sort-key": "Chest C"
+        },
+        {
+            "name": "Jungle Lower Cavern Chest",
+            "region": "Jungle Lower Cavern",
+            "category": ["Jungle"],
+            "sort-key": "Chest D"
+        },
+        {
+            "name": "Chop a tree - Jungle",
             "region": "Jungle",
             "category": ["Jungle"]
         },
         {
+            "name": "Kill a Jungle Biome Enemy",
+            "region": "Jungle",
+            "category": ["Jungle"]
+        },
+        {
+            "name": "Kill a Jungle Biome Night Enemy",
+            "region": "Jungle",
+            "category": ["Jungle"]
+        },
+
+        {
             "name": "Corruption Surface Chest",
+            "region": "Corruption",
+            "id": 600,
+            "category": ["Corruption"],
+            "sort-key": "Chest A"
+        },
+        {
+            "name": "Corruption Underground Chest",
+            "region": "Corruption Underground",
+            "category": ["Corruption"],
+            "sort-key": "Chest B"
+        },
+        {
+            "name": "Corruption Upper Cavern Chest",
+            "region": "Corruption Upper Cavern",
+            "category": ["Corruption"],
+            "sort-key": "Chest C"
+        },
+        {
+            "name": "Corruption Lower Cavern Chest",
+            "region": "Corruption Lower Cavern",
+            "category": ["Corruption"],
+            "sort-key": "Chest D"
+        },
+        {
+            "name": "Chop a tree - Corruption",
             "region": "Corruption",
             "category": ["Corruption"]
         },
         {
+            "name": "Kill a Corruption Biome Enemy",
+            "region": "Corruption",
+            "category": ["Corruption"]
+        },
+        {
+            "name": "Kill a Corruption Biome Night Enemy",
+            "region": "Corruption",
+            "category": ["Corruption"]
+        },
+
+        {
             "name": "Crimson Surface Chest",
+            "region": "Crimson",
+            "id": 700,
+            "category": ["Crimson"],
+            "sort-key": "Chest A"
+        },
+        {
+            "name": "Crimson Underground Chest",
+            "region": "Crimson Underground",
+            "category": ["Crimson"],
+            "sort-key": "Chest B"
+        },
+        {
+            "name": "Crimson Upper Cavern Chest",
+            "region": "Crimson Upper Cavern",
+            "category": ["Crimson"],
+            "sort-key": "Chest C"
+        },
+        {
+            "name": "Crimson Lower Cavern Chest",
+            "region": "Crimson Lower Cavern",
+            "category": ["Crimson"],
+            "sort-key": "Chest D"
+        },
+        {
+            "name": "Chop a tree - Crimson",
             "region": "Crimson",
             "category": ["Crimson"]
         },
         {
+            "name": "Kill a Crimson Biome Enemy",
+            "region": "Crimson",
+            "category": ["Crimson"]
+        },
+        {
+            "name": "Kill a Crimson Biome Night Enemy",
+            "region": "Crimson",
+            "category": ["Crimson"]
+        },
+
+        {
             "name": "Victory TMP",
+            "id": 1000,
             "victory": true,
-            "requires": "|@Ocean Token:all|"
+            "requires": "|@Ocean Token:all| and {Event(Kill Wall Of Flesh)}"
         }
     ]
 }

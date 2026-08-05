@@ -1,6 +1,6 @@
 from typing import Optional, TYPE_CHECKING
 from worlds.AutoWorld import World
-from ..Helpers import clamp, get_items_with_value
+from ..Helpers import clamp, get_items_with_value, is_item_name_enabled
 from BaseClasses import MultiWorld, CollectionState
 
 import re
@@ -34,6 +34,20 @@ def requiresMelee():
 def Event(location: str, count: int = 1) -> str:
     event_name = f"|[Event] {location.strip()}:{count}|"
     return event_name
+
+def Discover(biome: str, world: "ManualWorld") -> str:
+    biomes: list[str] = world.biomes_order
+    if not is_item_name_enabled(world.multiworld, world.player, "Progressive Biome") or biome not in biomes:
+        return "1"
+    index = biomes.index(biome)
+    required = 3 - index if index < 3 else index - 1
+    return f"|Progressive Biome:{required}|"
+
+def DiscoverRule(biome: str, world: "ManualWorld") -> str:
+    value = Discover(biome, world)
+    if value == "1":
+        return ""
+    return value
 
 # def GoalPlus(world: "ManualWorld") -> str:
 #     from .Options import Goal

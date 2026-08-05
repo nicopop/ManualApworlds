@@ -1,6 +1,6 @@
 # Object classes from AP that represent different types of options that you can create
 from Options import OptionError, Visibility, Option, FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice,\
-    Range, NamedRange, OptionGroup, PerGameCommonOptions, OptionSet
+    Range, NamedRange, OptionGroup, PerGameCommonOptions, OptionSet, DeathLink
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from typing import Type, Any, cast, Counter, TYPE_CHECKING, Collection
 import random
@@ -226,7 +226,7 @@ def after_options_defined(options: Type[PerGameCommonOptions]):
     # options.type_hints['goal'].options.update(goal_gen_options)
     # options.type_hints['filler_traps'].range_end = 75
     # options.type_hints['filler_traps'].default = 20
-
+    options.type_hints['death_link'].__doc__ = DeathLink.__doc__
     pass
 
 # Use this Hook if you want to add your Option to an Option group (existing or not)

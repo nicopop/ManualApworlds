@@ -4,12 +4,25 @@
         {
             "name": "Progressive Armor",
             "count": 4,
-            "id": 1,
+            "disabled": true,
+            "progression": true,
+            "category": []
+        },
+        {
+            "name": "Progressive Layer",
+            "count": 4,
+            "progression": true,
+            "category": []
+        },
+        {
+            "name": "Progressive Biome",
+            "count": 4,
             "progression": true,
             "category": []
         },
         {
             "name": "Snow Biome",
+            "id": 500,
             "progression": true,
             "category": ["Biome Token", "Snow"]
         },

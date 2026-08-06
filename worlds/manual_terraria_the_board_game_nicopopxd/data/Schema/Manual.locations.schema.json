@@ -104,6 +104,10 @@
                     "description": "(Optional) A string to sort the locations by. If not provided, locations will always be sorted by name.",
                     "type": "string"
                 },
+                "description": {
+                    "description": "(Optional) A short description of the location to be displayed in the client in the Manual and Tracker tabs",
+                    "type": "string"
+                },
                 "create_event": {
                     "description": "Should this location create a linked event based on the value given?\nA list of valid events dicts will create those. \n'True' will create an event called '[Event] location_name' \nA String will create an event with it as the name.\nAdd @ before any event name for it to be converted to '[Event] name'",
                     "type": ["boolean", "string", "array"],

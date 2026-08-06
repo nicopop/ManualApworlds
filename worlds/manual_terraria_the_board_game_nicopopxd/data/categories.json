@@ -1,7 +1,15 @@
 {
     "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.categories.schema.json",
-    "CategoryTBD": {
-        "hidden": true,
-        "_comment": "left here so the file is not empty ;)"
+    "Corruption Hidden": {
+        "hidden": true
+    },
+    "Crimson Hidden": {
+        "hidden": true
+    },
+    "FillerDummy": {
+        "hidden": true
+    },
+    "Objectives Final": {
+        "hidden": true
     }
 }

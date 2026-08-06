@@ -29,6 +29,50 @@ if TYPE_CHECKING:
 #   options["total_characters_to_win_with"] = TotalCharactersToWinWith
 #
 
+class RangeIsRandom(NamedRange):
+    randomized: bool | tuple[int, int] = False
+    special_range_names = {"randomized": -42}
+
+    def __init__(self, value: int, randomized: bool | tuple[int, int] = False):
+        super().__init__(value)
+        self.randomized = randomized
+
+    # Helper methods
+    def get_randomized_range(self) -> tuple[int, int]:
+        if isinstance(self.randomized, bool):
+            if not self.randomized:
+                return (self.value, self.value)
+            return (self.range_start, self.range_end)
+        return self.randomized
+
+    @classmethod
+    def is_text_rdm(cls, text: str) -> bool | tuple[str, tuple[int, int]]:
+        """Return a tuple that consist of 'replace text with this' and a tuple of min and max range otherwise return `false`"""
+        if text == "randomized":
+            return (f"random", (cls.range_start, cls.range_end))
+        return False
+
+    @classmethod
+    def from_text(cls, text: str) -> Range:
+        text = text.lower()
+        randomized: bool | tuple[int, int] = False
+        custom = cls.is_text_rdm(text)
+        if isinstance(custom, tuple):
+            text = custom[0]
+            randomized = custom[1]
+        elif text.startswith("random"):
+            if text.startswith("random-range-"):
+                textsplit = text.split("-")
+                try:
+                    random_range = [int(textsplit[-2]), int(textsplit[-1])]
+                except ValueError:
+                    raise ValueError(f"Invalid random range {text} for option {cls.__name__}")
+                random_range.sort()
+                randomized = (random_range[0], random_range[1])
+            else:
+                randomized = (cls.range_start, cls.range_end)
+        return cls(super().from_text(text).value, randomized)
+
 class ChoiceIsRandom(Choice):
     randomized: bool | list[int] = False
     supports_weighting = False
@@ -175,6 +219,13 @@ class BiomeRdmSeed(TextChoice):
     option_default = 0
     default = 0
 
+class ObjectivesTypesForGoal(RangeIsRandom):
+    """How many Objectives Types will you need to finish before you can goal"""
+    default = 1
+    special_range_names = RangeIsRandom.special_range_names | {"default": default}
+    range_start = 0
+    range_end = 4
+
 # from ..Items import item_name_to_item
 # from ..Game import filler_item_name
 # removable_items = {n for n, item in item_name_to_item.items() if item.get("removable", True) and not item.get("disabled")}
@@ -201,6 +252,7 @@ class BiomeRdmSeed(TextChoice):
 def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, Type[Option[Any]]]:
     options["evil_biome"] = EvilBiomeType
     options["biome_seed"] = BiomeRdmSeed
+    options["goal_objectives"] = ObjectivesTypesForGoal
 
 
     # options["remove_items"] = RemoveItems

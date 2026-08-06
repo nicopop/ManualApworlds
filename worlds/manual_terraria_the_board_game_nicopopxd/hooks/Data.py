@@ -42,13 +42,47 @@ def after_load_location_file(location_table: list[dict[str, Any]]) -> list:
 # called after the events.json file has been loaded, before any processing has occurred
 # If you need access to the events after processing, you should use the hooks in World.py
 def after_load_event_file(event_table: list) -> list:
+    class event_override():
+        name: str
+        data: dict[str, Any]
+
+        def __init__(self, name: str, data = {}) -> None:
+            if name.startswith("@"):
+                name = f"[Event] {name.removeprefix('@')}"
+            self.name = name
+            self.data = data
+            pass
+
     for location in _location_table:
-        if not location.get("create_event"):
+        event_requested = location.get("create_event")
+        if not event_requested:
             continue
-        event ={"name": f"[Event] {location['name']}", "copy_location": location["name"]}
+
+        base_event_override = {}
         if (visible := location.get("event_visible")) is not None:
-            event["visible"] = visible
-        event_table.append(event)
+            base_event_override["visible"] = visible
+        if (categories := location.get("event_category")) is not None:
+            base_event_override["category"] = categories
+
+        if isinstance(event_requested, str):
+            events_to_make = [event_override(event_requested, base_event_override)]
+        elif isinstance(event_requested, list):
+            events_to_make = []
+            for i in event_requested:
+                if isinstance(i, str):
+                    events_to_make.append(event_override(i, base_event_override))
+                elif isinstance(i, dict):
+                    name = i.pop("name")
+                    events_to_make.append(event_override(name, base_event_override | i))
+                else:
+                    raise ValueError("uh what...")
+        else:
+            events_to_make = [event_override(f"@{location['name']}", base_event_override)]
+
+        for event_obj in events_to_make:
+            event ={"name": event_obj.name, "copy_location": location["name"]} | event_obj.data
+
+            event_table.append(event)
     return event_table
 # called after the regions.json file has been loaded, before any location loading or processing has occurred
 # if you need access to the locations after processing to add ids, etc., you should use the hooks in World.py

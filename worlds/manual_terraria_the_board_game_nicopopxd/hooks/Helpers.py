@@ -10,9 +10,9 @@ def before_is_category_enabled(multiworld: MultiWorld, player: int, category_nam
     from .Options import EvilBiomeType
     world = cast("ManualWorld", multiworld.worlds[player])
     evil_biome = cast(EvilBiomeType, world.options.evil_biome) # type: ignore
-    if category_name == "Corruption" and evil_biome.value == evil_biome.option_crimson:
+    if category_name in ["Corruption", "Corruption Hidden"] and evil_biome.value == evil_biome.option_crimson:
         return False
-    elif category_name == "Crimson" and evil_biome.value == evil_biome.option_corruption:
+    elif category_name in ["Crimson", "Crimson Hidden"] and evil_biome.value == evil_biome.option_corruption:
         return False
     category_data = world.category_table.get(category_name, {})
 

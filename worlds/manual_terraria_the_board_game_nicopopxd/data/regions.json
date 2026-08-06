@@ -2,7 +2,11 @@
     "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.regions.schema.json",
     "Forest": {
         "starting": true,
-        "connects_to": ["Snow", "Desert", "Jungle", "Corruption", "Crimson", "Left Ocean", "Right Ocean", "Forest Underground"]
+        "connects_to": ["Snow", "Desert", "Jungle", "Corruption", "Crimson", "Left Ocean", "Right Ocean", "Forest Underground", "Objectives"]
+    },
+    "Objectives": {
+        "starting": true,
+        "connects_to": []
     },
     "Forest Underground": {
         "starting": false,

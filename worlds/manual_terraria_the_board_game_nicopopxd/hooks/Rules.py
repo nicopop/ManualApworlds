@@ -1,9 +1,12 @@
-from typing import Optional, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING, cast, Any
 from worlds.AutoWorld import World
 from ..Helpers import clamp, get_items_with_value, is_item_name_enabled
+from ..Game import game_name
 from BaseClasses import MultiWorld, CollectionState
 
-import re
+import dataclasses
+from Utils import version_tuple
+use_rulebuilder = version_tuple >= (0, 6, 7)
 
 if TYPE_CHECKING:
     from .. import ManualWorld
@@ -48,6 +51,37 @@ def DiscoverRule(biome: str, world: "ManualWorld") -> str:
     if value == "1":
         return ""
     return value
+
+# A rule that checks if the player has at least count of the given items, ignoring duplicates of the same item
+def HasFromCategoryUnique(category: str, count: str, state: CollectionState, world: "ManualWorld", player: int) -> bool:
+    requested_count = int(count.strip())
+    return state.has_from_list_unique(world.item_and_event_name_groups[category], player, requested_count)
+
+def GoalObjectives(state: CollectionState, world: "ManualWorld", player: int,) -> bool:
+    from .Options import ObjectivesTypesForGoal
+    objectives = cast(ObjectivesTypesForGoal, world.options.goal_objectives) # type: ignore
+    requested_count = objectives.value
+    return HasFromCategoryUnique("Objectives Final", str(requested_count), state=state, world=world, player=player)
+
+if use_rulebuilder:
+    from rule_builder.rules import HasFromListUnique, Rule
+    @dataclasses.dataclass()
+    class HasFromCategoryUniqueRule(Rule["ManualWorld"], game=game_name):
+        category: str
+        count: str
+        def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+            requested_count = int(self.count.strip())
+            requested_list = world.item_and_event_name_groups[self.category.strip()]
+            return HasFromListUnique(*requested_list, count=requested_count).resolve(world)
+
+    @dataclasses.dataclass()
+    class GoalObjectivesRule(Rule["ManualWorld"], game=game_name):
+        def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+            from .Options import ObjectivesTypesForGoal
+            objectives = cast(ObjectivesTypesForGoal, world.options.goal_objectives) # type: ignore
+            requested_count = objectives.value
+            return HasFromCategoryUniqueRule("Objectives Final", str(requested_count)).resolve(world)
+
 
 # def GoalPlus(world: "ManualWorld") -> str:
 #     from .Options import Goal

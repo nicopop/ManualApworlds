@@ -1,0 +1,6 @@
+{
+    "game": "Manual_Terraria_The_Board_Game_Nicopopxd",
+    "world_version": "0.1.0",
+    "flags": ["supports_deathlink", "unready"],
+    "ai_disclosure": "none"
+}

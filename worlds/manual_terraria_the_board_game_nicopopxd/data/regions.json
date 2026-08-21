@@ -1,0 +1,148 @@
+{
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.regions.schema.json",
+    "Forest": {
+        "starting": true,
+        "connects_to": ["Snow", "Desert", "Jungle", "Corruption", "Crimson", "Left Ocean", "Right Ocean", "Forest Underground", "Objectives"]
+    },
+    "Objectives": {
+        "starting": true,
+        "connects_to": []
+    },
+    "Forest Underground": {
+        "starting": false,
+        "connects_to": ["Forest Upper Cavern"],
+        "requires": "|Progressive Layer:25%|"
+    },
+    "Forest Upper Cavern": {
+        "starting": false,
+        "connects_to": ["Forest Lower Cavern"],
+        "requires": "|Progressive Layer:50%|"
+    },
+    "Forest Lower Cavern": {
+        "starting": false,
+        "connects_to": ["Underworld"],
+        "requires": "|Progressive Layer:75%|"
+    },
+    "Underworld": {
+        "starting": false,
+        "requires": "|Progressive Layer:100%|"
+    },
+
+    "Snow": {
+        "starting": false,
+        "requires": "|Snow Biome|",
+        "connects_to": ["Snow Underground"]
+    },
+    "Snow Underground": {
+        "starting": false,
+        "connects_to": ["Snow Upper Cavern"],
+        "requires": "|Progressive Layer:25%|"
+    },
+    "Snow Upper Cavern": {
+        "starting": false,
+        "connects_to": ["Snow Lower Cavern"],
+        "requires": "|Progressive Layer:50%|"
+    },
+    "Snow Lower Cavern": {
+        "starting": false,
+        "connects_to": ["Underworld"],
+        "requires": "|Progressive Layer:75%|"
+    },
+
+    "Desert": {
+        "starting": false,
+        "requires": "|Desert Biome|",
+        "connects_to": ["Desert Underground"]
+    },
+    "Desert Underground": {
+        "starting": false,
+        "connects_to": ["Desert Upper Cavern"],
+        "requires": "|Progressive Layer:25%|"
+    },
+    "Desert Upper Cavern": {
+        "starting": false,
+        "connects_to": ["Desert Lower Cavern"],
+        "requires": "|Progressive Layer:50%|"
+    },
+    "Desert Lower Cavern": {
+        "starting": false,
+        "connects_to": ["Underworld"],
+        "requires": "|Progressive Layer:75%|"
+    },
+
+    "Jungle": {
+        "starting": false,
+        "requires": "|Jungle Biome|",
+        "connects_to": ["Jungle Underground"]
+    },
+    "Jungle Underground": {
+        "starting": false,
+        "connects_to": ["Jungle Upper Cavern"],
+        "requires": "|Progressive Layer:25%|"
+    },
+    "Jungle Upper Cavern": {
+        "starting": false,
+        "connects_to": ["Jungle Lower Cavern"],
+        "requires": "|Progressive Layer:50%|"
+    },
+    "Jungle Lower Cavern": {
+        "starting": false,
+        "connects_to": ["Underworld"],
+        "requires": "|Progressive Layer:75%|"
+    },
+
+    "Corruption": {
+        "starting": false,
+        "requires": "|Corruption Biome:100%|",
+        "_comment": ["Corruption Biome:all so that this region doesn't fail unit tests",
+            "TODO when we have a link to hell make sure to exit check for the token instead of all"],
+        "connects_to": ["Corruption Underground"]
+    },
+    "Corruption Underground": {
+        "starting": false,
+        "connects_to": ["Corruption Upper Cavern"],
+        "requires": "|Progressive Layer:25%|"
+    },
+    "Corruption Upper Cavern": {
+        "starting": false,
+        "connects_to": ["Corruption Lower Cavern"],
+        "requires": "|Progressive Layer:50%|"
+    },
+    "Corruption Lower Cavern": {
+        "starting": false,
+        "connects_to": ["Underworld"],
+        "requires": "|Progressive Layer:75%|",
+        "exit_requires": {"Underworld": "|Corruption Biome|"}
+    },
+
+    "Crimson": {
+        "starting": false,
+        "requires": "|Crimson Biome:100%|",
+        "connects_to": ["Crimson Underground"]
+    },
+    "Crimson Underground": {
+        "starting": false,
+        "connects_to": ["Crimson Upper Cavern"],
+        "requires": "|Progressive Layer:25%|"
+    },
+    "Crimson Upper Cavern": {
+        "starting": false,
+        "connects_to": ["Crimson Lower Cavern"],
+        "requires": "|Progressive Layer:50%|"
+    },
+    "Crimson Lower Cavern": {
+        "starting": false,
+        "connects_to": ["Underworld"],
+        "requires": "|Progressive Layer:75%|",
+        "exit_requires": {"Underworld": "|Crimson Biome|"}
+    },
+
+    "Left Ocean": {
+        "starting": false,
+        "requires": "|Left Ocean Biome|"
+    },
+    "Right Ocean": {
+        "starting": false,
+        "requires": "|Right Ocean Biome|"
+    }
+}

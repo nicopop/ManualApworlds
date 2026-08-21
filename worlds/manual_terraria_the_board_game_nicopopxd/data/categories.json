@@ -1,0 +1,15 @@
+{
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.categories.schema.json",
+    "Corruption Hidden": {
+        "hidden": true
+    },
+    "Crimson Hidden": {
+        "hidden": true
+    },
+    "FillerDummy": {
+        "hidden": true
+    },
+    "Objectives Final": {
+        "hidden": true
+    }
+}

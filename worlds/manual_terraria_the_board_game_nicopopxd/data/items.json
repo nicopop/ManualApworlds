@@ -1,0 +1,98 @@
+{
+    "$schema": "Schema/Manual.items.schema.json",
+    "data":[
+        {
+            "name": "Progressive Armor",
+            "count": 4,
+            "disabled": true,
+            "progression": true,
+            "category": []
+        },
+        {
+            "name": "Progressive Layer",
+            "count": 4,
+            "progression": true,
+            "category": []
+        },
+        {
+            "name": "Progressive Biome",
+            "count": 4,
+            "progression": true,
+            "category": []
+        },
+
+        {
+            "name": "1 Gold Coin",
+            "count": 0,
+            "progression_skip_balancing": true,
+            "category": ["FillerDummy"],
+            "value": {"coin": 1}
+        },
+        {
+            "name": "2 Gold Coin",
+            "count": 0,
+            "progression_skip_balancing": true,
+            "category": ["FillerDummy"],
+            "value": {"coin": 2}
+        },
+        {
+            "name": "3 Gold Coin",
+            "count": 0,
+            "progression_skip_balancing": true,
+            "category": ["FillerDummy"],
+            "value": {"coin": 3}
+        },
+        {
+            "name": "5 Gold Coin",
+            "count": 0,
+            "progression_skip_balancing": true,
+            "category": ["FillerDummy"],
+            "value": {"coin": 5}
+        },
+        {
+            "name": "10 Gold Coins",
+            "count": 10,
+            "progression_skip_balancing": true,
+            "category": ["FillerDummy"],
+            "value": {"coin": 10}
+        },
+
+
+        {
+            "name": "Snow Biome",
+            "id": 500,
+            "progression": true,
+            "category": ["Biome Token", "Snow"]
+        },
+        {
+            "name": "Desert Biome",
+            "progression": true,
+            "category": ["Biome Token", "Desert"]
+        },
+        {
+            "name": "Jungle Biome",
+            "progression": true,
+            "category": ["Biome Token", "Jungle"]
+        },
+        {
+            "name": "Corruption Biome",
+            "progression": true,
+            "category": ["Biome Token", "Corruption"]
+        },
+        {
+            "name": "Crimson Biome",
+            "progression": true,
+            "category": ["Biome Token", "Crimson"]
+        },
+        {
+            "name": "Left Ocean Biome",
+            "progression": true,
+            "category": ["Ocean Token", "Ocean"]
+        },
+        {
+            "name": "Right Ocean Biome",
+            "progression": true,
+            "category": ["Ocean Token", "Ocean"]
+        }
+    ]
+}

@@ -1,0 +1,773 @@
+{
+    "$schema": "Schema/Manual.locations.schema.json",
+    "data": [
+        {
+            "name": "Forest Discover Biome Left",
+            "region": "Forest",
+            "requires": "{Discover(Forest)}",
+            "category": ["Forest", "Discover"]
+        },
+        {
+            "name": "Forest Discover Biome Right",
+            "region": "Forest",
+            "requires": "{Discover(Forest)}",
+            "category": ["Forest", "Discover"]
+        },
+        {
+            "name": "Snow Discover Biome",
+            "region": "Snow",
+            "requires": "{Discover(Snow)}",
+            "category": ["Snow", "Discover"]
+        },
+        {
+            "name": "Desert Discover Biome",
+            "region": "Desert",
+            "requires": "{Discover(Desert)}",
+            "category": ["Desert", "Discover"]
+        },
+        {
+            "name": "Jungle Discover Biome",
+            "region": "Jungle",
+            "requires": "{Discover(Jungle)}",
+            "category": ["Jungle", "Discover"]
+        },
+        {
+            "name": "Corruption Discover Biome",
+            "region": "Corruption",
+            "requires": "{Discover(Corruption)}",
+            "category": ["Corruption", "Discover"]
+        },
+        {
+            "name": "Crimson Discover Biome",
+            "region": "Crimson",
+            "requires": "{Discover(Crimson)}",
+            "category": ["Crimson", "Discover"]
+        },
+        {
+            "name": "Kill King Slime",
+            "region": "Forest",
+            "sort-key": "Boss 1",
+            "create_event": true,
+            "event_category": ["Event Bosses"],
+            "category": ["Forest", "Bosses"]
+        },
+        {
+            "name": "Kill Eye of Cthulhu",
+            "region": "Forest",
+            "sort-key": "Boss 1",
+            "create_event": true,
+            "event_category": ["Event Bosses"],
+            "category": ["Forest", "Bosses"]
+        },
+        {
+            "name": "Kill Eater of Worlds",
+            "region": "Corruption Upper Cavern",
+            "sort-key": "Boss 3",
+            "create_event": true,
+            "event_category": ["Event Bosses"],
+            "category": ["Corruption", "Bosses"]
+        },
+        {
+            "name": "Kill Brain of Cthulhu",
+            "sort-key": "Boss 3",
+            "region": "Crimson Upper Cavern",
+            "create_event": true,
+            "event_category": ["Event Bosses"],
+            "category": ["Crimson", "Bosses"]
+        },
+        {
+            "name": "Kill Queen Bee",
+            "region": "Jungle Lower Cavern",
+            "sort-key": "Boss 4",
+            "create_event": true,
+            "event_category": ["Event Bosses"],
+            "category": ["Jungle", "Bosses"]
+        },
+        {
+            "name": "Kill Wall Of Flesh",
+            "region": "Underworld",
+            "sort-key": "Boss 5",
+            "create_event": true,
+            "event_category": ["Event Bosses"],
+            "category": ["Underworld", "Bosses"]
+        },
+
+        {   "name": "Dig 1",
+            "description": "Dig a block",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Dig"]
+        },
+        {   "name": "Dig 2",
+            "description": "Dig an ore block",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Dig"],
+            "requires": "{Event(Dig 1)}"
+        },
+        {   "name": "Dig 3",
+            "description": "Collect a Cobweb",
+            "region": "Forest Underground",
+            "create_event": true,
+            "category": ["Objectives Dig"],
+            "requires": "{Event(Dig 2)}"
+        },
+        {   "name": "Dig 4",
+            "description": "Craft a pickaxe",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Dig"],
+            "requires": "{Event(Dig 3)}"
+        },
+        {   "name": "Dig 5",
+            "description": "Dig a Gem block",
+            "region": "Forest Upper Cavern",
+            "create_event": "@Dig 5",
+            "category": ["Objectives Dig"],
+            "requires": "{Event(Dig 4)}"
+        },
+        {   "name": "Dig 5B",
+            "description": "Have a life crystal",
+            "region": "Forest Underground",
+            "create_event": "@Dig 5",
+            "category": ["Objectives Dig"],
+            "requires": "{Event(Dig 4)}"
+        },
+        {   "name": "Dig 6",
+            "description": "Dig 1 or more block with explosive",
+            "_comment": "require Demolitionist",
+            "region": "Objectives",
+            "create_event": "@Dig 6",
+            "category": ["Objectives Dig"],
+            "requires": "{Event(Dig 5)}"
+        },
+        {   "name": "Dig 6B",
+            "description": "Fall 8+ blocks and Survive",
+            "region": "Forest Underground",
+            "create_event": "@Dig 6",
+            "category": ["Objectives Dig"],
+            "requires": "{Event(Dig 5)}"
+        },
+        {   "name": "Dig 7 Corruption",
+            "description": "Dig an Evil ore block",
+            "region": "Corruption Upper Cavern",
+            "create_event": "@Dig 7",
+            "category": ["Objectives Dig", "Corruption Hidden"],
+            "requires": "{Event(Dig 6)}"
+        },
+        {   "name": "Dig 7 Crimson",
+            "description": "Dig an Evil ore block",
+            "region": "Crimson Upper Cavern",
+            "create_event": "@Dig 7",
+            "category": ["Objectives Dig", "Crimson Hidden"],
+            "requires": "{Event(Dig 6)}"
+        },
+        {   "name": "Dig 8",
+            "description": "Dig an entire biome tile",
+            "region": "Objectives",
+            "create_event": "@Dig 8",
+            "category": ["Objectives Dig"],
+            "requires": "{Event(Dig 7)}"
+        },
+        {   "name": "Dig 8B",
+            "description": "Open 2 chests in Underworld",
+            "region": "Underworld",
+            "create_event": "@Dig 8",
+            "category": ["Objectives Dig"],
+            "requires": "{Event(Dig 7)}"
+        },
+        {   "name": "Dig 9",
+            "description": "Dig a 2 block wide tunnel to the bottom",
+            "region": "Underworld",
+            "create_event": true,
+            "category": ["Objectives Dig"],
+            "requires": "{Event(Dig 8)}"
+        },
+        {   "name": "Dig 10",
+            "description": "Dig at least 10 Hellstone",
+            "region": "Underworld",
+            "create_event": "@Dig 10",
+            "category": ["Objectives Dig", "Objectives Final"],
+            "requires": "{Event(Dig 9)}"
+        },
+        {   "name": "Dig 10B",
+            "description": "Go from the Underworld to the Surface in 1 Phase",
+            "region": "Underworld",
+            "create_event": "@Dig 10",
+            "category": ["Objectives Dig", "Objectives Final"],
+            "requires": "{Event(Dig 9)}"
+        },
+
+        {   "name": "Fight 1",
+            "description": "Defeat an enemy",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Fight"]
+        },
+        {   "name": "Fight 2",
+            "description": "Craft a Wood Armor",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Fight"],
+            "requires": "{Event(Build 2)} and {Event(Fight 1)}"
+        },
+        {   "name": "Fight 3",
+            "description": "Craft a sword",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Fight"],
+            "requires": "{Event(Build 3)} and {Event(Fight 2)}"
+        },
+        {   "name": "Fight 4",
+            "description": "Survive a night",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Fight"],
+            "requires": "{Event(Fight 3)}"
+        },
+        {   "name": "Fight 5",
+            "description": "Defeat King Slime",
+            "region": "Objectives",
+            "create_event": "@Fight 5",
+            "category": ["Objectives Fight"],
+            "requires": "{Event(Kill King Slime)} and {Event(Fight 4)}"
+        },
+        {   "name": "Fight 5B",
+            "description": "Have a yoyo equipped",
+            "region": "Objectives",
+            "create_event": "@Fight 5",
+            "category": ["Objectives Fight"],
+            "requires": "{Event(Kill King Slime)} and {Event(Fight 4)}"
+        },
+        {   "name": "Fight 6",
+            "description": "Have a magic item",
+            "_comment": "TODO require magic loot or craft",
+            "region": "Objectives",
+            "create_event": "@Fight 6",
+            "category": ["Objectives Fight"],
+            "requires": "{Event(Fight 5)}"
+        },
+        {   "name": "Fight 6B",
+            "description": "Defeat 2 non-boss enemies using only staves in 1 Phase",
+            "_comment": "TODO require staves",
+            "region": "Objectives",
+            "create_event": "@Fight 6",
+            "category": ["Objectives Fight"],
+            "requires": "{Event(Fight 5)}"
+        },
+        {   "name": "Fight 7",
+            "description": "Defeat Queen Bee OR Eye of Cthulhu",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Fight"],
+            "requires": "{Event(Fight 6)} and ({Event(Kill Queen Bee)} or {Event(Kill Eye of Cthulhu)})"
+        },
+        {   "name": "Fight 8",
+            "description": "Defeat 3 non-boss enemy in 1 Phase",
+            "region": "Objectives",
+            "create_event": "@Fight 8",
+            "category": ["Objectives Fight"],
+            "requires": "{Event(Fight 7)}"
+        },
+        {   "name": "Fight 8B",
+            "description": "Have a summoning staff",
+            "_comment": "TODO require staff (from chest and/or craft)",
+            "region": "Objectives",
+            "create_event": "@Fight 8",
+            "category": ["Objectives Fight"],
+            "requires": "{Event(Fight 7)}"
+        },
+        {   "name": "Fight 9 Corruption",
+            "description": "Defeat Eater of Worlds",
+            "region": "Corruption Upper Cavern",
+            "create_event": "@Fight 9",
+            "category": ["Objectives Fight", "Corruption Hidden"],
+            "requires": "{Event(Fight 8)} and {Event(Kill Eater of Worlds)}"
+        },
+        {
+            "name": "Fight 9 Crimson",
+            "description": "Defeat Brain of Cthulhu",
+            "region": "Crimson Upper Cavern",
+            "create_event": "@Fight 9",
+            "category": ["Objectives Fight", "Crimson Hidden"],
+            "requires": "{Event(Fight 8)} and {Event(Kill Brain of Cthulhu)}"
+        },
+        {   "name": "Fight 10",
+            "description": "Have a Guide Voodoo doll",
+            "region": "Underworld",
+            "create_event": true,
+            "category": ["Objectives Fight", "Objectives Final"],
+            "requires": "{Event(Fight 9)}"
+        },
+        {   "name": "Fight 10B",
+            "description": "Defeat a boss with Wood, Copper or no Armor",
+            "_comment": "TODO require good weapon and/or healing stuff",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Fight", "Objectives Final"],
+            "requires": "{Event(Fight 9)}"
+        },
+
+        {   "name": "Explore 1",
+            "description": "Discover 2 biomes",
+            "requires": "|@Biome Token:2|",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Explore"]
+        },
+        {   "name": "Explore 2",
+            "description": "open a chest outside of the Forest biome",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Explore"],
+            "requires": "|@Biome Token:1| and {Event(Explore 1)}"
+        },
+        {   "name": "Explore 3",
+            "description": "Open a chest underground",
+            "region": "Forest Underground",
+            "create_event": true,
+            "category": ["Objectives Explore"],
+            "requires": "{Event(Explore 2)}"
+        },
+        {   "name": "Explore 4",
+            "description": "Have 2 non-Guide NPC",
+            "_comment": "TODO do NPC requires Probably events",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Explore"],
+            "requires": "{Event(Explore 3)}"
+        },
+        {   "name": "Explore 5 Corruption",
+            "description": "Have discovered at least 3 Corruption tiles",
+            "region": "Corruption",
+            "create_event": "@Explore 5",
+            "category": ["Objectives Explore", "Corruption Hidden"],
+            "requires": "{Event(Explore 4)}"
+        },
+        {   "name": "Explore 5 Crimson",
+            "description": "Have discovered at least 3 Crimson tiles",
+            "region": "Crimson",
+            "create_event": "@Explore 5",
+            "category": ["Objectives Explore", "Crimson Hidden"],
+            "requires": "{Event(Explore 4)}"
+        },
+        {   "name": "Explore 5B",
+            "description": "Have a fallen star",
+            "region": "Objectives",
+            "create_event": "@Explore 5",
+            "category": ["Objectives Explore", "Crimson Hidden"],
+            "requires": "{Event(Explore 4)}"
+        },
+        {   "name": "Explore 6",
+            "description": "Have discovered an Ocean tile",
+            "region": "Objectives",
+            "create_event": "@Explore 6",
+            "category": ["Objectives Explore"],
+            "requires": "|@Ocean Token| and {Event(Explore 5)}"
+        },
+        {   "name": "Explore 6B",
+            "description": "Spawn at least 4 Surface enemy in a night",
+            "region": "Objectives",
+            "create_event": "@Explore 6",
+            "category": ["Objectives Explore"],
+            "requires": "|@Ocean Token| and {Event(Explore 5)}"
+        },
+        {   "name": "Explore 7",
+            "description": "Discover the Bee Hive",
+            "region": "Jungle Lower Cavern",
+            "create_event": true,
+            "category": ["Objectives Explore"],
+            "requires": "{Event(Explore 6)}"
+        },
+        {   "name": "Explore 8",
+            "description": "Discover an Underworld tile",
+            "region": "Underworld",
+            "create_event": "@Explore 8",
+            "category": ["Objectives Explore"],
+            "requires": "{Event(Explore 7)}"
+        },
+        {   "name": "Explore 8B",
+            "description": "Spend 40 coins",
+            "region": "Objectives",
+            "create_event": "@Explore 8",
+            "category": ["Objectives Explore"],
+            "requires": "{ItemValue(coin:40)} and {Event(Explore 7)}"
+        },
+        {   "name": "Explore 9",
+            "description": "Have discovered each non-ocean biome",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Explore"],
+            "requires": "|@Biome Token:100%| and {Event(Explore 8)}"
+        },
+        {   "name": "Explore 10",
+            "description": "Have at least 5 pylons",
+            "_comment": "TODO requires 5 NPC",
+            "region": "Objectives",
+            "create_event": "@Explore 10",
+            "category": ["Objectives Explore", "Objectives Final"],
+            "requires": "{Event(Explore 9)}"
+        },
+        {   "name": "Explore 10B",
+            "description": "Go from the Surface to the Underworld in 1 Phase",
+            "region": "Underworld",
+            "create_event": "@Explore 10",
+            "category": ["Objectives Explore", "Objectives Final"],
+            "requires": "{Event(Explore 9)}"
+        },
+
+        {   "name": "Build 1",
+            "description": "Chop a tree",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Build"]
+        },
+        {   "name": "Build 2",
+            "description": "Have a house with a workbench",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Build"],
+            "requires": "{Event(Build 1)}"
+        },
+        {   "name": "Build 3",
+            "description": "Have a house with an anvil",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Build"],
+            "requires": "{Event(Build 2)}"
+        },
+        {   "name": "Build 4",
+            "description": "Craft an axe",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Build"],
+            "requires": "{Event(Build 3)}"
+        },
+        {   "name": "Build 5",
+            "description": "Have a house underground",
+            "region": "Forest Underground",
+            "create_event": "@Build 5",
+            "category": ["Objectives Build"],
+            "requires": "{Event(Build 4)}"
+        },
+        {   "name": "Build 5B",
+            "description": "Have a gold armor",
+            "_comment": "TODO check where gold spawn",
+            "region": "Forest Underground",
+            "create_event": "@Build 5",
+            "category": ["Objectives Build"],
+            "requires": "{Event(Build 4)}"
+        },
+        {   "name": "Build 6",
+            "description": "Have a house with loom OR bottle",
+            "region": "Objectives",
+            "create_event": "@Build 6",
+            "category": ["Objectives Build"],
+            "requires": "{Event(Build 5)}"
+        },
+        {   "name": "Build 6B",
+            "description": "Have 3 houses stacked on top of each other",
+            "region": "Objectives",
+            "create_event": "@Build 6",
+            "category": ["Objectives Build"],
+            "requires": "{Event(Build 5)}"
+        },
+        {   "name": "Build 7",
+            "description": "Have a house with bed OR cooking pot",
+            "region": "Objectives",
+            "create_event": true,
+            "category": ["Objectives Build"],
+            "requires": "{Event(Build 6)}"
+        },
+        {   "name": "Build 8",
+            "description": "Have houses in 3 different biomes",
+            "_comment": "'or 4 in same' but that seems simple ",
+            "region": "Objectives",
+            "create_event": "@Build 8",
+            "category": ["Objectives Build"],
+            "requires": "{Event(Build 7)}"
+        },
+        {   "name": "Build 8B",
+            "description": "All 6 inventory slot Unlocked",
+            "region": "Objectives",
+            "create_event": "@Build 8",
+            "category": ["Objectives Build"],
+            "requires": "{Event(Build 7)}"
+        },
+        {   "name": "Build 9",
+            "description": "Have a house with Hellforge",
+            "region": "Underworld",
+            "create_event": true,
+            "category": ["Objectives Build"],
+            "requires": "{Event(Build 8)}"
+        },
+        {   "name": "Build 10",
+            "description": "Have all 7 house types",
+            "region": "Objectives",
+            "create_event": "@Build 10",
+            "category": ["Objectives Build", "Objectives Final"],
+            "requires": "{Event(Build 9)}"
+        },
+        {   "name": "Build 10B",
+            "description": "Have every players inside houses with bed",
+            "region": "Objectives",
+            "create_event": "@Build 10",
+            "category": ["Objectives Build", "Objectives Final"],
+            "requires": "{Event(Build 9)}"
+        },
+
+        {
+            "name": "Forest Surface Chest",
+            "region": "Forest",
+            "id": 200,
+            "category": ["Forest"],
+            "sort-key": "Chest A"
+        },
+        {
+            "name": "Forest Underground Chest",
+            "region": "Forest Underground",
+            "category": ["Forest"],
+            "sort-key": "Chest B"
+        },
+        {
+            "name": "Forest Upper Cavern Chest",
+            "region": "Forest Upper Cavern",
+            "category": ["Forest"],
+            "sort-key": "Chest C"
+        },
+        {
+            "name": "Forest Lower Cavern Chest",
+            "region": "Forest Lower Cavern",
+            "category": ["Forest"],
+            "sort-key": "Chest D"
+        },
+        {
+            "name": "Chop a tree - Forest",
+            "region": "Forest",
+            "category": ["Forest"]
+        },
+        {
+            "name": "Kill a Forest Biome Enemy",
+            "region": "Forest",
+            "category": ["Forest"]
+        },
+        {
+            "name": "Kill a Forest Biome Night Enemy",
+            "region": "Forest",
+            "category": ["Forest"]
+        },
+
+
+        {
+            "name": "Snow Surface Chest",
+            "region": "Snow",
+            "id": 300,
+            "category": ["Snow"],
+            "sort-key": "Chest A"
+        },
+        {
+            "name": "Snow Underground Chest",
+            "region": "Snow Underground",
+            "category": ["Snow"],
+            "sort-key": "Chest B"
+        },
+        {
+            "name": "Snow Upper Cavern Chest",
+            "region": "Snow Upper Cavern",
+            "category": ["Snow"],
+            "sort-key": "Chest C"
+        },
+        {
+            "name": "Snow Lower Cavern Chest",
+            "region": "Snow Lower Cavern",
+            "category": ["Snow"],
+            "sort-key": "Chest D"
+        },
+        {
+            "name": "Chop a tree - Snow",
+            "region": "Snow",
+            "category": ["Snow"]
+        },
+        {
+            "name": "Kill a Snow Biome Enemy",
+            "region": "Snow",
+            "category": ["Snow"]
+        },
+        {
+            "name": "Kill a Snow Biome Night Enemy",
+            "region": "Snow",
+            "category": ["Snow"]
+        },
+
+        {
+            "name": "Desert Surface Chest",
+            "region": "Desert",
+            "id": 400,
+            "category": ["Desert"],
+            "sort-key": "Chest A"
+        },
+        {
+            "name": "Desert Underground Chest",
+            "region": "Desert Underground",
+            "category": ["Desert"],
+            "sort-key": "Chest B"
+        },
+        {
+            "name": "Desert Upper Cavern Chest",
+            "region": "Desert Upper Cavern",
+            "category": ["Desert"],
+            "sort-key": "Chest C"
+        },
+        {
+            "name": "Desert Lower Cavern Chest",
+            "region": "Desert Lower Cavern",
+            "category": ["Desert"],
+            "sort-key": "Chest D"
+        },
+        {
+            "name": "Chop a Cactus - Desert",
+            "region": "Desert",
+            "category": ["Desert"]
+        },
+        {
+            "name": "Kill a Desert Biome Enemy",
+            "region": "Desert",
+            "category": ["Desert"]
+        },
+        {
+            "name": "Kill a Desert Biome Night Enemy",
+            "region": "Desert",
+            "category": ["Desert"]
+        },
+
+        {
+            "name": "Jungle Surface Chest",
+            "region": "Jungle",
+            "id": 500,
+            "category": ["Jungle"],
+            "sort-key": "Chest A"
+        },
+        {
+            "name": "Jungle Underground Chest",
+            "region": "Jungle Underground",
+            "category": ["Jungle"],
+            "sort-key": "Chest B"
+        },
+        {
+            "name": "Jungle Upper Cavern Chest",
+            "region": "Jungle Upper Cavern",
+            "category": ["Jungle"],
+            "sort-key": "Chest C"
+        },
+        {
+            "name": "Jungle Lower Cavern Chest",
+            "region": "Jungle Lower Cavern",
+            "category": ["Jungle"],
+            "sort-key": "Chest D"
+        },
+        {
+            "name": "Chop a tree - Jungle",
+            "region": "Jungle",
+            "category": ["Jungle"]
+        },
+        {
+            "name": "Kill a Jungle Biome Enemy",
+            "region": "Jungle",
+            "category": ["Jungle"]
+        },
+        {
+            "name": "Kill a Jungle Biome Night Enemy",
+            "region": "Jungle",
+            "category": ["Jungle"]
+        },
+
+        {
+            "name": "Corruption Surface Chest",
+            "region": "Corruption",
+            "id": 600,
+            "category": ["Corruption"],
+            "sort-key": "Chest A"
+        },
+        {
+            "name": "Corruption Underground Chest",
+            "region": "Corruption Underground",
+            "category": ["Corruption"],
+            "sort-key": "Chest B"
+        },
+        {
+            "name": "Corruption Upper Cavern Chest",
+            "region": "Corruption Upper Cavern",
+            "category": ["Corruption"],
+            "sort-key": "Chest C"
+        },
+        {
+            "name": "Corruption Lower Cavern Chest",
+            "region": "Corruption Lower Cavern",
+            "category": ["Corruption"],
+            "sort-key": "Chest D"
+        },
+        {
+            "name": "Chop a tree - Corruption",
+            "region": "Corruption",
+            "category": ["Corruption"]
+        },
+        {
+            "name": "Kill a Corruption Biome Enemy",
+            "region": "Corruption",
+            "category": ["Corruption"]
+        },
+        {
+            "name": "Kill a Corruption Biome Night Enemy",
+            "region": "Corruption",
+            "category": ["Corruption"]
+        },
+
+        {
+            "name": "Crimson Surface Chest",
+            "region": "Crimson",
+            "id": 700,
+            "category": ["Crimson"],
+            "sort-key": "Chest A"
+        },
+        {
+            "name": "Crimson Underground Chest",
+            "region": "Crimson Underground",
+            "category": ["Crimson"],
+            "sort-key": "Chest B"
+        },
+        {
+            "name": "Crimson Upper Cavern Chest",
+            "region": "Crimson Upper Cavern",
+            "category": ["Crimson"],
+            "sort-key": "Chest C"
+        },
+        {
+            "name": "Crimson Lower Cavern Chest",
+            "region": "Crimson Lower Cavern",
+            "category": ["Crimson"],
+            "sort-key": "Chest D"
+        },
+        {
+            "name": "Chop a tree - Crimson",
+            "region": "Crimson",
+            "category": ["Crimson"]
+        },
+        {
+            "name": "Kill a Crimson Biome Enemy",
+            "region": "Crimson",
+            "category": ["Crimson"]
+        },
+        {
+            "name": "Kill a Crimson Biome Night Enemy",
+            "region": "Crimson",
+            "category": ["Crimson"]
+        },
+
+        {
+            "name": "Victory TMP",
+            "id": 1000,
+            "victory": true,
+            "requires": "|@Ocean Token:all| and {GoalObjectives()} and {Event(Kill Wall Of Flesh)}"
+        }
+    ]
+}

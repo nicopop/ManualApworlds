@@ -202,7 +202,7 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
 
                 if rule is None:
                     if not rule_class:
-                        logging.warning(f'Warning: Could not find Rule implementation of {func_name}.')
+                        print(f'Warning: Could not find Rule implementation of {func_name}.')
                         # By returning None, we're saying "This entire requires string can't be done with a Rule.  Fall back to the pre-rb lambdas"
                         return None
 

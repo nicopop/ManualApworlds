@@ -111,3 +111,7 @@ def after_load_meta_file(meta_table: dict) -> dict:
     web['bug_report_page'] = "https://discord.com/channels/1097532591650910289/1101289500602286161"
 
     return meta_table
+
+
+def after_load_progressive_item_file(progressive_item_table: list) -> list:
+    return progressive_item_table

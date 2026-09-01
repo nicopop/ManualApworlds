@@ -1,5 +1,5 @@
 from BaseClasses import Item
-from .Data import item_table, category_table
+from .Data import item_table
 from .Game import filler_item_name, starting_index, game_name
 
 
@@ -15,11 +15,7 @@ lastItemId = -1
 
 count = starting_index
 
-# add the filler item to the list of items for lookup
-if filler_item_name:
-    item_table.append({
-        "name": filler_item_name
-    })
+filler_found = False
 
 # add sequential generated ids to the lists
 for key, val in enumerate(item_table):
@@ -34,7 +30,17 @@ for key, val in enumerate(item_table):
     item_table[key]["progression"] = val["progression"] if "progression" in val else False
     if isinstance(val.get("category", []), str):
         item_table[key]["category"] = [val["category"]]
+    if item_table[key].get("name") == filler_item_name:
+        filler_found = True
 
+    count += 1
+
+# add the filler item to the list of items for lookup
+if filler_item_name and not filler_found:
+    item_table.append({
+        "name": filler_item_name,
+        "id": count,
+    })
     count += 1
 
 for item in item_table:
@@ -46,10 +52,10 @@ for item in item_table:
         lastItemId = max(lastItemId, item["id"])
 
     for c in item.get("category", []):
-        if category_table.get(c,{}).get("create_item_group", True):
-            if c not in item_name_groups:
-                item_name_groups[c] = set()
-            item_name_groups[c].add(item_name)
+        if c not in item_name_groups:
+            item_name_groups[c] = set()
+        item_name_groups[c].add(item_name)
+
     #Just lowercase the values here to remove all the .lower.strip down the line
     item['value'] = {k.lower().strip(): v
                      for k, v in item.get('value', {}).items()}

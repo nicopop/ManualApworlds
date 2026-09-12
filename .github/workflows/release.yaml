@@ -67,7 +67,7 @@ jobs:
         run: |
           find worlds -mindepth 1 -maxdepth 1 -type d ! -name "generic" -exec rm -rf {} +
           mkdir -p worlds/${{ env.AP_WORLD_DIR }}
-          rsync -a temp/linklink/* worlds/${{ env.AP_WORLD_DIR }} --exclude='.[!.]*'
+          rsync -a temp/worlds/${{ env.AP_WORLD_DIR }}/* worlds/${{ env.AP_WORLD_DIR }} --exclude='.[!.]*'
       # - name: Install python
       #   uses: actions/setup-python@v5
       #   with:

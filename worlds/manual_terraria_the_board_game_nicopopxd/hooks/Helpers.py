@@ -1,5 +1,6 @@
 from typing import Optional, Any, TYPE_CHECKING, cast
 from BaseClasses import MultiWorld, Item, Location
+from Options import Choice
 
 if TYPE_CHECKING:
     from .. import ManualWorld
@@ -39,9 +40,13 @@ def before_is_location_enabled(multiworld: MultiWorld, player: int, location:  d
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the event, False to disable it, or None to use the default behavior
 def before_is_event_enabled(multiworld: MultiWorld, player: int, event:  dict[str, Any]) -> Optional[bool]:
-    location = event
-    if event.get("copy_location"):
-        location =  multiworld.worlds[player].location_name_to_location[event.get("copy_location")]
+    location: dict[str, Any] = event
+    linked_loc: str|None
+    if (linked_loc := event.get("enabled_with_location")) is not None:
+        if linked_loc: # if left empty don't track based on a location
+            location = multiworld.worlds[player].location_name_to_location[linked_loc]
+    elif (linked_loc := event.get("copy_location")):
+        location = multiworld.worlds[player].location_name_to_location[linked_loc]
     return before_is_location_enabled(multiworld, player, location, False)
 
 def checkobject(multiworld: MultiWorld, player: int, obj: dict[str, Any]) -> Optional[bool]:
@@ -53,8 +58,7 @@ def checkobject(multiworld: MultiWorld, player: int, obj: dict[str, Any]) -> Opt
         obj (dict[str, Any]): Manual Object to test
 
     Returns:
-        Optional[bool]: enabled or not,
-        return None if no category are enable or disabled
+        Optional[bool]: enabled or not, return None if no category are enable or disabled
     """
     world = cast("ManualWorld", multiworld.worlds[player])
     if not hasattr(world, 'categoryInit'):
@@ -63,14 +67,16 @@ def checkobject(multiworld: MultiWorld, player: int, obj: dict[str, Any]) -> Opt
     if obj.get("disabled"):
         return False
 
-    # if obj.get("remove_if_goal"):
-    #     value: str = obj["remove_if_goal"]
-    #     reverse = False
-    #     if value.strip().startswith("!"):
-    #         reverse = True
-    #         value = value.lstrip("!")
-    #     target_goal = world.options.goal.from_any(value)
-    #     if (target_goal == world.options.goal) != reverse: return False # type: ignore
+    goal: Choice | None = getattr(world.options, "goal", None)
+    if goal is not None:
+        if obj.get("remove_if_goal"):
+            value: str = obj["remove_if_goal"]
+            reverse = False
+            if value.strip().startswith("!"):
+                reverse = True
+                value = value.lstrip("!")
+            target_goal = goal.from_any(value)
+            if (target_goal == goal) != reverse: return False # type: ignore
 
     resultYes = False
     resultNo = False

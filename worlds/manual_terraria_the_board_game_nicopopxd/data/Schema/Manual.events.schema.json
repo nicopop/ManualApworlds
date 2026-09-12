@@ -55,6 +55,10 @@
                     "type": "boolean",
                     "default": false
                 },
+                "enabled_with_location": {
+                    "description": "(Optional) If said location is enable this event is too, defaults to the value of \"copy_location\" if present",
+                    "type": "string"
+                },
                 "_comment": {"$ref": "#/definitions/comment"}
             },
             "required": ["name"]

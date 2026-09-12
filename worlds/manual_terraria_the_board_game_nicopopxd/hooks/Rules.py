@@ -5,6 +5,7 @@ from ..Game import game_name
 from BaseClasses import MultiWorld, CollectionState
 
 import dataclasses
+import logging
 from Utils import version_tuple
 use_rulebuilder = version_tuple >= (0, 6, 7)
 
@@ -52,6 +53,17 @@ def DiscoverRule(biome: str, world: "ManualWorld") -> str:
         return ""
     return value
 
+knownTODO = set()
+
+def TODO(args: str, collected: bool = True) -> str:
+    global knownTODO
+    if args.lower().strip() not in knownTODO:
+        logging.warning(f"TODO for requirements: {args}")
+        knownTODO.add(args.lower().strip())
+    return "1" if collected else "0"
+
+
+
 # A rule that checks if the player has at least count of the given items, ignoring duplicates of the same item
 def HasFromCategoryUnique(category: str, count: str, state: CollectionState, world: "ManualWorld", player: int) -> bool:
     requested_count = int(count.strip())
@@ -64,7 +76,7 @@ def GoalObjectives(state: CollectionState, world: "ManualWorld", player: int,) -
     return HasFromCategoryUnique("Objectives Final", str(requested_count), state=state, world=world, player=player)
 
 if use_rulebuilder:
-    from rule_builder.rules import HasFromListUnique, Rule
+    from rule_builder.rules import HasFromListUnique, Rule, True_, False_
     @dataclasses.dataclass()
     class HasFromCategoryUniqueRule(Rule["ManualWorld"], game=game_name):
         category: str
@@ -81,7 +93,19 @@ if use_rulebuilder:
             objectives = cast(ObjectivesTypesForGoal, world.options.goal_objectives) # type: ignore
             requested_count = objectives.value
             return HasFromCategoryUniqueRule("Objectives Final", str(requested_count)).resolve(world)
-
+    @dataclasses.dataclass()
+    class TODORule(Rule["ManualWorld"], game=game_name):
+        todo: str
+        collect: bool = True
+        def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+            global knownTODO
+            if self.todo.lower().strip() not in knownTODO:
+                logging.warning(f"TODO for requirements: {self.todo}")
+                knownTODO.add(self.todo.lower().strip())
+            if self.collect:
+                return True_().resolve(world)
+            else:
+                return False_().resolve(world)
 
 # def GoalPlus(world: "ManualWorld") -> str:
 #     from .Options import Goal

@@ -25,12 +25,16 @@ from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProc
 from MultiServer import mark_raw
 
 tracker_loaded = False
+from CommonClient import CommonContext
+SuperContext: type[CommonContext] = CommonContext
+CommandProcessor: type[ClientCommandProcessor] = ClientCommandProcessor
 try:
-    from worlds.tracker.TrackerClient import TrackerGameContext as SuperContext, TrackerCommandProcessor
-    ClientCommandProcessor = TrackerCommandProcessor
+    from worlds.tracker.TrackerClient import TrackerGameContext, TrackerCommandProcessor
+    SuperContext = TrackerGameContext
+    CommandProcessor = TrackerCommandProcessor
     tracker_loaded = True
 except ModuleNotFoundError:
-    from CommonClient import CommonContext as SuperContext
+    pass
 
 if typing.TYPE_CHECKING:
     import kvui
@@ -95,7 +99,8 @@ def natural_sort_key(key: str):
 
     return [convert(c) for c in re.split('([0-9]+)', key)]
 
-class ManualClientCommandProcessor(ClientCommandProcessor):
+class ManualClientCommandProcessor(CommandProcessor):
+    ctx: "ManualContext"
     def _cmd_resync(self) -> bool:
         """Manually trigger a resync."""
         self.output("Syncing items.")
@@ -131,7 +136,7 @@ class ManualClientCommandProcessor(ClientCommandProcessor):
 
 class ManualContext(SuperContext):
     command_processor = ManualClientCommandProcessor
-    game = None  # this is changed in server_auth below based on user input
+    game: str|None = None  # this is changed in server_auth below based on user input
     items_handling = 0b111  # full remote
     tags = {"AP"}
 
@@ -161,7 +166,7 @@ class ManualContext(SuperContext):
     display_glitched_locations = True
     allow_glitched_location_press = True
 
-    colors = {
+    colors: dict[str, list[Any]] = {
         'location_default': [219/255, 218/255, 213/255, 1],
         'location_in_logic': [2/255, 242/255, 42/255, 1],
         'location_in_glitched_logic': [247/255, 255/255, 119/255, 1],
@@ -196,8 +201,10 @@ class ManualContext(SuperContext):
 
         self.send_index: int = 0
         self.syncing = False
-        self.game: str = game
+        self.game = game
         self.username = player_name
+        self.locations_checked: list[int] = []
+        self.locations_scouted: list[int] = []
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -1365,12 +1372,13 @@ async def game_watcher_manual(ctx: ManualContext):
             ctx.ui.check_for_requested_update()
 
         if ctx.syncing == True:
-            sync_msg = [{'cmd': 'Sync'}]
+            sync_msg = []
             if ctx.locations_checked:
-                sync_msg.append({"cmd": "LocationChecks", "locations": list(ctx.locations_checked)})
+                await ctx.check_locations(ctx.locations_checked)
             if ctx.locations_scouted:
                 sync_msg.append({"cmd": "LocationScouts", "locations": list(ctx.locations_scouted), "create_as_hint": 2})
-            await ctx.send_msgs(sync_msg)
+            if sync_msg:
+                await ctx.send_msgs(sync_msg)
             ctx.syncing = False
 
         if ctx.set_deathlink:

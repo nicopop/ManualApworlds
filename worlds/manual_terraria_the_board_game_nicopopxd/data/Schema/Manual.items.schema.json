@@ -28,7 +28,7 @@
                 },
                 "category": {
                     "description": "(Optional) A list of categories to be applied to this item.",
-                    "type": ["string", "array"],
+                    "type": "array",
                     "items": {
                         "type": "string"
                     },
@@ -76,6 +76,11 @@
                 },
                 "filler": {
                     "description": "(Optional) Is this item mostly useless and okay to skip placing sometimes? For more information on item classifications, see: https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/world%20api.md#items",
+                    "type": "boolean",
+                    "default": true
+                },
+                "deprioritized": {
+                    "description": "(Optional) Will not be considered for priority locations, see: https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/world%20api.md#items",
                     "type": "boolean",
                     "default": true
                 },

@@ -2,13 +2,15 @@ from BaseClasses import Tutorial
 from typing import Any, cast
 from worlds.AutoWorld import World, WebWorld
 
+import logging
+
 _location_table: list[dict[str, Any]] = []
 _item_table: list[dict[str, Any]] = []
 
 def load_manifest() -> dict[str, Any]:
     import json, pkgutil
     try:
-        file = pkgutil.get_data(__name__, "archipelago.json")
+        file = pkgutil.get_data(__name__.removesuffix(".hooks.Data"), "archipelago.json")
         if file is not None:
             filedata = json.loads(file.decode())
         else:
@@ -17,8 +19,6 @@ def load_manifest() -> dict[str, Any]:
         filedata = {}
 
     return filedata
-
-_manifest: dict[str, Any] = load_manifest()
 
 # called after the game.json file has been loaded
 def after_load_game_file(game_table: dict) -> dict:
@@ -54,21 +54,28 @@ def after_load_event_file(event_table: list) -> list:
             pass
 
     for location in _location_table:
-        event_requested = location.get("create_event")
-        if not event_requested:
+        loc_name: str = location["name"]
+        event_request = location.get("create_event")
+        if not event_request:
             continue
 
-        base_event_override = {}
-        if (visible := location.get("event_visible")) is not None:
-            base_event_override["visible"] = visible
-        if (categories := location.get("event_category")) is not None:
-            base_event_override["category"] = categories
+        base_event_override: dict[str, str] = {"copy_location": location["name"]}
+        for property, value in location.items():
+            if property.lower().startswith("event_"):
+                # we have schema for ["event_visible", "event_category"] but others (except "name") should work too
+                property_name = property.removeprefix("event_")
+                if property_name == "name":
+                    logging.warning(f'Warning: Location "{loc_name}" tried to override the created event(s)\'s name using the property "event_name",\
+                                    \nit should be set directly in "create_event" instead')
+                    continue
+                base_event_override[property_name] = value
 
-        if isinstance(event_requested, str):
-            events_to_make = [event_override(event_requested, base_event_override)]
-        elif isinstance(event_requested, list):
+
+        if isinstance(event_request, str):
+            events_to_make = [event_override(event_request, base_event_override)]
+        elif isinstance(event_request, list):
             events_to_make = []
-            for i in event_requested:
+            for i in event_request:
                 if isinstance(i, str):
                     events_to_make.append(event_override(i, base_event_override))
                 elif isinstance(i, dict):
@@ -77,10 +84,10 @@ def after_load_event_file(event_table: list) -> list:
                 else:
                     raise ValueError("uh what...")
         else:
-            events_to_make = [event_override(f"@{location['name']}", base_event_override)]
+            events_to_make = [event_override(f"@{loc_name}", base_event_override)]
 
         for event_obj in events_to_make:
-            event ={"name": event_obj.name, "copy_location": location["name"]} | event_obj.data
+            event: dict[str, str] = {"name": event_obj.name, "enabled_with_location": event_obj.data["copy_location"]} | event_obj.data
 
             event_table.append(event)
     return event_table
@@ -113,6 +120,7 @@ def after_load_option_file(option_table: dict) -> dict:
 # called after the meta.json file has been loaded and just before the properties of the apworld are defined. You can use this hook to change what is displayed on the webhost
 # for more info check https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/world%20api.md#webworld-class
 def after_load_meta_file(meta_table: dict) -> dict:
+    manifest = load_manifest()
     if not meta_table.get("docs"):
         meta_table['docs'] = {}
     if not meta_table['docs'].get("web"):
@@ -122,7 +130,7 @@ def after_load_meta_file(meta_table: dict) -> dict:
     Manual games allow you to set custom check locations and custom item names that will be rolled into a multiworld.
     In this case a board game released in 2026: Terraria: The Board Game
     the player must manually refrain from using these gathered items until the tracker shows that they have been acquired or sent.
-    [Apworld Version: {_manifest.get('world_version', 'Unknown')}]
+    [Apworld Version: {manifest.get('world_version', 'Unknown')}]
     """
     web = meta_table['docs']['web']
     # web['options_presets'] = {

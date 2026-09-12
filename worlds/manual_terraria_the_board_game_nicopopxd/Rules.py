@@ -191,6 +191,7 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                         func = getattr(ns, name, None)
 
                     if func and inspect.isclass(func) and issubclass(func, rule_builder.rules.Rule):
+                        convert_req_function_args(None, func, func_args, area['name'], world)
                         rule_class = func
                         break
 
@@ -482,6 +483,9 @@ def convert_req_function_args(state: CollectionState | None, func, args: list[st
     index = -1
     for parameter in parameters.values():
         target_type = parameter.annotation
+        if "rule_builder.options.OptionFilter" in str(parameter):
+            break
+
         index += 1
         if target_type in knownParameters:
             if target_type in [World, 'ManualWorld']:

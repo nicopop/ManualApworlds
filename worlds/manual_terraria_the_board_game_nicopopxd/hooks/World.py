@@ -294,6 +294,9 @@ def before_create_item(item_name: str, world: "ManualWorld", multiworld: MultiWo
 
 # The item that was created is provided after creation, in case you want to modify the item
 def after_create_item(item: ManualItem, world: "ManualWorld", multiworld: MultiWorld, player: int) -> ManualItem:
+    manualItem = world.item_name_to_item[item.name]
+    if manualItem.get("deprioritized"):
+        item.classification |= ItemClassification.deprioritized
     return item
 
 # This method is run towards the end of pre-generation, before the place_item options have been handled and before AP generation occurs

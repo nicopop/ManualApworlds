@@ -6,6 +6,15 @@
     "Crimson Hidden": {
         "hidden": true
     },
+    "Biome Token": {
+        "hidden": true
+    },
+    "Ocean Token": {
+        "hidden": true
+    },
+    "Non-Evil Token": {
+        "hidden": true
+    },
     "FillerDummy": {
         "hidden": true
     },

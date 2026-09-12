@@ -1,4 +1,97 @@
 {
 	"$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.events.schema.json",
-    "data": []
+    "data": [
+        {
+            "name": "Gold Ore",
+            "_comment": "TODO change region of other gold ores",
+            "region": "Forest Upper Cavern"
+        },
+        {
+            "name": "Gold Ore",
+            "region": "Forest Lower Cavern"
+        },
+        {
+            "name": "Gold Ore",
+            "region": "Jungle Upper Cavern"
+        },
+        {
+            "name": "Gold Ore",
+            "region": "Jungle Lower Cavern"
+        },
+        {
+            "name": "Gold Ore",
+            "region": "Jungle Lower Cavern"
+        },
+        {
+            "name": "Gold Ore",
+            "region": "Snow Upper Cavern"
+        },
+        {
+            "name": "Gold Ore",
+            "region": "Snow Lower Cavern"
+        },
+        {
+            "name": "Gold Ore",
+            "region": "Snow Lower Cavern"
+        },
+        {
+            "name": "Gold Ore",
+            "region": "Desert Upper Cavern"
+        },
+        {
+            "name": "Gold Ore",
+            "region": "Desert Lower Cavern"
+        },
+        {
+            "name": "Gold Ore",
+            "region": "Desert Lower Cavern"
+        },
+        {
+            "name": "Gem Ore",
+            "region": "Forest Upper Cavern"
+        },
+        {
+            "name": "Gem Ore",
+            "region": "Forest Lower Cavern"
+        },
+        {
+            "name": "Gem Ore",
+            "region": "Corruption Upper Cavern",
+            "category": ["Corruption Hidden"]
+        },
+        {
+            "name": "Gem Ore",
+            "region": "Corruption Lower Cavern",
+            "category": ["Corruption Hidden"]
+        },
+        {
+            "name": "Gem Ore",
+            "region": "Crimson Upper Cavern",
+            "category": ["Crimson Hidden"]
+        },
+        {
+            "name": "Gem Ore",
+            "region": "Jungle Upper Cavern"
+        },
+        {
+            "name": "Gem Ore",
+            "region": "Jungle Lower Cavern"
+        },
+        {
+            "name": "Gem Ore",
+            "region": "Snow Upper Cavern"
+        },
+        {
+            "name": "Gem Ore",
+            "region": "Snow Lower Cavern"
+        },
+        {
+            "name": "Gem Ore",
+            "region": "Desert Upper Cavern"
+        },
+        {
+            "name": "Gem Ore",
+            "region": "Desert Lower Cavern"
+        }
+    ]
 }

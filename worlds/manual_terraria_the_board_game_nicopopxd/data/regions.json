@@ -1,12 +1,25 @@
 {
     "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.regions.schema.json",
-    "Forest": {
+    "Board": {
         "starting": true,
-        "connects_to": ["Snow", "Desert", "Jungle", "Corruption", "Crimson", "Left Ocean", "Right Ocean", "Forest Underground", "Objectives"]
+        "connects_to": ["Forest", "Snow", "Desert", "Jungle", "Corruption", "Crimson", "Left Ocean", "Right Ocean", "Forest Underground", "Objectives", "NPC", "Houses"]
+
     },
     "Objectives": {
         "starting": true,
         "connects_to": []
+    },
+    "NPC": {
+        "starting": true,
+        "connects_to": []
+    },
+    "Houses": {
+        "starting": true,
+        "connects_to": []
+    },
+    "Forest": {
+        "starting": false,
+        "connects_to": ["Forest Underground"]
     },
     "Forest Underground": {
         "starting": false,
@@ -91,26 +104,43 @@
         "requires": "|Progressive Layer:75%|"
     },
 
+    "Evil": {
+        "starting": false,
+        "requires": "|Corruption Biome| or |Crimson Biome|"
+    },
+    "Evil Underground": {
+        "starting": false,
+        "requires": "|Corruption Biome| or |Crimson Biome|"
+    },
+    "Evil Upper Cavern": {
+        "starting": false,
+        "requires": "|Corruption Biome| or |Crimson Biome|"
+    },
+    "Evil Lower Cavern": {
+        "starting": false,
+        "requires": "|Corruption Biome| or |Crimson Biome|"
+    },
+
     "Corruption": {
         "starting": false,
         "requires": "|Corruption Biome:100%|",
         "_comment": ["Corruption Biome:all so that this region doesn't fail unit tests",
             "TODO when we have a link to hell make sure to exit check for the token instead of all"],
-        "connects_to": ["Corruption Underground"]
+        "connects_to": ["Corruption Underground", "Evil"]
     },
     "Corruption Underground": {
         "starting": false,
-        "connects_to": ["Corruption Upper Cavern"],
+        "connects_to": ["Corruption Upper Cavern", "Evil Underground"],
         "requires": "|Progressive Layer:25%|"
     },
     "Corruption Upper Cavern": {
         "starting": false,
-        "connects_to": ["Corruption Lower Cavern"],
+        "connects_to": ["Corruption Lower Cavern", "Evil Upper Cavern"],
         "requires": "|Progressive Layer:50%|"
     },
     "Corruption Lower Cavern": {
         "starting": false,
-        "connects_to": ["Underworld"],
+        "connects_to": ["Underworld", "Evil Lower Cavern"],
         "requires": "|Progressive Layer:75%|",
         "exit_requires": {"Underworld": "|Corruption Biome|"}
     },
@@ -118,21 +148,21 @@
     "Crimson": {
         "starting": false,
         "requires": "|Crimson Biome:100%|",
-        "connects_to": ["Crimson Underground"]
+        "connects_to": ["Crimson Underground", "Evil"]
     },
     "Crimson Underground": {
         "starting": false,
-        "connects_to": ["Crimson Upper Cavern"],
+        "connects_to": ["Crimson Upper Cavern", "Evil Underground"],
         "requires": "|Progressive Layer:25%|"
     },
     "Crimson Upper Cavern": {
         "starting": false,
-        "connects_to": ["Crimson Lower Cavern"],
+        "connects_to": ["Crimson Lower Cavern", "Evil Upper Cavern"],
         "requires": "|Progressive Layer:50%|"
     },
     "Crimson Lower Cavern": {
         "starting": false,
-        "connects_to": ["Underworld"],
+        "connects_to": ["Underworld", "Evil Lower Cavern"],
         "requires": "|Progressive Layer:75%|",
         "exit_requires": {"Underworld": "|Crimson Biome|"}
     },

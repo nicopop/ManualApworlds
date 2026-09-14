@@ -132,19 +132,14 @@ def after_load_meta_file(meta_table: dict) -> dict:
     the player must manually refrain from using these gathered items until the tracker shows that they have been acquired or sent.
     [Apworld Version: {manifest.get('world_version', 'Unknown')}]
     """
-    web = meta_table['docs']['web']
-    # web['options_presets'] = {
-    #     "Short":{
-    #         "goal": "standard"
-    #     },
-    #     "Long":{
-    #         "require_solanum": True,
-    #         "require_prisoner": True,
-    #         "do_place_item_category": False,
-    #         "goal": "standard"
+    web = WebWorld()
+    web.theme = "ocean"
+    web.bug_report_page = "https://discord.com/channels/1097532591650910289/1495111996150906880"
+    # web.options_presets = {
+    #     "Easy": {
+    #         "goal_objectives": 1
     #     }
     # }
-    web['theme'] = "ocean"
-    web['bug_report_page'] = "https://discord.com/channels/1097532591650910289/1495111996150906880"
+    meta_table['docs']['web'] |= vars(web)
 
     return meta_table

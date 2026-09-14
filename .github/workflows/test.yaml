@@ -43,7 +43,7 @@ jobs:
 
       - uses: Eijebong/ap-actions/ap-tests@main
         name: Test manual_template_nicopopxd
-        if: steps.changes.outputs.terraria_tbg == 'true'
+        if: steps.changes.outputs.template == 'true'
         with:
           apworld-path: worlds/manual_template_nicopopxd
           ap-version: ${{ env.AP_VERSION }}

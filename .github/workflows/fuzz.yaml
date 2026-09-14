@@ -20,6 +20,8 @@ jobs:
               - 'worlds/manual_outerwilds_nicopopxd/**/!(*.md)'
             plateup:
               - 'worlds/manual_plateup_nicopopxd/**/!(*.md)'
+            terraria_tbg:
+              - 'worlds/manual_terraria_the_board_game_nicopopxd/**/!(*.md)'
 
       - uses: Eijebong/ap-actions/fuzz@main
         name: Run fuzz for manual_outerwilds_nicopopxd
@@ -37,6 +39,17 @@ jobs:
         if: steps.changes.outputs.plateup == 'true'
         with:
           apworld-path: worlds/manual_plateup_nicopopxd/
+          ap-version: ${{ env.AP_VERSION }}
+          python-version: '3.12'
+          runs: 500 # This is optional
+          yamls-per-run: 1 # This is optional
+          checkout: false
+
+      - uses: Eijebong/ap-actions/fuzz@main
+        name: Run fuzz for manual_terraria_the_board_game_nicopopxd
+        if: steps.changes.outputs.terraria_tbg == 'true'
+        with:
+          apworld-path: worlds/manual_terraria_the_board_game_nicopopxd/
           ap-version: ${{ env.AP_VERSION }}
           python-version: '3.12'
           runs: 500 # This is optional

@@ -1,0 +1,282 @@
+# Object classes from AP core, to represent an entire MultiWorld and this individual World that's part of it
+from worlds.AutoWorld import World
+from typing import TYPE_CHECKING, cast, Any, Callable, TextIO
+
+from BaseClasses import MultiWorld, CollectionState, Item, Location, ItemClassification
+from Options import OptionError
+import logging
+
+# Object classes from Manual -- extending AP core -- representing items and locations that are used in generation
+from ..Items import ManualItem
+from ..Locations import ManualLocation
+from .Helpers import InitCategories
+
+if TYPE_CHECKING:
+    from .. import ManualWorld
+
+# Raw JSON data from the Manual apworld, respectively:
+#          data/game.json, data/items.json, data/locations.json, data/regions.json
+#
+from ..Data import game_table, item_table, location_table, region_table
+# from .Options import EvilBiomeType, BiomeRdmSeed
+
+# These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
+from ..Helpers import remove_specific_item, is_item_enabled, is_item_name_enabled, is_location_name_enabled
+from random import Random
+
+########################################################################################
+## Order of method calls when the world generates:
+##    1. create_regions - Creates regions and locations
+##    2. create_items - Creates the item pool
+##    3. set_rules - Creates rules for accessing regions and locations
+##    4. generate_basic - Runs any post item pool options, like place item/category
+##    5. pre_fill - Creates the victory location
+##
+## The create_item method is used by plando and start_inventory settings to create an item from an item name.
+## The fill_slot_data method will be used to send data to the Manual client for later use, like deathlink.
+########################################################################################
+
+# region Custom Client
+from worlds.LauncherComponents import Component, SuffixIdentifier, components, Type, launch, icon_paths
+def launch_client(*args):
+    import CommonClient
+    from ..ManualClientExperimental import launch as Main
+
+    if CommonClient.gui_enabled:
+        launch(Main, name="Manual client", args=args)
+    else:
+        Main(*args)
+
+class VersionedComponent(Component):
+    def __init__(self, display_name: str, script_name: str|None = None, func: Callable|None = None, version: int = 0, file_identifier: Callable[[str], bool]|None = None, icon: str = ""):
+        super().__init__(display_name=display_name, script_name=script_name, func=func, component_type=Type.CLIENT, file_identifier=file_identifier, icon=icon)
+        self.version = version
+
+def add_client_to_launcher() -> None:
+    import Utils
+    version = 2026_08_05 # YYYYMMDD
+    found = False
+    display_name = "Manual Client Nico's Experiment"
+
+    if "manual" not in icon_paths:
+        icon_paths["manual"] = Utils.user_path('data', 'manual.png')
+
+    for c in components:
+        if c.display_name == display_name:
+            found = True
+            if getattr(c, "version", 0) < version:
+                c.version = version # type: ignore
+                c.func = launch_client
+                c.icon = "manual"
+
+    if not found:
+        components.append(VersionedComponent(display_name, "ManualClientExperimental", func=launch_client, version=version, file_identifier=SuffixIdentifier('.apmanual'), icon="manual"))
+add_client_to_launcher()
+# endregion
+def hook_get_filler_item_name(world: "ManualWorld", multiworld: MultiWorld, player: int) -> str | bool | list:
+    """
+    Use this function to change the valid filler items to be created to replace item links or starting items.
+    Default value is the `filler_item_name` from game.json
+    """
+#
+# region dummyfillers
+    # with this you can have a category called FillerDummy assigned to items and copy of  said item will possibly be generated as filler
+    # work even if you set the item count to 0 in the items.json
+    dummyfillers = list(world.item_name_groups.get("FillerDummy", set()))
+    dummyfillers = [i for i in dummyfillers if is_item_enabled(multiworld, player, world.item_name_to_item[i])]
+    if not dummyfillers:
+        return world.filler_item_name
+    return world.random.choice(dummyfillers)
+# endregion
+
+def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: int):
+    """
+    This is the earliest hook called during generation, before anything else is done.
+    Use it to check or modify incompatible options, or to set up variables for later use.
+    """
+# region Init Options
+    # Here I usually deal with options values and check for UT
+    world.is_ut = cast(bool, getattr(multiworld, "generation_is_fake", False)) # type: ignore
+    # evil_type = cast(EvilBiomeType, world.options.evil_biome) # type: ignore
+    # biome_seed = cast(BiomeRdmSeed, world.options.biome_seed) # type: ignore
+
+# endregion
+
+# region spoiler_header
+# Something not in base Manual is write_spoiler_header which let you write stuff in the spoiler file just after
+# all the option stuff is written for each player
+    def write_spoiler_header(spoiler_handle: TextIO) -> None:
+        """
+        Write to the spoiler header. If individual it's right at the end of that player's options,
+        if as stage it's right under the common header before per-player options.
+        """
+        # biomes = cast(list[str], world.biomes_order)  # type: ignore
+        spoiler_handle.write(f"Apworld Version: {world.world_version.as_simple_string()}")
+        # spoiler_handle.write(f"\nBiome Order:\n[{', '.join(biomes)}]\n")
+        pass
+
+    setattr(world, "write_spoiler_header", write_spoiler_header)
+# endregion
+    pass
+# Called before regions and locations are created. Not clear why you'd want this, but it's here. Victory location is included, but Victory event is not placed yet.
+def before_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: int):
+    pass
+
+# Called after regions and locations are created, in case you want to see or modify that information. Victory location is included.
+def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: int):
+    pass
+# This hook allows you to access the item names & counts before the items are created. Use this to increase/decrease the amount of a specific item in the pool
+# Valid item_config key/values:
+# {"Item Name": 5} <- This will create qty 5 items using all the default settings
+# {"Item Name": {"useful": 7}} <- This will create qty 7 items and force them to be classified as useful
+# {"Item Name": {"progression": 2, "useful": 1}} <- This will create 3 items, with 2 classified as progression and 1 as useful
+# {"Item Name": {0b0110: 5}} <- If you know the special flag for the item classes, you can also define non-standard options. This setup
+#       will create 5 items that are the "useful trap" class
+# {"Item Name": {ItemClassification.useful: 5}} <- You can also use the classification directly
+def before_create_items_all(item_config: dict[str, int|dict], world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict[str, int|dict]:
+    return item_config
+
+# The item pool before place_item(_category) are processed, in case you want to see the raw item pool at that stage
+def before_create_items_place_items(item_pool: list, world: "ManualWorld", multiworld: MultiWorld, player: int) -> list:
+    return item_pool
+
+# The item pool before starting items are processed, in case you want to see the raw item pool at that stage
+def before_create_items_starting(item_pool: list, world: "ManualWorld", multiworld: MultiWorld, player: int) -> list:
+    return item_pool
+
+# The item pool after starting items are processed but before filler is added, in case you want to see the raw item pool at that stage
+def before_create_items_filler(item_pool: list[Item], world: "ManualWorld", multiworld: MultiWorld, player: int) -> list:
+    return item_pool
+
+    # Some other useful hook options:
+
+    ## Place an item at a specific location
+    # location = next(l for l in multiworld.get_unfilled_locations(player=player) if l.name == "Location Name")
+    # item_to_place = next(i for i in item_pool if i.name == "Item Name")
+    # location.place_locked_item(item_to_place)
+    # remove_specific_item(item_pool, item_to_place)
+
+# The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
+def after_create_items(item_pool: list, world: "ManualWorld", multiworld: MultiWorld, player: int) -> list:
+    return item_pool
+
+# Called before rules for accessing regions and locations are created. Not clear why you'd want this, but it's here.
+def before_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
+    pass
+
+# Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
+def after_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
+    # Use this hook to modify the access rules for a given location
+
+    def Example_Rule(state: CollectionState) -> bool:
+        # Calculated rules take a CollectionState object and return a boolean
+        # True if the player can access the location
+        # CollectionState is defined in BaseClasses
+        return True
+
+    ## Common functions:
+    # location = world.get_location(location_name, player)
+    # location.access_rule = Example_Rule
+
+    ## Combine rules:
+    # old_rule = location.access_rule
+    # location.access_rule = lambda state: old_rule(state) and Example_Rule(state)
+    # OR
+    # location.access_rule = lambda state: old_rule(state) or Example_Rule(state)
+
+# The item name to create is provided before the item is created, in case you want to make changes to it
+def before_create_item(item_name: str, world: "ManualWorld", multiworld: MultiWorld, player: int) -> str:
+    return item_name
+
+# The item that was created is provided after creation, in case you want to modify the item
+def after_create_item(item: ManualItem, world: "ManualWorld", multiworld: MultiWorld, player: int) -> ManualItem:
+# region deprioritized
+    manualItem = world.item_name_to_item[item.name]
+    if manualItem.get("deprioritized"):
+        item.classification |= ItemClassification.deprioritized
+    return item
+# endregion
+
+# This method is run towards the end of pre-generation, before the place_item options have been handled and before AP generation occurs
+def before_generate_basic(world: "ManualWorld", multiworld: MultiWorld, player: int):
+    pass
+
+# This method is run at the very end of pre-generation, once the place_item options have been handled and before AP generation occurs
+def after_generate_basic(world: "ManualWorld", multiworld: MultiWorld, player: int):
+    pass
+
+# This method is run every time an item is added to the state, can be used to modify the value of an item.
+# IMPORTANT! Any changes made in this hook must be cancelled/undone in after_remove_item
+def after_collect_item(world: "ManualWorld", state: CollectionState, Changed: bool, item: Item):
+    # the following let you add to the Potato Item Value count
+    # if item.name == "Cooked Potato":
+    #     state.prog_items[item.player][format_state_prog_items_key(ProgItemsCat.VALUE, "Potato")] += 1
+    pass
+
+# This method is run every time an item is removed from the state, can be used to modify the value of an item.
+# IMPORTANT! Any changes made in this hook must be first done in after_collect_item
+def after_remove_item(world: "ManualWorld", state: CollectionState, Changed: bool, item: Item):
+    # the following let you undo the addition to the Potato Item Value count
+    # if item.name == "Cooked Potato":
+    #     state.prog_items[item.player][format_state_prog_items_key(ProgItemsCat.VALUE, "Potato")] -= 1
+    pass
+
+
+# This is called before slot data is set and provides an empty dict ({}), in case you want to modify it before Manual does
+def before_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict:
+    return slot_data
+
+# This is called after slot data is set and provides the slot data at the time, in case you want to check and modify it after Manual is done with it
+def after_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict:
+
+# region item desc
+    if "item_name_to_description" not in slot_data.keys():
+        slot_data["item_name_to_description"] = {}
+    # you can add per player description to this slot data like so
+    slot_data["item_name_to_description"]["item name"] = "description"
+    example = True #replace with any boolean test
+    if example:
+        slot_data["item_name_to_description"]["example"] = "something special"
+# endregion
+# # region loc desc
+    if "location_name_to_description" not in slot_data.keys():
+        slot_data["location_name_to_description"] = {}
+    # you can add per player description to this slot data like so
+    slot_data["location_name_to_description"]["location name"] = "description"
+    example = True #replace with any boolean test
+    if example:
+        slot_data["location_name_to_description"]["example"] = "something special"
+# endregion
+
+
+    return slot_data
+
+# This is called right at the end, in case you want to write stuff to the spoiler log
+def before_write_spoiler(world: "ManualWorld", multiworld: MultiWorld, spoiler_handle: TextIO) -> None:
+    pass
+
+# This is called when you want to add information to the hint text
+def before_extend_hint_information(hint_data: dict[int, dict[int, str]], world: "ManualWorld", multiworld: MultiWorld, player: int) -> None:
+
+    ### Example way to use this hook:
+    # if player not in hint_data:
+    #     hint_data.update({player: {}})
+    # for location in multiworld.get_locations(player):
+    #     if not location.address:
+    #         continue
+    #
+    #     use this section to calculate the hint string
+    #
+    #     hint_data[player][location.address] = hint_string
+
+    pass
+
+def after_extend_hint_information(hint_data: dict[int, dict[int, str]], world: "ManualWorld", multiworld: MultiWorld, player: int) -> None:
+    pass
+
+def hook_interpret_slot_data(world: "ManualWorld", player: int, slot_data: dict[str, Any]) -> dict[str, Any]:
+    """
+        Called when Universal Tracker wants to perform a fake generation
+        Use this if you want to use or modify the slot_data for passed into re_gen_passthrough
+    """
+    return slot_data

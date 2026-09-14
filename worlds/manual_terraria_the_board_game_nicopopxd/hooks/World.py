@@ -40,7 +40,7 @@ from random import Random
 from worlds.LauncherComponents import Component, SuffixIdentifier, components, Type, launch, icon_paths
 def launch_client(*args):
     import CommonClient
-    from ..ManualClient import launch as Main
+    from ..ManualClientExperimental import launch as Main
 
     if CommonClient.gui_enabled:
         launch(Main, name="Manual client", args=args)
@@ -56,12 +56,13 @@ def add_client_to_launcher() -> None:
     import Utils
     version = 2026_08_05 # YYYYMMDD
     found = False
+    display_name = "Manual Client Nico's Experiment Test"
 
     if "manual" not in icon_paths:
         icon_paths["manual"] = Utils.user_path('data', 'manual.png')
 
     for c in components:
-        if c.display_name == "Manual Client Nico's Experiment":
+        if c.display_name == display_name:
             found = True
             if getattr(c, "version", 0) < version:
                 c.version = version # type: ignore
@@ -69,7 +70,7 @@ def add_client_to_launcher() -> None:
                 c.icon = "manual"
 
     if not found:
-        components.append(VersionedComponent("Manual Client Nico's Experiment", "ManualClient", func=launch_client, version=version, file_identifier=SuffixIdentifier('.apmanual'), icon="manual"))
+        components.append(VersionedComponent(display_name, "ManualClientExperimental", func=launch_client, version=version, file_identifier=SuffixIdentifier('.apmanual'), icon="manual"))
 add_client_to_launcher()
 # endregion
 # Use this function to change the valid filler items to be created to replace item links or starting items.

@@ -281,8 +281,8 @@ def convert_string_to_itemclassification(string: str) ->  ItemClassification:
     else:
         true_class = stringCheck(string)
     return true_class
-
-def convert_string_to_type(input: str, target_type: type) -> Any:
+from types import UnionType
+def convert_string_to_type(input: str, target_type: type|UnionType) -> Any:
     """Take a string and attempt to convert it to {target_type}
     \ntarget_type can be a single type(ex. str), an union (int|str), an Optional type (Optional[str]) or a combo of any of those (Optional[int|str])
     \nSpecial logic:
@@ -308,7 +308,7 @@ def convert_string_to_type(input: str, target_type: type) -> Any:
         else:
             raise Exception(f"'{value}' cannot be converted to {target_type} since its not a supported type \nAsk about it in #Manual-support and it might be added.")
 
-    found_types = []
+    found_types: list[type] = []
     checktype(target_type, found_types)
 
     if str in found_types: #do it last

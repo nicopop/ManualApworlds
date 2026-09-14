@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "https://raw.githubusercontent.com/ManualForArchipelago/Manual/main/schemas/Manual.locations.schema.json",
+    "$id": "Manual_Template_Nicopopxd_locations.schema.json",
     "description": "Schema for Manual's locations.json",
     "type": ["array", "object"],
     "items": {

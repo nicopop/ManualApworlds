@@ -98,10 +98,7 @@ if use_rulebuilder:
         todo: str
         collect: bool = True
         def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
-            global knownTODO
-            if self.todo.lower().strip() not in knownTODO:
-                logging.warning(f"TODO for requirements: {self.todo}")
-                knownTODO.add(self.todo.lower().strip())
+            TODO(self.todo, self.collect)
             if self.collect:
                 return True_().resolve(world)
             else:

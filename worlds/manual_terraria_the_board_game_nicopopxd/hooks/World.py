@@ -56,7 +56,7 @@ def add_client_to_launcher() -> None:
     import Utils
     version = 2026_08_05 # YYYYMMDD
     found = False
-    display_name = "Manual Client Nico's Experiment Test"
+    display_name = "Manual Client Nico's Experiment"
 
     if "manual" not in icon_paths:
         icon_paths["manual"] = Utils.user_path('data', 'manual.png')
@@ -73,14 +73,20 @@ def add_client_to_launcher() -> None:
         components.append(VersionedComponent(display_name, "ManualClientExperimental", func=launch_client, version=version, file_identifier=SuffixIdentifier('.apmanual'), icon="manual"))
 add_client_to_launcher()
 # endregion
-# Use this function to change the valid filler items to be created to replace item links or starting items.
-# Default value is the `filler_item_name` from game.json
-def hook_get_filler_item_name(world: "ManualWorld", multiworld: MultiWorld, player: int) -> str | bool:
+def hook_get_filler_item_name(world: "ManualWorld", multiworld: MultiWorld, player: int) -> str | bool | list:
+    """
+    Use this function to change the valid filler items to be created to replace item links or starting items.
+    Default value is the `filler_item_name` from game.json
+    """
+# region dummyfillers
+    # with this you can have a category called FillerDummy assigned to items and copy of  said item will possibly be generated as filler
+    # work even if you set the item count to 0 in the items.json
     dummyfillers = list(world.item_name_groups.get("FillerDummy", set()))
     dummyfillers = [i for i in dummyfillers if is_item_enabled(multiworld, player, world.item_name_to_item[i])]
     if not dummyfillers:
         return world.filler_item_name
     return world.random.choice(dummyfillers)
+# endregion
 
 def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: int):
     """
@@ -128,12 +134,13 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
 # endregion
 
 # region spoiler_header
+# Something not in base Manual is write_spoiler_header which let you write stuff in the spoiler file just after
+# all the option stuff is written for each player
     def write_spoiler_header(spoiler_handle: TextIO) -> None:
         """
         Write to the spoiler header. If individual it's right at the end of that player's options,
         if as stage it's right under the common header before per-player options.
         """
-        # biomes = cast(list[str], world.biomes_order)  # type: ignore
         spoiler_handle.write(f"Apworld Version: {world.world_version.as_simple_string()}")
         spoiler_handle.write(f"\nBiome Order:\n[{', '.join(biomes)}]\n")
         pass
@@ -251,27 +258,6 @@ def before_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
 def after_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
     # Use this hook to modify the access rules for a given location
-    #extra_data = load_data_file("extra.json")
-    # solanum = world.options.require_solanum.value
-    # owlguy = world.options.require_prisoner.value
-    # goal = world.options.goal.value
-
-#Victory Location access rules mod
-#region
-    # for location in multiworld.get_filled_locations(player):
-    #     if location.address is None and location.item is not None:
-    #         if location.item.name == '__Victory__':
-    #             if solanum:
-    #                 add_rule(location,
-    #                         lambda state: state.has("[Event] 6 - Explore the Sixth Location", player))
-    #             if owlguy and goal != Goal.alias_prisoner:
-    #                 add_rule(location,
-    #                         lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
-            # elif location.name.startswith("[Event] "):
-            #     name = location.name.removeprefix("[Event] ")
-            #     original = multiworld.get_location(name, player)
-            #     add_rule(location, lambda state: original.access_rule(state))
-#endregion
 
     def Example_Rule(state: CollectionState) -> bool:
         # Calculated rules take a CollectionState object and return a boolean
@@ -295,10 +281,12 @@ def before_create_item(item_name: str, world: "ManualWorld", multiworld: MultiWo
 
 # The item that was created is provided after creation, in case you want to modify the item
 def after_create_item(item: ManualItem, world: "ManualWorld", multiworld: MultiWorld, player: int) -> ManualItem:
+# region deprioritized
     manualItem = world.item_name_to_item[item.name]
     if manualItem.get("deprioritized"):
         item.classification |= ItemClassification.deprioritized
     return item
+# endregion
 
 # This method is run towards the end of pre-generation, before the place_item options have been handled and before AP generation occurs
 def before_generate_basic(world: "ManualWorld", multiworld: MultiWorld, player: int):
@@ -346,9 +334,6 @@ def after_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: Mult
 
 # This is called right at the end, in case you want to write stuff to the spoiler log
 def before_write_spoiler(world: "ManualWorld", multiworld: MultiWorld, spoiler_handle: TextIO) -> None:
-    # Visualizing here shows the items too
-    # from Utils import visualize_regions
-    # visualize_regions(multiworld.get_region("Menu", world.player), f"{world.game}_{world.player}.puml")
     pass
 
 # This is called when you want to add information to the hint text

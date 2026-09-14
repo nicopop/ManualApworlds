@@ -1,6 +1,6 @@
 import dataclasses
 import inspect
-from typing import TYPE_CHECKING, Any, Callable, Optional, Any
+from typing import TYPE_CHECKING, Any, Callable, Optional, Any, cast
 from enum import IntEnum
 from operator import eq, ge, le
 
@@ -35,9 +35,12 @@ AND_REGEX = re.compile(r'\s?\bAND\b\s?', re.IGNORECASE)
 OR_REGEX = re.compile(r'\s?\bOR\b\s?', flags=re.IGNORECASE)
 
 class LogicErrorSource(IntEnum):
-    INFIX_TO_POSTFIX = 1 # includes more closing parentheses than opening (but not the opposite)
-    EVALUATE_POSTFIX = 2 # includes missing pipes and missing value on either side of AND/OR
-    EVALUATE_STACK_SIZE = 3 # includes missing curly brackets
+    INFIX_TO_POSTFIX = 1
+    """includes more closing parentheses than opening (but not the opposite)"""
+    EVALUATE_POSTFIX = 2
+    """ includes missing pipes and missing value on either side of AND/OR"""
+    EVALUATE_STACK_SIZE = 3
+    """includes missing curly brackets"""
 
 def construct_logic_error(location_or_region: dict, source: LogicErrorSource) -> KeyError:
     object_type = "location/region"
@@ -78,9 +81,19 @@ def infix_to_postfix(expr: str, location: dict) -> str:
                 while stack and stack[-1] != "(":
                     postfix += stack.pop()
                 stack.pop()
+            else:
+                # added this here since '|Chun-Li| or {YamlCompare(Example_Choice == 1)' is valid because of the 1 at the end
+                raise ValueError(f"Invalid Character '{c}' in expression '{expr}', it should be either a number or a parentheses")
 
         while stack:
             postfix += stack.pop()
+    except ValueError as ex:
+        text = str(ex)
+        if "'{'" in text or ")}" in text:
+            raise construct_logic_error(location, LogicErrorSource.EVALUATE_STACK_SIZE)
+
+        raise construct_logic_error(location, LogicErrorSource.EVALUATE_POSTFIX)
+
     except Exception:
         raise construct_logic_error(location, LogicErrorSource.INFIX_TO_POSTFIX)
 
@@ -189,6 +202,7 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                         func = ns.get(name)
                     else:
                         func = getattr(ns, name, None)
+                    func = cast(Callable | type[rule_builder.rules.Rule] | None, func)
 
                     if func and inspect.isclass(func) and issubclass(func, rule_builder.rules.Rule):
                         convert_req_function_args(None, func, func_args, area['name'], world)
@@ -198,7 +212,7 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                     if func and inspect.signature(func).return_annotation is str:
                         # I'm assuming that functions that return strings don't need states.
                         convert_req_function_args(None, func, func_args, area['name'], world)
-                        rule = recursively_tokenize_manual_rule(func(*func_args))
+                        rule = recursively_tokenize_manual_rule(str(func(*func_args)))
                         break
 
                 if rule is None:
@@ -210,20 +224,24 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                     rule = rule_class(*func_args)
                 remaining = partial[len(match.group(0)):]
             elif partial[0] == "(":
-                func_founds: dict[int, str] = {}
-                id: int = 0
+                func_founds: list[str] = []
                 for match in FUNCTION_REGEX.finditer(partial):
                     if match.group(0) not in partial:
                         # already done all of them
                         continue
-                    func_founds[id] = match.group(0)
+
+                    func_founds.append(match.group(0))
                     # looks like : {{Function#0}}
+                    id = len(func_founds) - 1
                     partial = partial.replace(match.group(0), f"{{{{Function#{id}}}}}")
-                    id += 1
+
                 inner = ''
                 queue = list(partial[1:])
                 stack = 1
                 while stack > 0:
+                    if not queue:
+                        raise construct_logic_error(area, LogicErrorSource.INFIX_TO_POSTFIX)
+
                     c = queue.pop(0)
                     if c == "(":
                         stack += 1
@@ -232,12 +250,14 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                     else:
                         inner += c
                 remaining = "".join(queue)
-                for id, func in func_founds.items():
+
+                for id, func in enumerate(func_founds):
                     remaining = remaining.replace(f"{{{{Function#{id}}}}}", func)
                     inner = inner.replace(f"{{{{Function#{id}}}}}", func)
+
                 rule = recursively_tokenize_manual_rule(inner)
             else:
-                print(f'Could not convert {partial} into a Rule')
+                logging.warning(f'Warning: Could not convert {partial} into a Rule')
                 return None
 
             if rule is None:
@@ -477,13 +497,13 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
     # Victory requirement
     multiworld.completion_condition[player] = lambda state: state.has("__Victory__", player)
 
-def convert_req_function_args(state: CollectionState | None, func, args: list[str | Any], areaName: str, world: World) -> None:
-    parameters = inspect.signature(func).parameters
+def convert_req_function_args(state: CollectionState | None, func: Callable, args: list[str | Any], areaName: str, world: World) -> None:
+    parameters = inspect.signature(func).parameters.values()
     knownParameters = [World, 'ManualWorld', MultiWorld, CollectionState]
     index = -1
-    for parameter in parameters.values():
+    for parameter in parameters:
         target_type = parameter.annotation
-        if "rule_builder.options.OptionFilter" in str(parameter):
+        if str(target_type) == "collections.abc.Iterable[rule_builder.options.OptionFilter]":
             break
 
         index += 1
@@ -679,6 +699,7 @@ def YamlCompare(world: "ManualWorld", args: str, skipCache: bool = False) -> boo
     else:
         raise  ValueError(f"Could not find a valid comparator in given string '{args}', it must be one of {comp_symbols.keys()}")
 
+    value: str|int
     option_name, value = args.split(comparator)
 
     initial_option_name = str(option_name).strip() #For exception messages
@@ -699,11 +720,12 @@ def YamlCompare(world: "ManualWorld", args: str, skipCache: bool = False) -> boo
     if not value: #empty string ''
         raise ValueError(f"Could not find a valid value to compare against in given string '{args}'. \nThere must be a value to compare against after the comparator (in this case '{comparator}').")
 
+    cacheindex: str = ""
     if not skipCache: #Cache made for optimization purposes
         cacheindex = option_name + '_' + comp_symbols[comparator].__name__ + '_' + format_to_valid_identifier(value.lower())
 
         if not hasattr(world, 'yaml_compare_rule_cache'):
-            world.yaml_compare_rule_cache = dict[str,bool]()
+            world.yaml_compare_rule_cache = dict[str,bool]() # type: ignore
 
     if skipCache or world.yaml_compare_rule_cache.get(cacheindex, None) is None:
         try:
@@ -722,7 +744,7 @@ def YamlCompare(world: "ManualWorld", args: str, skipCache: bool = False) -> boo
                     value = convert_string_to_type(value, int)
 
             elif issubclass(type(option), Toggle):
-                value = int(convert_string_to_type(value, bool))
+                value = int(convert_string_to_type(str(value), bool))
 
             else:
                 raise ValueError(f"YamlCompare does not currently support Option of type {type(option)} \nAsk about it in #Manual-dev and it might be added.")
@@ -733,7 +755,9 @@ def YamlCompare(world: "ManualWorld", args: str, skipCache: bool = False) -> boo
                 \n\n{type(ex).__name__}:{ex}")
 
         except Exception as ex:
-            raise TypeError(f"YamlCompare failed to convert the requested value to what a {type(option).__base__.__name__} option supports.\
+            base = type(option).__base__
+            name = str(type(option)) if base is None else base.__name__
+            raise TypeError(f"YamlCompare failed to convert the requested value to what a {name} option supports.\
                 \nCaused By:\
                 \n\n{type(ex).__name__}:{ex}")
 

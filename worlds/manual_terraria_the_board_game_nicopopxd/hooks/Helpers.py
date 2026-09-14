@@ -1,6 +1,6 @@
 from typing import Optional, Any, TYPE_CHECKING, cast
 from BaseClasses import MultiWorld, Item, Location
-from Options import Choice
+from Options import Choice, OptionSet
 
 if TYPE_CHECKING:
     from .. import ManualWorld
@@ -21,20 +21,37 @@ def before_is_category_enabled(multiworld: MultiWorld, player: int, category_nam
 
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the item, False to disable it, or None to use the default behavior
-def before_is_item_enabled(multiworld: MultiWorld, player: int, item:  dict[str, Any]) -> Optional[bool]:
+def before_is_item_enabled(multiworld: MultiWorld, player: int, item:  dict[str, Any], check_removed = True) -> Optional[bool]:
     world = cast("ManualWorld", multiworld.worlds[player])
-    # if item["name"] in world.options.remove_items.value: # type: ignore
-    #     return False
+
+# region remove_items
+# this let you add an OptionSet in hooks:Options.py where the player list items to be disabled
+# does nothing if the Options doesn't exist
+# Don't forget to either add the 'check_removed = True' to before_is_item_enabled arguments or remove it from this if
+    remove_items: OptionSet | None = getattr(world.options, "remove_items", None)
+    if remove_items is not None and check_removed:
+        if item["name"] in remove_items.value: # type: ignore
+            return False
+# endregion
+
     return checkobject(multiworld, player, item)
 
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the location, False to disable it, or None to use the default behavior
 def before_is_location_enabled(multiworld: MultiWorld, player: int, location:  dict[str, Any], check_removed = True) -> Optional[bool]:
     world = cast("ManualWorld", multiworld.worlds[player])
-    # name = cast(str, location["name"])
-    # if check_removed and (name in world.options.remove_locations.value or name.rstrip(".") in world.options.remove_locations.value): # type: ignore
-    #     return False
 
+# region remove_locations
+# this let you add an OptionSet in hooks:Options.py where the player list location to be disabled
+# does nothing if the Options doesn't exist
+# Don't forget to either add the 'check_removed = True' to before_is_item_enabled arguments or remove it from this if
+    remove_locations: OptionSet | None = getattr(world.options, "remove_locations", None)
+    if remove_locations is not None and check_removed:
+        name = cast(str, location["name"])
+        if name in remove_locations.value or name.rstrip(".") in remove_locations.value:
+            # the . suffix let you add variant of location without having major visual difference for the player
+            return False
+# endregion
     return checkobject(multiworld, player, location)
 
 # Use this if you want to override the default behavior of is_option_enabled

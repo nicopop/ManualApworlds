@@ -252,17 +252,6 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     if len(starter_locs) < early_required and len(multiworld.worlds) == 1:
         raise OptionError("Too many early locations are disabled for logic to work correctly")
 # endregion
-# region local override
-    # All the local items are added here since thats where you are supposed to do it according to the unit tests
-    for raw_item in item_table:
-        raw_item = cast(dict[str, Any], raw_item)
-        name = raw_item["name"]
-        if raw_item.get("local") or raw_item.get("make_local"):
-            world.options.local_items.value.add(name)
-            raw_item["make_local"] = raw_item.pop("local",True)
-        if raw_item.get("trap"): # let trap percent decide the numbers
-            raw_item["count"] = 0
-#endregion
 # region Ship Key logic
     # option_local_early = 0 default in items.json
     # option_local_anywhere = 1

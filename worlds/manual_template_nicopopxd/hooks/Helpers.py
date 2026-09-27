@@ -153,6 +153,7 @@ def set_category_status(world: "ManualWorld", category_name: str, status: bool):
 def get_category_status(world: "ManualWorld", category_name: str) -> bool | None:
     categoryStatus: dict[str, bool] | None = getattr(world, "NicoCategoryStatus", None)
     if categoryStatus is None:
+        create_category_status(world)
         InitCategories(world)
         return get_category_status(world, category_name)
 

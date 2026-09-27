@@ -498,12 +498,13 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
     multiworld.completion_condition[player] = lambda state: state.has("__Victory__", player)
 
 def convert_req_function_args(state: CollectionState | None, func: Callable, args: list[str | Any], areaName: str, world: World) -> None:
-    parameters = inspect.signature(func).parameters.values()
+    parameters = inspect.signature(func).parameters
     knownParameters = [World, 'ManualWorld', MultiWorld, CollectionState]
     index = -1
-    for parameter in parameters:
+    for parameter in parameters.values():
         target_type = parameter.annotation
         if str(target_type) == "collections.abc.Iterable[rule_builder.options.OptionFilter]":
+            # parameters >= this one are added by rule builder and do not need to be converted
             break
 
         index += 1

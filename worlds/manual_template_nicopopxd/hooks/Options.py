@@ -251,7 +251,7 @@ from ..Locations import location_name_to_location
 removable_locations = {n for n, location in location_name_to_location.items() if location.get("removable", True) \
     and not location.get("disabled") and not location.get("victory")}
 class RemoveLocation(OptionSet):
-    """WARNING CAN BREAK GENERATION: Specified locations will be removed from the world"""
+    """WARNING CAN BREAK GENERATION: Specified locations will be removed from generation"""
     display_name = "Remove Locations"
     valid_keys = removable_locations
     visibility = Visibility.complex_ui | Visibility.spoiler

@@ -95,7 +95,7 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     """
     from .Options import ToggleIsRandom
     world.OWStartItems = {} # type: ignore
-    
+
 # region Init Options
     goal = cast(Goal, world.options.goal) # type: ignore
     rdm_base_game = cast(RandomizeBaseGame, world.options.randomize_base_game) # type: ignore
@@ -167,7 +167,7 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     # Since the goal is already to do to the prisoner no need require it twice
     if goal == Goal.alias_prisoner and require_prisoner:
         require_prisoner.value = 0
-    InitCategories(world, player)
+    InitCategories(world)
 #endregion
 # region Item removal validation
     from Options import Accessibility

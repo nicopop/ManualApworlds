@@ -3,6 +3,7 @@ from Options import OptionError, Visibility, Option, FreeText, NumericOption, To
     Range, NamedRange, OptionGroup, PerGameCommonOptions, OptionSet
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from typing import Type, Any, cast, Counter, TYPE_CHECKING, Collection
+
 import random
 from Generate import get_choice
 if TYPE_CHECKING:
@@ -30,76 +31,111 @@ if TYPE_CHECKING:
 #
 
 class ChoiceIsRandom(Choice):
-    randomized: bool | list[str] = False
+    randomized: bool | list[int] = False
     supports_weighting = False
     display_name = "ChoiceIsRandom"
     option_randomized = -42
+    clean_values: None|dict[int, str] = None
 
-    def __init__(self, value: int, randomized: bool | list[str] = False):
+    def __init__(self, value: int, randomized: bool | list[int] = False):
         super().__init__(value)
         self.randomized = randomized
 
     # Helper methods
+    def get_randomized_values(self) -> list[int]:
+        """returns a list of possible values if this option need to be randomized again"""
+        if isinstance(self.randomized, bool):
+            if not self.randomized:
+                return [self.value]
+            return list(self.get_clean_values().keys())
+        return self._convert_str_list_to_int_list(self.randomized)
+
     @classmethod
     def get_rdm_option_name(cls) -> str:
         """Get the string representation of the "random" option value name"""
         return cls.name_lookup[-42].removeprefix("option_")
 
     @classmethod
-    def remove_random_pick(cls, data: dict[int, str]) -> dict[int, str]:
+    def _remove_random_pick(cls, data: dict[int, str]) -> dict[int, str]:
         """Return the `data` dict with all its identified "random" values removed"""
-        return {i: v for i, v in data.items() if not cls.is_str_random(v)}
+        return {i: v for i, v in data.items() if not cls.is_text_rdm(v, return_list=False)}
 
     @classmethod
     def get_clean_values(cls) -> dict[int, str]:
         """Return original `cls.name_lookup` minus any random based option values"""
-        return cls.remove_random_pick(cls.name_lookup)
+        if cls.clean_values is None:
+            cls.clean_values = cls._remove_random_pick(cls.name_lookup)
+        return cls.clean_values
 
     # Randomization detections methods grouped here for easy modification later
     @classmethod
-    def is_str_random(cls, input: str) -> bool:
-        """Returns `True` if the input string is detected as "random" """
-        return input.startswith("random")
+    def is_text_rdm(cls, text: str, return_list = True) -> bool | list[int]:
+        """
+        Returns a `list[int]` of possible values if input is a known random, `True` if unknown and `False` if not random.
+
+        Override this function to add custom random texts+values
+        """
+        if text == cls.get_rdm_option_name():
+            return list(cls.get_clean_values()) if return_list else True
+        else:
+            return text.startswith("random")
 
     @classmethod
     def is_random_in_list(cls, collection: Collection[str]) -> bool:
         """Are any of the values in the collection detected as "random" """
-        return "random" in collection or cls.get_rdm_option_name() in collection
+        clean = set(cls.get_clean_values().values())
+        return any(v for v in collection if v not in clean)
 
+    @classmethod
+    def _convert_str_list_to_int_list(cls, data: list) -> list[int]:
+        if isinstance(data[0], int):
+            return cast(list[int], data)
+        data_str = cast(list[str], data)
+        return [cls.options[k] for k in data_str]
     # Standard Option methods
     @classmethod
     def from_text(cls, text: str) -> Choice:
-        if cls.is_str_random(text):
-            return cls(random.choice(list(cls.get_clean_values())), True)
+        values = cls.is_text_rdm(text)
+        if isinstance(values, list):
+            return cls(random.choice(list(values)), values)
+        elif values:
+            return cls(super().from_text(text).value, True)
         else:
             return super().from_text(text)
     @classmethod
     def from_any(cls, data: Any) -> Choice:
         if type(data) is str:
             return cls.from_text(data)
-        elif type(data) is dict:
-            filtered = +Counter(data) # remove all zero values
-            randomized: bool|list = False
-            ret = cast(str, get_choice(cls.display_name, {cls.display_name: dict(filtered)}))
-            if cls.is_str_random(ret):
-                randomized = True
-            elif len(filtered) > 1:
-                if cls.is_random_in_list(filtered.keys()):
-                    randomized = True
-                else:
-                    randomized = list(filtered.keys())
-            return cls(int(cls.from_text(ret)), randomized)
-        elif type(data) is list:
-            randomized = False
-            ret = cast(str, get_choice(cls.display_name, {cls.display_name: data}))
-            if cls.is_str_random(ret):
-                randomized = True
-            elif len(data) > 1:
-                if cls.is_random_in_list(data):
-                    randomized = True
-                else:
-                    randomized = data
-            return cls(int(cls.from_text(ret)), randomized)
+        elif type(data) is int:
+            return cls.from_text(cls.name_lookup[data])
+        elif type(data) is dict or type(data) is list:
+            if type(data) is list:
+                data = Counter({v:50 for v in data})
+            else:
+                data = +Counter(data) # remove all zero values
+            counter: Counter[str] = Counter(data)
+            randomized: bool|list[int] = []
+
+            for key, value in Counter(counter).items():
+                ret = cls.is_text_rdm(key)
+                if isinstance(ret, list):
+                    for v in ret:
+                        name = cls.name_lookup[v]
+                        if name not in counter.keys():
+                            counter[name] = value
+                    del counter[key]
+                elif ret:
+                    counter = Counter({v: (value if v not in counter.keys() else counter[v]) for v in cls.get_clean_values().values()})
+                    break
+
+            if len(counter) > 1:
+                randomized = cls._convert_str_list_to_int_list(list(counter.keys()))
+            else:
+                randomized = False
+            name = cast(str, get_choice(cls.display_name, {cls.display_name: dict(counter)}))
+
+            return cls(int(super().from_text(name)), randomized)
+
         return super().from_any(data)
 
 class ToggleIsRandom(ChoiceIsRandom):
@@ -109,8 +145,8 @@ class ToggleIsRandom(ChoiceIsRandom):
 
     @classmethod
     def from_text(cls, text: str) -> Choice:
-        if cls.is_str_random(text):
-            return cls(random.choice(list(cls.get_clean_values())), True)
+        if cls.is_text_rdm(text):
+            return cls(random.choice([0,1]), [0,1])
         elif text.lower() in {"off", "0", "false", "none", "null", "no", "disabled"}:
             return cls(0)
         elif text.lower() in {"on", "1", "true", "yes", "enabled"}:
@@ -123,6 +159,51 @@ class ToggleIsRandom(ChoiceIsRandom):
         return {0: "No", 1: "Yes", -42: cls.get_rdm_option_name().capitalize()}[int(value)]
 class DefaultOnToggleIsRandom(ToggleIsRandom):
     default = 1
+
+class RangeIsRandom(NamedRange):
+    randomized: bool | tuple[int, int] = False
+
+    def __init__(self, value: int, randomized: bool | tuple[int, int] = False):
+        super().__init__(value)
+        self.randomized = randomized
+
+    # Helper methods
+    def get_randomized_range(self) -> tuple[int, int]:
+        if isinstance(self.randomized, bool):
+            if not self.randomized:
+                return (self.value, self.value)
+            return (self.range_start, self.range_end)
+        return self.randomized
+
+    @classmethod
+    def is_text_rdm(cls, text: str) -> bool | tuple[str, tuple[int, int]]:
+        """
+        Return a tuple that consist of 'replace text with this' and a tuple of min and max range otherwise return `false`
+
+        Override this function to add custom random texts+values
+        """
+        return False
+
+    @classmethod
+    def from_text(cls, text: str) -> Range:
+        text = text.lower()
+        randomized: bool | tuple[int, int] = False
+        custom = cls.is_text_rdm(text)
+        if isinstance(custom, tuple):
+            text = custom[0]
+            randomized = custom[1]
+        elif text.startswith("random"):
+            if text.startswith("random-range-"):
+                textsplit = text.split("-")
+                try:
+                    random_range = [int(textsplit[-2]), int(textsplit[-1])]
+                except ValueError:
+                    raise ValueError(f"Invalid random range {text} for option {cls.__name__}")
+                random_range.sort()
+                randomized = (random_range[0], random_range[1])
+            else:
+                randomized = (cls.range_start, cls.range_end)
+        return cls(super().from_text(text).value, randomized)
 
 
 class RequireSolanum(ToggleIsRandom):
@@ -222,12 +303,7 @@ class Goal(ChoiceIsRandom):
         return value in cls.dlc_options
 
     def getRDMvalue(self, world: "ManualWorld", filter_dlc = False) -> int|None:
-        randoms: bool|list[int]|list[str] = self.randomized
-
-        if isinstance(randoms, bool):
-            randoms = list(self.get_clean_values().keys())
-        elif isinstance(randoms, list):
-            randoms = [self.options[o] for o in randoms]
+        randoms = self.get_randomized_values()
 
         if filter_dlc:
             randoms = [o for o in randoms if not self.isThisValueInDLC(o)]
@@ -241,34 +317,30 @@ class Goal(ChoiceIsRandom):
 
 from ..Items import item_name_to_item
 from ..Game import filler_item_name
-removable_items = {n for n, item in item_name_to_item.items() if item.get("removable", True) and not item.get("disabled")}
-if filler_item_name in removable_items:
+removable_items = {n for n, item in item_name_to_item.items() if item.get("removable", True) \
+    and not item.get("disabled")}
+if type(filler_item_name) is str and filler_item_name in removable_items:
     removable_items.remove(filler_item_name)
 class RemoveItems(OptionSet):
-    """WARNING CAN BREAK GENERATION: Specified items will be removed from the pool but not logic"""
+    """ADVANCED: Remove these items from the item pool but not logic"""
     display_name = "Remove Items"
     valid_keys =  removable_items
-    visibility = Visibility.complex_ui | Visibility.spoiler
+    visibility = Visibility.complex_ui | Visibility.spoiler | Visibility.simple_ui
 
 from ..Locations import location_name_to_location
 removable_locations = {n for n, location in location_name_to_location.items() if location.get("removable", True) \
-    and not location.get("disabled") and not location.get("create_event") and not location.get("victory") \
-    and not set(location.get("category", [])).intersection(["do_launch_codes", "no_launch_codes", "do_place_item_category", "no_place_item_category"])}
+    and not location.get("disabled") and not location.get("victory") \
+    and not n.endswith(".") #identical alternate copy of loc but with no place_item
+    }
 class RemoveLocation(OptionSet):
-    """WARNING CAN BREAK GENERATION: Specified locations will be removed from the world"""
+    """ADVANCED: Remove these locations from the generation"""
     display_name = "Remove Locations"
     valid_keys = removable_locations
-    visibility = Visibility.complex_ui | Visibility.spoiler
+    visibility = Visibility.complex_ui | Visibility.spoiler | Visibility.simple_ui
 
-class ApWorldVersion(FreeText):
-    """Do not change this, it will get set to the apworld version"""
-    display_name = "Game Version (Detected)"
-    default = "Should Be Detected"
-    visibility = Visibility.spoiler
 
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, Type[Option[Any]]]:
-    options["game_version"] = ApWorldVersion
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
     options["enable_spooks"] = do_spooks
@@ -301,7 +373,7 @@ def after_options_defined(options: Type[PerGameCommonOptions]):
     options.type_hints['goal'] = Goal
     options.type_hints['goal'].name_lookup.update(goal_gen_name_lookup)
     options.type_hints['goal'].options.update(goal_gen_options)
-    options.type_hints['filler_traps'].range_end = 75
+    options.type_hints['filler_traps'].range_end = 75 # type: ignore
     options.type_hints['filler_traps'].default = 20
 
     pass

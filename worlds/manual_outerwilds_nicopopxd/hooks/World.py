@@ -1,8 +1,8 @@
 # Object classes from AP core, to represent an entire MultiWorld and this individual World that's part of it
 from worlds.AutoWorld import World
-from typing import TYPE_CHECKING, cast, Any, Callable
+from typing import TYPE_CHECKING, cast, Any, Callable, TextIO
 
-from BaseClasses import MultiWorld, CollectionState, Item, ItemClassification
+from BaseClasses import MultiWorld, CollectionState, Item, Location, ItemClassification
 from Options import OptionError
 import logging
 
@@ -39,7 +39,7 @@ from ..Helpers import remove_specific_item, is_item_enabled, is_location_enabled
 from worlds.LauncherComponents import Component, SuffixIdentifier, components, Type, launch, icon_paths
 def launch_client(*args):
     import CommonClient
-    from ..ManualClient import launch as Main
+    from ..ManualClientExperimental import launch as Main
 
     if CommonClient.gui_enabled:
         launch(Main, name="Manual client", args=args)
@@ -53,14 +53,15 @@ class VersionedComponent(Component):
 
 def add_client_to_launcher() -> None:
     import Utils
-    version = 2026_04_13 # YYYYMMDD
+    version = 2026_08_05 # YYYYMMDD
     found = False
+    display_name = "Manual Client Nico's Experiment"
 
     if "manual" not in icon_paths:
         icon_paths["manual"] = Utils.user_path('data', 'manual.png')
 
     for c in components:
-        if c.display_name == "Manual Client Nico's Experiment":
+        if c.display_name == display_name:
             found = True
             if getattr(c, "version", 0) < version:
                 c.version = version # type: ignore
@@ -68,18 +69,24 @@ def add_client_to_launcher() -> None:
                 c.icon = "manual"
 
     if not found:
-        components.append(VersionedComponent("Manual Client Nico's Experiment", "ManualClient", func=launch_client, version=version, file_identifier=SuffixIdentifier('.apmanual'), icon="manual"))
+        components.append(VersionedComponent(display_name, "ManualClientExperimental", func=launch_client, version=version, file_identifier=SuffixIdentifier('.apmanual'), icon="manual"))
 add_client_to_launcher()
 # endregion
-# Use this function to change the valid filler items to be created to replace item links or starting items.
-# Default value is the `filler_item_name` from game.json
-def hook_get_filler_item_name(world: "ManualWorld", multiworld: MultiWorld, player: int) -> str | bool:
-    from ..Helpers import is_item_enabled
+def hook_get_filler_item_name(world: "ManualWorld", multiworld: MultiWorld, player: int) -> str | bool | list:
+    """
+    Use this function to change the valid filler items to be created to replace item links or starting items.
+    Default value is the `filler_item_name` from game.json
+    """
+#
+# region dummyfillers
+    # with this you can have a category called FillerDummy assigned to items and copy of  said item will possibly be generated as filler
+    # work even if you set the item count to 0 in the items.json
     dummyfillers = list(world.item_name_groups.get("FillerDummy", set()))
     dummyfillers = [i for i in dummyfillers if is_item_enabled(multiworld, player, world.item_name_to_item[i])]
     if not dummyfillers:
         return world.filler_item_name
     return world.random.choice(dummyfillers)
+# endregion
 
 def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: int):
     """
@@ -88,7 +95,7 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     """
     from .Options import ToggleIsRandom
     world.OWStartItems = {} # type: ignore
-    world.options.game_version.value = world.world_version.as_simple_string() # type: ignore
+    
 # region Init Options
     goal = cast(Goal, world.options.goal) # type: ignore
     rdm_base_game = cast(RandomizeBaseGame, world.options.randomize_base_game) # type: ignore
@@ -277,6 +284,18 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     elif ship_key_logic == ship_key_logic.option_global_anywhere:
         multiworld.local_early_items[player].pop(shipitem, "")
 #endregion
+# region spoiler_header
+# Something not in base Manual is write_spoiler_header which let you write stuff in the spoiler file just after
+# all the option stuff is written for each player
+    def write_spoiler_header(spoiler_handle: TextIO) -> None:
+        """
+        Write to the spoiler header. If individual it's right at the end of that player's options,
+        if as stage it's right under the common header before per-player options.
+        """
+        spoiler_handle.write(f"Apworld Version: {world.world_version.as_simple_string()}")
+
+    setattr(world, "write_spoiler_header", write_spoiler_header)
+# endregion
     pass
 # Called before regions and locations are created. Not clear why you'd want this, but it's here. Victory location is included, but Victory event is not placed yet.
 def before_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: int):
@@ -440,16 +459,6 @@ def before_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
 def after_set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
     # Use this hook to modify the access rules for a given location
 
-#Victory Location access rules mod
-#region
-    # for location in multiworld.get_filled_locations(player):
-    #     if location.address is None and location.item is not None:
-    #         # if location.item.name == '__Victory__':
-
-    #         if location.item.name.startswith("[Event] "):
-    #             tmp = location.access_rule
-#endregion
-
     def Example_Rule(state: CollectionState) -> bool:
         # Calculated rules take a CollectionState object and return a boolean
         # True if the player can access the location
@@ -526,12 +535,7 @@ def after_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: Mult
     return slot_data
 
 # This is called right at the end, in case you want to write stuff to the spoiler log
-def before_write_spoiler(world: "ManualWorld", multiworld: MultiWorld, spoiler_handle) -> None:
-    # Visualizing here shows the items too
-    # from Utils import visualize_regions
-    # visualize_regions(multiworld.get_region("Menu", world.player), f"{world.game}_{world.player}.puml")
-
-    #spoiler_handle.write(f"\nIncluded in this Async: {world.game} version {APMiscData['version']}")
+def before_write_spoiler(world: "ManualWorld", multiworld: MultiWorld, spoiler_handle: TextIO) -> None:
     pass
 
 # This is called when you want to add information to the hint text

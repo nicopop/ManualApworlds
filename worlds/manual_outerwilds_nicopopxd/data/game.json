@@ -1,9 +1,10 @@
 {
-    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.game.schema.json",
+    "$schema": "Schema/Manual.game.schema.json",
     "game": "OuterWilds",
     "creator": "Nicopopxd",
 
     "filler_item_name": "Nothing",
-    "version": "7.0.0",
-    "death_link": true
+    "glitches_item_name": "[UT OOL]",
+    "death_link": true,
+    "unused_goals_are_locations": false
 }

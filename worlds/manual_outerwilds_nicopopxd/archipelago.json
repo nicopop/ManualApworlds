@@ -1,1 +1,8 @@
-{"game": "Manual_OuterWilds_Nicopopxd", "world_version": "7.1.0"}
+{
+    "game": "Manual_OuterWilds_Nicopopxd",
+    "authors": ["Nicopopxd"],
+    "world_version": "7.1.0",
+    "flags": ["supports_deathlink"],
+    "repo_url": "https://github.com/nicopop/ManualApworlds",
+    "ai_disclosure": "None"
+}

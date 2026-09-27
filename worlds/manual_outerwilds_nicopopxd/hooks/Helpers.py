@@ -109,9 +109,6 @@ def InitCategories(world: "ManualWorld"):
     """Mark categories as Enabled or Disabled based on options"""
     from .Options import Goal #imported here because otherwise cause circular import
 
-    if getattr(world, "NicoCategoryStatus", None) is None:
-        create_category_status(world)
-
     options = world.options
     goal = cast(Goal, getattr(options, "goal"))
     rdm_base_game = bool(getattr(options, "randomize_base_game").value)
@@ -148,7 +145,7 @@ def set_category_status(world: "ManualWorld", category_name: str, status: bool):
     if getattr(world, "NicoCategoryStatus", None) is None:
         create_category_status(world)
 
-    world.categoryStatus[category_name] = status
+    world.NicoCategoryStatus[category_name] = status
 
 def get_category_status(world: "ManualWorld", category_name: str) -> bool | None:
     categoryStatus: dict[str, bool] | None = getattr(world, "NicoCategoryStatus", None)

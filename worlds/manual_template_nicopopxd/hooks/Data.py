@@ -127,8 +127,10 @@ def after_load_meta_file(meta_table: dict) -> dict:
     the player must manually refrain from using these gathered items until the tracker shows that they have been acquired or sent.
     [Apworld Version: {manifest.get('world_version', 'Unknown')}]
     """
-    web = meta_table['docs']['web']
-    # web['options_presets'] = {
+    web = WebWorld() # using a webworld to get attributes type checking
+    web.theme = "ocean"
+    web.bug_report_page = "https://discord.gg/T5bcsVHByx"
+    # web.options_presets = {
     #     "Short":{
     #         "goal": "standard"
     #     },
@@ -139,7 +141,6 @@ def after_load_meta_file(meta_table: dict) -> dict:
     #         "goal": "standard"
     #     }
     # }
-    web['theme'] = "ocean"
-    web['bug_report_page'] = "https://discord.gg/T5bcsVHByx"
+    meta_table['docs']['web'] |= vars(web)
 
     return meta_table

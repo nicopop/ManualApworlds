@@ -1,4 +1,4 @@
 {
-	"$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.events.schema.json",
+	"$schema": "Schema/Manual.events.schema.json",
     "data": []
 }

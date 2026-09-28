@@ -1,0 +1,382 @@
+{
+    "$schema": "Schema/Manual.locations.schema.json",
+    "data": [
+    {
+        "name": "SST Yellow Onion",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": [],
+        "place_item": [ "Yellow Onion" ]
+    },
+    {
+        "name": "SST East Flarlic",
+        "region": "Sun-Speckled Terrace",
+        "create_event": "Flarlic",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": []
+    },
+    {
+        "name": "SST West Flarlic",
+        "region": "Sun-Speckled Terrace",
+        "create_event": "Flarlic",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": "|Flarlic:2| or |Boost Potion|"
+    },
+
+    {
+        "name": "SST East Bridge Built",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": []
+    },
+    {
+        "name": "SST West Bridge Built",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": []
+    },
+    {
+        "name": "SST West Ramp Built",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": []
+    },
+
+    {
+        "name": "SST Sac Crushed",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": "|Flarlic:1|"
+    },
+    {
+        "name": "SST SandCastle Wall Destroyed",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": []
+    },
+
+    {
+        "name": "SST Electric Wall Destroyed",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": "|Yellow Onion| and |Yellow Pikmins|"
+    },
+
+    {
+        "name": "SST South-East Repair-Type Bolt",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": [],
+        "place_item": [ "Treasure" ]
+    },
+    {
+        "name": "SST South-West Pot Treasure",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": "|Moss| and |Moss Charge Pots|",
+        "place_item": [ "Treasure" ]
+    },
+    {
+        "name": "SST North-East Extraordinary Bolt",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": [],
+        "place_item": [ "Treasure" ]
+    },
+    {
+        "name": "SST North-West Spider Automatic Gear",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": [],
+        "place_item": [ "Treasure" ]
+    },
+    {
+        "name": "SST North Stick Whimsical Radar",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": [],
+        "place_item": [ "Treasure" ]
+    },
+    {
+        "name": "SST South-East Spider Treasure",
+        "region": "Sun-Speckled Terrace",
+        "category": [ "Sun-Speckled Terrace" ],
+        "requires": "(|Yellow Onion| and |Yellow Pikmins|) and |Moss| and |Moss Charge Pots| and |Flarlic:1|",
+        "place_item": [ "Treasure" ]
+    },
+
+    {
+        "name": "BA Yellow Onion",
+        "region": "Blossoming Arcadia",
+        "category": [ "Blossoming Arcadia" ],
+        "_comment": "Will probably add requirements later to restrict which onion you can get",
+        "requires": [],
+        "place_item": [ "Yellow Onion" ]
+    },
+    {
+        "name": "BA Blue Onion",
+        "region": "Blossoming Arcadia",
+        "category": [ "Blossoming Arcadia" ],
+        "requires": [],
+        "place_item": [ "Blue Onion" ]
+    },
+    {
+        "name": "BA North Flarlic",
+        "region": "Blossoming Arcadia",
+        "create_event": "Flarlic",
+        "category": [ "Blossoming Arcadia" ],
+        "requires": []
+    },
+    {
+        "name": "BA South Flarlic",
+        "region": "Blossoming Arcadia",
+        "create_event": "Flarlic",
+        "category": [ "Blossoming Arcadia" ],
+        "requires": []
+    },
+
+    {
+        "name": "BA Burn Both Wheat Walls in Starting Area",
+        "category": [ "Blossoming Arcadia" ],
+        "region": "Blossoming Arcadia"
+    },
+    {
+        "name": "BA Light All The Fires",
+        "category": [ "Blossoming Arcadia" ],
+        "region": "Blossoming Arcadia"
+    },
+    {
+        "name": "BA Burn All The Wheat Walls",
+        "category": [ "Blossoming Arcadia" ],
+        "region": "Blossoming Arcadia"
+    },
+    {
+        "name": "BA Electric Wall Destroyed",
+        "category": [ "Blossoming Arcadia" ],
+        "region": "Blossoming Arcadia",
+        "requires": "|Yellow Onion| and |Yellow Pikmins|"
+    },
+    {
+        "name": "BA Reinforced Wall Destroyed",
+        "category": [ "Blossoming Arcadia" ],
+        "region": "Blossoming Arcadia",
+        "requires": "Bombs"
+    },
+
+    {
+        "name": "BA Reinforced Wall Destroyed 2",
+        "category": [ "Blossoming Arcadia" ],
+        "region": "Blossoming Arcadia",
+        "requires": "Bombs"
+    },
+
+    {
+        "name": "BA Met Moss",
+        "category": [ "Blossoming Arcadia" ],
+        "place_item": [ "Moss" ],
+        "region": "Blossoming Arcadia"
+    },
+    {
+        "name": "BA Kill BigBird",
+        "category": [ "Blossoming Arcadia" ],
+        "_comment": "adding requirement so the rando doesn't make you fight this with just the starting 20 pikmins",
+        "requires": "|Flarlic:2| or |Boost Potion|",
+        "region": "Blossoming Arcadia"
+    },
+    {
+        "name": "BA Kill The Walker",
+        "category": [ "Blossoming Arcadia" ],
+        "_comment": "adding requirement so the rando doesn't make you fight this with just the starting 20 pikmins",
+        "requires": "|Flarlic:2| or |Boost Potion|",
+        "region": "Blossoming Arcadia"
+    },
+
+    {
+        "name": "BA ClimbingWall Built",
+        "region": "Blossoming Arcadia",
+        "category": [ "Blossoming Arcadia" ]
+    },
+    {
+        "name": "BA Bridge Built",
+        "region": "Blossoming Arcadia",
+        "category": [ "Blossoming Arcadia" ]
+    },
+    {
+        "name": "BA Ramp Built",
+        "region": "Blossoming Arcadia",
+        "category": [ "Blossoming Arcadia" ]
+    },
+
+    {
+        "name": "BA West Base Hill Extraordinary Bolt",
+        "region": "Blossoming Arcadia",
+        "category": [ "Blossoming Arcadia" ],
+        "requires": [],
+        "place_item": [ "Treasure" ]
+    },
+    {
+        "name": "BA North Sprinkler Extraordinary Bolt",
+        "region": "Blossoming Arcadia",
+        "category": [ "Blossoming Arcadia" ],
+        "requires": "|Blue Onion| and |Blue Pikmins|",
+        "place_item": [ "Treasure" ]
+    },
+    {
+        "name": "BA Center Toy Automatic Gear",
+        "region": "Blossoming Arcadia",
+        "category": [ "Blossoming Arcadia" ],
+        "requires": [],
+        "place_item": [ "Treasure" ]
+    },
+    {
+        "name": "BA East Flower-Frog Repair-Type Bolt",
+        "region": "Blossoming Arcadia",
+        "category": [ "Blossoming Arcadia" ],
+        "requires": [],
+        "place_item": [ "Treasure" ]
+    },
+    {
+        "name": "BA Center Base Hill Pot Omega Stabilizer",
+        "region": "Blossoming Arcadia",
+        "category": [ "Blossoming Arcadia" ],
+        "requires": "|Bombs| and ((|Yellow Onion| and |Yellow Pikmins|) or (|Moss| and |Moss Charge Walls|))",
+        "place_item": [ "Treasure" ]
+    },
+    {
+        "name": "BA Close To Walker Boss treasure",
+        "region": "Blossoming Arcadia",
+        "category": [ "Blossoming Arcadia" ],
+        "requires": [],
+        "place_item": [ "Treasure" ]
+    },
+
+
+    {
+        "name": "SS tmp 1",
+        "region": "Serene Shores",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+    {
+        "name": "SS tmp 2",
+        "region": "Serene Shores",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+    {
+        "name": "SS tmp 3",
+        "region": "Serene Shores",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+    {
+        "name": "SS tmp 4",
+        "region": "Serene Shores",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+    {
+        "name": "SS tmp 5",
+        "region": "Serene Shores",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+    {
+        "name": "SS tmp 6",
+        "region": "Serene Shores",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+    {
+        "name": "SS tmp 7",
+        "region": "Serene Shores",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+
+
+    {
+        "name": "HH tmp 1",
+        "region": "Hero's Hideaway",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+    {
+        "name": "HH tmp 2",
+        "region": "Hero's Hideaway",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+    {
+        "name": "HH tmp 3",
+        "region": "Hero's Hideaway",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+    {
+        "name": "HH tmp 4",
+        "region": "Hero's Hideaway",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+    {
+        "name": "HH tmp 5",
+        "region": "Hero's Hideaway",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+    {
+        "name": "HH tmp 6",
+        "region": "Hero's Hideaway",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+    {
+        "name": "HH tmp 7",
+        "region": "Hero's Hideaway",
+        "category": [ "Serene Shores" ],
+        "requires": []
+    },
+
+    {
+        "name": "Treasure 5",
+        "category": [ "Treasures" ],
+        "requires": "|Treasure:5|"
+    },
+    {
+        "name": "Treasure 10",
+        "category": [ "Treasures" ],
+        "requires": "|Treasure:10|"
+    },
+    {
+        "name": "Treasure 15",
+        "category": [ "Treasures" ],
+        "requires": "|Treasure:15|"
+    },
+    {
+        "name": "Treasure 20",
+        "category": [ "Treasures" ],
+        "requires": "|Treasure:20|"
+    },
+    {
+        "name": "Treasure 25",
+        "category": [ "Treasures" ],
+        "region": "Hero's Hideaway",
+        "requires": "|Treasure:25|"
+    },
+    {
+        "name": "Treasure 30",
+        "category": [ "Treasures" ],
+        "region": "Hero's Hideaway",
+        "requires": "|Treasure:30|",
+        "place_item": [ "1 Crash Landing" ]
+    },
+    {
+        "name": "The End",
+        "requires": "|1 Crash Landing|",
+        "region": "Hero's Hideaway",
+        "victory": true
+
+    }
+]
+}

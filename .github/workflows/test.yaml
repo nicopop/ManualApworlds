@@ -20,6 +20,8 @@ jobs:
               - 'worlds/manual_outerwilds_nicopopxd/**/!(*.md)'
             plateup:
               - 'worlds/manual_plateup_nicopopxd/**/!(*.md)'
+            template:
+              - 'worlds/manual_template_nicopopxd/**/!(*.md)'
 
       - uses: Eijebong/ap-actions/ap-tests@main
         name: Test manual_outerwilds_nicopopxd
@@ -35,6 +37,15 @@ jobs:
         if: steps.changes.outputs.plateup == 'true'
         with:
           apworld-path: worlds/manual_plateup_nicopopxd
+          ap-version: ${{ env.AP_VERSION }}
+          python-version: '3.12'
+          checkout: false
+
+      - uses: Eijebong/ap-actions/ap-tests@main
+        name: Test manual_template_nicopopxd
+        if: steps.changes.outputs.template == 'true'
+        with:
+          apworld-path: worlds/manual_template_nicopopxd
           ap-version: ${{ env.AP_VERSION }}
           python-version: '3.12'
           checkout: false

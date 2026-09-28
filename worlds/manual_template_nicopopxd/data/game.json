@@ -1,0 +1,10 @@
+{
+    "$schema": "Schema/Manual.game.schema.json",
+    "game": "Template",
+    "creator": "Nicopopxd",
+
+    "filler_item_name": "Nothing",
+    "glitches_item_name": "[UT OOL]",
+    "death_link": true,
+    "unused_goals_are_locations": false
+}

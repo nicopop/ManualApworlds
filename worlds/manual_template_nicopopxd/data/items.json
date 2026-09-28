@@ -1,0 +1,9 @@
+{
+    "$schema": "Schema/Manual.items.schema.json",
+    "data":[
+        {
+            "name": "Example prog",
+            "progression": true
+        }
+    ]
+}

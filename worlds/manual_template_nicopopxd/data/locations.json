@@ -1,0 +1,44 @@
+{
+    "$schema": "Schema/Manual.locations.schema.json",
+    "data": [
+        {
+            "name": "Example Location with event",
+            "region": "Template",
+            "create_event": true,
+            "event_category": ["Event Example"],
+            "_comment": ["This will create an event named '[Event] Example Location with event' with the category 'Event Example'"],
+            "category": ["Template"]
+        },
+        {
+            "name": "Example Location require event",
+            "region": "Template",
+            "create_event": "Test",
+            "event_category": ["Event Example"],
+            "category": ["Template"],
+            "requires": "{Event(Example Location with event)}",
+            "_comment": [
+                "This location will create an event named 'Test' with the category 'Event Example'",
+                "It also requires an event named '[Event] Example Location with event' since I used the helper function 'Event'"
+            ]
+        },
+        {
+            "name": "Example Location require event 2",
+            "region": "Template",
+            "create_event": [{"name": "Complex Event", "requires": "|Example prog|"}],
+            "event_category": ["Event Example"],
+            "category": ["Template"],
+            "requires": "|Test|",
+            "_comment": [
+                "This location will create an event named 'Complex Event' with the category 'Event Example' and a requirement of |Example prog|",
+                "It also requires an event named 'Test' that get created by the previous location"
+            ]
+        },
+        {
+            "name": "Victory",
+            "victory": true,
+            "description": "This is the description of the victory location",
+            "_comment": "that description is probably too long"
+        }
+
+    ]
+}

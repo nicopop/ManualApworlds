@@ -1,6 +1,6 @@
 from typing import Optional, TYPE_CHECKING, cast, Any
 from worlds.AutoWorld import World
-from ..Helpers import clamp, get_items_with_value, is_item_name_enabled
+from ..Helpers import clamp, get_items_with_value, is_item_name_enabled, format_state_prog_items_key
 from ..Game import game_name
 from BaseClasses import MultiWorld, CollectionState
 
@@ -35,6 +35,12 @@ def requiresMelee():
     """Returns a requires string that checks if the player has unlocked the tank."""
     return "|Figher Level:15| or |Black Belt Level:15| or |Thief Level:15|"
 
+def Build() -> str:
+    return "|Russ|"
+
+def ElectricalGate() -> str:
+    return "{TODO(Yellow Pikmin:5)} or |Pup Anti-Electrifier| and {TODO(unlock Pup Anti-Electrifier)}"
+
 def Event(location: str, count: int = 1) -> str:
     event_name = f"|[Event] {location.strip()}:{count}|"
     return event_name
@@ -48,6 +54,18 @@ def TODO(args: str, collected: bool = True) -> str:
         knownTODO.add(args.lower().strip())
     return "1" if collected else "0"
 
+def EventValue(state: CollectionState, player: int, valueCount: str):
+    """When passed a string with this format: 'valueName:int',
+    this function will check if the player has collect at least 'int' valueName worth of items\n
+    eg. {ItemValue(Coins:12)} will check if the player has collect at least 12 coins worth of items
+    """
+
+    args: list[str] = valueCount.split(":")
+    if not len(args) == 2 or not args[1].isnumeric():
+        raise Exception(f"EventValue needs a number after : so it looks something like 'EventValue({args[0]}:12)'")
+    value_name = format_state_prog_items_key("EVENT_VALUE", args[0])
+    requested_count = int(args[1].strip())
+    return state.has(value_name, player, requested_count)
 
 
 # A rule that checks if the player has at least count of the given items, ignoring duplicates of the same item
@@ -62,7 +80,7 @@ def HasFromCategoryUnique(category: str, count: str, state: CollectionState, wor
 #     return HasFromCategoryUnique("Objectives Final", str(requested_count), state=state, world=world, player=player)
 
 if use_rulebuilder:
-    from rule_builder.rules import HasFromListUnique, Rule, True_, False_
+    from rule_builder.rules import HasFromListUnique, Rule, True_, False_, Has
     @dataclasses.dataclass()
     class HasFromCategoryUniqueRule(Rule["ManualWorld"], game=game_name):
         category: str
@@ -90,3 +108,13 @@ if use_rulebuilder:
             else:
                 return False_().resolve(world)
 
+    @dataclasses.dataclass()
+    class EventValueRule(Rule["ManualWorld"], game=game_name):
+        valueCount: str
+        def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+            args: list[str] = self.valueCount.split(":")
+            if not len(args) == 2 or not args[1].isnumeric():
+                raise Exception(f"EventValue needs a number after : so it looks something like 'EventValue({args[0]}:12)'")
+            value_name = format_state_prog_items_key("EVENT_VALUE", args[0])
+            requested_count = int(args[1].strip())
+            return Has(value_name, requested_count).resolve(world)

@@ -207,7 +207,16 @@ def after_generate_basic(world: "ManualWorld", multiworld: MultiWorld, player: i
 
 # This method is run every time an item is added to the state, can be used to modify the value of an item.
 # IMPORTANT! Any changes made in this hook must be cancelled/undone in after_remove_item
+from ..Helpers import format_state_prog_items_key
 def after_collect_item(world: "ManualWorld", state: CollectionState, Changed: bool, item: Item):
+    if item.location is None or not Changed:
+        return # for type checkers
+
+    manual_event = world.event_name_to_event.get(item.location.name, {})
+    if manual_event and (values := manual_event.get("value")):
+        for key, value in values.items():
+            state.prog_items[item.player][format_state_prog_items_key("EVENT_VALUE", key)] += int(value)
+
     # the following let you add to the Potato Item Value count
     # if item.name == "Cooked Potato":
     #     state.prog_items[item.player][format_state_prog_items_key(ProgItemsCat.VALUE, "Potato")] += 1
@@ -216,6 +225,14 @@ def after_collect_item(world: "ManualWorld", state: CollectionState, Changed: bo
 # This method is run every time an item is removed from the state, can be used to modify the value of an item.
 # IMPORTANT! Any changes made in this hook must be first done in after_collect_item
 def after_remove_item(world: "ManualWorld", state: CollectionState, Changed: bool, item: Item):
+    if item.location is None or not Changed:
+        return # for type checkers
+
+    manual_event = world.event_name_to_event.get(item.location.name, {})
+    if manual_event and (values := manual_event.get("value")):
+        for key, value in values.items():
+            state.prog_items[item.player][format_state_prog_items_key("EVENT_VALUE", key)] -= int(value)
+
     # the following let you undo the addition to the Potato Item Value count
     # if item.name == "Cooked Potato":
     #     state.prog_items[item.player][format_state_prog_items_key(ProgItemsCat.VALUE, "Potato")] -= 1

@@ -75,7 +75,7 @@ Bellow you can find what each hooks does in detail:
 
 - Custom Option Base Classes `ChoiceIsRandom`, `ToggleIsRandom`/`DefaultOnToggleIsRandom` and `RangeIsRandom`
   - They act like the base option without their `IsRandom` suffix but they keep track of if the player's value is or not randomized
-    - You can do so by checking the custom `randomized` attribute that either contain the possible value from witch it was randomized or False if its not randomized
+    - You can do so by checking the custom `randomized` attribute that either contain the possible value from which it was randomized or False if its not randomized
     - if you `bool(randomized)` you get `true` if its `randomized` or `false` if its not
 - Custom Options Classes `RemoveItems` and `RemoveLocation`
   - those option if added in `before_options_defined` with the `remove_items` and/or `remove_locations` identifiers will let you remove any location/items from generation but not logic (see [Helpers.py](#helperspy))

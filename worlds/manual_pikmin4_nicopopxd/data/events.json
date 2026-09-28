@@ -1,4 +1,223 @@
 {
 	"$schema": "Schema/Manual.events.schema.json",
-    "data": []
+    "data": [
+        {
+            "name": "Russ",
+            "category": ["Castaways"],
+            "_comment": "unlock Lab",
+            "requires": "|Rescue:3|",
+            "visible": true
+        },
+        {
+            "name": "Kingsly",
+            "category": ["Castaways"],
+            "requires": "|Rescue:5|",
+            "_comment": "Set the World Abloom side mission",
+            "visible": true
+        },
+        {
+            "name": "Dingo",
+            "category": ["Castaways"],
+            "requires": "|Rescue:6|",
+            "_comment": "Investigation Side Missions",
+            "visible": true
+        },
+        {
+            "name": "Francois",
+            "category": ["Castaways"],
+            "_comment": "Friend to All Pikmin and Required to complete Precious Scientists side mission",
+            "requires": "|Rescue:8|",
+            "visible": true
+        },
+        {
+            "name": "Pitunia",
+            "_comment": "Fusing Onion Quests and Required to complete Precious Scientists side mission",
+            "category": ["Castaways"],
+            "requires": "|Rescue:9|",
+            "visible": true
+        },
+        {
+            "name": "Yonny",
+            "category": ["Castaways"],
+            "_comment": "Night Expeditions",
+            "requires": "|Rescue:10|",
+            "visible": true
+        },
+        {
+            "name": "Mika",
+            "category": ["Castaways"],
+            "_comment": "Find the Missing Students side mission and Required to complete A Tour without Tourists side mission",
+            "requires": "|Rescue:12|",
+            "visible": true
+        },
+        {
+            "name": "Sy",
+            "category": ["Castaways"],
+            "_comment": "Provides Researching Onions side missions and Required to complete Precious Scientists side mission",
+            "requires": "|Rescue:13|",
+            "visible": true
+        },
+        {
+            "name": "Sheeba",
+            "category": ["Castaways"],
+            "_comment": [
+                "Required to complete Find the Missing Students side mission",
+                "Required to complete A Tour without Tourists side mission"
+            ],
+            "requires": "|Rescue:14|",
+            "visible": true
+        },
+        {
+            "name": "Muggs",
+            "category": ["Castaways"],
+            "_comment": [
+                "Provides Find the Missing TV Crew side mission"
+            ],
+            "requires": "|Rescue:15|",
+            "visible": true
+        },
+        {
+            "name": "Keesh",
+            "category": ["Castaways"],
+            "_comment": [
+                "Required to complete Find the Missing Students side mission",
+                "Required to complete A Tour without Tourists side mission"
+            ],
+            "requires": "|Rescue:16|",
+            "visible": true
+        },
+        {
+            "name": "Osa",
+            "category": ["Castaways"],
+            "_comment": [
+                "Provides Building Goodwill side missions",
+                "Required to complete Precious Scientists side mission"
+            ],
+            "requires": "|Rescue:17|",
+            "visible": true
+        },
+        {
+            "name": "Frise",
+            "category": ["Castaways"],
+            "_comment": [
+                "Provides Music of a Past Culture side missions",
+                "Required to complete Find the Missing TV Crew side mission"
+            ],
+            "requires": "|Rescue:18|",
+            "visible": true
+        },
+        {
+            "name": "Kaia",
+            "category": ["Castaways"],
+            "_comment": [
+                "Required to complete Find the Missing Students side mission",
+                "Required to complete A Tour without Tourists side mission"
+            ],
+            "requires": "|Rescue:19|",
+            "visible": true
+        },
+        {
+            "name": "Vonda",
+            "category": ["Castaways"],
+            "_comment": [
+                "Required to complete Find the Missing TV Crew side mission"
+            ],
+            "requires": "|Rescue:20|",
+            "visible": true
+        },
+        {
+            "name": "Twyla",
+            "category": ["Castaways"],
+            "_comment": [
+                "Required to complete Precious Scientists side mission"
+            ],
+            "requires": "|Rescue:21|",
+            "visible": true
+        },
+        {
+            "name": "Don Bergman",
+            "category": ["Castaways"],
+            "_comment": [
+                "Required to complete Cure Oatchi main mission"
+            ],
+            "requires": "|Rescue:22|",
+            "visible": true
+        },
+        {
+            "name": "Yorke",
+            "category": ["Castaways"],
+            "_comment": [
+                "Required to complete Cure Oatchi main mission"
+            ],
+            "requires": "|Rescue:24|",
+            "visible": true
+        },
+        {
+            "name": "Horatio",
+            "category": ["Castaways"],
+            "_comment": [
+                "Required to complete A Tour without Tourists side mission"
+            ],
+            "requires": "|Rescue:25|",
+            "visible": true
+        },
+        {
+            "name": "Nelle",
+            "category": ["Castaways"],
+            "_comment": [
+                "Required to complete Cure Oatchi main mission"
+            ],
+            "requires": "|Rescue:26|",
+            "visible": true
+        },
+        {
+            "name": "Sammy",
+            "category": ["Castaways"],
+            "_comment": [
+                "Required to complete Precioius Scientists side mission"
+            ],
+            "requires": "|Rescue:27|",
+            "visible": true
+        },
+        {
+            "name": "Wolfgang",
+            "category": ["Castaways"],
+            "_comment": [
+                "Required to complete Find the Missing TV Crew side mission"
+            ],
+            "requires": "|Rescue:28|",
+            "visible": true
+        },
+
+        {
+            "name": "Dash",
+            "category": ["Castaways"],
+            "_comment": [
+                "Provides Cave Delving side missions"
+            ],
+            "requires": "|Battle Cured:1|",
+            "visible": true
+        },
+        {
+            "name": "Corgwin",
+            "category": ["Castaways"],
+            "_comment": [
+                "Unlocks additional Dandori Battles",
+                "Provides Dandori Battle Training side missions"
+            ],
+            "requires": "|Battle Cured:2|",
+            "visible": true
+        },
+        {
+            "name": "Bernard",
+            "category": ["Castaways"],
+            "_comment": [
+                "Provides Curing the Leaflings side missions",
+                "Required to complete Secure Energy Source main mission",
+                "Unlocks "
+            ],
+            "requires": "|Battle Cured:3|",
+            "visible": true
+        }
+    ]
 }

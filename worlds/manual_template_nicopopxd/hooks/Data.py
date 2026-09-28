@@ -3,8 +3,10 @@ from typing import Any, cast
 from worlds.AutoWorld import World, WebWorld
 
 import logging
+# region create_event
+# this part is required for create_event
 _location_table: list[dict[str, Any]] = []
-_item_table: list[dict[str, Any]] = []
+# endregion
 
 # region load_manifest
 def load_manifest() -> dict[str, Any]:
@@ -28,16 +30,17 @@ def after_load_game_file(game_table: dict) -> dict:
 # called after the items.json file has been loaded, before any item loading or processing has occurred
 # if you need access to the items after processing to add ids, etc., you should use the hooks in World.py
 def after_load_item_file(item_table: list) -> list:
-    global _item_table
-    _item_table = item_table
     return item_table
 
 
 # called after the locations.json file has been loaded, before any location loading or processing has occurred
 # if you need access to the locations after processing to add ids, etc., you should use the hooks in World.py
 def after_load_location_file(location_table: list[dict[str, Any]]) -> list:
+# region create_event
+# this part is required for create_event
     global _location_table
     _location_table = location_table
+# endregion
     return location_table
 
 # called after the events.json file has been loaded, before any processing has occurred
@@ -102,17 +105,6 @@ def after_load_region_file(region_table: dict) -> dict:
 
 # called after the categories.json file has been loaded
 def after_load_category_file(category_table: dict[str, Any]) -> dict:
-    for obj in _item_table + _location_table:
-        if obj.get("old_name"):
-            old_name: str|list[str] = obj["old_name"]
-            if not isinstance(old_name, list):
-                old_name = [old_name]
-            for name in old_name:
-                if not obj.get("category"):
-                    obj["category"] = []
-                obj["category"].append(name)
-                if name not in category_table.keys():
-                    category_table[name] = {"hidden": True}
     return category_table
 
 # called after the categories.json file has been loaded
@@ -132,46 +124,23 @@ def after_load_meta_file(meta_table: dict) -> dict:
 
     meta_table["docs"]["apworld_description"] = f"""
     Manual games allow you to set custom check locations and custom item names that will be rolled into a multiworld.
-    In this case a game from 2019: OuterWilds
     the player must manually refrain from using these gathered items until the tracker shows that they have been acquired or sent.
     [Apworld Version: {manifest.get('world_version', 'Unknown')}]
     """
-    web = WebWorld()
+    web = WebWorld() # using a webworld to get attributes type checking
     web.theme = "ocean"
-    web.bug_report_page = "https://discord.com/channels/1097532591650910289/1101289500602286161"
-
-    web.options_presets = {
-        "Short":{
-            "goal": "standard"
-        },
-        "Long":{
-            "require_solanum": True,
-            "require_prisoner": True,
-            "do_place_item_category": False,
-            "goal": "standard"
-        },
-        "Short (BaseGame)":{
-            "randomize_dlc": False,
-            "goal": "standard"
-        },
-        "Long (BaseGame)":{
-            "randomize_dlc": False,
-            "require_solanum": True,
-            "do_place_item_category": False,
-            "goal": "standard"
-        },
-        "Short (DLC)":{
-            "randomize_base_game": False,
-            "goal": "standard"
-        },
-        "Long (DLC)":{
-            "randomize_base_game": False,
-            "require_prisoner": True,
-            "require_solanum": True,
-            "do_place_item_category": False,
-            "goal": "standard"
-        }
-    }
-
+    web.bug_report_page = "https://discord.gg/T5bcsVHByx"
+    # web.options_presets = {
+    #     "Short":{
+    #         "goal": "standard"
+    #     },
+    #     "Long":{
+    #         "require_solanum": True,
+    #         "require_prisoner": True,
+    #         "do_place_item_category": False,
+    #         "goal": "standard"
+    #     }
+    # }
     meta_table['docs']['web'] |= vars(web)
+
     return meta_table

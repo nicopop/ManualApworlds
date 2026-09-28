@@ -1,6 +1,6 @@
 {
     "$schema": "Schema/Manual.game.schema.json",
-    "game": "OuterWilds",
+    "game": "Template",
     "creator": "Nicopopxd",
 
     "filler_item_name": "Nothing",

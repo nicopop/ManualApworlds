@@ -20,6 +20,8 @@ Bellow you can find what each hooks does in detail:
 
 ### Data.py
 
+[Link to file](hooks/Data.py)
+
 - `load_manifest() -> dict[str, Any]` function that let you read the content of the manifest file
 - `after_load_event_file`:
   - `create_event` property for location
@@ -39,6 +41,8 @@ Bellow you can find what each hooks does in detail:
     - adding a bug_report link to the manual discord (Usually changed to be a link to the exact channel on discord)
 
 ### Helpers.py
+
+[Link to file](hooks/Helpers.py)
 
 - `before_is_category_enabled` calls a custom status system that let you turn on and off categories (see below)
 - Custom `get_category_status`, `set_category_status`, `create_category_status` and `InitCategories`
@@ -67,6 +71,8 @@ Bellow you can find what each hooks does in detail:
 
 ### Options.py
 
+[Link to file](hooks/Options.py)
+
 - Custom Option Base Classes `ChoiceIsRandom`, `ToggleIsRandom`/`DefaultOnToggleIsRandom` and `RangeIsRandom`
   - They act like the base option without their `IsRandom` suffix but they keep track of if the player's value is or not randomized
     - You can do so by checking the custom `randomized` attribute that either contain the possible value from witch it was randomized or False if its not randomized
@@ -79,6 +85,8 @@ Bellow you can find what each hooks does in detail:
 
 ### Rules.py
 
+[Link to file](hooks/Rules.py)
+
 - Custom Rule `Event(location: str, count: int = 1) -> str`
   - Returns the location string with "[Event] " prefix added.
 - Custom Rule `TODO(args: str, collected: bool = True) -> str:` and its RB equivalent
@@ -90,7 +98,9 @@ Bellow you can find what each hooks does in detail:
 
 ### World.py
 
-- Custom Client "Manual Client Nico's Experiment"
+[Link to file](hooks/World.py)
+
+- [Custom Client "Manual Client Nico's Experiment"](ManualClientExperimental.py)
   - Include all the Code from the Client PR I created ([PR209](https://github.com/ManualForArchipelago/Manual/pull/209) and [PR219](https://github.com/ManualForArchipelago/Manual/pull/219))
   - AKA item description and support for UT OOL/glitch logic
 - `hook_get_filler_item_name`

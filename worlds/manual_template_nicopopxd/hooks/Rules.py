@@ -1,8 +1,11 @@
 from typing import Optional, TYPE_CHECKING, cast, Any
+from typing_extensions import override
+from rule_builder.rules import Rule
 from worlds.AutoWorld import World
-from ..Helpers import clamp, get_items_with_value, is_item_name_enabled
+from ..Helpers import clamp, get_items_with_value, is_item_name_enabled, format_state_prog_items_key
 from ..Game import game_name
 from BaseClasses import MultiWorld, CollectionState
+from math import ceil
 
 import dataclasses
 import logging
@@ -48,6 +51,18 @@ def TODO(args: str, collected: bool = True) -> str:
         knownTODO.add(args.lower().strip())
     return "1" if collected else "0"
 
+def EventValue(state: CollectionState, player: int, valueCount: str):
+    """When passed a string with this format: 'valueName:int',
+    this function will check if the player has collect at least 'int' valueName worth of items\n
+    eg. {ItemValue(Coins:12)} will check if the player has collect at least 12 coins worth of items
+    """
+
+    args: list[str] = valueCount.split(":")
+    if not len(args) == 2 or not args[1].isnumeric():
+        raise Exception(f"EventValue needs a number after : so it looks something like 'EventValue({args[0]}:12)'")
+    value_name = format_state_prog_items_key("EVENT_VALUE", args[0])
+    requested_count = int(args[1].strip())
+    return state.has(value_name, player, requested_count)
 
 
 # A rule that checks if the player has at least count of the given items, ignoring duplicates of the same item
@@ -62,7 +77,7 @@ def HasFromCategoryUnique(category: str, count: str, state: CollectionState, wor
 #     return HasFromCategoryUnique("Objectives Final", str(requested_count), state=state, world=world, player=player)
 
 if use_rulebuilder:
-    from rule_builder.rules import HasFromListUnique, Rule, True_, False_
+    from rule_builder.rules import HasFromListUnique, Rule, True_, False_, Has, HasAnyCount, HasFromList, Or, And
     @dataclasses.dataclass()
     class HasFromCategoryUniqueRule(Rule["ManualWorld"], game=game_name):
         category: str
@@ -72,13 +87,6 @@ if use_rulebuilder:
             requested_list = world.item_and_event_name_groups[self.category.strip()]
             return HasFromListUnique(*requested_list, count=requested_count).resolve(world)
 
-    # @dataclasses.dataclass()
-    # class GoalObjectivesRule(Rule["ManualWorld"], game=game_name):
-    #     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
-    #         from .Options import ObjectivesTypesForGoal
-    #         objectives = cast(ObjectivesTypesForGoal, world.options.goal_objectives) # type: ignore
-    #         requested_count = objectives.value
-    #         return HasFromCategoryUniqueRule("Objectives Final", str(requested_count)).resolve(world)
     @dataclasses.dataclass()
     class TODORule(Rule["ManualWorld"], game=game_name):
         todo: str
@@ -90,3 +98,13 @@ if use_rulebuilder:
             else:
                 return False_().resolve(world)
 
+    @dataclasses.dataclass()
+    class EventValueRule(Rule["ManualWorld"], game=game_name):
+        valueCount: str
+        def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+            args: list[str] = self.valueCount.split(":")
+            if not len(args) == 2 or not args[1].isnumeric():
+                raise Exception(f"EventValue needs a number after : so it looks something like 'EventValue({args[0]}:12)'")
+            value_name = format_state_prog_items_key("EVENT_VALUE", args[0])
+            requested_count = int(args[1].strip())
+            return Has(value_name, requested_count).resolve(world)

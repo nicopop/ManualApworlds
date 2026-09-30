@@ -2,10 +2,613 @@
 	"$schema": "Schema/Manual.events.schema.json",
     "data": [
         {
+            "name": "NGP",
+            "category": ["New Game Plus"]
+        },
+        {
+            "name": "Material Pile",
+            "value": {"Material": 20},
+            "region": "Aquiferous Summit Floor 2",
+            "requires": "{Pikmin(Ice)}"
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "Free up North",
+            "value": {"Material": 23},
+            "region": "Sun-Speckled Terrace"
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "In water #1",
+            "value": {"Material": 23},
+            "requires": "{Pikmin(Blue)}",
+            "region": "Sun-Speckled Terrace"
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "In water #2",
+            "value": {"Material": 23},
+            "requires": "{Pikmin(Blue)}",
+            "region": "Sun-Speckled Terrace"
+        },
+        {
+            "name": "Material Pile",
+            "value": {"Material": 25},
+            "region": "Sun-Speckled Terrace South"
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "Other side of bridge",
+            "value": {"Material": 26},
+            "requires": "{Build()}",
+            "region": "Sun-Speckled Terrace South"
+        },
+
+        {
+            "name": "Red Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Red, 10)}"
+        },
+        {
+            "name": "Red Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Red, 20)}"
+        },
+        {
+            "name": "Red Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Red, 40)}"
+        },
+        {
+            "name": "Red Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Red, 40)}"
+        },
+        {
+            "name": "Red Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Red, 50)}"
+        },
+        {
+            "name": "Red Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Red, 60)}"
+        },
+        {
+            "name": "Red Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Red, 70)}"
+        },
+        {
+            "name": "Red Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Red, 80)}"
+        },
+        {
+            "name": "Red Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Red, 90)}"
+        },
+        {
+            "name": "Red Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Red, 100)}"
+        },
+
+        {
+            "name": "Yellow Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Yellow, 10)}"
+        },
+        {
+            "name": "Yellow Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Yellow, 20)}"
+        },
+        {
+            "name": "Yellow Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Yellow, 40)}"
+        },
+        {
+            "name": "Yellow Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Yellow, 40)}"
+        },
+        {
+            "name": "Yellow Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Yellow, 50)}"
+        },
+        {
+            "name": "Yellow Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Yellow, 60)}"
+        },
+        {
+            "name": "Yellow Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Yellow, 70)}"
+        },
+        {
+            "name": "Yellow Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Yellow, 80)}"
+        },
+        {
+            "name": "Yellow Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Yellow, 90)}"
+        },
+        {
+            "name": "Yellow Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Yellow, 100)}"
+        },
+
+        {
+            "name": "Blue Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Blue, 10)}"
+        },
+        {
+            "name": "Blue Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Blue, 20)}"
+        },
+        {
+            "name": "Blue Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Blue, 40)}"
+        },
+        {
+            "name": "Blue Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Blue, 40)}"
+        },
+        {
+            "name": "Blue Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Blue, 50)}"
+        },
+        {
+            "name": "Blue Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Blue, 60)}"
+        },
+        {
+            "name": "Blue Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Blue, 70)}"
+        },
+        {
+            "name": "Blue Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Blue, 80)}"
+        },
+        {
+            "name": "Blue Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Blue, 90)}"
+        },
+        {
+            "name": "Blue Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Blue, 100)}"
+        },
+
+        {
+            "name": "Ice Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Ice, 10)}"
+        },
+        {
+            "name": "Ice Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Ice, 20)}"
+        },
+        {
+            "name": "Ice Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Ice, 40)}"
+        },
+        {
+            "name": "Ice Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Ice, 40)}"
+        },
+        {
+            "name": "Ice Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Ice, 50)}"
+        },
+        {
+            "name": "Ice Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Ice, 60)}"
+        },
+        {
+            "name": "Ice Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Ice, 70)}"
+        },
+        {
+            "name": "Ice Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Ice, 80)}"
+        },
+        {
+            "name": "Ice Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Ice, 90)}"
+        },
+        {
+            "name": "Ice Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Ice, 100)}"
+        },
+
+        {
+            "name": "Rock Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Rock, 10)}"
+        },
+        {
+            "name": "Rock Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Rock, 20)}"
+        },
+        {
+            "name": "Rock Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Rock, 40)}"
+        },
+        {
+            "name": "Rock Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Rock, 40)}"
+        },
+        {
+            "name": "Rock Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Rock, 50)}"
+        },
+        {
+            "name": "Rock Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Rock, 60)}"
+        },
+        {
+            "name": "Rock Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Rock, 70)}"
+        },
+        {
+            "name": "Rock Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Rock, 80)}"
+        },
+        {
+            "name": "Rock Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Rock, 90)}"
+        },
+        {
+            "name": "Rock Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Rock, 100)}"
+        },
+
+        {
+            "name": "Pink Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Pink, 10)}"
+        },
+        {
+            "name": "Pink Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Pink, 20)}"
+        },
+        {
+            "name": "Pink Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Pink, 40)}"
+        },
+        {
+            "name": "Pink Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Pink, 40)}"
+        },
+        {
+            "name": "Pink Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Pink, 50)}"
+        },
+        {
+            "name": "Pink Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Pink, 60)}"
+        },
+        {
+            "name": "Pink Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Pink, 70)}"
+        },
+        {
+            "name": "Pink Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Pink, 80)}"
+        },
+        {
+            "name": "Pink Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Pink, 90)}"
+        },
+        {
+            "name": "Pink Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(Pink, 100)}"
+        },
+
+        {
+            "name": "Purple Real",
+            "requires": "{CanPikmin(Purple, 100)}"
+        },
+        {
+            "name": "Purple Real",
+            "requires": "{CanPikmin(Purple, 200)}"
+        },
+        {
+            "name": "Purple Real",
+            "requires": "{CanPikmin(Purple, 400)}"
+        },
+        {
+            "name": "Purple Real",
+            "requires": "{CanPikmin(Purple, 400)}"
+        },
+        {
+            "name": "Purple Real",
+            "requires": "{CanPikmin(Purple, 500)}"
+        },
+        {
+            "name": "Purple Real",
+            "requires": "{CanPikmin(Purple, 600)}"
+        },
+        {
+            "name": "Purple Real",
+            "requires": "{CanPikmin(Purple, 700)}"
+        },
+        {
+            "name": "Purple Real",
+            "requires": "{CanPikmin(Purple, 800)}"
+        },
+        {
+            "name": "Purple Real",
+            "requires": "{CanPikmin(Purple, 900)}"
+        },
+        {
+            "name": "Purple Real",
+            "requires": "{CanPikmin(Purple, 1000)}"
+        },
+
+        {
+            "name": "White Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(White, 10)}"
+        },
+        {
+            "name": "White Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(White, 20)}"
+        },
+        {
+            "name": "White Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(White, 40)}"
+        },
+        {
+            "name": "White Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(White, 40)}"
+        },
+        {
+            "name": "White Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(White, 50)}"
+        },
+        {
+            "name": "White Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(White, 60)}"
+        },
+        {
+            "name": "White Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(White, 70)}"
+        },
+        {
+            "name": "White Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(White, 80)}"
+        },
+        {
+            "name": "White Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(White, 90)}"
+        },
+        {
+            "name": "White Real",
+            "category": ["Pikmins Carry"],
+            "requires": "{CanPikmin(White, 100)}"
+        },
+
+
+        {
+            "name": "ST Red Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Red, 10)}"
+        },
+        {
+            "name": "ST Red Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Red, 20)}"
+        },
+        {
+            "name": "ST Red Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Red, 40)}"
+        },
+        {
+            "name": "ST Red Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Red, 40)}"
+        },
+        {
+            "name": "ST Red Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Red, 50)}"
+        },
+        {
+            "name": "ST Red Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Red, 60)}"
+        },
+        {
+            "name": "ST Red Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Red, 70)}"
+        },
+        {
+            "name": "ST Red Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Red, 80)}"
+        },
+        {
+            "name": "ST Red Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Red, 90)}"
+        },
+        {
+            "name": "ST Red Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Red, 100)}"
+        },
+
+        {
+            "name": "ST Yellow Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Yellow, 10)}"
+        },
+        {
+            "name": "ST Yellow Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Yellow, 20)}"
+        },
+        {
+            "name": "ST Yellow Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Yellow, 40)}"
+        },
+        {
+            "name": "ST Yellow Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Yellow, 40)}"
+        },
+        {
+            "name": "ST Yellow Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Yellow, 50)}"
+        },
+        {
+            "name": "ST Yellow Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Yellow, 60)}"
+        },
+        {
+            "name": "ST Yellow Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Yellow, 70)}"
+        },
+        {
+            "name": "ST Yellow Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Yellow, 80)}"
+        },
+        {
+            "name": "ST Yellow Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Yellow, 90)}"
+        },
+        {
+            "name": "ST Yellow Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Yellow, 100)}"
+        },
+
+        {
+            "name": "ST Blue Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Blue, 10)}"
+        },
+        {
+            "name": "ST Blue Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Blue, 20)}"
+        },
+        {
+            "name": "ST Blue Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Blue, 40)}"
+        },
+        {
+            "name": "ST Blue Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Blue, 40)}"
+        },
+        {
+            "name": "ST Blue Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Blue, 50)}"
+        },
+        {
+            "name": "ST Blue Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Blue, 60)}"
+        },
+        {
+            "name": "ST Blue Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Blue, 70)}"
+        },
+        {
+            "name": "ST Blue Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Blue, 80)}"
+        },
+        {
+            "name": "ST Blue Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Blue, 90)}"
+        },
+        {
+            "name": "ST Blue Real",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{CanPikmin(ST Blue, 100)}"
+        },
+
+
+        {
             "name": "Russ",
             "category": ["Castaways"],
             "_comment": "unlock Lab",
             "requires": "|Rescue:3|",
+            "visible": true
+        },
+        {
+            "name": "Schnauz",
+            "category": ["Castaways"],
+            "_comment": "unlock Appraisal Frenzy side mission",
+            "requires": "|Rescue:4|",
             "visible": true
         },
         {
@@ -23,7 +626,14 @@
             "visible": true
         },
         {
-            "name": "Francois",
+            "name": "Dalmo",
+            "category": ["Castaways"],
+            "requires": "|Rescue:7|",
+            "_comment": "All the Little Darlings Side Missions",
+            "visible": true
+        },
+        {
+            "name": "François",
             "category": ["Castaways"],
             "_comment": "Friend to All Pikmin and Required to complete Precious Scientists side mission",
             "requires": "|Rescue:8|",
@@ -40,6 +650,13 @@
             "name": "Yonny",
             "category": ["Castaways"],
             "_comment": "Night Expeditions",
+            "requires": "|Rescue:10|",
+            "visible": true
+        },
+        {
+            "name": "Puddle",
+            "category": ["Castaways"],
+            "_comment": "The Leafling Meet and Greet mission",
             "requires": "|Rescue:10|",
             "visible": true
         },
@@ -97,7 +714,7 @@
             "visible": true
         },
         {
-            "name": "Frise",
+            "name": "Frisé",
             "category": ["Castaways"],
             "_comment": [
                 "Provides Music of a Past Culture side missions",

@@ -1,382 +1,915 @@
 {
     "$schema": "Schema/Manual.locations.schema.json",
     "data": [
-    {
-        "name": "SST Yellow Onion",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": [],
-        "place_item": [ "Yellow Onion" ]
-    },
-    {
-        "name": "SST East Flarlic",
-        "region": "Sun-Speckled Terrace",
-        "create_event": "Flarlic",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": []
-    },
-    {
-        "name": "SST West Flarlic",
-        "region": "Sun-Speckled Terrace",
-        "create_event": "Flarlic",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": "|Flarlic:2| or |Boost Potion|"
-    },
+        {
+            "name": "FileMetaData",
+            "_comment": "Should be removed by the Data.py hook",
+            "extra_files": ["locations_1SST.json", "locations_2BA.json", "locations_Night.json", "locations_Olimar.json"],
+            "offset": 500,
+            "disabled": true
+        },
+        {
+            "name": "New Game Plus Bonus",
+            "region": "Rescue Command Post",
+            "_comment": "TODO replace NGP Sparklium with the exact sparklium names and values",
+            "create_event": [{"name": "NGP Sparklium", "value": {"Sparklium": 300}, "category": ["Sparklium"]},
+                {"name": "Red Onion", "visible": true, "category": ["Pikmins", "Onion"]},
+                {"name": "Yellow Onion", "visible": true, "category": ["Pikmins", "Onion"]},
+                {"name": "Blue Onion", "visible": true, "category": ["Pikmins", "Onion"]},
+                {"name": "Ice Onion", "visible": true, "category": ["Pikmins", "Onion"]},
+                {"name": "Rock Onion", "visible": true, "category": ["Pikmins", "Onion"]},
+                {"name": "Pink Onion", "visible": true, "category": ["Pikmins", "Onion"]},
+                {"name": "Purple Onion", "visible": true, "category": ["Pikmins", "Onion"]},
+                {"name": "White Onion", "visible": true, "category": ["Pikmins", "Onion"]},
+                {"name": "Rescue", "visible": true, "category": ["Castaways"]},
+                {"name": "Rescue", "visible": true, "category": ["Castaways"]}
+            ],
+            "category": ["New Game Plus"]
+        },
 
-    {
-        "name": "SST East Bridge Built",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": []
-    },
-    {
-        "name": "SST West Bridge Built",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": []
-    },
-    {
-        "name": "SST West Ramp Built",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": []
-    },
+        {
+            "name": "Appraisal Frenzy 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 50","value": {"Material": 50}}],
+            "requires": "|Schnauz| and (|Sparklium:50| or |NGP|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Appraisal Frenzy 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 50","value": {"Material": 50}}],
+            "requires": "|Schnauz| and (|Sparklium:100| or |NGP|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Appraisal Frenzy 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 50","value": {"Material": 50}}],
+            "requires": "|Schnauz| and (|Sparklium:150| or |NGP|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Appraisal Frenzy 4",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 50","value": {"Material": 50}}],
+            "requires": "|Schnauz| and (|Sparklium:200| or |NGP|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Appraisal Frenzy 5",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 50","value": {"Material": 50}}],
+            "requires": "|Schnauz| and (|Sparklium:ALL| or |NGP|)",
+            "category": ["Side Missions"]
+        },
 
-    {
-        "name": "SST Sac Crushed",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": "|Flarlic:1|"
-    },
-    {
-        "name": "SST SandCastle Wall Destroyed",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": []
-    },
+        {
+            "name": "Set the World Abloom 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Kingsly|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Set the World Abloom 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Kingsly| and ({EventValue(Sparklium:1500)} or |[UT OOL]|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Set the World Abloom 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Kingsly| and ({EventValue(Sparklium:4000)} or |[UT OOL]|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Set the World Abloom 4",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Kingsly| and (({EventValue(Sparklium:7000)} and |Bernard|) or |[UT OOL]|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Set the World Abloom 5",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Kingsly| and (({EventValue(Sparklium:11000)} and {TODO(Olimar)}) or |[UT OOL]|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Set the World Abloom 6",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Kingsly| and (({EventValue(Sparklium:13000)}) or |[UT OOL]|)",
+            "category": ["Side Missions"]
+        },
 
-    {
-        "name": "SST Electric Wall Destroyed",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": "|Yellow Onion| and |Yellow Pikmins|"
-    },
+        {
+            "name": "Investigate Areas 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Dingo| and |@SST Complete:ALL|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Investigate Areas 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Dingo| and |@BA Complete:ALL|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Investigate Areas 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Dingo| and |@SS Complete:ALL|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Investigate Areas 4",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Dingo| and |@HH Complete:ALL|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Investigate Areas 5",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Dingo| and |@GH Complete:ALL|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Investigate Areas 6",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Dingo| and |@PT Complete:ALL|",
+            "category": ["Side Missions"]
+        },
 
-    {
-        "name": "SST South-East Repair-Type Bolt",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": [],
-        "place_item": [ "Treasure" ]
-    },
-    {
-        "name": "SST South-West Pot Treasure",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": "|Moss| and |Moss Charge Pots|",
-        "place_item": [ "Treasure" ]
-    },
-    {
-        "name": "SST North-East Extraordinary Bolt",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": [],
-        "place_item": [ "Treasure" ]
-    },
-    {
-        "name": "SST North-West Spider Automatic Gear",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": [],
-        "place_item": [ "Treasure" ]
-    },
-    {
-        "name": "SST North Stick Whimsical Radar",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": [],
-        "place_item": [ "Treasure" ]
-    },
-    {
-        "name": "SST South-East Spider Treasure",
-        "region": "Sun-Speckled Terrace",
-        "category": [ "Sun-Speckled Terrace" ],
-        "requires": "(|Yellow Onion| and |Yellow Pikmins|) and |Moss| and |Moss Charge Pots| and |Flarlic:1|",
-        "place_item": [ "Treasure" ]
-    },
+        {
+            "name": "All the Little Darlings 1",
+            "_comment": "TODO track where you can find Species of Creatures",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Dalmo|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "All the Little Darlings 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Dalmo| and ({EventValue(Sparklium:1500)} or |NGP|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "All the Little Darlings 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Dalmo| and ({EventValue(Sparklium:4000)} or |NGP|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "All the Little Darlings 4",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Dalmo| and (({EventValue(Sparklium:7000)} and |Bernard|) or |NGP|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "All the Little Darlings 5",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Dalmo| and (({EventValue(Sparklium:13000)} and {TODO(Olimar)}) or |NGP|)",
+            "category": ["Side Missions"]
+        },
 
-    {
-        "name": "BA Yellow Onion",
-        "region": "Blossoming Arcadia",
-        "category": [ "Blossoming Arcadia" ],
-        "_comment": "Will probably add requirements later to restrict which onion you can get",
-        "requires": [],
-        "place_item": [ "Yellow Onion" ]
-    },
-    {
-        "name": "BA Blue Onion",
-        "region": "Blossoming Arcadia",
-        "category": [ "Blossoming Arcadia" ],
-        "requires": [],
-        "place_item": [ "Blue Onion" ]
-    },
-    {
-        "name": "BA North Flarlic",
-        "region": "Blossoming Arcadia",
-        "create_event": "Flarlic",
-        "category": [ "Blossoming Arcadia" ],
-        "requires": []
-    },
-    {
-        "name": "BA South Flarlic",
-        "region": "Blossoming Arcadia",
-        "create_event": "Flarlic",
-        "category": [ "Blossoming Arcadia" ],
-        "requires": []
-    },
-
-    {
-        "name": "BA Burn Both Wheat Walls in Starting Area",
-        "category": [ "Blossoming Arcadia" ],
-        "region": "Blossoming Arcadia"
-    },
-    {
-        "name": "BA Light All The Fires",
-        "category": [ "Blossoming Arcadia" ],
-        "region": "Blossoming Arcadia"
-    },
-    {
-        "name": "BA Burn All The Wheat Walls",
-        "category": [ "Blossoming Arcadia" ],
-        "region": "Blossoming Arcadia"
-    },
-    {
-        "name": "BA Electric Wall Destroyed",
-        "category": [ "Blossoming Arcadia" ],
-        "region": "Blossoming Arcadia",
-        "requires": "|Yellow Onion| and |Yellow Pikmins|"
-    },
-    {
-        "name": "BA Reinforced Wall Destroyed",
-        "category": [ "Blossoming Arcadia" ],
-        "region": "Blossoming Arcadia",
-        "requires": "Bombs"
-    },
-
-    {
-        "name": "BA Reinforced Wall Destroyed 2",
-        "category": [ "Blossoming Arcadia" ],
-        "region": "Blossoming Arcadia",
-        "requires": "Bombs"
-    },
-
-    {
-        "name": "BA Met Moss",
-        "category": [ "Blossoming Arcadia" ],
-        "place_item": [ "Moss" ],
-        "region": "Blossoming Arcadia"
-    },
-    {
-        "name": "BA Kill BigBird",
-        "category": [ "Blossoming Arcadia" ],
-        "_comment": "adding requirement so the rando doesn't make you fight this with just the starting 20 pikmins",
-        "requires": "|Flarlic:2| or |Boost Potion|",
-        "region": "Blossoming Arcadia"
-    },
-    {
-        "name": "BA Kill The Walker",
-        "category": [ "Blossoming Arcadia" ],
-        "_comment": "adding requirement so the rando doesn't make you fight this with just the starting 20 pikmins",
-        "requires": "|Flarlic:2| or |Boost Potion|",
-        "region": "Blossoming Arcadia"
-    },
-
-    {
-        "name": "BA ClimbingWall Built",
-        "region": "Blossoming Arcadia",
-        "category": [ "Blossoming Arcadia" ]
-    },
-    {
-        "name": "BA Bridge Built",
-        "region": "Blossoming Arcadia",
-        "category": [ "Blossoming Arcadia" ]
-    },
-    {
-        "name": "BA Ramp Built",
-        "region": "Blossoming Arcadia",
-        "category": [ "Blossoming Arcadia" ]
-    },
-
-    {
-        "name": "BA West Base Hill Extraordinary Bolt",
-        "region": "Blossoming Arcadia",
-        "category": [ "Blossoming Arcadia" ],
-        "requires": [],
-        "place_item": [ "Treasure" ]
-    },
-    {
-        "name": "BA North Sprinkler Extraordinary Bolt",
-        "region": "Blossoming Arcadia",
-        "category": [ "Blossoming Arcadia" ],
-        "requires": "|Blue Onion| and |Blue Pikmins|",
-        "place_item": [ "Treasure" ]
-    },
-    {
-        "name": "BA Center Toy Automatic Gear",
-        "region": "Blossoming Arcadia",
-        "category": [ "Blossoming Arcadia" ],
-        "requires": [],
-        "place_item": [ "Treasure" ]
-    },
-    {
-        "name": "BA East Flower-Frog Repair-Type Bolt",
-        "region": "Blossoming Arcadia",
-        "category": [ "Blossoming Arcadia" ],
-        "requires": [],
-        "place_item": [ "Treasure" ]
-    },
-    {
-        "name": "BA Center Base Hill Pot Omega Stabilizer",
-        "region": "Blossoming Arcadia",
-        "category": [ "Blossoming Arcadia" ],
-        "requires": "|Bombs| and ((|Yellow Onion| and |Yellow Pikmins|) or (|Moss| and |Moss Charge Walls|))",
-        "place_item": [ "Treasure" ]
-    },
-    {
-        "name": "BA Close To Walker Boss treasure",
-        "region": "Blossoming Arcadia",
-        "category": [ "Blossoming Arcadia" ],
-        "requires": [],
-        "place_item": [ "Treasure" ]
-    },
+        {
+            "name": "Friend to All Pikmin 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|François|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Friend to All Pikmin 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|François| and ({EventValue(Sparklium:1500)} or |[UT OOL]|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Friend to All Pikmin 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|François| and ({EventValue(Sparklium:4000)} or |[UT OOL]|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Friend to All Pikmin 4",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|François| and (({EventValue(Sparklium:7000)} and |Bernard|) or |[UT OOL]|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Friend to All Pikmin 5",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|François| and (({EventValue(Sparklium:11000)} and {TODO(Olimar)}) or |[UT OOL]|)",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Friend to All Pikmin 6",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|François| and (({EventValue(Sparklium:13000)}) or |[UT OOL]|)",
+            "category": ["Side Missions"]
+        },
 
 
-    {
-        "name": "SS tmp 1",
-        "region": "Serene Shores",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
-    {
-        "name": "SS tmp 2",
-        "region": "Serene Shores",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
-    {
-        "name": "SS tmp 3",
-        "region": "Serene Shores",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
-    {
-        "name": "SS tmp 4",
-        "region": "Serene Shores",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
-    {
-        "name": "SS tmp 5",
-        "region": "Serene Shores",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
-    {
-        "name": "SS tmp 6",
-        "region": "Serene Shores",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
-    {
-        "name": "SS tmp 7",
-        "region": "Serene Shores",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
+        {
+            "name": "Fusing Onions 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 10","value": {"Material": 10}}],
+            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 2)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Researching Onions 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 10","value": {"Material": 10}}],
+            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 3)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Researching Onions 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 10","value": {"Material": 10}}],
+            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 4)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Researching Onions 4",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 10","value": {"Material": 10}}],
+            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 5)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Researching Onions 5",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 10","value": {"Material": 10}}],
+            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 6)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Researching Onions 6",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 10","value": {"Material": 10}}],
+            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 7)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Researching Onions 7",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 10","value": {"Material": 10}}],
+            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 8)}",
+            "category": ["Side Missions"]
+        },
+
+        {
+            "name": "Leafling Meet and Greet",
+            "region": "Rescue Command Post",
+            "requires": "|Puddle| and (|@Leafling:10| or |NGP|)",
+            "category": ["Side Missions"]
+        },
+
+        {
+            "name": "Find the Missing Students",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 50","value": {"Material": 50}}],
+            "requires": "|Mika| and |Sheeba| and |Keesh| and |Kaia|",
+            "category": ["Side Missions"]
+        },
+
+        {
+            "name": "Researching Onions 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Sy| and |Flarlic:2|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Researching Onions 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Sy| and |Flarlic:4|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Researching Onions 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Sy| and |Flarlic:6|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Researching Onions 4",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Sy| and |Flarlic:8|",
+            "category": ["Side Missions"]
+        },
+
+        {
+            "name": "Find the Missing TV Crew",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 50","value": {"Material": 50}}],
+            "requires": "|Muggs| and |Frisé| and |Vonda| and |Wolfgang|",
+            "category": ["Side Missions"]
+        },
+
+        {
+            "name": "Building Goodwill 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Osa| and |Built Something:10|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Building Goodwill 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Osa| and |Built Something:20|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Building Goodwill 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 50","value": {"Material": 50}}],
+            "requires": "|Osa| and |Built Something:All|",
+            "category": ["Side Missions"]
+        },
+
+        {
+            "name": "Music of a Past Culture 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Frisé| and |@Soulful Musician:4|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Music of a Past Culture 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Frisé| and |@Soulful Musician:8|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Music of a Past Culture 3",
+            "region": "Rescue Command Post",
+            "requires": "|Frisé| and |@Soulful Musician:13|",
+            "category": ["Side Missions"]
+        },
 
 
-    {
-        "name": "HH tmp 1",
-        "region": "Hero's Hideaway",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
-    {
-        "name": "HH tmp 2",
-        "region": "Hero's Hideaway",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
-    {
-        "name": "HH tmp 3",
-        "region": "Hero's Hideaway",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
-    {
-        "name": "HH tmp 4",
-        "region": "Hero's Hideaway",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
-    {
-        "name": "HH tmp 5",
-        "region": "Hero's Hideaway",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
-    {
-        "name": "HH tmp 6",
-        "region": "Hero's Hideaway",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
-    {
-        "name": "HH tmp 7",
-        "region": "Hero's Hideaway",
-        "category": [ "Serene Shores" ],
-        "requires": []
-    },
+        {
+            "name": "Cave Delving 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Dash| and {TODO(Track Cave Ending: 5)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Cave Delving 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Dash| and {TODO(Track Cave Ending: 10)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Cave Delving 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Dash| and {TODO(Track Cave Ending: 15)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Cave Delving 4",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Dash| and {TODO(Track Cave Ending: 23)}",
+            "category": ["Side Missions"]
+        },
 
-    {
-        "name": "Treasure 5",
-        "category": [ "Treasures" ],
-        "requires": "|Treasure:5|"
-    },
-    {
-        "name": "Treasure 10",
-        "category": [ "Treasures" ],
-        "requires": "|Treasure:10|"
-    },
-    {
-        "name": "Treasure 15",
-        "category": [ "Treasures" ],
-        "requires": "|Treasure:15|"
-    },
-    {
-        "name": "Treasure 20",
-        "category": [ "Treasures" ],
-        "requires": "|Treasure:20|"
-    },
-    {
-        "name": "Treasure 25",
-        "category": [ "Treasures" ],
-        "region": "Hero's Hideaway",
-        "requires": "|Treasure:25|"
-    },
-    {
-        "name": "Treasure 30",
-        "category": [ "Treasures" ],
-        "region": "Hero's Hideaway",
-        "requires": "|Treasure:30|",
-        "place_item": [ "1 Crash Landing" ]
-    },
-    {
-        "name": "The End",
-        "requires": "|1 Crash Landing|",
-        "region": "Hero's Hideaway",
-        "victory": true
+        {
+            "name": "Dandori Battle Training 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Corgwin| and |Battle Leafling|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Dandori Battle Training 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Corgwin| and |Battle Leafling:3|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Dandori Battle Training 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Corgwin| and |Battle Leafling:All|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Dandori Battle Training 4",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Corgwin| and |Battle Leafling:All|",
+            "category": ["Side Missions"]
+        },
 
-    }
-]
+        {
+            "name": "Cure the Leaflings 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Bernard| and |@Cured:6|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Cure the Leaflings 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Bernard| and |@Cured:9|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Cure the Leaflings 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Bernard| and |@Cured:12|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Cure the Leaflings 4",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Bernard| and |@Cured:15|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Cure the Leaflings 5",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Bernard| and |@Cured:21|",
+            "category": ["Side Missions"]
+        },
+
+        {
+            "name": "Beat Dandori Challenge 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Jin| and |Dandori Leafling:1|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Beat Dandori Challenge 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Jin| and |Dandori Leafling:3|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Beat Dandori Challenge 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Jin| and |Dandori Leafling:6|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Beat Dandori Challenge 4",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Jin| and |Dandori Leafling:All|",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Beat Dandori Challenge 5",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 30","value": {"Material": 30}}],
+            "requires": "|Jin| and |Dandori Leafling:All|",
+            "category": ["Side Missions"]
+        },
+
+        {
+            "name": "Precious Scientists",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 50","value": {"Material": 50}}],
+            "requires": "|Chet| and |François| and |Pitunia| and |Sy| and |Osa| and |Kit| and |Twyla| and |Sammy| and |Komo| and |Ren|",
+            "category": ["Side Missions"]
+        },
+
+        {
+            "name": "You vs. Planet 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Patch| and {TODO(Track Possible Enemy Kill 100)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "You vs. Planet 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Patch| and {TODO(Track Possible Enemy Kill 300)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "You vs. Planet 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Patch| and {TODO(Track Possible Enemy Kill 1000)}",
+            "category": ["Side Missions"]
+        },
+
+        {
+            "name": "A Tour Without Tourists",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 50","value": {"Material": 50}}],
+            "requires": "|Chewy| and |Sheeba| and |Keesh| and |Kaia| and |Mika| and |Molly| and |Lapi| and |Boris| and |Horatio| and |Santi|",
+            "category": ["Side Missions"]
+        },
+
+        {
+            "name": "Employer at Large!",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 50","value": {"Material": 50}}],
+            "requires": "|Kayz| and |Chowder|",
+            "category": ["Side Missions"]
+        },
+
+        {
+            "name": "Fit for a Feast 1",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Louie| and {TODO(Make Event for 4 Dwarf Bulborb)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Fit for a Feast 2",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Louie| and {TODO(Make Event for 2 Yellow Wollyhops)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Fit for a Feast 3",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Louie| and {TODO(Make Event for 1 Peckish Aristocrab)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Fit for a Feast 4",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Louie| and {TODO(Make Event for 1 Fiery Bulblax)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Fit for a Feast 5",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Louie| and {TODO(Make Event for 1 Giant Breadbug)}",
+            "category": ["Side Missions"]
+        },
+        {
+            "name": "Fit for a Feast 6",
+            "region": "Rescue Command Post",
+            "create_event": [{"name": "Material Reward 20","value": {"Material": 20}}],
+            "requires": "|Louie| and {TODO(Make Event for 1 Sovereign Bulblax)}",
+            "category": ["Side Missions"]
+        },
+
+
+        {
+            "name": "Complete Rubber Cutie Category",
+            "id": 100,
+            "region": "Rescue Command Post",
+            "requires": "(|@Rubber Cutie:ALL|)",
+            "create_event": [
+                {"name": "Completed Rubber Cutie", "value": {"Sparklium": 75}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Sweet Tooth Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Sweet Tooth:ALL|)",
+            "create_event": [
+                {"name": "Completed Sweet Tooth", "value": {"Sparklium": 231}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Dazzle Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Dazzle:ALL|)",
+            "create_event": [
+                {"name": "Completed Dazzle", "value": {"Sparklium": 558}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Recreation Recollection Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Recreation Recollection:ALL|)",
+            "create_event": [
+                {"name": "Completed Recreation Recollection", "value": {"Sparklium": 132}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Gimme Gimme Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Gimme Gimme:ALL|)",
+            "create_event": [
+                {"name": "Completed Gimme Gimme", "value": {"Sparklium": 124}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Modern Amenities Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Modern Amenities:ALL|)",
+            "create_event": [
+                {"name": "Completed Modern Amenities", "value": {"Sparklium": 87}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Memory Fragment Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Memory Fragment:ALL|)",
+            "create_event": [
+                {"name": "Completed Memory Fragment", "value": {"Sparklium": 180}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Extravagant Breakfast Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Extravagant Breakfast:ALL|)",
+            "create_event": [
+                {"name": "Completed Extravagant Breakfast", "value": {"Sparklium": 153}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Sacred Sphere Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Sacred Sphere:ALL|)",
+            "create_event": [
+                {"name": "Completed Sacred Sphere", "value": {"Sparklium": 330}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Spring Crop Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Spring Crop:ALL|)",
+            "create_event": [
+                {"name": "Completed Spring Crop", "value": {"Sparklium": 141}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Summer Fruit Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Summer Fruit:ALL|)",
+            "create_event": [
+                {"name": "Completed Summer Fruit", "value": {"Sparklium": 174}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Autumn Harvest Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Autumn Harvest:ALL|)",
+            "create_event": [
+                {"name": "Completed Autumn Harvest", "value": {"Sparklium": 138}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Winter Reserve Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Winter Reserve:ALL|)",
+            "create_event": [
+                {"name": "Completed Winter Reserve", "value": {"Sparklium": 123}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Tropical Pickings Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Tropical Pickings:ALL|)",
+            "create_event": [
+                {"name": "Completed Tropical Pickings", "value": {"Sparklium": 186}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Bedtime Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Bedtime:ALL|)",
+            "create_event": [
+                {"name": "Completed Bedtime", "value": {"Sparklium": 144}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Three Generations Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Three Generations:ALL|)",
+            "create_event": [
+                {"name": "Completed Three Generations", "value": {"Sparklium": 168}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Gourmet Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Gourmet:ALL|)",
+            "create_event": [
+                {"name": "Completed Gourmet", "value": {"Sparklium": 291}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Soulful Musician Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Soulful Musician:ALL|)",
+            "create_event": [
+                {"name": "Completed Soulful Musician", "value": {"Sparklium": 558}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Great Adventure Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Great Adventure:ALL|)",
+            "create_event": [
+                {"name": "Completed Great Adventure", "value": {"Sparklium": 189}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Roundabout Express Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Roundabout Express:ALL|)",
+            "create_event": [
+                {"name": "Completed Roundabout Express", "value": {"Sparklium": 300}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Oral Arguments Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Oral Arguments:ALL|)",
+            "create_event": [
+                {"name": "Completed Oral Arguments", "value": {"Sparklium": 354}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Assembled Courage Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Assembled Courage:ALL|)",
+            "create_event": [
+                {"name": "Completed Assembled Courage", "value": {"Sparklium": 135}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Soulful Artist Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Soulful Artist:ALL|)",
+            "create_event": [
+                {"name": "Completed Soulful Artist", "value": {"Sparklium": 216}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Ancient Secrets Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Ancient Secrets:ALL|)",
+            "create_event": [
+                {"name": "Completed Ancient Secrets", "value": {"Sparklium": 735}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Gifts from the Sages Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Gifts from the Sages:ALL|)",
+            "create_event": [
+                {"name": "Completed Gifts from the Sages", "value": {"Sparklium": 183}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Paleontology Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Paleontology:ALL|)",
+            "create_event": [
+                {"name": "Completed Paleontology", "value": {"Sparklium": 234}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Point of Honor Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Point of Honor:ALL|)",
+            "create_event": [
+                {"name": "Completed Point of Honor", "value": {"Sparklium": 78}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Newly Nostalgic Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Newly Nostalgic:ALL|)",
+            "create_event": [
+                {"name": "Completed Newly Nostalgic", "value": {"Sparklium": 438}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Ultra-Hyper-Technology Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Ultra-Hyper-Technology:ALL|)",
+            "create_event": [
+                {"name": "Completed Ultra-Hyper-Technology", "value": {"Sparklium": 192}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Nature's Candy Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Nature's Candy:ALL|)",
+            "create_event": [
+                {"name": "Completed Nature's Candy", "value": {"Sparklium": 216}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Sword & Shield Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Sword & Shield:ALL|)",
+            "create_event": [
+                {"name": "Completed Sword & Shield", "value": {"Sparklium": 67}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Toys of Giants Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Toys of Giants:ALL|)",
+            "create_event": [
+                {"name": "Completed Toys of Giants", "value": {"Sparklium": 327}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Collection Obsession Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Collection Obsession:ALL|)",
+            "create_event": [
+                {"name": "Completed Collection Obsession", "value": {"Sparklium": 48}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+        {
+            "name": "Complete Hands of Fate Category",
+            "region": "Rescue Command Post",
+            "requires": "(|@Hands of Fate:ALL|)",
+            "create_event": [
+                {"name": "Completed Hands of Fate", "value": {"Sparklium": 96}, "visible": true, "category": ["Sparklium"]}
+            ],
+            "category": ["Sparklium"]
+        },
+
+        {
+            "name": "The End",
+            "requires": "|1 Crash Landing|",
+            "region": "Rescue Command Post",
+            "victory": true
+
+        }
+    ]
 }

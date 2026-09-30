@@ -2,5 +2,121 @@
     "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.categories.schema.json",
     "FillerDummy": {
         "hidden": true
+    },
+    "New Game Plus": {
+        "yaml_option": ["New Game Plus"]
+    },
+    "Sparklium": {
+        "sort-key": "Sparklium 00"
+    },
+    "Rubber Cutie": {
+        "sort-key": "Sparklium 01"
+    },
+    "Sweet Tooth": {
+        "sort-key": "Sparklium 02"
+    },
+    "Dazzle": {
+        "sort-key": "Sparklium 03"
+    },
+    "Recreation Recollection": {
+        "sort-key": "Sparklium 04"
+    },
+    "Gimme Gimme": {
+        "sort-key": "Sparklium 05"
+    },
+    "Modern Amenities": {
+        "sort-key": "Sparklium 06"
+    },
+    "Memory Fragment": {
+        "sort-key": "Sparklium 07"
+    },
+    "Extravagant Breakfast": {
+        "sort-key": "Sparklium 08"
+    },
+    "Sacred Sphere": {
+        "sort-key": "Sparklium 09"
+    },
+    "Spring Crop": {
+        "sort-key": "Sparklium 10"
+    },
+    "Summer Fruit": {
+        "sort-key": "Sparklium 11"
+    },
+    "Autumn Harvest": {
+        "sort-key": "Sparklium 12"
+    },
+    "Winter Reserve": {
+        "sort-key": "Sparklium 13"
+    },
+    "Tropical Pickings": {
+        "sort-key": "Sparklium 14"
+    },
+    "Bedtime": {
+        "sort-key": "Sparklium 15"
+    },
+    "Three Generations": {
+        "sort-key": "Sparklium 16"
+    },
+    "Gourmet": {
+        "sort-key": "Sparklium 17"
+    },
+    "Soulful Musician": {
+        "sort-key": "Sparklium 18"
+    },
+    "Great Adventure": {
+        "sort-key": "Sparklium 19"
+    },
+    "Roundabout Express": {
+        "sort-key": "Sparklium 20"
+    },
+    "Oral Arguments": {
+        "sort-key": "Sparklium 21"
+    },
+    "Assembled Courage": {
+        "sort-key": "Sparklium 22"
+    },
+    "Soulful Artist": {
+        "sort-key": "Sparklium 23"
+    },
+    "Ancient Secrets": {
+        "sort-key": "Sparklium 24"
+    },
+    "Gifts from the Sages": {
+        "sort-key": "Sparklium 25"
+    },
+    "Paleontology": {
+        "sort-key": "Sparklium 26"
+    },
+    "Point of Honor": {
+        "sort-key": "Sparklium 27"
+    },
+    "Newly Nostalgic": {
+        "sort-key": "Sparklium 28"
+    },
+    "Ultra-Hyper-Technology": {
+        "sort-key": "Sparklium 29"
+    },
+    "Nature's Candy": {
+        "sort-key": "Sparklium 30"
+    },
+    "Sword & Shield": {
+        "sort-key": "Sparklium 31"
+    },
+    "Toys of Giants": {
+        "sort-key": "Sparklium 32"
+    },
+    "Collection Obsession": {
+        "sort-key": "Sparklium 33"
+    },
+    "Hands of Fate": {
+        "sort-key": "Sparklium 34"
+    },
+
+
+    "Castaways": {
+
+    },
+    "SST Complete": {
+        "hidden": true
     }
 }

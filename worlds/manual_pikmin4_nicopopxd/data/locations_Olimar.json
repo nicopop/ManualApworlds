@@ -1,0 +1,424 @@
+{
+    "$schema": "Schema/Manual.locations.schema.json",
+    "Templates": [
+        {
+            "name": "Flarlic",
+            "region": "region",
+            "create_event":
+            [{"name": "ST Flarlic", "category": ["Pikmins"], "visible": true}],
+            "category": [ "Region" ]
+        },
+        {
+            "name": "Treasure",
+            "create_event": [
+                {"name": "Treasure", "value": {"Sparklium": 0}, "visible": true,
+                "category": ["Sparklium", "Serie", "X Complete"]}
+            ]
+        },
+        {
+            "name": "Rescue",
+            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "X Complete"]}]
+        },
+
+        {
+            "name": "Beat Battle",
+            "create_event": [
+                {"name": "Battle Leafling", "visible": true, "category": ["Leafling", "X Complete"]},
+                {"name": "Material Pile","value": {"Material": 30}}
+            ]
+        },
+        {
+            "name": "Beat Dandori",
+            "create_event": [
+                {"name": "Dandori Leafling", "visible": true, "category": ["Leafling", "X Complete"]},
+                {"name": "Material Reward 30","value": {"Material": 30}}
+            ]
+        }
+    ],
+    "data": [
+        {
+            "name": "Shipwreck Tale Begins",
+            "region": "Shipwreck Tale",
+            "create_event": [{"name": "ST Red Onion", "visible": true, "category": ["Pikmins"]}]
+        },
+        {
+            "name": "ST SST Yellow Onion",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "",
+            "create_event": [{"name": "ST Yellow Onion", "visible": true, "category": ["Pikmins"]}]
+        },
+        {
+            "name": "ST SST East Flarlic",
+            "region": "ST Sun-Speckled Terrace",
+            "create_event": [
+                {"name": "ST Flarlic", "category": ["ST Pikmins"], "visible": true}
+            ],
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": ""
+        },
+        {
+            "name": "ST SST West Flarlic",
+            "region": "ST Sun-Speckled Terrace",
+            "create_event": [
+                {"name": "ST Flarlic", "category": ["ST Pikmins"], "visible": true}
+            ],
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "|ST Flarlic:2| or |ST Boost Potion|"
+        },
+
+        {
+            "name": "ST SST East Bridge Built",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": ""
+        },
+        {
+            "name": "ST SST West Bridge Built",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": ""
+        },
+        {
+            "name": "ST SST West Ramp Built",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": ""
+        },
+
+        {
+            "name": "ST SST Bag Crushed",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "|ST Flarlic:1|"
+        },
+        {
+            "name": "ST SST SandCastle Wall Destroyed",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": ""
+        },
+
+        {
+            "name": "ST SST Electric Wall Destroyed",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{ElectricalGate(true)}"
+        },
+
+        {
+            "name": "ST SST South-East Repair-Type Bolt",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "",
+            "place_item": [ "Ship Part" ]
+        },
+        {
+            "name": "ST SST South-West Pot Treasure",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "|Moss| and |Moss Charge Pots|",
+            "place_item": [ "Ship Part" ]
+        },
+        {
+            "name": "ST SST North-East Extraordinary Bolt",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "",
+            "place_item": [ "Ship Part" ]
+        },
+        {
+            "name": "ST SST North-West Spider Automatic Gear",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "",
+            "place_item": [ "Ship Part" ]
+        },
+        {
+            "name": "ST SST North Stick Whimsical Radar",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "",
+            "place_item": [ "Ship Part" ]
+        },
+        {
+            "name": "ST SST South-East Spider Treasure",
+            "region": "ST Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{Pikmin(ST Yellow, 30)} and |Moss| and |Moss Charge Pots|",
+            "place_item": [ "Ship Part" ]
+        },
+
+        {
+            "name": "ST BA Yellow Onion",
+            "region": "ST Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ],
+            "_comment": "Will probably add requirements later to restrict which onion you can get",
+            "create_event": [{"name": "ST Yellow Onion", "visible": true, "category": ["Pikmins"]}],
+            "requires": ""
+        },
+        {
+            "name": "ST BA Blue Onion",
+            "region": "ST Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ],
+            "create_event": [{"name": "ST Blue Onion", "visible": true, "category": ["Pikmins"]}],
+            "requires": ""
+        },
+        {
+            "name": "ST BA North Flarlic",
+            "region": "ST Blossoming Arcadia",
+            "create_event": [
+                {"name": "ST Flarlic", "category": ["ST Pikmins"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "ST BA South Flarlic",
+            "region": "ST Blossoming Arcadia",
+            "create_event": [
+                {"name": "ST Flarlic", "category": ["ST Pikmins"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+
+        {
+            "name": "ST BA Burn Both Wheat Walls in Starting Area",
+            "category": [ "Blossoming Arcadia" ],
+            "region": "ST Blossoming Arcadia"
+        },
+        {
+            "name": "ST BA Light All The Fires",
+            "category": [ "Blossoming Arcadia" ],
+            "region": "ST Blossoming Arcadia"
+        },
+        {
+            "name": "ST BA Burn All The Wheat Walls",
+            "category": [ "Blossoming Arcadia" ],
+            "region": "ST Blossoming Arcadia"
+        },
+        {
+            "name": "ST BA Electric Wall Destroyed",
+            "category": [ "Blossoming Arcadia" ],
+            "region": "ST Blossoming Arcadia",
+            "requires": "{ElectricalGate(true)}"
+        },
+        {
+            "name": "ST BA Reinforced Wall Destroyed",
+            "category": [ "Blossoming Arcadia" ],
+            "region": "ST Blossoming Arcadia",
+            "requires": "|ST Bombs|"
+        },
+
+        {
+            "name": "ST BA Reinforced Wall Destroyed 2",
+            "category": [ "Blossoming Arcadia" ],
+            "region": "ST Blossoming Arcadia",
+            "requires": "|ST Bombs|"
+        },
+
+        {
+            "name": "ST BA Met Moss",
+            "category": [ "Blossoming Arcadia" ],
+            "place_item": [ "Moss" ],
+            "region": "ST Blossoming Arcadia"
+        },
+        {
+            "name": "ST BA Kill BigBird",
+            "category": [ "Blossoming Arcadia" ],
+            "_comment": "adding requirement so the rando doesn't make you fight this with just the starting 20 pikmins",
+            "requires": "|ST Flarlic:2| or |ST Boost Potion|",
+            "region": "ST Blossoming Arcadia"
+        },
+        {
+            "name": "ST BA Kill The Walker",
+            "category": [ "Blossoming Arcadia" ],
+            "_comment": "adding requirement so the rando doesn't make you fight this with just the starting 20 pikmins",
+            "requires": "|ST Flarlic:2| or |ST Boost Potion|",
+            "region": "ST Blossoming Arcadia"
+        },
+
+        {
+            "name": "ST BA ClimbingWall Built",
+            "region": "ST Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "ST BA Bridge Built",
+            "region": "ST Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "ST BA Ramp Built",
+            "region": "ST Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ]
+        },
+
+        {
+            "name": "ST BA West Base Hill Extraordinary Bolt",
+            "region": "ST Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "",
+            "place_item": [ "Ship Part" ]
+        },
+        {
+            "name": "ST BA North Sprinkler Extraordinary Bolt",
+            "region": "ST Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ],
+            "_comment": "TODO Check if requires more than 20 pikmin",
+            "requires": "{Pikmin(ST Blue)}",
+            "place_item": [ "Ship Part" ]
+        },
+        {
+            "name": "ST BA Center Toy Automatic Gear",
+            "region": "ST Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "",
+            "place_item": [ "Ship Part" ]
+        },
+        {
+            "name": "ST BA East Flower-Frog Repair-Type Bolt",
+            "region": "ST Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "",
+            "place_item": [ "Ship Part" ]
+        },
+        {
+            "name": "ST BA Center Base Hill Pot Omega Stabilizer",
+            "region": "ST Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "|ST Bombs| and (({Pikmin(ST Yellow)} or (|Moss| and |Moss Charge Walls|))",
+            "place_item": [ "Ship Part" ]
+        },
+        {
+            "name": "ST BA Close To Walker Boss treasure",
+            "region": "ST Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "",
+            "place_item": [ "Ship Part" ]
+        },
+
+
+        {
+            "name": "ST SS tmp 1",
+            "region": "ST Serene Shores",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+        {
+            "name": "ST SS tmp 2",
+            "region": "ST Serene Shores",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+        {
+            "name": "ST SS tmp 3",
+            "region": "ST Serene Shores",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+        {
+            "name": "ST SS tmp 4",
+            "region": "ST Serene Shores",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+        {
+            "name": "ST SS tmp 5",
+            "region": "ST Serene Shores",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+        {
+            "name": "ST SS tmp 6",
+            "region": "ST Serene Shores",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+        {
+            "name": "ST SS tmp 7",
+            "region": "ST Serene Shores",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+
+
+        {
+            "name": "ST HH tmp 1",
+            "region": "ST Hero's Hideaway",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+        {
+            "name": "ST HH tmp 2",
+            "region": "ST Hero's Hideaway",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+        {
+            "name": "ST HH tmp 3",
+            "region": "ST Hero's Hideaway",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+        {
+            "name": "ST HH tmp 4",
+            "region": "ST Hero's Hideaway",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+        {
+            "name": "ST HH tmp 5",
+            "region": "ST Hero's Hideaway",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+        {
+            "name": "ST HH tmp 6",
+            "region": "ST Hero's Hideaway",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+        {
+            "name": "ST HH tmp 7",
+            "region": "ST Hero's Hideaway",
+            "category": [ "Serene Shores" ],
+            "requires": ""
+        },
+
+        {
+            "name": "ST Treasure 5",
+            "category": [ "Treasures" ],
+            "requires": "|Ship Part:5|"
+        },
+        {
+            "name": "ST Treasure 10",
+            "category": [ "Treasures" ],
+            "requires": "|Ship Part:10|"
+        },
+        {
+            "name": "ST Treasure 15",
+            "category": [ "Treasures" ],
+            "requires": "|Ship Part:15|"
+        },
+        {
+            "name": "ST Treasure 20",
+            "category": [ "Treasures" ],
+            "requires": "|Ship Part:20|"
+        },
+        {
+            "name": "ST Treasure 25",
+            "category": [ "Treasures" ],
+            "region": "ST Hero's Hideaway",
+            "requires": "|Ship Part:25|"
+        },
+        {
+            "name": "ST Treasure 30",
+            "category": [ "Treasures" ],
+            "region": "ST Hero's Hideaway",
+            "requires": "|Ship Part:30|",
+            "place_item": [ "1 Crash Landing" ]
+        }
+    ]
+}

@@ -1,22 +1,134 @@
 {
     "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.regions.schema.json",
+    "Rescue Command Post": {
+        "starting": true,
+        "connects_to": ["Sun-Speckled Terrace", "Blossoming Arcadia", "Serene Shores", "Hero's Hideaway", "Shipwreck Tale", "Giant's Hearth", "Primordial Thicket"]
+    },
     "Sun-Speckled Terrace":
     {
-        "starting": true,
-        "connects_to": [ "Blossoming Arcadia", "Serene Shores"]
+        "connects_to": ["Last-Frost Cavern", "Industrial Maze", "Hectic Hollows", "Crackling Cauldron",
+         "Sun-Speckled Terrace South", "Sun-Speckled Terrace NorthWest", "Sun-Speckled Terrace South Island", "SST Night Expeditions"],
+        "requires": "{EventValue(Sparklium:300)}"
     },
+    "Sun-Speckled Terrace South":
+    {
+        "connects_to": [],
+        "entrance_requires": {"Sun-Speckled Terrace": "{ElectricalGate()}"},
+        "requires": ""
+    },
+    "Sun-Speckled Terrace South Island":
+    {
+        "connects_to": [],
+        "requires": "{Build()} and ({CanLiftOverWater(30, 1)})"
+    },
+    "Sun-Speckled Terrace NorthWest":
+    {
+        "_comment": "OtherSide of North Bridge",
+        "connects_to": ["Sun-Speckled Terrace South", "Aquiferous Summit"],
+        "requires": "{Build()}"
+    },
+    "SST Night Expeditions":{
+        "requires": "|Yonny|"
+    },
+    "Last-Frost Cavern": {
+        "connects_to": [],
+        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
+        "requires": ""
+    },
+    "Industrial Maze": {
+        "connects_to": ["Industrial Maze Post Electrical Gate"],
+        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
+        "requires": ""
+    },
+    "Industrial Maze Post Electrical Gate": {
+        "connects_to": [],
+        "requires": "{ElectricalGate()}"
+    },
+    "Hectic Hollows": {
+        "connects_to": [],
+        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
+        "requires": ""
+    },
+    "Crackling Cauldron": {
+        "connects_to": ["Crackling Cauldron Post Electrical Gate"],
+        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
+        "requires": ""
+    },
+    "Crackling Cauldron Post Electrical Gate": {
+        "connects_to": [],
+        "requires": "{ElectricalGate()}"
+    },
+    "Aquiferous Summit": {
+        "connects_to": ["Aquiferous Summit Floor 2"],
+        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
+        "requires": ""
+    },
+    "Aquiferous Summit Floor 2": {
+        "connects_to": ["Aquiferous Summit Floor 2 Upper"],
+        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
+        "requires": "{FreezeWater(10, True)}"
+    },
+    "Aquiferous Summit Floor 2 Past FireFloor": {
+        "connects_to": ["Floor 2 Past Stairs"],
+        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
+        "requires": "{FireFloor()}"
+    },
+    "Aquiferous Summit Floor 2 Past Stairs": {
+        "connects_to": ["Sun-Speckled Terrace Post Aquiferous Summit"],
+        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
+        "requires": "{Build()}"
+    },
+    "Sun-Speckled Terrace Post Aquiferous Summit":
+    {
+        "_comment": "OtherSide of North Bridge",
+        "connects_to": [],
+        "requires": ""
+    },
+
     "Blossoming Arcadia": {
-        "connects_to": [ "Sun-Speckled Terrace", "Serene Shores" ],
-        "_comment": "TODO convert to Event ItemValue",
-        "requires": "|Treasure:2|"
+        "connects_to": [],
+        "requires": "{EventValue(Sparklium:1500)}"
     },
     "Serene Shores": {
-        "connects_to": [ "Sun-Speckled Terrace", "Blossoming Arcadia", "Hero's Hideaway" ],
-        "requires": "|Treasure:8|"
+        "connects_to": [  ],
+        "requires": "{EventValue(Sparklium:4000)}"
     },
     "Hero's Hideaway":
     {
         "connects_to": [],
-        "requires": "|Treasure:23|"
+        "requires": "{EventValue(Sparklium:7000)} and |Bernard|"
+    },
+    "Giant's Hearth":
+    {
+        "connects_to": [],
+        "requires": "{EventValue(Sparklium:11000)} and |Olimar|"
+    },
+    "Primordial Thicket":
+    {
+        "connects_to": [],
+        "requires": "{EventValue(Sparklium:13000)}"
+    },
+    "Shipwreck Tale":
+    {
+        "connects_to": ["ST Sun-Speckled Terrace", "ST Blossoming Arcadia", "ST Serene Shores", "ST Hero's Hideaway"],
+        "requires": "|Olimar|"
+    },
+    "ST Sun-Speckled Terrace":
+    {
+        "starting": true,
+        "connects_to": []
+    },
+    "ST Blossoming Arcadia": {
+        "connects_to": [],
+        "requires": "|Ship Part:2| and {TODO(Create Events for ship parts)}"
+    },
+    "ST Serene Shores": {
+        "connects_to": [],
+        "requires": "|Ship Part:8|"
+    },
+    "ST Hero's Hideaway":
+    {
+        "connects_to": [],
+        "requires": "|Ship Part:23|"
     }
 }

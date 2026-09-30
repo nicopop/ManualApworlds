@@ -1,0 +1,48 @@
+{
+    "$schema": "Schema/Manual.locations.schema.json",
+    "Templates": [
+        {
+            "name": "Flarlic",
+            "region": "region",
+            "create_event": [{"name": "Flarlic", "category": ["Pikmins", "X Complete"], "visible": true}],
+            "category": [ "Region" ]
+        },
+        {
+            "name": "Treasure",
+            "create_event": [
+                {"name": "Treasure", "value": {"Sparklium": 0}, "visible": true,
+                "category": ["Sparklium", "Serie", "X Complete"]}
+            ]
+        },
+        {
+            "name": "Rescue",
+            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "X Complete"]}]
+        },
+
+        {
+            "name": "Beat Battle",
+            "create_event": [
+                {"name": "Battle Leafling", "visible": true, "category": ["Leafling", "SST Complete"]},
+                {"name": "Material Reward 30","value": {"Material": 30}}
+            ]
+        },
+        {
+            "name": "Beat Dandori",
+            "create_event": [
+                {"name": "Dandori Leafling", "visible": true, "category": ["Leafling", "SST Complete"]},
+                {"name": "Material Reward 30","value": {"Material": 30}}
+            ]
+        }
+    ],
+    "data": [
+        {
+            "name": "BA TMP Treasure",
+            "region": "Blossoming Arcadia",
+            "create_event": [
+                {"name": "Treasure", "value": {"Sparklium": 1000}, "visible": true,
+                "category": ["Sparklium", "BA Complete"]},
+                {"name": "Olimar", "visible": true, "category": ["Castaways", "X Complete"]}
+            ]
+        }
+    ]
+}

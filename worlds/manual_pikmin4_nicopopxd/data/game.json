@@ -6,5 +6,16 @@
     "filler_item_name": "Nothing",
     "glitches_item_name": "[UT OOL]",
     "death_link": true,
-    "unused_goals_are_locations": false
+    "unused_goals_are_locations": false,
+    "starting_items": [
+        {
+            "items": ["Skill Buff", "Skill Chomp", "Skill Rush", "Skill Dig", "Skill Command"],
+            "yaml_option": ["New Game Plus"]
+        },
+        {
+            "item_categories": ["Pikmins"],
+            "random": 1,
+            "yaml_option": ["New Game Plus"]
+        }
+    ]
 }

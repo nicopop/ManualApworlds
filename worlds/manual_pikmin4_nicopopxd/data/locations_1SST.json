@@ -1,0 +1,554 @@
+{
+    "$schema": "Schema/Manual.locations.schema.json",
+    "data": [
+        {
+            "name": "SST Dirt Wall Destroyed",
+            "region": "Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Build East Bridge",
+            "region": "Sun-Speckled Terrace",
+            "create_event": [{"name": "Built Something"}],
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{Build()}"
+        },
+        {
+            "name": "SST Lesser Mock Bottom",
+            "region": "Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "create_event": [
+                {"name": "Lesser Mock Bottom", "value": {"Sparklium": 40}, "visible": true,
+                "category": ["Sparklium", "Summer Fruit", "SST Complete"]}
+            ]
+        },
+        {
+            "name": "SST Aspiration-Ritual Ball",
+            "region": "Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "create_event": [
+                {"name": "Aspiration-Ritual Ball", "value": {"Sparklium": 80}, "visible": true,
+                "category": ["Sparklium", "Toys of Giants", "SST Complete"]}
+            ]
+        },
+        {
+            "name": "SST Lower the North Bridge",
+            "region": "Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST North Flarlic",
+            "region": "Sun-Speckled Terrace",
+            "create_event": [{"name": "Flarlic","category": ["Pikmins", "SST Complete"], "visible": true}],
+            "requires": "{Pikmin(Yellow)}",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Temporal Mechanism",
+            "region": "Sun-Speckled Terrace",
+            "create_event": [
+                {"name": "Temporal Mechanism", "value": {"Sparklium": 110}, "visible": true,
+                "category": ["Sparklium", "Great Adventure", "SST Complete"]}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST North Dirt Wall Destroyed",
+            "region": "Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Push Central Paper Bag",
+            "region": "Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Double Dragon-Eyed Scope",
+            "region": "Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "create_event": [
+                {"name": "Double Dragon-Eyed Scope", "value": {"Sparklium": 180}, "visible": true,
+                "category": ["Sparklium", "Great Adventure", "SST Complete"]}
+            ]
+        },
+        {
+            "name": "SST Sunseed Berry",
+            "description": "Strawberry",
+            "region": "Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "create_event": [
+                {"name": "Sunseed Berry", "value": {"Sparklium": 70}, "visible": true,
+                "category": ["Sparklium", "Spring Crop", "SST Complete"]}
+            ]
+        },
+        {
+            "name": "SST Orb of Destruction",
+            "description": "Baseball",
+            "region": "Sun-Speckled Terrace",
+            "category": [ "Sun-Speckled Terrace" ],
+            "create_event": [
+                {"name": "Orb of Destruction", "value": {"Sparklium": 150}, "visible": true,
+                "category": ["Sparklium", "Recreation Recollection", "SST Complete"]}
+            ]
+        },
+        {
+            "name": "SST Build North Bridge",
+            "region": "Sun-Speckled Terrace",
+            "create_event": [{"name": "Built Something"}],
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{Build()}"
+        },
+        {
+            "name": "SST Child of the Earth",
+            "description": "Potato",
+            "region": "Sun-Speckled Terrace NorthWest",
+            "category": [ "Sun-Speckled Terrace" ],
+            "create_event": [
+                {"name": "Child of the Earth", "value": {"Sparklium": 60}, "visible": true,
+                "category": ["Sparklium", "Nature's Candy", "SST Complete"]}
+            ]
+        },
+
+        {
+            "name": "SST Push West Paper Bag",
+            "region": "Sun-Speckled Terrace Post Aquiferous Summit",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Talisman of Life",
+            "description": "Moon",
+            "create_event": [
+                {"name": "Talisman of Life Moon", "value": {"Sparklium": 40},
+                "category": ["Sparklium", "Hands of Fate", "SST Complete"], "visible": true}
+            ],
+            "region": "Sun-Speckled Terrace Post Aquiferous Summit",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Fire-Breathing Feast",
+            "description": "Dragonfruit",
+            "create_event": [
+                {"name": "Fire-Breathing Feast", "value": {"Sparklium": 170},
+                "category": ["Sparklium", "Tropical Pickings", "SST Complete"], "visible": true}
+            ],
+            "region": "Sun-Speckled Terrace Post Aquiferous Summit",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Snack Bean",
+            "description": "Peanut",
+            "create_event": [
+                {"name": "Snack Bean", "value": {"Sparklium": 30},
+                "category": ["Sparklium", "Nature's Candy", "SST Complete"], "visible": true}],
+            "region": "Sun-Speckled Terrace Post Aquiferous Summit",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+
+        {
+            "name": "SST Push South Paper Bag",
+            "region": "Sun-Speckled Terrace South",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Crush South Paper Bag",
+            "region": "Sun-Speckled Terrace South",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Get the Yellow Onion",
+            "region": "Sun-Speckled Terrace South",
+            "create_event": [{"name": "Yellow Onion", "visible": true, "category": ["Pikmins", "SST Complete"]}],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Satellite Shield",
+            "region": "Sun-Speckled Terrace South",
+            "create_event": [
+                {"name": "Satellite Shield", "value": {"Sparklium": 40},
+                "category": ["Sparklium", "Sword & Shield", "SST Complete"], "visible": true}],
+            "requires": "{Pikmin(Yellow)}",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Perforated Raft x2",
+            "region": "Sun-Speckled Terrace South",
+            "create_event": [
+                {"name": "Perforated Raft", "value": {"Sparklium": 10},
+                "category": ["Sparklium", "Modern Amenities", "SST Complete"], "visible": true},
+                {"name": "Perforated Raft", "value": {"Sparklium": 10},
+                "category": ["Sparklium", "Modern Amenities", "SST Complete"], "visible": true}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Build South Bridge",
+            "region": "Sun-Speckled Terrace South",
+            "create_event": [{"name": "Built Something"}],
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{Build()}"
+        },
+        {
+            "name": "SST Beat Trial Run",
+            "_comment": "|Battle Leafling:1|",
+            "create_event": [
+                {"name": "Battle Leafling", "visible": true, "category": ["Leafling", "SST Complete"]},
+                {"name": "Material Reward 30","value": {"Material": 30}}
+            ],
+            "requires": "{Build()}",
+            "region": "Sun-Speckled Terrace South",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Lower South Bridge",
+            "region": "Sun-Speckled Terrace South",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{Build()} and {Pikmin(Yellow)}"
+        },
+        {
+            "name": "SST Mysterious Carriage",
+            "description": "Pumpkin",
+            "region": "Sun-Speckled Terrace South",
+            "create_event": [
+                {"name": "Mysterious Carriage", "value": {"Sparklium": 150},
+                "category": ["Sparklium", "Nature's Candy", "SST Complete"], "visible": true}
+            ],
+            "requires": "{CanLift(30)}",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+
+        {
+            "name": "SST Beat Dandori Day Care",
+            "_comment": "|Dandori Leafling:1|",
+            "create_event": [
+                {"name": "Dandori Leafling", "visible": true, "category": ["Leafling", "SST Complete"]},
+                {"name": "Material Reward 30","value": {"Material": 30}}
+            ],
+            "requires": "{FreezeWater(20, True)}",
+            "region": "Sun-Speckled Terrace South",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+
+        {
+            "name": "SST Build Ladder",
+            "region": "Sun-Speckled Terrace South Island",
+            "requires": "",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "SST Get the Blue Onion",
+            "region": "Sun-Speckled Terrace South Island",
+            "create_event": [{"name": "Blue Onion", "visible": true, "category": ["Pikmins", "SST Complete"]}],
+            "_comment": "CanLiftOverWater since 30 required for Freezing and 20 are needed to lift it",
+            "requires": "({CanLiftOverWater(30, 20)})",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+
+
+        {
+            "name": "AS1 Talisman of Life",
+            "id": 100,
+            "description": "Crane",
+            "create_event": [
+                {"name": "Talisman of Life (Crane)", "value": {"Sparklium": 40},
+                "category": ["Sparklium", "Hands of Fate", "SST Complete"], "visible": true},
+                {"name": "Ice Pikmin Source", "category": ["Pikmins"]}
+            ],
+            "region": "Aquiferous Summit",
+            "requires": "{Pikmin(Ice)}",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "AS2 Paper Bag Lowered",
+            "region": "Aquiferous Summit Floor 2 Past FireFloor",
+            "requires": "",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "AS2 Skin of the Phoenix",
+            "description": "Origami Crane",
+            "create_event": [
+                {"name": "Skin of the Phoenix", "value": {"Sparklium": 40},
+                "category": ["Sparklium", "Toys of Giants", "SST Complete"], "visible": true}
+            ],
+            "region": "Aquiferous Summit Floor 2 Past FireFloor",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "AS2 Gold Pile",
+            "create_event": [
+                {"name": "Nuggets", "value": {"Sparklium": 50},
+                "category": ["Sparklium", "Collection Obsession", "SST Complete"], "visible": true}
+            ],
+            "region": "Aquiferous Summit Floor 2 Past FireFloor",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "AS2 Memory Fragment",
+            "description": "Puzzle Piece",
+            "create_event": [
+                {"name": "Memory Fragment", "value": {"Sparklium": 50},
+                "category": ["Sparklium", "Memory Fragment", "SST Complete"], "visible": true}
+            ],
+            "region": "Aquiferous Summit Floor 2 Past FireFloor2",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "AS2 Build Stairs",
+            "region": "Aquiferous Summit Floor 2 Past FireFloor",
+            "create_event": [{"name": "Built Something"}],
+            "requires": "{Build()}",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "AS2 Rescue",
+            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
+            "region": "Aquiferous Summit Floor 2 Past Stairs",
+            "requires": "{Pikmin(Ice)}",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+
+
+        {
+            "name": "LFC Director of Destiny",
+            "description": "Compass",
+            "id": 150,
+            "create_event": [
+                {"name": "Director of Destiny", "value": {"Sparklium": 110},
+                "category": ["Sparklium", "Great Adventure", "SST Complete"], "visible": true},
+                {"name": "Ice Pikmin Source", "category": ["Pikmins"]}
+            ],
+            "region": "Last-Frost Cavern",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "LFC Refreshing Goo",
+            "description": "Paint",
+            "create_event": [{"name": "Refreshing Goo", "value": {"Sparklium": 80},
+            "category": ["Sparklium", "Soulful Artist", "SST Complete"], "visible": true}],
+            "region": "Last-Frost Cavern",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "LFC Push Paper Bag",
+            "region": "Last-Frost Cavern",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "LFC Flarlic",
+            "region": "Last-Frost Cavern",
+            "create_event": [{"name": "Flarlic", "category": ["Pikmins", "SST Complete"], "visible": true}],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "LFC Rescue",
+            "region": "Last-Frost Cavern",
+            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{Pikmin(Ice)}"
+        },
+
+
+        {
+            "name": "IM1 Memory Fragment",
+            "id": 200,
+            "description": "Puzzle Piece",
+            "region": "Industrial Maze",
+            "create_event": [
+                {"name": "Memory Fragment", "value": {"Sparklium": 50},
+                "category": ["Sparklium", "Memory Fragment", "SST Complete"], "visible": true},
+                {"name": "Yellow Pikmin Source", "category": ["Pikmins"]}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "IM1 Personal-Injury Plank",
+            "description": "Skateboard",
+            "region": "Industrial Maze",
+            "create_event": [
+                {"name": "Personal-Injury Plank", "value": {"Sparklium": 80}, "visible": true,
+                "category": ["Sparklium", "Ultra-Hyper-Technology", "SST Complete"]}
+            ],
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{Pikmin(Yellow)}"
+        },
+        {
+            "name": "IM1 Dirt Wall Destroyed",
+            "region": "Industrial Maze",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+
+        {
+            "name": "IM2 Stately Rubber Cutie",
+            "description": "Ducky",
+            "region": "Industrial Maze",
+            "create_event": [
+                {"name": "Stately Rubber Cutie", "value": {"Sparklium": 20}, "visible": true,
+                "category": ["Sparklium", "Rubber Cutie", "SST Complete"]}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "IM2 Push Paper Bag",
+            "region": "Industrial Maze",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "IM2 Detective's Truth Seeker",
+            "region": "Industrial Maze",
+            "create_event": [
+                {"name": "Detective's Truth Seeker", "value": {"Sparklium": 230},
+                "category": ["Sparklium", "Great Adventure", "SST Complete"], "visible": true}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "IM2 Electric Wall Destroyed",
+            "region": "Industrial Maze Post Electrical Gate",
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": ""
+        },
+        {
+            "name": "IM2 Unlimited Locomotive",
+            "region": "Industrial Maze Post Electrical Gate",
+            "create_event": [
+                {"name": "Unlimited Locomotive", "value": {"Sparklium": 110},
+                "category": ["Sparklium", "Roundabout Express", "SST Complete"], "visible": true}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "IM2 Rescue",
+            "region": "Industrial Maze Post Electrical Gate",
+            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{Pikmin(Yellow)}"
+        },
+
+        {
+            "name": "HH1 Build Ladder",
+            "id": 250,
+            "region": "Hectic Hollows",
+            "create_event": [
+                {"name": "Ice Pikmin Source", "category": ["Pikmins"], "requires": ""}
+            ],
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{Build()}"
+        },
+        {
+            "name": "HH1 Empty Vase",
+            "region": "Hectic Hollows",
+            "create_event": [
+                {"name": "Empty Vase", "value": {"Sparklium": 150}, "visible": true,
+                "category": ["Sparklium", "Three Generations", "SST Complete"]}
+            ],
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{Pikmin(Ice)}"
+        },
+        {
+            "name": "HH1 Mama Doll Head",
+            "region": "Hectic Hollows",
+            "create_event": [
+                {"name": "Mama Doll Head", "value": {"Sparklium": 150}, "visible": true,
+                "category": ["Sparklium", "Three Generations", "SST Complete"]}
+            ],
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{FreezeWater(10)}"
+        },
+        {
+            "name": "HH2 Rescue",
+            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
+            "region": "Hectic Hollows",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "HH2 Aspiration-Ritual Pole",
+            "region": "Hectic Hollows",
+            "create_event": [
+                {"name": "Aspiration-Ritual Pole", "value": {"Sparklium": 150}, "visible": true,
+                "category": ["Sparklium", "Toys of Giants", "SST Complete"]}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+
+        {
+            "name": "CC1 Deceptive Snack",
+            "id": 300,
+            "region": "Crackling Cauldron",
+            "create_event": [
+                {"name": "Deceptive Snack", "value": {"Sparklium": 40}, "visible": true,
+                "category": ["Sparklium", "Sweet Tooth", "SST Complete"]},
+                {"name": "Yellow Pikmin Source", "category": ["Pikmins"]}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "CC1 Illumination Goo",
+            "description": "Paint",
+            "region": "Crackling Cauldron",
+            "create_event": [
+                {"name": "Illumination Goo", "value": {"Sparklium": 80},
+                "category": ["Sparklium", "Soulful Artist", "SST Complete"], "visible": true}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "CC1 Paper Bag Lowered",
+            "region": "Crackling Cauldron",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "CC1 Electrical Gate Destroyed",
+            "region": "Crackling Cauldron Post Electrical Gate",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "CC1 Dusty Bed",
+            "description": "Eraser",
+            "region": "Crackling Cauldron Post Electrical Gate",
+            "create_event": [
+                {"name": "Dusty Bed", "value": {"Sparklium": 150}, "visible": true,
+                "category": ["Sparklium", "Bedtime", "SST Complete"]}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+
+        {
+            "name": "CC2 Daughter of the Earth",
+            "region": "Crackling Cauldron Post Electrical Gate",
+            "create_event": [
+                {"name": "Daughter of the Earth", "value": {"Sparklium": 110}, "visible": true,
+                "category": ["Sparklium", "Nature's Candy", "SST Complete"]}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "CC2 Dirt Wall broken",
+            "region": "Crackling Cauldron Post Electrical Gate",
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "CC2 S.S Chocolate",
+            "region": "Crackling Cauldron Post Electrical Gate",
+            "create_event": [
+                {"name": "Cookie of Nibbled Circles", "value": {"Sparklium": 40}, "visible": true,
+                "category": ["Sparklium", "Sweet Tooth", "SST Complete"]}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "CC2 Cookie of Nibbled Circles",
+            "region": "Crackling Cauldron Post Electrical Gate",
+            "create_event": [
+                {"name": "Cookie of Nibbled Circles", "value": {"Sparklium": 50}, "visible": true,
+                "category": ["Sparklium", "Sweet Tooth", "SST Complete"]}
+            ],
+            "category": [ "Sun-Speckled Terrace" ]
+        },
+        {
+            "name": "CC2 Rescue",
+            "region": "Crackling Cauldron Post Electrical Gate",
+            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
+            "category": [ "Sun-Speckled Terrace" ]
+        }
+    ]
+}

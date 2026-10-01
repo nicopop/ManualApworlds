@@ -82,7 +82,7 @@ for item in item_table:
     if item.get("description"):
         item_name_to_description[item_name] = item["description"]
 
-item_id_to_name[None] = "__Victory__"
+item_id_to_name[None] = "__Victory__" # type: ignore
 item_name_to_id = {name: id for id, name in item_id_to_name.items()}
 
 

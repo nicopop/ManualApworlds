@@ -1,0 +1,359 @@
+{
+    "$schema": "Schema/Manual.items.schema.json",
+    "data":[
+    {
+        "count": 30,
+        "name": "Ship Part",
+        "_comment": "TODO REPLACE WITH EVENTS",
+        "category": [ "All", "Collectibles" ],
+        "progression_skip_balancing": true
+    },
+
+    {
+        "name": "Charging Horn",
+        "id": 50,
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Scorch Guard",
+        "progression": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Plucking Whistle",
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Idle Counter",
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Rush Boots",
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Anti-Electrifier",
+        "progression": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Thermal Defense",
+        "progression": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Brace Boots",
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Triple Threat",
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Treasure Gauge",
+        "count": 2,
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Gunk Buster",
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Power Whistle",
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Air Armor",
+        "count": 3,
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Tuff Stuff",
+        "count": 3,
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Headlamp",
+        "count": 2,
+        "progression": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Lineup Trumpet",
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+    {
+        "name": "Extra Hand",
+        "useful": true,
+        "category": ["Rescue Gear", "All"]
+    },
+
+    {
+        "name": "Pup Scorch Guard",
+        "progression": true,
+        "category": ["Pup Gear", "All"]
+    },
+    {
+        "name": "Pup Anti-Electrifier",
+        "progression": true,
+        "category": ["Pup Gear", "All"]
+    },
+    {
+        "name": "Pup Tuff Stuff",
+        "count": 3,
+        "useful": true,
+        "category": ["Pup Gear", "All"]
+    },
+    {
+        "name": "Pup Thermal Defense",
+        "progression": true,
+        "category": ["Pup Gear", "All"]
+    },
+    {
+        "name": "Pup Sniff Saver",
+        "progression": true,
+        "category": ["Pup Gear", "All"]
+    },
+    {
+        "name": "Pup Air Armor",
+        "count": 3,
+        "useful": true,
+        "category": ["Pup Gear", "All"]
+    },
+
+
+    {
+        "name": "Skill Buff",
+        "count": 6,
+        "progression": true,
+        "category": ["Pup Skills", "All"]
+    },
+
+    {
+        "name": "Skill Chomp",
+        "count": 6,
+        "useful": true,
+        "category": ["Pup Skills", "All"]
+    },
+    {
+        "name": "Skill Rush",
+        "count": 6,
+        "useful": true,
+        "category": ["Pup Skills", "All"]
+    },
+    {
+        "name": "Skill Doggy-Paddle",
+        "count": 3,
+        "useful": true,
+        "category": ["Pup Skills", "All"]
+    },
+    {
+        "name": "Skill Pluck",
+        "count": 3,
+        "useful": true,
+        "category": ["Pup Skills", "All"]
+    },
+    {
+        "name": "Skill Dig",
+        "count": 3,
+        "useful": true,
+        "category": ["Pup Skills", "All"]
+    },
+    {
+        "name": "Skill Heal",
+        "count": 3,
+        "useful": true,
+        "category": ["Pup Skills", "All"]
+    },
+    {
+        "name": "Skill Command",
+        "count": 3,
+        "useful": true,
+        "category": ["Pup Skills", "All"]
+    },
+
+    {
+        "name": "Bomb Rocks",
+        "progression": true
+    },
+    {
+        "name": "Ice Blasts",
+        "progression": true
+    },
+    {
+        "name": "Mines",
+        "progression": true
+    },
+    {
+        "name": "Trackonators",
+        "progression": true
+    },
+
+    {
+        "name": "Last-Frost Cavern Key",
+        "id": 100,
+        "progression": true,
+        "description": "Unlock A Floor",
+        "category": ["Cavern Keys"]
+    },
+    {
+        "name": "Industrial Maze Key",
+        "count": 2,
+        "progression": true,
+        "description": "Unlock A Floor",
+        "category": ["Cavern Keys"]
+    },
+    {
+        "name": "Hectic Hollows Key",
+        "count": 2,
+        "progression": true,
+        "description": "Unlock A Floor",
+        "category": ["Cavern Keys"]
+    },
+    {
+        "name": "Crackling Cauldron Key",
+        "count": 2,
+        "progression": true,
+        "description": "Unlock A Floor",
+        "category": ["Cavern Keys"]
+    },
+    {
+        "name": "Aquiferous Summit Key",
+        "count": 2,
+        "progression": true,
+        "description": "Unlock A Floor",
+        "category": ["Cavern Keys"]
+    },
+
+
+
+    {
+        "name": "Red Pikmins",
+        "id": 200,
+        "description": "maximum x 10",
+        "count": 10,
+        "progression": true,
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
+    },
+    {
+        "name": "Yellow Pikmins",
+        "description": "maximum x 10",
+        "count": 10,
+        "progression": true,
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
+    },
+    {
+        "name": "Blue Pikmins",
+        "description": "maximum x 10",
+        "count": 10,
+        "progression": true,
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
+    },
+    {
+        "name": "Ice Pikmins",
+        "description": "maximum x 10",
+        "count": 10,
+        "progression": true,
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
+    },
+    {
+        "name": "Rock Pikmins",
+        "description": "maximum x 10",
+        "count": 10,
+        "progression": true,
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
+    },
+    {
+        "name": "Pink Pikmins",
+        "description": "maximum x 10",
+        "count": 10,
+        "progression": true,
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
+    },
+    {
+        "name": "Purple Pikmins",
+        "description": "maximum x 10",
+        "count": 10,
+        "progression": true,
+        "category": [ "Pikmins", "All" ]
+    },
+    {
+        "name": "White Pikmins",
+        "description": "maximum x 10",
+        "count": 10,
+        "progression": true,
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
+    },
+    {
+        "name": "ST Red Pikmins",
+        "description": "maximum x 10",
+        "count": 10,
+        "progression": true,
+        "category": [ "ST Pikmins", "Shipwreck Tale", "All" ]
+    },
+    {
+        "name": "ST Yellow Pikmins",
+        "description": "maximum x 10",
+        "count": 10,
+        "progression": true,
+        "category": [ "ST Pikmins", "Shipwreck Tale", "All" ]
+    },
+    {
+        "name": "ST Blue Pikmins",
+        "description": "maximum x 10",
+        "count": 10,
+        "progression": true,
+        "category": [ "ST Pikmins", "Shipwreck Tale", "All" ]
+    },
+
+    {
+        "name": "Moss Charge Pots",
+        "progression": true,
+        "category": [ "Moss", "Shipwreck Tale", "All" ]
+    },
+    {
+        "name": "Moss Charge Walls",
+        "progression": true,
+        "category": [ "Moss", "Shipwreck Tale", "All" ]
+    },
+    {
+        "name": "Moss Charge Monsters",
+        "useful": true,
+        "category": [ "Moss", "Shipwreck Tale", "All" ]
+    },
+
+    {
+        "name": "ST Boost Potion",
+        "progression": true,
+        "category": [ "All", "Shipwreck Tale", "Equipment" ]
+    },
+    {
+        "name": "Survey Drone",
+        "useful": true,
+        "category": [ "All", "Shipwreck Tale", "Equipment" ]
+    },
+    {
+        "name": "ST Bombs",
+        "progression": true,
+        "category": [ "All", "Shipwreck Tale", "Equipment" ]
+    },
+
+    {
+        "name": "1 Crash Landing",
+        "progression": true,
+        "category": [ "All" ]
+    }
+]
+}

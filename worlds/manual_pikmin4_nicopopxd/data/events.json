@@ -1,0 +1,963 @@
+{
+	"$schema": "Schema/Manual.events.schema.json",
+    "data": [
+        {
+            "name": "NGP",
+            "category": ["New Game Plus"]
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "Free up North",
+            "value": {"Material": 23},
+            "region": "Sun-Speckled Terrace"
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "In water #1",
+            "value": {"Material": 23},
+            "requires": "{Pikmin(Blue)}",
+            "region": "Sun-Speckled Terrace"
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "In water #2",
+            "value": {"Material": 23},
+            "requires": "{Pikmin(Blue)}",
+            "region": "Sun-Speckled Terrace"
+        },
+        {
+            "name": "Material Pile",
+            "value": {"Material": 25},
+            "region": "Sun-Speckled Terrace South"
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "Other side of bridge",
+            "value": {"Material": 26},
+            "requires": "{Build()}",
+            "region": "Sun-Speckled Terrace South"
+        },
+        {
+            "name": "Material Pile",
+            "value": {"Material": 20},
+            "region": "Aquiferous Summit Floor 2",
+            "requires": "{Pikmin(Ice)}"
+        },
+
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 10)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 20)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 40)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 40)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 50)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 60)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 70)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 80)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 90)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 100)}"
+        },
+
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 10)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 20)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 40)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 40)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 50)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 60)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 70)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 80)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 90)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 100)}"
+        },
+
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 10)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 20)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 40)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 40)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 50)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 60)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 70)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 80)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 90)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 100)}"
+        },
+
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 10)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 20)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 40)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 40)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 50)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 60)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 70)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 80)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 90)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 100)}"
+        },
+
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 10)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 20)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 40)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 40)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 50)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 60)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 70)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 80)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 90)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 100)}"
+        },
+
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 10)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 20)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 40)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 40)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 50)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 60)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 70)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 80)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 90)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 100)}"
+        },
+
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 100)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 200)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 400)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 400)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 500)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 600)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 700)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 800)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 900)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 1000)}"
+        },
+
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 10)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 20)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 40)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 40)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 50)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 60)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 70)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 80)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 90)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 100)}"
+        },
+
+
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 10)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 20)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 40)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 40)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 50)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 60)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 70)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 80)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 90)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 100)}"
+        },
+
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 10)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 20)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 40)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 40)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 50)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 60)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 70)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 80)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 90)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 100)}"
+        },
+
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 10)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 20)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 40)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 40)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 50)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 60)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 70)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 80)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 90)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 100)}"
+        },
+
+
+        {
+            "name": "Russ",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "unlock Lab",
+            "requires": "|Rescue:3|",
+            "visible": true
+        },
+        {
+            "name": "Schnauz",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "unlock Appraisal Frenzy side mission",
+            "requires": "|Rescue:4|",
+            "visible": true
+        },
+        {
+            "name": "Kingsly",
+            "category": ["Castaways"], "region": "Castaways",
+            "requires": "|Rescue:5|",
+            "_comment": "Set the World Abloom side mission",
+            "visible": true
+        },
+        {
+            "name": "Dingo",
+            "category": ["Castaways"], "region": "Castaways",
+            "requires": "|Rescue:6|",
+            "_comment": "Investigation Side Missions",
+            "visible": true
+        },
+        {
+            "name": "Dalmo",
+            "category": ["Castaways"], "region": "Castaways",
+            "requires": "|Rescue:7|",
+            "_comment": "All the Little Darlings Side Missions",
+            "visible": true
+        },
+        {
+            "name": "François",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "Friend to All Pikmin and Required to complete Precious Scientists side mission",
+            "requires": "|Rescue:8|",
+            "visible": true
+        },
+        {
+            "name": "Pitunia",
+            "_comment": "Fusing Onion Quests and Required to complete Precious Scientists side mission",
+            "category": ["Castaways"], "region": "Castaways",
+            "requires": "|Rescue:9|",
+            "visible": true
+        },
+        {
+            "name": "Yonny",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "Night Expeditions",
+            "requires": "|Rescue:10|",
+            "visible": true
+        },
+        {
+            "name": "Puddle",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "The Leafling Meet and Greet mission",
+            "requires": "|Rescue:10|",
+            "visible": true
+        },
+        {
+            "name": "Mika",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "Find the Missing Students side mission and Required to complete A Tour without Tourists side mission",
+            "requires": "|Rescue:12|",
+            "visible": true
+        },
+        {
+            "name": "Sy",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "Provides Researching Onions side missions and Required to complete Precious Scientists side mission",
+            "requires": "|Rescue:13|",
+            "visible": true
+        },
+        {
+            "name": "Sheeba",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Find the Missing Students side mission",
+                "Required to complete A Tour without Tourists side mission"
+            ],
+            "requires": "|Rescue:14|",
+            "visible": true
+        },
+        {
+            "name": "Muggs",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Provides Find the Missing TV Crew side mission"
+            ],
+            "requires": "|Rescue:15|",
+            "visible": true
+        },
+        {
+            "name": "Keesh",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Find the Missing Students side mission",
+                "Required to complete A Tour without Tourists side mission"
+            ],
+            "requires": "|Rescue:16|",
+            "visible": true
+        },
+        {
+            "name": "Osa",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Provides Building Goodwill side missions",
+                "Required to complete Precious Scientists side mission"
+            ],
+            "requires": "|Rescue:17|",
+            "visible": true
+        },
+        {
+            "name": "Frisé",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Provides Music of a Past Culture side missions",
+                "Required to complete Find the Missing TV Crew side mission"
+            ],
+            "requires": "|Rescue:18|",
+            "visible": true
+        },
+        {
+            "name": "Kaia",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Find the Missing Students side mission",
+                "Required to complete A Tour without Tourists side mission"
+            ],
+            "requires": "|Rescue:19|",
+            "visible": true
+        },
+        {
+            "name": "Vonda",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Find the Missing TV Crew side mission"
+            ],
+            "requires": "|Rescue:20|",
+            "visible": true
+        },
+        {
+            "name": "Twyla",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Precious Scientists side mission"
+            ],
+            "requires": "|Rescue:21|",
+            "visible": true
+        },
+        {
+            "name": "Don Bergman",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Cure Oatchi main mission"
+            ],
+            "requires": "|Rescue:22|",
+            "visible": true
+        },
+        {
+            "name": "Yorke",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Cure Oatchi main mission"
+            ],
+            "requires": "|Rescue:24|",
+            "visible": true
+        },
+        {
+            "name": "Horatio",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete A Tour without Tourists side mission"
+            ],
+            "requires": "|Rescue:25|",
+            "visible": true
+        },
+        {
+            "name": "Nelle",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Cure Oatchi main mission"
+            ],
+            "requires": "|Rescue:26|",
+            "visible": true
+        },
+        {
+            "name": "Sammy",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Precious Scientists side mission"
+            ],
+            "requires": "|Rescue:27|",
+            "visible": true
+        },
+        {
+            "name": "Wolfgang",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Find the Missing TV Crew side mission"
+            ],
+            "requires": "|Rescue:28|",
+            "visible": true
+        },
+
+        {
+            "name": "Dash",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Provides Cave Delving side missions"
+            ],
+            "requires": "|Battle Leafling Cured:1|",
+            "visible": true
+        },
+        {
+            "name": "Corgwin",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Unlocks additional Dandori Battles",
+                "Provides Dandori Battle Training side missions"
+            ],
+            "requires": "|Battle Leafling Cured:2|",
+            "visible": true
+        },
+        {
+            "name": "Bernard",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Provides Curing the Leaflings side missions",
+                "Required to complete Secure Energy Source main mission",
+                "Unlocks "
+            ],
+            "requires": "|Battle Leafling Cured:3|",
+            "visible": true
+        },
+
+        {
+            "name": "Jin",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "The ability to replay Dandori Challenges.",
+                "The Beat Dandori Challenge mission"
+            ],
+            "requires": "|Leafling Cured:1|",
+            "visible": true
+        },
+        {
+            "name": "Chet",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:2|",
+            "visible": true
+        },
+        {
+            "name": "Patch",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:3|",
+            "visible": true
+        },
+        {
+            "name": "Chewy",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:4|",
+            "visible": true
+        },
+        {
+            "name": "Molly",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:5|",
+            "visible": true
+        },
+        {
+            "name": "Santi",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:6|",
+            "visible": true
+        },
+        {
+            "name": "Kayz",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:7|",
+            "visible": true
+        },
+        {
+            "name": "Kit",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:8|",
+            "visible": true
+        },
+        {
+            "name": "Komo",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:9|",
+            "visible": true
+        },
+        {
+            "name": "Alpin",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:10|",
+            "visible": true
+        },
+        {
+            "name": "Chowder",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:11|",
+            "visible": true
+        },
+        {
+            "name": "Lapi",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:12|",
+            "visible": true
+        },
+        {
+            "name": "Ren",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:13|",
+            "visible": true
+        },
+        {
+            "name": "Boris",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:14|",
+            "visible": true
+        },
+        {
+            "name": "Grace",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:15|",
+            "visible": true
+        },
+        {
+            "name": "Fawks",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:16|",
+            "visible": true
+        },
+        {
+            "name": "Beaux",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:17|",
+            "visible": true
+        }
+    ]
+}

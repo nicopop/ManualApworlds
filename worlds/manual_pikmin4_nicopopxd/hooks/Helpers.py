@@ -1,0 +1,167 @@
+from typing import Optional, Any, TYPE_CHECKING, cast
+from BaseClasses import MultiWorld, Item, Location
+from Options import Choice, OptionSet
+
+if TYPE_CHECKING:
+    from .. import ManualWorld
+
+# Use this if you want to override the default behavior of is_option_enabled
+# Return True to enable the category, False to disable it, or None to use the default behavior
+def before_is_category_enabled(multiworld: MultiWorld, player: int, category_name: str) -> Optional[bool]:
+    world = cast("ManualWorld", multiworld.worlds[player])
+    from ..Helpers import resolve_yaml_option
+    # region cat enabled
+    # you can use the custom set_category_status function to set a player's category enabled status
+    status = get_category_status(world, category_name)
+    if status is None:
+        category_data = world.category_table.get(category_name, {})
+        if category_data.get("yaml_option"):
+            status = resolve_yaml_option(multiworld, player, category_data)
+    return status
+    # endregion
+
+# Use this if you want to override the default behavior of is_option_enabled
+# Return True to enable the item, False to disable it, or None to use the default behavior
+def before_is_item_enabled(multiworld: MultiWorld, player: int, item:  dict[str, Any], check_removed = True) -> Optional[bool]:
+    world = cast("ManualWorld", multiworld.worlds[player])
+
+# region remove_items
+# this let you add an OptionSet in hooks:Options.py where the player list items to be disabled
+# does nothing if the Options doesn't exist
+# Don't forget to either add the 'check_removed = True' to before_is_item_enabled arguments or remove it from this if
+    remove_items: OptionSet | None = getattr(world.options, "remove_items", None)
+    if remove_items is not None and check_removed:
+        if item["name"] in remove_items.value:
+            return False
+# endregion
+
+    return checkobject(multiworld, player, item)
+
+# Use this if you want to override the default behavior of is_option_enabled
+# Return True to enable the location, False to disable it, or None to use the default behavior
+def before_is_location_enabled(multiworld: MultiWorld, player: int, location:  dict[str, Any], check_removed = True) -> Optional[bool]:
+    world = cast("ManualWorld", multiworld.worlds[player])
+
+# region remove_locations
+# this let you add an OptionSet in hooks:Options.py where the player list location to be disabled
+# does nothing if the Options doesn't exist
+# Don't forget to either add the 'check_removed = True' to before_is_item_enabled arguments or remove it from this if
+    remove_locations: OptionSet | None = getattr(world.options, "remove_locations", None)
+    if remove_locations is not None and check_removed:
+        name = cast(str, location["name"])
+        if name in remove_locations.value or name.rstrip(".") in remove_locations.value:
+            # the . suffix let you add variant of location without having major visual difference for the player
+            return False
+# endregion
+    return checkobject(multiworld, player, location)
+
+# Use this if you want to override the default behavior of is_option_enabled
+# Return True to enable the event, False to disable it, or None to use the default behavior
+def before_is_event_enabled(multiworld: MultiWorld, player: int, event:  dict[str, Any]) -> Optional[bool]:
+    location: dict[str, Any] = event
+# region Event enabled?
+# In this Template Events are linked by default with the copied location unless you changes it
+    linked_loc: str|None
+    if (linked_loc := event.get("enabled_with_location")) is not None:
+        if linked_loc: # if left empty don't track based on a location
+            location = multiworld.worlds[player].location_name_to_location[linked_loc]
+    elif (linked_loc := event.get("copy_location")):
+        location = multiworld.worlds[player].location_name_to_location[linked_loc]
+    return before_is_location_enabled(multiworld, player, location, False)
+# endregion
+
+def checkobject(multiworld: MultiWorld, player: int, obj: dict[str, Any]) -> Optional[bool]:
+    """Check if a Manual object as any category enabled/disabled
+
+    Args:
+        multiworld: Multiworld
+        player (int): Player id
+        obj (dict[str, Any]): Manual Object to test
+
+    Returns:
+        Optional[bool]: enabled or not, return None if no category are enable or disabled
+    """
+    world = cast("ManualWorld", multiworld.worlds[player])
+
+    if obj.get("disabled"):
+        return False
+
+    goal: Choice | None = getattr(world.options, "goal", None)
+    if goal is not None:
+        if obj.get("remove_if_goal"):
+            value: str = obj["remove_if_goal"]
+            reverse = False
+            if value.strip().startswith("!"):
+                reverse = True
+                value = value.lstrip("!")
+            target_goal = goal.from_any(value)
+            if (target_goal == goal) != reverse: return False
+
+    resultYes = False
+    resultNo = False
+    categories = obj.get('category', [])
+    for category in categories:
+        result = before_is_category_enabled(multiworld, player, category)
+        if result is not None:
+            if result:
+                resultYes = True
+                break
+            else:
+                resultNo = True
+    if resultYes:
+        return True
+    elif resultNo:
+        return False
+    return None
+
+def InitCategories(world: "ManualWorld"):
+    """Mark categories as Enabled or Disabled based on options"""
+    # from .Options import Goal #imported here because otherwise cause circular import
+
+    # goal = cast(Goal, getattr(world.options, "goal"))
+    # rdm_base_game = bool(getattr(world.options, "randomize_base_game").value)
+    NGP = bool(getattr(world.options, "New_Game_Plus").value)
+    # solanum = bool(getattr(world.options, "require_solanum").value)
+
+    # if not rdm_dlc or not world.options.dlc_access_items.value: # type: ignore
+    #     set_category_status(world, 'DLC - Reduced Knowledge', False)
+
+    set_category_status(world, 'New Game Plus', NGP)
+    set_category_status(world, 'Not New Game Plus', not NGP)
+    set_category_status(world, 'Disabled', False)
+    # set_category_status(world, 'DLC - Eye', rdm_dlc)
+
+    # if rdm_dlc and not rdm_base_game:
+    #     if solanum:
+    #         set_category_status(world, 'required for solanum', True)
+
+    #     if goal == goal.alias_vanilla:
+    #         set_category_status(world, 'Goal Eye', True)
+    #         set_category_status(world, 'required for warpdrive', True)
+    #     elif goal == goal.alias_ash_twin_project_break_spacetime:
+    #         set_category_status(world, 'required for warpdrive', True)
+    #     # elif goal == Goal.alias_high_energy_lab_break_spacetime:
+    #     elif goal == goal.alias_stuck_with_solanum:
+    #         set_category_status(world, 'required for warpdrive', True)
+    #         set_category_status(world, 'required for solanum', True)
+    #     elif (goal == goal.alias_stuck_in_stranger or goal == goal.alias_stuck_in_dream):
+    #         set_category_status(world, 'required for warpdrive', True)
+
+
+def create_category_status(world: "ManualWorld"):
+    world.NicoCategoryStatus = dict[str, bool]() # type: ignore
+
+def set_category_status(world: "ManualWorld", category_name: str, status: bool):
+    if getattr(world, "NicoCategoryStatus", None) is None:
+        create_category_status(world)
+
+    world.NicoCategoryStatus[category_name] = status
+
+def get_category_status(world: "ManualWorld", category_name: str) -> bool | None:
+    categoryStatus: dict[str, bool] | None = getattr(world, "NicoCategoryStatus", None)
+    if categoryStatus is None:
+        create_category_status(world)
+        InitCategories(world)
+        return get_category_status(world, category_name)
+
+    return categoryStatus.get(category_name, None)

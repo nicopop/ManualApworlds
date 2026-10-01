@@ -201,49 +201,86 @@
         "progression": true
     },
 
+    {
+        "name": "Last-Frost Cavern Key",
+        "id": 100,
+        "progression": true,
+        "description": "Unlock A Floor",
+        "category": ["Cavern Keys"]
+    },
+    {
+        "name": "Industrial Maze Key",
+        "count": 2,
+        "progression": true,
+        "description": "Unlock A Floor",
+        "category": ["Cavern Keys"]
+    },
+    {
+        "name": "Hectic Hollows Key",
+        "count": 2,
+        "progression": true,
+        "description": "Unlock A Floor",
+        "category": ["Cavern Keys"]
+    },
+    {
+        "name": "Crackling Cauldron Key",
+        "count": 2,
+        "progression": true,
+        "description": "Unlock A Floor",
+        "category": ["Cavern Keys"]
+    },
+    {
+        "name": "Aquiferous Summit Key",
+        "count": 2,
+        "progression": true,
+        "description": "Unlock A Floor",
+        "category": ["Cavern Keys"]
+    },
+
 
 
     {
         "name": "Red Pikmins",
+        "id": 200,
         "description": "maximum x 10",
         "count": 10,
         "progression": true,
-        "category": [ "Pikmins", "All" ]
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
     },
     {
         "name": "Yellow Pikmins",
         "description": "maximum x 10",
         "count": 10,
         "progression": true,
-        "category": [ "Pikmins", "All" ]
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
     },
     {
         "name": "Blue Pikmins",
         "description": "maximum x 10",
         "count": 10,
         "progression": true,
-        "category": [ "Pikmins", "All" ]
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
     },
     {
         "name": "Ice Pikmins",
         "description": "maximum x 10",
         "count": 10,
         "progression": true,
-        "category": [ "Pikmins", "All" ]
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
     },
     {
         "name": "Rock Pikmins",
         "description": "maximum x 10",
         "count": 10,
         "progression": true,
-        "category": [ "Pikmins", "All" ]
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
     },
     {
         "name": "Pink Pikmins",
         "description": "maximum x 10",
         "count": 10,
         "progression": true,
-        "category": [ "Pikmins", "All" ]
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
     },
     {
         "name": "Purple Pikmins",
@@ -257,7 +294,7 @@
         "description": "maximum x 10",
         "count": 10,
         "progression": true,
-        "category": [ "Pikmins", "All" ]
+        "category": [ "Pikmins", "Pikmins NGP", "All" ]
     },
     {
         "name": "ST Red Pikmins",
@@ -281,11 +318,6 @@
         "category": [ "ST Pikmins", "Shipwreck Tale", "All" ]
     },
 
-    {
-        "name": "Moss",
-        "category": ["Moss", "Shipwreck Tale", "All"],
-        "progression": true
-    },
     {
         "name": "Moss Charge Pots",
         "progression": true,

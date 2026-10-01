@@ -189,10 +189,9 @@
         },
         {
             "name": "SST Beat Trial Run",
-            "_comment": "|Battle Leafling:1|",
             "create_event": [
                 {"name": "Battle Leafling", "visible": true, "category": ["Leafling", "SST Complete"]},
-                {"name": "Material Reward 30","value": {"Material": 30}}
+                {"name": "Material Reward 30","value": {"Material": 30}, "category": []}
             ],
             "requires": "{Build()}",
             "region": "Sun-Speckled Terrace South",
@@ -218,10 +217,10 @@
 
         {
             "name": "SST Beat Dandori Day Care",
-            "_comment": "|Dandori Leafling:1|",
             "create_event": [
-                {"name": "Dandori Leafling", "visible": true, "category": ["Leafling", "SST Complete"]},
-                {"name": "Material Reward 30","value": {"Material": 30}}
+                {"name": "Leafling", "visible": true, "category": ["Leafling", "SST Complete"]},
+                {"name": "Dandori Puzzle", "visible": true, "category": ["SST Complete"]},
+                {"name": "Material Reward 30","value": {"Material": 30}, "category": []}
             ],
             "requires": "{FreezeWater(20, True)}",
             "region": "Sun-Speckled Terrace South",
@@ -231,6 +230,7 @@
         {
             "name": "SST Build Ladder",
             "region": "Sun-Speckled Terrace South Island",
+            "create_event": [{"name": "Built Something"}],
             "requires": "",
             "category": [ "Sun-Speckled Terrace" ]
         },
@@ -289,7 +289,7 @@
                 {"name": "Memory Fragment", "value": {"Sparklium": 50},
                 "category": ["Sparklium", "Memory Fragment", "SST Complete"], "visible": true}
             ],
-            "region": "Aquiferous Summit Floor 2 Past FireFloor2",
+            "region": "Aquiferous Summit Floor 2 Past FireFloor",
             "category": [ "Sun-Speckled Terrace" ]
         },
         {
@@ -380,7 +380,7 @@
         {
             "name": "IM2 Stately Rubber Cutie",
             "description": "Ducky",
-            "region": "Industrial Maze",
+            "region": "Industrial Maze Floor 2",
             "create_event": [
                 {"name": "Stately Rubber Cutie", "value": {"Sparklium": 20}, "visible": true,
                 "category": ["Sparklium", "Rubber Cutie", "SST Complete"]}
@@ -389,12 +389,12 @@
         },
         {
             "name": "IM2 Push Paper Bag",
-            "region": "Industrial Maze",
+            "region": "Industrial Maze Floor 2",
             "category": [ "Sun-Speckled Terrace" ]
         },
         {
             "name": "IM2 Detective's Truth Seeker",
-            "region": "Industrial Maze",
+            "region": "Industrial Maze Floor 2",
             "create_event": [
                 {"name": "Detective's Truth Seeker", "value": {"Sparklium": 230},
                 "category": ["Sparklium", "Great Adventure", "SST Complete"], "visible": true}
@@ -403,13 +403,13 @@
         },
         {
             "name": "IM2 Electric Wall Destroyed",
-            "region": "Industrial Maze Post Electrical Gate",
+            "region": "Industrial Maze Floor 2 Post Electrical Gate",
             "category": [ "Sun-Speckled Terrace" ],
             "requires": ""
         },
         {
             "name": "IM2 Unlimited Locomotive",
-            "region": "Industrial Maze Post Electrical Gate",
+            "region": "Industrial Maze Floor 2 Post Electrical Gate",
             "create_event": [
                 {"name": "Unlimited Locomotive", "value": {"Sparklium": 110},
                 "category": ["Sparklium", "Roundabout Express", "SST Complete"], "visible": true}
@@ -418,7 +418,7 @@
         },
         {
             "name": "IM2 Rescue",
-            "region": "Industrial Maze Post Electrical Gate",
+            "region": "Industrial Maze Floor 2 Post Electrical Gate",
             "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
             "category": [ "Sun-Speckled Terrace" ],
             "requires": "{Pikmin(Yellow)}"
@@ -429,7 +429,8 @@
             "id": 250,
             "region": "Hectic Hollows",
             "create_event": [
-                {"name": "Ice Pikmin Source", "category": ["Pikmins"], "requires": ""}
+                {"name": "Ice Pikmin Source", "category": ["Pikmins"], "requires": ""},
+                {"name": "Built Something"}
             ],
             "category": [ "Sun-Speckled Terrace" ],
             "requires": "{Build()}"
@@ -457,12 +458,12 @@
         {
             "name": "HH2 Rescue",
             "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
-            "region": "Hectic Hollows",
+            "region": "Hectic Hollows Floor 2",
             "category": [ "Sun-Speckled Terrace" ]
         },
         {
             "name": "HH2 Aspiration-Ritual Pole",
-            "region": "Hectic Hollows",
+            "region": "Hectic Hollows Floor 2",
             "create_event": [
                 {"name": "Aspiration-Ritual Pole", "value": {"Sparklium": 150}, "visible": true,
                 "category": ["Sparklium", "Toys of Giants", "SST Complete"]}
@@ -514,7 +515,7 @@
 
         {
             "name": "CC2 Daughter of the Earth",
-            "region": "Crackling Cauldron Post Electrical Gate",
+            "region": "Crackling Cauldron Floor 2",
             "create_event": [
                 {"name": "Daughter of the Earth", "value": {"Sparklium": 110}, "visible": true,
                 "category": ["Sparklium", "Nature's Candy", "SST Complete"]}
@@ -523,12 +524,12 @@
         },
         {
             "name": "CC2 Dirt Wall broken",
-            "region": "Crackling Cauldron Post Electrical Gate",
+            "region": "Crackling Cauldron Floor 2",
             "category": [ "Sun-Speckled Terrace" ]
         },
         {
             "name": "CC2 S.S Chocolate",
-            "region": "Crackling Cauldron Post Electrical Gate",
+            "region": "Crackling Cauldron Floor 2",
             "create_event": [
                 {"name": "Cookie of Nibbled Circles", "value": {"Sparklium": 40}, "visible": true,
                 "category": ["Sparklium", "Sweet Tooth", "SST Complete"]}
@@ -537,7 +538,7 @@
         },
         {
             "name": "CC2 Cookie of Nibbled Circles",
-            "region": "Crackling Cauldron Post Electrical Gate",
+            "region": "Crackling Cauldron Floor 2",
             "create_event": [
                 {"name": "Cookie of Nibbled Circles", "value": {"Sparklium": 50}, "visible": true,
                 "category": ["Sparklium", "Sweet Tooth", "SST Complete"]}
@@ -546,7 +547,7 @@
         },
         {
             "name": "CC2 Rescue",
-            "region": "Crackling Cauldron Post Electrical Gate",
+            "region": "Crackling Cauldron Floor 2",
             "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
             "category": [ "Sun-Speckled Terrace" ]
         }

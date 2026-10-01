@@ -4,32 +4,32 @@
         {
             "name": "Flarlic",
             "region": "region",
-            "create_event": [{"name": "Flarlic", "category": ["Pikmins", "X Complete"], "visible": true}],
+            "create_event": [{"name": "Flarlic", "category": ["Pikmins", "BA Complete"], "visible": true}],
             "category": [ "Region" ]
         },
         {
             "name": "Treasure",
             "create_event": [
                 {"name": "Treasure", "value": {"Sparklium": 0}, "visible": true,
-                "category": ["Sparklium", "Serie", "X Complete"]}
+                "category": ["Sparklium", "Series", "BA Complete"]}
             ]
         },
         {
             "name": "Rescue",
-            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "X Complete"]}]
+            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]}]
         },
 
         {
             "name": "Beat Battle",
             "create_event": [
-                {"name": "Battle Leafling", "visible": true, "category": ["Leafling", "SST Complete"]},
+                {"name": "Battle Leafling", "visible": true, "category": ["Leafling", "BA Complete"]},
                 {"name": "Material Reward 30","value": {"Material": 30}}
             ]
         },
         {
             "name": "Beat Dandori",
             "create_event": [
-                {"name": "Dandori Leafling", "visible": true, "category": ["Leafling", "SST Complete"]},
+                {"name": "Leafling", "visible": true, "category": ["Leafling", "BA Complete"]},
                 {"name": "Material Reward 30","value": {"Material": 30}}
             ]
         }
@@ -39,7 +39,7 @@
             "name": "BA TMP Treasure",
             "region": "Blossoming Arcadia",
             "create_event": [
-                {"name": "Treasure", "value": {"Sparklium": 1000}, "visible": true,
+                {"name": "Treasure", "value": {"Sparklium": 100}, "visible": true,
                 "category": ["Sparklium", "BA Complete"]},
                 {"name": "Olimar", "visible": true, "category": ["Castaways", "X Complete"]}
             ]

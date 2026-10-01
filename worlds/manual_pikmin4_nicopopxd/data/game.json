@@ -9,13 +9,74 @@
     "unused_goals_are_locations": false,
     "starting_items": [
         {
-            "items": ["Skill Buff", "Skill Chomp", "Skill Rush", "Skill Dig", "Skill Command"],
+            "items": ["Skill Buff"],
+            "random": 1,
             "yaml_option": ["New Game Plus"]
         },
         {
-            "item_categories": ["Pikmins"],
+            "items": ["Skill Chomp"],
             "random": 1,
             "yaml_option": ["New Game Plus"]
+        },
+        {
+            "items": ["Skill Rush"],
+            "random": 1,
+            "yaml_option": ["New Game Plus"]
+        },
+        {
+            "items": ["Skill Dig"],
+            "random": 1,
+            "yaml_option": ["New Game Plus"]
+        },
+        {
+            "items": ["Skill Command"],
+            "random": 1,
+            "yaml_option": ["New Game Plus"]
+        },
+        {
+            "item_categories": ["Pikmins NGP"],
+            "random": 1,
+            "yaml_option": ["New Game Plus"]
+        },
+        {
+            "items": ["Red Pikmins"],
+            "random": 1,
+            "yaml_option": ["!New Game Plus"]
+        },
+        {
+            "items": ["Red Pikmins"],
+            "random": 1,
+            "if_previous_item": ["Red Pikmins"]
+        },
+        {
+            "items": ["Yellow Pikmins"],
+            "random": 1,
+            "if_previous_item": ["Yellow Pikmins"]
+        },
+        {
+            "items": ["Blue Pikmins"],
+            "random": 1,
+            "if_previous_item": ["Blue Pikmins"]
+        },
+        {
+            "items": ["Ice Pikmins"],
+            "random": 1,
+            "if_previous_item": ["Ice Pikmins"]
+        },
+        {
+            "items": ["Rock Pikmins"],
+            "random": 1,
+            "if_previous_item": ["Rock Pikmins"]
+        },
+        {
+            "items": ["White Pikmins"],
+            "random": 1,
+            "if_previous_item": ["White Pikmins"]
+        },
+        {
+            "items": ["Pink Pikmins"],
+            "random": 1,
+            "if_previous_item": ["Pink Pikmins"]
         }
     ]
 }

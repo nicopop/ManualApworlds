@@ -40,15 +40,22 @@
         {
             "name": "Cure Battle Leafling 1",
             "region": "SST Night Expeditions",
-            "create_event": [{"name": "Battle Cured", "visible": true, "category": ["Castaways", "Cured", "SST Complete"]}],
+            "create_event": [{"name": "Battle Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]}],
             "requires": "|Battle Leafling:1|",
             "category": ["Night Expeditions", "Sun-Speckled Terrace"]
         },
         {
             "name": "Cure Dandori Leafling 1",
             "region": "SST Night Expeditions",
-            "create_event": [{"name": "Dandori Cured", "visible": true, "category": ["Castaways", "Cured", "SST Complete"]}],
-            "requires": "|Dandori Leafling:1|",
+            "create_event": [{"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]}],
+            "requires": "|Leafling:1|",
+            "category": ["Night Expeditions", "Sun-Speckled Terrace"]
+        },
+        {
+            "name": "Cure Dandori Leafling 2",
+            "region": "SST Night Expeditions",
+            "create_event": [{"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]}],
+            "requires": "|Leafling:2|",
             "category": ["Night Expeditions", "Sun-Speckled Terrace"]
         }
     ]

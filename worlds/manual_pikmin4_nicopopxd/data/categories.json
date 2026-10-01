@@ -3,9 +3,16 @@
     "FillerDummy": {
         "hidden": true
     },
+    "Pikmins NGP": {
+        "hidden": true
+    },
     "New Game Plus": {
         "yaml_option": ["New Game Plus"]
     },
+    "Not New Game Plus": {
+        "yaml_option": ["!New Game Plus"]
+    },
+    "Disabled": {},
     "Sparklium": {
         "sort-key": "Sparklium 00"
     },
@@ -112,11 +119,17 @@
         "sort-key": "Sparklium 34"
     },
 
+    "Technical": {
+        "hidden": true
+    },
 
     "Castaways": {
 
     },
     "SST Complete": {
+        "hidden": true
+    },
+    "BA Complete": {
         "hidden": true
     }
 }

@@ -1,13 +1,20 @@
 {
     "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.regions.schema.json",
+    "Tutorial": {"starting": true},
     "Rescue Command Post": {
         "starting": true,
-        "connects_to": ["Sun-Speckled Terrace", "Blossoming Arcadia", "Serene Shores", "Hero's Hideaway", "Shipwreck Tale", "Giant's Hearth", "Primordial Thicket"]
+        "connects_to": ["Events", "Missions", "Sparklium", "Castaways", "Sun-Speckled Terrace", "Blossoming Arcadia",
+         "Serene Shores", "Hero's Hideaway", "Giant's Hearth", "Primordial Thicket", "Shipwreck Tale"]
     },
+    "Events": {},
+    "Missions":{},
+    "Sparklium": {},
+    "Castaways": {},
     "Sun-Speckled Terrace":
     {
         "connects_to": ["Last-Frost Cavern", "Industrial Maze", "Hectic Hollows", "Crackling Cauldron",
-         "Sun-Speckled Terrace South", "Sun-Speckled Terrace NorthWest", "Sun-Speckled Terrace South Island", "SST Night Expeditions"],
+         "Sun-Speckled Terrace South", "Sun-Speckled Terrace NorthWest", "Sun-Speckled Terrace South Island",
+          "SST Night Expeditions"],
         "requires": "{EventValue(Sparklium:300)}"
     },
     "Sun-Speckled Terrace South":
@@ -32,50 +39,49 @@
     },
     "Last-Frost Cavern": {
         "connects_to": [],
-        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
-        "requires": ""
+        "requires": "{OptOne(Last-Frost Cavern Key:1)}"
     },
     "Industrial Maze": {
-        "connects_to": ["Industrial Maze Post Electrical Gate"],
+        "connects_to": ["Industrial Maze Floor 2"],
         "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
-        "requires": ""
+        "requires": "{OptOne(Industrial Maze Key:1)}"
     },
-    "Industrial Maze Post Electrical Gate": {
+    "Industrial Maze Floor 2": {
+        "connects_to": ["Industrial Maze Floor 2 Post Electrical Gate"],
+        "requires": "{OptOne(Industrial Maze Key:2)}"
+    },
+    "Industrial Maze Floor 2 Post Electrical Gate": {
         "connects_to": [],
         "requires": "{ElectricalGate()}"
     },
     "Hectic Hollows": {
-        "connects_to": [],
-        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
-        "requires": ""
+        "connects_to": ["Hectic Hollows Floor 2"],
+        "requires": "{OptOne(Hectic Hollows Key:1)}"
     },
+    "Hectic Hollows Floor 2": {"requires": "{OptOne(Hectic Hollows Key:2)}"},
     "Crackling Cauldron": {
         "connects_to": ["Crackling Cauldron Post Electrical Gate"],
-        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
-        "requires": ""
+        "requires": "{OptOne(Crackling Cauldron Key:1)}"
     },
     "Crackling Cauldron Post Electrical Gate": {
-        "connects_to": [],
+        "connects_to": ["Crackling Cauldron Floor 2"],
         "requires": "{ElectricalGate()}"
     },
+    "Crackling Cauldron Floor 2": {"requires": "{OptOne(Crackling Cauldron Key:2)}"},
     "Aquiferous Summit": {
         "connects_to": ["Aquiferous Summit Floor 2"],
-        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
-        "requires": ""
+        "requires": "{OptOne(Aquiferous Summit Key:1)}"
     },
     "Aquiferous Summit Floor 2": {
-        "connects_to": ["Aquiferous Summit Floor 2 Upper"],
-        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
-        "requires": "{FreezeWater(10, True)}"
+        "connects_to": ["Aquiferous Summit Floor 2 Past FireFloor"],
+        "requires": "{FreezeWater(10, True)} and {OptOne(Aquiferous Summit Key:2)}"
     },
     "Aquiferous Summit Floor 2 Past FireFloor": {
-        "connects_to": ["Floor 2 Past Stairs"],
-        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
+        "connects_to": ["Aquiferous Summit Floor 2 Past Stairs"],
         "requires": "{FireFloor()}"
     },
     "Aquiferous Summit Floor 2 Past Stairs": {
         "connects_to": ["Sun-Speckled Terrace Post Aquiferous Summit"],
-        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
         "requires": "{Build()}"
     },
     "Sun-Speckled Terrace Post Aquiferous Summit":
@@ -90,7 +96,7 @@
         "requires": "{EventValue(Sparklium:1500)}"
     },
     "Serene Shores": {
-        "connects_to": [  ],
+        "connects_to": [],
         "requires": "{EventValue(Sparklium:4000)}"
     },
     "Hero's Hideaway":
@@ -115,8 +121,8 @@
     },
     "ST Sun-Speckled Terrace":
     {
-        "starting": true,
-        "connects_to": []
+        "connects_to": [],
+        "requires": ""
     },
     "ST Blossoming Arcadia": {
         "connects_to": [],

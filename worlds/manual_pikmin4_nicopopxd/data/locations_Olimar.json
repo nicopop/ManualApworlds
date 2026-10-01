@@ -221,7 +221,8 @@
         {
             "name": "ST BA Met Moss",
             "category": [ "Blossoming Arcadia" ],
-            "place_item": [ "Moss" ],
+            "create_event":
+            [{"name": "Moss", "category": ["Moss"], "visible": true}],
             "region": "ST Blossoming Arcadia"
         },
         {
@@ -288,7 +289,7 @@
             "name": "ST BA Center Base Hill Pot Omega Stabilizer",
             "region": "ST Blossoming Arcadia",
             "category": [ "Blossoming Arcadia" ],
-            "requires": "|ST Bombs| and (({Pikmin(ST Yellow)} or (|Moss| and |Moss Charge Walls|))",
+            "requires": "|ST Bombs| and ({Pikmin(ST Yellow)} or (|Moss| and |Moss Charge Walls|))",
             "place_item": [ "Ship Part" ]
         },
         {
@@ -389,21 +390,25 @@
 
         {
             "name": "ST Treasure 5",
+            "region": "Shipwreck Tale",
             "category": [ "Treasures" ],
             "requires": "|Ship Part:5|"
         },
         {
             "name": "ST Treasure 10",
+            "region": "Shipwreck Tale",
             "category": [ "Treasures" ],
             "requires": "|Ship Part:10|"
         },
         {
             "name": "ST Treasure 15",
+            "region": "Shipwreck Tale",
             "category": [ "Treasures" ],
             "requires": "|Ship Part:15|"
         },
         {
             "name": "ST Treasure 20",
+            "region": "Shipwreck Tale",
             "category": [ "Treasures" ],
             "requires": "|Ship Part:20|"
         },
@@ -411,6 +416,7 @@
             "name": "ST Treasure 25",
             "category": [ "Treasures" ],
             "region": "ST Hero's Hideaway",
+            "create_event": [{"name": "Louie", "visible": true, "category": ["Castaways", "X Complete"]}],
             "requires": "|Ship Part:25|"
         },
         {

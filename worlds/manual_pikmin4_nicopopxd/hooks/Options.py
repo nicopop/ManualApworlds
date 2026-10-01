@@ -257,8 +257,12 @@ class RemoveLocation(OptionSet):
     visibility = Visibility.complex_ui | Visibility.spoiler
 # endregion
 
+class NewGamePlus(DefaultOnToggle):
+    """Are you using New game plus (true) or starting from a fresh save (false)"""
+
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, Type[Option[Any]]]:
+    options["New_Game_Plus"] = NewGamePlus
 
     # options["remove_items"] = RemoveItems
     # options["remove_locations"] = RemoveLocation

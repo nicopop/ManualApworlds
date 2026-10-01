@@ -270,6 +270,12 @@ def after_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: Mult
 
 # This is called right at the end, in case you want to write stuff to the spoiler log
 def before_write_spoiler(world: "ManualWorld", multiworld: MultiWorld, spoiler_handle: TextIO) -> None:
+    if getattr(world.options, "generate_region_diagram", False) and __debug__:
+        from Utils import visualize_regions
+        state = multiworld.get_all_state(False)
+        state.update_reachable_regions(world.player)
+        visualize_regions(multiworld.get_region(world.origin_region_name, world.player), f"debug/{world.game}_{world.player}.puml",
+            regions_to_highlight=set(state.reachable_regions[world.player]))
     pass
 
 # This is called when you want to add information to the hint text

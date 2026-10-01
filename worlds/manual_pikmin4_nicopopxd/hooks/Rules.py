@@ -5,6 +5,7 @@ from worlds.AutoWorld import World
 from ..Helpers import clamp, get_items_with_value, is_item_name_enabled, format_state_prog_items_key
 from ..Game import game_name
 from BaseClasses import MultiWorld, CollectionState
+from math import ceil
 
 import dataclasses
 import logging
@@ -24,12 +25,12 @@ def ElectricalGate(st:bool = False) -> str:
     if st: # TODO check if other equipment work too
         return "{Pikmin(ST Yellow)}"
 
-    return "{Pikmin(Yellow)} or (|Pup Anti-Electrifier|)\
-        or (|Anti-Electrifier| and {TODO(Melee Setting)})"
+    return "{Pikmin(Yellow)} or (|Pup Anti-Electrifier|)" + \
+        " or (|Anti-Electrifier| and {TODO(Melee Setting)})"
 
 def IceGate() -> str:
-    return "{Pikmin(Ice)} or (|Pup Thermal Defense|)\
-        or (|Thermal Defense| and {TODO(Melee Setting)})"
+    return "{Pikmin(Ice)} or (|Pup Thermal Defense|)" + \
+        " or (|Thermal Defense| and {TODO(Melee Setting)})"
 
 def FreezeWater(count: int, short_duration: bool = False) -> str:
     if short_duration:
@@ -38,17 +39,17 @@ def FreezeWater(count: int, short_duration: bool = False) -> str:
         return f"{{Pikmin(Ice, {count})}}"
 
 def FireFloor() -> str:
-    return "{Pikmin(Red)} or (|Pup Scorch Guard|)\
-        or (|Scorch Guard| and {TODO(Melee Setting)})"
+    return "{Pikmin(Red)} or (|Pup Scorch Guard|)" + \
+        " or (|Scorch Guard| and {TODO(Melee Setting)})"
 
 def PoisonFloor() -> str:
-    return "{Pikmin(White)} or (|Pup Sniff Saver|)\
-        or {TODO(Melee Setting, False)}"
+    return "{Pikmin(White)} or (|Pup Sniff Saver|)" + \
+        " or {TODO(Melee Setting, False)}"
 
 def Bombs(bomb_type: str = "Normal") -> str:
     bomb_type = bomb_type.lower()
     requires = ""
-    if bomb_type == "normal":
+    if bomb_type == "normal": # TODO check for Source
         requires = "({EventValue(Sparklium:3000)} or |NGP|) and |Bomb Rocks|"
     if bomb_type == "ice":
         requires = "({EventValue(Sparklium:1500)} or |NGP|) and |Ice Blasts|"
@@ -59,58 +60,70 @@ def Bombs(bomb_type: str = "Normal") -> str:
     return "|Russ| and " + requires
 
 def CanLiftST(count: int, state: CollectionState, world: "ManualWorld", player: int) -> bool:
-    Real_pikmins = world.event_name_groups["ST Pikmins Carry"]
+    # TODO deal with moss pulling stuff
+    Real_pikmins =set(world.event_name_groups["ST Pikmins Carry"])
     max_pikmin_count = ceil(count/10)
     return state.has_from_list(Real_pikmins, player, max_pikmin_count)
 
 def CanLiftOverWater(FreezeCount: int, Weight: int, state: CollectionState, world: "ManualWorld", player: int) -> bool:
+    # TODO deal with Oatchi pulling stuff + buff upgrade
     Real_pikmins = set(world.event_name_groups["Pikmins Carry"])
     without_ice = set(Real_pikmins)
     without_ice.remove("Ice Real")
     item_freeze_count = ceil(FreezeCount/10)
     item_weight_count = ceil(Weight/10)
-    # Frozen
-    if state.has("Ice Real", player, item_freeze_count + item_weight_count):
+    if item_weight_count > 10:
+        raise NotImplementedError("TODO Implement CanLiftOverWaterRule for weight over 100")
+
+    # deal with Blue || Pink || Purple + ice
+    if (state.has_any_count({"Blue Real": item_weight_count, "Pink Real": item_weight_count}, player)
+         or (state.has_all_counts({"Purple Real": 1, "Ice Real": item_freeze_count, "Flarlic": item_freeze_count + 1}, player))):
         return True
-    elif state.has("Ice Real", player, item_freeze_count) and CanLift(Weight, state, world, player, "Ice")\
-        and state.has("Flarlic", player, item_freeze_count + item_weight_count):
-        return True
-    # Other Pikmins
-    elif state.has_any_count({"Blue Real": item_weight_count, "Pink Real": item_weight_count}, player):
-        return True
+
+    # Then deal with mix of others - purple
+    max_item_count = item_freeze_count + item_weight_count # 6
+    for i in range(item_freeze_count, max_item_count):
+        new_max_pikmin_count = min((max_item_count - i), 0) * 10
+        if (state.has_all_counts({"Ice Real": i, "Flarlic": max_item_count}, player)
+            and CanLift(new_max_pikmin_count, state, world, player, "Ice; Purple")):
+            return True
     return False
 
 def CanLift(count: int, state: CollectionState, world: "ManualWorld", player: int, excluded_colors: str = "") -> bool:
+    if count == 0:
+        return True
     Real_pikmins = set(world.event_name_groups["Pikmins Carry"])
 
-    excluded = excluded_colors.split(";")
-    for color in excluded:
-        Real_pikmins.remove(f"{color} Real")
+    purple_excluded = False
+    if excluded_colors:
+        for color in excluded_colors.split(";"):
+            if color.strip() == "Purple":
+                purple_excluded = True
+                continue
+            Real_pikmins.remove(f"{color} Real")
 
     max_pikmin_count = ceil(count/10)
     rule: bool
     if count <= 100:
-        rule = state.has_from_list(Real_pikmins, player, count=max_pikmin_count) or state.has("Purple Real", player, max_pikmin_count)
-        if rule:
-            return True
-        for i in range(max_pikmin_count-1):
-            right = state.has("Purple Real", player, i) and state.has_from_list(Real_pikmins, player, count=max_pikmin_count-i)
-            if right:
-                return True
-        return False
+        rule = state.has_from_list(Real_pikmins, player, count=max_pikmin_count)
+        if not purple_excluded:
+            rule |= state.has("Purple Real", player, 1)
+        return rule
+
     else:
+        if purple_excluded:
+            return False
         extra = count - 100 # to find minimum count of purple 101-100 = 1
         min_purple_count = ceil(extra/100) # ceil(101/100) = 1
         max_purple_count = ceil(count/100) # 2
         if state.has("Purple Real", player, max_purple_count):
             return True
-        for i in range(min_purple_count, max_purple_count):
-            new_max_pikmin_count = min(ceil((count - i * 100) / 10), 0) # ceil((101 - 2*100)/ 10) = ceil(-1 / 10) = -1
-            if state.has("Purple Real", player, i) and (not new_max_pikmin_count or state.has_from_list(Real_pikmins, player, count=new_max_pikmin_count)):
+        for i in range(min_purple_count, max_purple_count - 1):
+            new_max_pikmin_count = min(ceil((count - (i * 100)) / 10), 0) # ceil((101 - 2*100)/ 10) = ceil(-1 / 10) = -1
+            if state.has("Purple Real", player, i) and state.has_from_list(Real_pikmins, player, count=new_max_pikmin_count):
                 return True
         return False
 
-from math import ceil
 def Pikmin(state: CollectionState, player: int, color: str, count: int = 1) -> bool:
     if color.lower() == "purple":
         item_count = ceil(count/100)
@@ -162,7 +175,7 @@ def HasFromCategoryUnique(category: str, count: str, state: CollectionState, wor
 #     return HasFromCategoryUnique("Objectives Final", str(requested_count), state=state, world=world, player=player)
 
 if use_rulebuilder:
-    from rule_builder.rules import HasFromListUnique, Rule, True_, False_, Has, HasAnyCount, HasFromList, Or, And
+    from rule_builder.rules import HasFromListUnique, Rule, True_, False_, Has, HasAllCounts, HasAnyCount, HasFromList, Or, And
 
     @dataclasses.dataclass()
     class PikminRule(Rule["ManualWorld"], game=game_name):
@@ -179,6 +192,7 @@ if use_rulebuilder:
             if color.startswith("ST "):
                 flarlic = "ST Flarlic"
             flarlic_count = max(item_count - 2, 0)
+
             return And(Has(f"{color} Pikmins", item_count),
                        Has(flarlic, flarlic_count),
                        Or(
@@ -193,23 +207,29 @@ if use_rulebuilder:
         FreezeCount: int
         Weight: int
         def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
-            item_freeze_count = ceil(self.FreezeCount/10)
-            item_weight_count = ceil(self.Weight/10)
-            return Or(
-                Has("Ice Real", item_freeze_count + item_weight_count),
-                And(
-                    Has("Ice Real", item_freeze_count),
-                    CanLiftRule(self.Weight, "Ice"),
-                    Has("Flarlic", item_freeze_count + item_weight_count)
-                ),
-                HasAnyCount({"Blue Real": item_weight_count, "Pink Real": item_weight_count})
-            ).resolve(world)
+            item_freeze_count = ceil(self.FreezeCount/10) # 3
+            item_weight_count = ceil(self.Weight/10) # 3
+            if item_weight_count > 10:
+                raise NotImplementedError("TODO Implement CanLiftOverWaterRule for weight over 100")
+            # Deal with Blue || Pink || Purple
+            rule: Rule["ManualWorld"] = HasAnyCount({"Blue Real": item_weight_count, "Pink Real": item_weight_count}) |\
+                HasAllCounts({"Purple Real": 1, "Ice Real":item_freeze_count, "Flarlic": item_freeze_count + 1})
+
+            # Then deal with all the other mix
+            max_item_count = item_freeze_count + item_weight_count # 6
+            for i in range(item_freeze_count, max_item_count):
+                # new_max_pikmin_count = min(ceil((count - (i * 100)) / 10), 0) # ceil((101 - 2*100)/ 10) = ceil(-1 / 10) = -1
+                new_max_pikmin_count = min((max_item_count - i), 0) * 10
+                right = HasAllCounts({"Ice Real": i, "Flarlic": max_item_count}) &\
+                    CanLiftRule(new_max_pikmin_count, "Ice; Purple")
+                rule |= right
+            return rule.resolve(world)
 
     @dataclasses.dataclass()
     class CanLiftSTRule(Rule["ManualWorld"], game=game_name):
         count: int
         def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
-            Real_pikmins = world.event_name_groups["ST Pikmins Carry"]
+            Real_pikmins = set(world.event_name_groups["ST Pikmins Carry"])
             max_pikmin_count = ceil(self.count/10)
             return HasFromList(*Real_pikmins, count=max_pikmin_count).resolve(world)
 
@@ -218,26 +238,34 @@ if use_rulebuilder:
         count: int
         excluded_colors: str = ""
         def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
-            Real_pikmins = world.event_name_groups["Pikmins Carry"]
-            excluded = self.excluded_colors.split(";")
-            for color in excluded:
-                Real_pikmins.remove(f"{color} Real")
+            # TODO Check for Oatchi buff
+            if self.count == 0:
+                return True_().resolve(world)
+            Real_pikmins = set(world.event_name_groups["Pikmins Carry"])
+            purple_excluded = False
+            if self.excluded_colors:
+                for color in self.excluded_colors.split(";"):
+                    if not purple_excluded and color.strip() == "Purple":
+                        purple_excluded = True
+                        continue
+                    Real_pikmins.remove(f"{color.strip()} Real")
 
             max_pikmin_count = ceil(self.count/10)
             rule: Rule[World]
             if self.count <= 100:
-                rule = HasFromList(*Real_pikmins, count=max_pikmin_count) | Has("Purple Real", max_pikmin_count)
-                for i in range(max_pikmin_count-1):
-                    right = Has("Purple Real", i) & HasFromList(*Real_pikmins, count=max_pikmin_count-i)
-                    rule |= right
+                rule = HasFromList(*Real_pikmins, count=max_pikmin_count)
+                if not purple_excluded:
+                    rule |= Has("Purple Real", 1)
                 return rule.resolve(world)
             else:
-                extra = self.count - 100 # to find minimum count of purple 230-100 = 30
-                min_purple_count = ceil(extra/100) + 1 # +1 since we can only have 10(100) Real Pikmins Ceil(130/100) = 2
-                max_purple_count = ceil(self.count/100)
-                rule = Has("Purple Real", max_purple_count) # | (Has("Purple Real", min_purple_count) & HasFromList(*Real_pikmins, count=new_max_pikmin_count))
-                for i in range(min_purple_count, max_purple_count):
-                    new_max_pikmin_count = min(ceil((self.count - i * 100) / 10), 0) # 230 - 2*100 = 3
+                if purple_excluded:
+                    return False_().resolve(world)
+                extra = self.count - 100 # to find minimum count of purple 230-100 = 130
+                min_purple_count = ceil(extra/100) # 130/100 = 1.3 -> 2
+                max_purple_count = ceil(self.count/100) # 230/100 = 2.3 -> 3
+                rule = Has("Purple Real", max_purple_count)
+                for i in range(min_purple_count, max_purple_count - 1):
+                    new_max_pikmin_count = min(ceil((self.count - (i * 100)) / 10), 0)
                     right = Has("Purple Real", i) & HasFromList(*Real_pikmins, count=new_max_pikmin_count)
                     rule |= right
                 return rule.resolve(world)

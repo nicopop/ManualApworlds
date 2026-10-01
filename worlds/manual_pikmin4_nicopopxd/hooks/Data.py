@@ -27,12 +27,6 @@ def recursively_find_files_to_load(data_table: list[dict[str, Any]], offset: int
     else:
         return offset, offset_size
 
-    # file base ask 1000
-    # file 1 doesnt change # last_offset_size 1000 # id_offset = 1000
-    # file 2 change to 500 # last_offset_size 1000 # id_offset = 2000
-    # file 2a doesnt change# last_offset_size 0500 # id_offset = 2500
-    # file 3 doesnt change # last_offset_size 0500 # either id_offset = 3000 or id_offset = 3500 would prefer 3000
-    # file 4 doesnt change # last_offset_size 1000 # either id_offset = 4000 or id_offset = 4500 would prefer 4000
     from ..Data import convert_to_list
     from ..Helpers import load_data_file
 

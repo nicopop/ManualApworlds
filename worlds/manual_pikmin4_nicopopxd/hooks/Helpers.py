@@ -9,10 +9,15 @@ if TYPE_CHECKING:
 # Return True to enable the category, False to disable it, or None to use the default behavior
 def before_is_category_enabled(multiworld: MultiWorld, player: int, category_name: str) -> Optional[bool]:
     world = cast("ManualWorld", multiworld.worlds[player])
-
+    from ..Helpers import resolve_yaml_option
     # region cat enabled
     # you can use the custom set_category_status function to set a player's category enabled status
-    return get_category_status(world, category_name)
+    status = get_category_status(world, category_name)
+    if status is None:
+        category_data = world.category_table.get(category_name, {})
+        if category_data.get("yaml_option"):
+            status = resolve_yaml_option(multiworld, player, category_data)
+    return status
     # endregion
 
 # Use this if you want to override the default behavior of is_option_enabled
@@ -115,13 +120,15 @@ def InitCategories(world: "ManualWorld"):
 
     # goal = cast(Goal, getattr(world.options, "goal"))
     # rdm_base_game = bool(getattr(world.options, "randomize_base_game").value)
-    # rdm_dlc = bool(getattr(world.options, "randomize_dlc").value)
+    NGP = bool(getattr(world.options, "New_Game_Plus").value)
     # solanum = bool(getattr(world.options, "require_solanum").value)
 
     # if not rdm_dlc or not world.options.dlc_access_items.value: # type: ignore
     #     set_category_status(world, 'DLC - Reduced Knowledge', False)
 
-    # set_category_status(world, 'Base Game', rdm_base_game)
+    set_category_status(world, 'New Game Plus', NGP)
+    set_category_status(world, 'Not New Game Plus', not NGP)
+    set_category_status(world, 'Disabled', False)
     # set_category_status(world, 'DLC - Eye', rdm_dlc)
 
     # if rdm_dlc and not rdm_base_game:

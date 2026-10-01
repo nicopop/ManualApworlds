@@ -7,10 +7,10 @@ import Utils
 from worlds.generic.Rules import forbid_items_for_player
 from worlds.LauncherComponents import Component, SuffixIdentifier, components, Type, launch, icon_paths
 
-from .Data import item_table, location_table, event_table, region_table, category_table
-from .Game import game_name, filler_item_name, starting_items, unused_goals_are_locations, glitches_item_name
+from .Data import item_table, location_table, event_table, category_table
+from .Game import game_name, filler_item_name, starting_items, unused_goals_are_locations
 from .Meta import world_description, world_webworld
-from .Locations import location_id_to_name, location_name_to_id, location_name_to_location, location_name_groups, victory_names, event_name_to_event, event_name_groups, location_name_to_description
+from .Locations import location_id_to_name, location_name_to_id, location_name_to_location, location_name_groups, victory_names, event_name_to_event, event_name_groups
 from .Items import item_id_to_name, item_name_to_id, item_name_to_item, item_name_groups
 from .DataValidation import runGenerationDataValidation, runPreFillDataValidation
 
@@ -78,9 +78,6 @@ class ManualWorld(World):
 
     # UT (the universal-est of trackers) can now generate without a YAML
     ut_can_gen_without_yaml = True
-    glitches_item_name: str | None = glitches_item_name
-    location_id_to_alias: dict[int, str] = {location_name_to_id[name]: desc for name, desc in location_name_to_description.items()}
-
     origin_region_name = "Manual"
 
     def get_filler_item_name(self) -> str:
@@ -344,14 +341,14 @@ class ManualWorld(World):
         pool = after_create_items(pool, self, self.multiworld, self.player)
 
         # need to put all of the items in the pool so we can have a full state for placement
-        # then will remove specific item placements below from the overall pool
         self.multiworld.itempool += pool
 
-        # Filter Precollected items for those not in logic aka created by start_inventory(_from_pool)
+        # Preparing to count the items:
         precollected_items = list(self.multiworld.precollected_items[self.player])
 
         # UT doesn't precollect the exceptions so this can be skipped
         if not getattr(self.multiworld, "generation_is_fake", False):
+            # Filter Precollected items for those not in logic aka created by start_inventory(_from_pool)
             precollected_exceptions = self.options.start_inventory.value + self.options.start_inventory_from_pool.value # type: ignore
             for item, count in precollected_exceptions.items():
                 items_iter = iter([i for i in precollected_items if i.name == item])
@@ -368,9 +365,6 @@ class ManualWorld(World):
 
     def create_item(self, name: str, class_override: Optional['ItemClassification']=None) -> Item:
         name = before_create_item(name, self, self.multiworld, self.player)
-
-        if name == self.glitches_item_name:
-            return ManualItem(name, class_override or ItemClassification.progression, None, self.player)
 
         item = self.item_name_to_item[name]
         classification: ItemClassification = ItemClassification.filler
@@ -609,7 +603,7 @@ class VersionedComponent(Component):
         self.version = version
 
 def add_client_to_launcher() -> None:
-    version = 2026_04_07 # YYYYMMDD
+    version = 2026_09_18 # YYYYMMDD
     found = False
 
     if "manual" not in icon_paths:

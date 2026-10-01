@@ -175,3 +175,7 @@ def after_load_meta_file(meta_table: dict) -> dict:
 
     meta_table['docs']['web'] |= vars(web)
     return meta_table
+
+
+def after_load_progressive_item_file(progressive_item_table: list) -> list:
+    return progressive_item_table

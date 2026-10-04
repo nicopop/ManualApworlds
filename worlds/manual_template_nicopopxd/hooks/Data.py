@@ -8,6 +8,58 @@ import logging
 _location_table: list[dict[str, Any]] = []
 # endregion
 
+class metadata_class():
+    extra_files: list[str]
+    ids_reserved: int
+
+    def __init__(self, json: dict[str, Any], offset_size: int = 1000):
+        self.extra_files = json.get("extra_files", [])
+        self.ids_reserved = json.get("offset", offset_size)
+
+def recursively_find_files_to_load(data_table: list[dict[str, Any]], offset: int = 0, offset_size: int = 1000) -> tuple[int, int]:
+    if data_table:
+        if data_table[0].get("name", "") == "FileMetaData":
+            metadata = metadata_class(data_table.pop(0), offset_size)
+        elif data_table[0].get("FileMetaData"):
+            metadata = metadata_class(data_table[0]["FileMetaData"], offset_size)
+        else:
+            return offset, offset_size
+    else:
+        return offset, offset_size
+
+    from ..Data import convert_to_list
+    from ..Helpers import load_data_file
+
+    errors: list[str] = []
+    last_offset_size = metadata.ids_reserved
+    current_offset = offset
+    for extra_file in metadata.extra_files:
+        id_offset = current_offset + last_offset_size
+        new_table = convert_to_list(load_data_file(extra_file), "data")
+        location: dict[str, Any]
+        for location in list(new_table):
+            name: str = location["name"]
+            if location.get("id"):
+                location["id"] += id_offset
+            for existing_loc in data_table:
+                if existing_loc["name"] == name:
+                    errors.append(f'Location "{name}" has been declared in multiple place including in file {extra_file}')
+                    break
+        new_table[0]["id"] = id_offset  # Plenty of room for expansion
+        current_offset, last_size = recursively_find_files_to_load(new_table, id_offset, last_offset_size)
+        if current_offset != id_offset: # some file got recursively found
+            last_offset_size = last_size
+        elif last_offset_size != metadata.ids_reserved: # restore previous offset
+            last_offset_size = metadata.ids_reserved
+        data_table.extend(new_table)
+
+    if errors:
+        if len(errors) == 1:
+            raise Exception("Found an error in the location data: \n - " + errors[0])
+        else:
+            raise Exception("Found errors in the location data:" + "\n - ".join(errors))
+    return current_offset, last_offset_size
+
 # region load_manifest
 def load_manifest() -> dict[str, Any]:
     """Use this function to load the data from the archipelago.json file"""
@@ -30,12 +82,14 @@ def after_load_game_file(game_table: dict) -> dict:
 # called after the items.json file has been loaded, before any item loading or processing has occurred
 # if you need access to the items after processing to add ids, etc., you should use the hooks in World.py
 def after_load_item_file(item_table: list) -> list:
+    recursively_find_files_to_load(item_table)
     return item_table
 
 
 # called after the locations.json file has been loaded, before any location loading or processing has occurred
 # if you need access to the locations after processing to add ids, etc., you should use the hooks in World.py
 def after_load_location_file(location_table: list[dict[str, Any]]) -> list:
+    recursively_find_files_to_load(location_table)
 # region create_event
 # this part is required for create_event
     global _location_table

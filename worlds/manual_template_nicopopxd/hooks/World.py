@@ -207,7 +207,16 @@ def after_generate_basic(world: "ManualWorld", multiworld: MultiWorld, player: i
 
 # This method is run every time an item is added to the state, can be used to modify the value of an item.
 # IMPORTANT! Any changes made in this hook must be cancelled/undone in after_remove_item
+from ..Helpers import format_state_prog_items_key
 def after_collect_item(world: "ManualWorld", state: CollectionState, Changed: bool, item: Item):
+    if item.location is None or not Changed:
+        return # for type checkers
+
+    manual_event = world.event_name_to_event.get(item.location.name, {})
+    if manual_event and (values := manual_event.get("value")):
+        for key, value in values.items():
+            state.prog_items[item.player][format_state_prog_items_key("EVENT_VALUE", key)] += int(value)
+
     # the following let you add to the Potato Item Value count
     # if item.name == "Cooked Potato":
     #     state.prog_items[item.player][format_state_prog_items_key(ProgItemsCat.VALUE, "Potato")] += 1
@@ -216,6 +225,14 @@ def after_collect_item(world: "ManualWorld", state: CollectionState, Changed: bo
 # This method is run every time an item is removed from the state, can be used to modify the value of an item.
 # IMPORTANT! Any changes made in this hook must be first done in after_collect_item
 def after_remove_item(world: "ManualWorld", state: CollectionState, Changed: bool, item: Item):
+    if item.location is None or not Changed:
+        return # for type checkers
+
+    manual_event = world.event_name_to_event.get(item.location.name, {})
+    if manual_event and (values := manual_event.get("value")):
+        for key, value in values.items():
+            state.prog_items[item.player][format_state_prog_items_key("EVENT_VALUE", key)] -= int(value)
+
     # the following let you undo the addition to the Potato Item Value count
     # if item.name == "Cooked Potato":
     #     state.prog_items[item.player][format_state_prog_items_key(ProgItemsCat.VALUE, "Potato")] -= 1
@@ -253,6 +270,12 @@ def after_fill_slot_data(slot_data: dict, world: "ManualWorld", multiworld: Mult
 
 # This is called right at the end, in case you want to write stuff to the spoiler log
 def before_write_spoiler(world: "ManualWorld", multiworld: MultiWorld, spoiler_handle: TextIO) -> None:
+    if getattr(world.options, "generate_region_diagram", False) and __debug__:
+        from Utils import visualize_regions
+        state = multiworld.get_all_state(False)
+        state.update_reachable_regions(world.player)
+        visualize_regions(multiworld.get_region(world.origin_region_name, world.player), f"debug/{world.game}_{world.player}.puml",
+            regions_to_highlight=set(state.reachable_regions[world.player]))
     pass
 
 # This is called when you want to add information to the hint text

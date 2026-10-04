@@ -25,6 +25,8 @@ jobs:
 
       - uses: Eijebong/ap-actions/ap-tests@main
         name: Test manual_outerwilds_nicopopxd
+        env:
+          AP_TEST_WORLDS: manual_outerwilds_nicopopxd
         if: steps.changes.outputs.outerwilds == 'true'
         with:
           apworld-path: worlds/manual_outerwilds_nicopopxd
@@ -34,6 +36,8 @@ jobs:
 
       - uses: Eijebong/ap-actions/ap-tests@main
         name: Test manual_plateup_nicopopxd
+        env:
+          AP_TEST_WORLDS: manual_plateup_nicopopxd
         if: steps.changes.outputs.plateup == 'true'
         with:
           apworld-path: worlds/manual_plateup_nicopopxd
@@ -43,6 +47,8 @@ jobs:
 
       - uses: Eijebong/ap-actions/ap-tests@main
         name: Test manual_template_nicopopxd
+        env:
+          AP_TEST_WORLDS: manual_template_nicopopxd
         if: steps.changes.outputs.template == 'true'
         with:
           apworld-path: worlds/manual_template_nicopopxd

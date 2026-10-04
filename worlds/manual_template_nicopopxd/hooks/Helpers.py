@@ -9,10 +9,15 @@ if TYPE_CHECKING:
 # Return True to enable the category, False to disable it, or None to use the default behavior
 def before_is_category_enabled(multiworld: MultiWorld, player: int, category_name: str) -> Optional[bool]:
     world = cast("ManualWorld", multiworld.worlds[player])
-
+    from ..Helpers import resolve_yaml_option
     # region cat enabled
     # you can use the custom set_category_status function to set a player's category enabled status
-    return get_category_status(world, category_name)
+    status = get_category_status(world, category_name)
+    if status is None:
+        category_data = world.category_table.get(category_name, {})
+        if category_data.get("yaml_option"):
+            status = resolve_yaml_option(multiworld, player, category_data)
+    return status
     # endregion
 
 # Use this if you want to override the default behavior of is_option_enabled

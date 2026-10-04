@@ -122,11 +122,11 @@
         },
         {   "name": "Dig 5",
             "description": "Dig a Gem block",
-            "region": "Forest Upper Cavern",
+            "region": "Objectives",
             "scoutable": true,
             "create_event": "@Dig 5",
             "category": ["Objectives Dig"],
-            "requires": "{Event(Dig 4)}"
+            "requires": "{Event(Dig 4)} and |Gem Ore|"
         },
         {   "name": "Dig 5B",
             "description": "Have a life crystal",

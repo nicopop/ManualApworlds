@@ -1,0 +1,173 @@
+{
+    "$schema": "Schema/Manual.items.schema.json",
+    "data":[
+        {
+            "name": "Progressive Armor",
+            "count": 4,
+            "disabled": true,
+            "progression": true,
+            "category": []
+        },
+        {
+            "name": "Progressive Layer",
+            "count": 4,
+            "progression": true,
+            "category": ["Discovery"]
+        },
+        {
+            "name": "Progressive Biome",
+            "count": 4,
+            "progression": true,
+            "category": ["Discovery"]
+        },
+
+        {
+            "name": "1 Gold Coin",
+            "count": 0,
+            "deprioritized": true,
+            "disabled": true,
+            "progression_skip_balancing": true,
+            "category": ["FillerDummy", "Loot"],
+            "value": {"coin": 1}
+        },
+        {
+            "name": "2 Gold Coin",
+            "count": 0,
+            "deprioritized": true,
+            "progression_skip_balancing": true,
+            "category": ["FillerDummy", "Loot"],
+            "value": {"coin": 2}
+        },
+        {
+            "name": "3 Gold Coin",
+            "count": 0,
+            "deprioritized": true,
+            "progression_skip_balancing": true,
+            "category": ["FillerDummy", "Loot"],
+            "value": {"coin": 3}
+        },
+        {
+            "name": "5 Gold Coin",
+            "count": 0,
+            "deprioritized": true,
+            "progression_skip_balancing": true,
+            "category": ["FillerDummy", "Loot"],
+            "value": {"coin": 5}
+        },
+        {
+            "name": "10 Gold Coins",
+            "count": 10,
+            "deprioritized": true,
+            "progression_skip_balancing": true,
+            "category": ["FillerDummy", "Loot"],
+            "value": {"coin": 10}
+        },
+        {
+            "name": "LVL 1 Loot Action Card",
+            "count": 5,
+            "description": "Each",
+            "useful": true,
+            "category": ["FillerDummy", "Loot"]
+        },
+        {
+            "name": "LVL 2 Loot Action Card",
+            "count": 5,
+            "description": "Each",
+            "useful": true,
+            "category": ["FillerDummy", "Loot"]
+        },
+        {
+            "name": "LVL 3 Loot Action Card",
+            "count": 5,
+            "description": "Each",
+            "useful": true,
+            "category": ["FillerDummy", "Loot"]
+        },
+        {
+            "name": "LVL 4 Loot Action Card",
+            "count": 5,
+            "description": "Each",
+            "useful": true,
+            "category": ["FillerDummy", "Loot"]
+        },
+        {
+            "name": "LVL 5 Loot Action Card",
+            "count": 5,
+            "useful": true,
+            "category": ["FillerDummy", "Loot"]
+        },
+        {
+            "name": "2 platforms",
+            "description": "Each",
+            "count": 5,
+            "useful": true,
+            "category": ["FillerDummy", "Loot"]
+        },
+
+
+        {
+            "name": "Merchant",
+            "progression": true,
+            "useful": true,
+            "category": ["NPC"]
+        },
+        {
+            "name": "Nurse",
+            "progression": true,
+            "category": ["NPC"]
+        },
+        {
+            "name": "Goblin",
+            "progression": true,
+            "category": ["NPC"]
+        },
+        {
+            "name": "Demolitionist",
+            "progression": true,
+            "useful": true,
+            "category": ["NPC"]
+        },
+        {
+            "name": "Dryad",
+            "progression": true,
+            "category": ["NPC"]
+        },
+
+        {
+            "name": "Snow Biome",
+            "id": 500,
+            "progression": true,
+            "category": ["Biome Token", "Non-Evil Token", "Discovery"]
+        },
+        {
+            "name": "Desert Biome",
+            "progression": true,
+            "category": ["Biome Token", "Non-Evil Token", "Discovery"]
+        },
+        {
+            "name": "Jungle Biome",
+            "progression": true,
+            "category": ["Biome Token", "Non-Evil Token", "Discovery"]
+        },
+        {
+            "name": "Corruption Biome",
+            "progression": true,
+            "category": ["Biome Token", "Corruption Hidden", "Discovery"]
+        },
+        {
+            "name": "Crimson Biome",
+            "progression": true,
+            "category": ["Biome Token", "Crimson Hidden", "Discovery"]
+        },
+        {
+            "name": "Left Ocean Biome",
+            "progression": true,
+            "category": ["Ocean Token", "Discovery"]
+        },
+        {
+            "name": "Right Ocean Biome",
+            "progression": true,
+            "category": ["Ocean Token", "Discovery"]
+        }
+    ]
+}

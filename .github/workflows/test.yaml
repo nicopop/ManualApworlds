@@ -38,6 +38,8 @@ jobs:
 
       - uses: Eijebong/ap-actions/ap-tests@main
         name: Test manual_pikmin4_nicopopxd
+        env:
+          AP_TEST_WORLDS: manual_pikmin4_nicopopxd
         if: steps.changes.outputs.pikmin4 == 'true'
         with:
           apworld-path: worlds/manual_pikmin4_nicopopxd

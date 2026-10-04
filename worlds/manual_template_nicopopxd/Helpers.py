@@ -7,7 +7,7 @@ import re
 from BaseClasses import MultiWorld, Item, ItemClassification
 from enum import IntEnum
 from typing import Optional, List, Union, get_args, get_origin, Any, TYPE_CHECKING
-from types import GenericAlias
+from types import GenericAlias, UnionType
 from worlds.AutoWorld import World
 from .hooks.Helpers import before_is_category_enabled, before_is_item_enabled, before_is_location_enabled, before_is_event_enabled
 
@@ -285,7 +285,7 @@ def convert_string_to_itemclassification(string: str) ->  ItemClassification:
     else:
         true_class = stringCheck(string)
     return true_class
-from types import UnionType
+
 def convert_string_to_type(input: str, target_type: type|UnionType) -> Any:
     """Take a string and attempt to convert it to {target_type}
     \ntarget_type can be a single type(ex. str), an union (int|str), an Optional type (Optional[str]) or a combo of any of those (Optional[int|str])

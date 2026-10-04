@@ -405,7 +405,7 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                     item_name = item_parts[0]
                     item_count = int(item_parts[1])
 
-                if not state.has(item_name, player, item_count):
+                if not state.has(item_name, player, item_count): # type: ignore
                     canAccess = False
 
         return canAccess

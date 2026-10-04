@@ -66,6 +66,7 @@ jobs:
         if: steps.changes.outputs.terraria_tbg == 'true'
         with:
           apworld-path: worlds/manual_terraria_the_board_game_nicopopxd/
+          fuzzer-commit: 53686ba34f9e8852cbe1970666a5f56fd6abf75a
           ap-version: ${{ env.AP_VERSION }}
           python-version: '3.12'
           runs: 500 # This is optional

@@ -106,15 +106,32 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
 # Something not in base Manual is write_spoiler_header which let you write stuff in the spoiler file just after
 # all the option stuff is written for each player
     def write_spoiler_header(spoiler_handle: TextIO) -> None:
+        global region_counts
         """
         Write to the spoiler header. If individual it's right at the end of that player's options,
         if as stage it's right under the common header before per-player options.
         """
-        # biomes = cast(list[str], world.biomes_order)  # type: ignore
-        spoiler_handle.write(f"Apworld Version: {world.world_version.as_simple_string()}")
-        # spoiler_handle.write(f"\nBiome Order:\n[{', '.join(biomes)}]\n")
-        pass
+        state = multiworld.get_all_state(False)
+        state.update_reachable_regions(world.player)
+        def getValueCount(item: str)-> str:
+            item = format_state_prog_items_key("EVENT_VALUE", item)
+            return str(state.prog_items[world.player].get(item, 'unknown'))
+        Sparklium = f"Total of {getValueCount('Sparklium')} Sparklium"
+        Material = f"Total of {getValueCount('material')} Material"
+        logging.info(f"{world.player}: {Sparklium}")
+        logging.info(f"{world.player}: {Material}")
 
+        spoiler_handle.write(f"Apworld Version: {world.world_version.as_simple_string()}\n")
+        spoiler_handle.write(f"{Sparklium}\n")
+        spoiler_handle.write(f"{Material}\n")
+        if region_counts:
+            for region, count in region_counts.items():
+                logging.info(f"Reached {region} with {count}")
+        for line in world.write_to_spoiler_header:
+            spoiler_handle.write(f"{line}\n")
+
+        pass
+    setattr(world, "write_to_spoiler_header", [])
     setattr(world, "write_spoiler_header", write_spoiler_header)
 # endregion
     pass
@@ -207,11 +224,19 @@ def after_generate_basic(world: "ManualWorld", multiworld: MultiWorld, player: i
 
 # This method is run every time an item is added to the state, can be used to modify the value of an item.
 # IMPORTANT! Any changes made in this hook must be cancelled/undone in after_remove_item
+from typing import Counter
+region_counts: Counter[str] = Counter()
 from ..Helpers import format_state_prog_items_key
 def after_collect_item(world: "ManualWorld", state: CollectionState, Changed: bool, item: Item):
+    global region_counts
     if item.location is None or not Changed:
         return # for type checkers
-
+    if item.name.startswith("Unlocked ") and __debug__:
+        region = item.name.removeprefix('Unlocked ')
+        count = state.prog_items[item.player][format_state_prog_items_key('EVENT_VALUE', 'Sparklium')]
+        if not region.startswith("ST ") and region_counts[region] != count:
+            region_counts[region] = count
+        # logging.info(f"Reached {region} with {count}")
     manual_event = world.event_name_to_event.get(item.location.name, {})
     if manual_event and (values := manual_event.get("value")):
         for key, value in values.items():

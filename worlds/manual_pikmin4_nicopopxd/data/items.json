@@ -1,12 +1,12 @@
 {
     "$schema": "Schema/Manual.items.schema.json",
-    "data":[
+"data":[
     {
-        "count": 30,
-        "name": "Ship Part",
-        "_comment": "TODO REPLACE WITH EVENTS",
-        "category": [ "All", "Collectibles" ],
-        "progression_skip_balancing": true
+        "name": "FileMetaData",
+        "_comment": "Should be removed by the Data.py hook",
+        "extra_files": ["items_Caves.json", "items_Olimar.json"],
+        "offset": 150,
+        "disabled": true
     },
 
     {
@@ -144,7 +144,7 @@
     {
         "name": "Skill Chomp",
         "count": 6,
-        "useful": true,
+        "progression": true,
         "category": ["Pup Skills", "All"]
     },
     {
@@ -156,7 +156,7 @@
     {
         "name": "Skill Doggy-Paddle",
         "count": 3,
-        "useful": true,
+        "progression": true,
         "category": ["Pup Skills", "All"]
     },
     {
@@ -200,48 +200,14 @@
         "name": "Trackonators",
         "progression": true
     },
-
     {
-        "name": "Last-Frost Cavern Key",
-        "id": 100,
-        "progression": true,
-        "description": "Unlock A Floor",
-        "category": ["Cavern Keys"]
+        "name": "Boost Potion",
+        "progression": true
     },
-    {
-        "name": "Industrial Maze Key",
-        "count": 2,
-        "progression": true,
-        "description": "Unlock A Floor",
-        "category": ["Cavern Keys"]
-    },
-    {
-        "name": "Hectic Hollows Key",
-        "count": 2,
-        "progression": true,
-        "description": "Unlock A Floor",
-        "category": ["Cavern Keys"]
-    },
-    {
-        "name": "Crackling Cauldron Key",
-        "count": 2,
-        "progression": true,
-        "description": "Unlock A Floor",
-        "category": ["Cavern Keys"]
-    },
-    {
-        "name": "Aquiferous Summit Key",
-        "count": 2,
-        "progression": true,
-        "description": "Unlock A Floor",
-        "category": ["Cavern Keys"]
-    },
-
-
 
     {
         "name": "Red Pikmins",
-        "id": 200,
+        "id": 100,
         "description": "maximum x 10",
         "count": 10,
         "progression": true,
@@ -297,63 +263,12 @@
         "category": [ "Pikmins", "Pikmins NGP", "All" ]
     },
     {
-        "name": "ST Red Pikmins",
+        "name": "Glow Pikmins",
         "description": "maximum x 10",
         "count": 10,
+        "local": true,
         "progression": true,
-        "category": [ "ST Pikmins", "Shipwreck Tale", "All" ]
-    },
-    {
-        "name": "ST Yellow Pikmins",
-        "description": "maximum x 10",
-        "count": 10,
-        "progression": true,
-        "category": [ "ST Pikmins", "Shipwreck Tale", "All" ]
-    },
-    {
-        "name": "ST Blue Pikmins",
-        "description": "maximum x 10",
-        "count": 10,
-        "progression": true,
-        "category": [ "ST Pikmins", "Shipwreck Tale", "All" ]
-    },
-
-    {
-        "name": "Moss Charge Pots",
-        "progression": true,
-        "category": [ "Moss", "Shipwreck Tale", "All" ]
-    },
-    {
-        "name": "Moss Charge Walls",
-        "progression": true,
-        "category": [ "Moss", "Shipwreck Tale", "All" ]
-    },
-    {
-        "name": "Moss Charge Monsters",
-        "useful": true,
-        "category": [ "Moss", "Shipwreck Tale", "All" ]
-    },
-
-    {
-        "name": "ST Boost Potion",
-        "progression": true,
-        "category": [ "All", "Shipwreck Tale", "Equipment" ]
-    },
-    {
-        "name": "Survey Drone",
-        "useful": true,
-        "category": [ "All", "Shipwreck Tale", "Equipment" ]
-    },
-    {
-        "name": "ST Bombs",
-        "progression": true,
-        "category": [ "All", "Shipwreck Tale", "Equipment" ]
-    },
-
-    {
-        "name": "1 Crash Landing",
-        "progression": true,
-        "category": [ "All" ]
+        "category": [ "Pikmins", "All" ]
     }
 ]
 }

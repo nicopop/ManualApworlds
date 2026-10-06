@@ -82,6 +82,7 @@ def after_load_game_file(game_table: dict) -> dict:
 # called after the items.json file has been loaded, before any item loading or processing has occurred
 # if you need access to the items after processing to add ids, etc., you should use the hooks in World.py
 def after_load_item_file(item_table: list) -> list:
+    recursively_find_files_to_load(item_table)
     return item_table
 
 

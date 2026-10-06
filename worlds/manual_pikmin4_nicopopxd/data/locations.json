@@ -27,7 +27,8 @@
                 {"name": "Purple Onion", "visible": true, "category": ["Pikmins", "Onion"]},
                 {"name": "White Onion", "visible": true, "category": ["Pikmins", "Onion"]},
                 {"name": "Rescue", "visible": true, "category": ["Castaways"]},
-                {"name": "Rescue", "visible": true, "category": ["Castaways"]}
+                {"name": "Rescue", "visible": true, "category": ["Castaways"]},
+                {"name": "End Of Cave"}
             ],
             "category": ["New Game Plus", "Tutorial"]
         },
@@ -42,8 +43,11 @@
         {
             "name": "RCP Rescue Shepherd",
             "region": "Tutorial",
-            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways"],
-             "enabled_with_location": "RCP Rescue Shepherd"}],
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways"],
+                "enabled_with_location": "RCP Rescue Shepherd"},
+                {"name": "End Of Cave"}
+            ],
             "category": ["Not New Game Plus", "Tutorial"]
         },
         {
@@ -123,22 +127,23 @@
         {
             "name": "Set the World Abloom 1",
             "region": "Missions",
+            "_comment": "TODO maybe replace region check with onion/pikmin+source count somehow",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Kingsly| and ({EventValue(Sparklium:1500)} or |[UT OOL]|)",
+            "requires": "|Kingsly| and (|Unlocked Blossoming Arcadia| or |[UT OOL]|)",
             "category": ["Side Missions"]
         },
         {
             "name": "Set the World Abloom 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Kingsly| and (({EventValue(Sparklium:7000)} and |Bernard|) or |[UT OOL]|)",
+            "requires": "|Kingsly| and (|Unlocked Hero's Hideaway| or |[UT OOL]|)",
             "category": ["Side Missions"]
         },
         {
             "name": "Set the World Abloom 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Kingsly| and (({EventValue(Sparklium:13000)}) or |[UT OOL]|)",
+            "requires": "|Kingsly| and (|Unlocked Primordial Thicket| or |[UT OOL]|)",
             "category": ["Side Missions"]
         },
 
@@ -197,21 +202,21 @@
             "name": "All the Little Darlings 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Dalmo| and ({EventValue(Sparklium:1500)} or |NGP|)",
+            "requires": "|Dalmo| and (|Unlocked Blossoming Arcadia| or |NGP|)",
             "category": ["Side Missions"]
         },
         {
             "name": "All the Little Darlings 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Dalmo| and ({EventValue(Sparklium:4000)} or |NGP|)",
+            "requires": "|Dalmo| and (|Unlocked Serene Shores| or |NGP|)",
             "category": ["Side Missions"]
         },
         {
             "name": "All the Little Darlings 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Dalmo| and (({EventValue(Sparklium:7000)} and |Bernard|) or |NGP|)",
+            "requires": "|Dalmo| and ((|Unlocked Hero's Hideaway| and |Bernard|) or |NGP|)",
             "category": ["Side Missions"]
         },
         {
@@ -226,14 +231,14 @@
             "name": "Friend to All Pikmin 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|François| and ({EventValue(Sparklium:1500)} or |[UT OOL]|)",
+            "requires": "|François| and (|Unlocked Blossoming Arcadia| or |[UT OOL]|)",
             "category": ["Side Missions"]
         },
         {
             "name": "Friend to All Pikmin 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|François| and (({EventValue(Sparklium:7000)} and |Bernard|) or |[UT OOL]|)",
+            "requires": "|François| and (|Unlocked Hero's Hideaway| or |[UT OOL]|)",
             "category": ["Side Missions"]
         },
         {
@@ -395,28 +400,28 @@
             "name": "Cave Delving 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dash| and {TODO(Track Cave Ending: 5)}",
+            "requires": "|Dash| and |End Of Cave:5|",
             "category": ["Side Missions"]
         },
         {
             "name": "Cave Delving 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dash| and {TODO(Track Cave Ending: 10)}",
+            "requires": "|Dash| and |End Of Cave:10|",
             "category": ["Side Missions"]
         },
         {
             "name": "Cave Delving 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dash| and {TODO(Track Cave Ending: 15)}",
+            "requires": "|Dash| and |End Of Cave:15|",
             "category": ["Side Missions"]
         },
         {
             "name": "Cave Delving 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dash| and {TODO(Track Cave Ending: 23)}",
+            "requires": "|Dash| and |End Of Cave:23|",
             "category": ["Side Missions"]
         },
 
@@ -533,14 +538,14 @@
             "name": "You vs. Planet 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Patch| and {TODO(Track Possible Enemy Kill 100)}",
+            "requires": "|Patch| and |Unlocked Sun-Speckled Terrace|",
             "category": ["Side Missions"]
         },
         {
             "name": "You vs. Planet 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Patch| and {TODO(Track Possible Enemy Kill 300)}",
+            "requires": "|Patch| and |Unlocked Blossoming Arcadia|",
             "category": ["Side Missions"]
         },
         {

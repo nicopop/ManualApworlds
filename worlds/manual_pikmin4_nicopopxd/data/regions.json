@@ -35,7 +35,7 @@
         "requires": "{Build()}"
     },
     "SST Night Expeditions":{
-        "requires": "|Yonny|"
+        "requires": "{Night()}"
     },
     "Last-Frost Cavern": {
         "connects_to": [],
@@ -92,9 +92,122 @@
     },
 
     "Blossoming Arcadia": {
-        "connects_to": [],
+        "connects_to": ["Blossoming Arcadia Past West Central Bridge", "Blossoming Arcadia North",
+            "Blossoming Arcadia NorthWest", "Blossoming Arcadia South", "BA Night Expeditions"
+        ],
         "requires": "{EventValue(Sparklium:1500)}"
     },
+    "BA Night Expeditions":{
+        "requires": "{Night()}"
+    },
+    "Blossoming Arcadia South": {
+        "connects_to": ["Secluded Courtyard"],
+        "requires": "{ElectricalGate()}"
+    },
+    "Blossoming Arcadia Past West Central Bridge": {
+        "connects_to": ["Drafty Gallery", "Blossoming Arcadia NorthWest"],
+        "requires": "{Build()}"
+    },
+    "Blossoming Arcadia North": {
+        "entrance_requires": {
+            "Blossoming Arcadia": "{Build()} or |Skill Doggy-Paddle| or {FreezeWater(30, true)}"
+        },
+        "requires": "",
+        "connects_to": ["Blossoming Arcadia North Electrical Gate", "Sightless Passage", "Blossoming Arcadia East"]
+    },
+    "Blossoming Arcadia East": {
+        "connects_to": ["Kingdom of Beasts"],
+        "requires": "{Build()}"
+    },
+    "Blossoming Arcadia North Electrical Gate":{
+        "requires": "{ElectricalGate()}",
+        "connects_to": ["Blossoming Arcadia NorthWest", "Blossoming Arcadia North"]
+    },
+    "Blossoming Arcadia NorthWest": {
+        "entrance_requires": {
+            "Blossoming Arcadia": "|Skill Doggy-Paddle| or {FreezeWater(30, true)}"
+        },
+        "connects_to": ["Blossoming Arcadia North Electrical Gate", "Blossoming Arcadia West"],
+        "requires": ""
+    },
+    "Blossoming Arcadia West": {
+        "requires": "{IceGate()} or {Pikmin(Blue)}",
+        "connects_to": ["Blossoming Arcadia SouthWest"]
+    },
+    "Blossoming Arcadia SouthWest": {
+        "_comment": "TODO check minimum blue pikmin for thingy",
+        "requires": "{Build()}"
+    },
+    "Blossoming Arcadia NorthEast": {
+        "_comment": "TODO check minimum blue pikmin for thingy",
+        "requires": ""
+    },
+    "Drafty Gallery": {
+        "requires": "{OptOne(Drafty Gallery Key:1)}",
+        "connects_to": ["Drafty Gallery Floor 2"]
+    },
+    "Drafty Gallery Floor 2": {
+        "requires": "{OptOne(Drafty Gallery Key:2)}",
+        "connects_to": ["Drafty Gallery Floor 3"]
+    },
+    "Drafty Gallery Floor 3": {
+        "requires": "{OptOne(Drafty Gallery Key:3)}",
+        "connects_to": ["Drafty Gallery Floor 4"]
+    },
+    "Drafty Gallery Floor 4": {
+        "requires": "{OptOne(Drafty Gallery Key:4)} and {Build()}"
+    },
+    "Sightless Passage": {
+        "requires": "{OptOne(Sightless Passage Key:1)} and ({HeadLamp()} or |[UT OOL]|)",
+        "connects_to": ["Sightless Passage North"]
+    },
+    "Sightless Passage North": {
+        "requires": "{FireFloor()} or {ElectricalGate()}",
+        "connects_to": ["Blossoming Arcadia NorthEast"],
+        "exit_requires": {"Blossoming Arcadia NorthEast": "{Build()}"}
+    },
+    "Kingdom of Beasts": {
+        "connects_to": ["Kingdom of Beasts Floor 2"],
+        "requires": "{IceGate()} and {OptOne(Kingdom of Beasts Key:1)}"
+    },
+    "Kingdom of Beasts Floor 2": {
+        "connects_to": ["Kingdom of Beasts Floor 3"],
+        "requires": "{OptOne(Kingdom of Beasts Key:2)}"
+    },
+    "Kingdom of Beasts Floor 3": {
+        "connects_to": ["Kingdom of Beasts Floor 4"],
+        "requires": "{CrystalWall()} and (|Flarlic:2| or {CanBoost()}) and {OptOne(Kingdom of Beasts Key:3)}"
+    },
+    "Kingdom of Beasts Floor 4": {
+        "connects_to": ["Kingdom of Beasts Floor 5"],
+        "requires": "{OptOne(Kingdom of Beasts Key:4)} and {FireFloor()}"
+    },
+    "Kingdom of Beasts Floor 5": {
+        "connects_to": ["Kingdom of Beasts Floor 6"],
+        "requires": "{OptOne(Kingdom of Beasts Key:5)}"
+    },
+    "Kingdom of Beasts Floor 6": {
+        "connects_to": [],
+        "requires": "{OptOne(Kingdom of Beasts Key:6)}"
+    },
+    "Secluded Courtyard": {
+        "connects_to": ["Secluded Courtyard Floor 2"],
+        "requires": "{OptOne(Secluded Courtyard:1)}"
+    },
+    "Secluded Courtyard Floor 2": {
+        "connects_to": ["Secluded Courtyard Floor 3"],
+        "requires": "{OptOne(Secluded Courtyard:2)} and {FreezeWater(5, true)} or |Skill Doggy-Paddle|"
+    },
+    "Secluded Courtyard Floor 3": {
+        "connects_to": ["Secluded Courtyard Floor 4"],
+        "requires": "{OptOne(Secluded Courtyard:3)}"
+    },
+    "Secluded Courtyard Floor 4": {
+        "connects_to": [],
+        "requires": "{OptOne(Secluded Courtyard:4)} and {PottedPlant()}"
+    },
+
+
     "Serene Shores": {
         "connects_to": [],
         "requires": "{EventValue(Sparklium:4000)}"

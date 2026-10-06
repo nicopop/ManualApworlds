@@ -6,42 +6,48 @@
             "category": ["New Game Plus"]
         },
         {
-            "name": "Material Pile",
-            "_comment": "Free up North",
-            "value": {"Material": 23},
+            "name": "Unlocked Sun-Speckled Terrace",
             "region": "Sun-Speckled Terrace"
         },
         {
-            "name": "Material Pile",
-            "_comment": "In water #1",
-            "value": {"Material": 23},
-            "requires": "{Pikmin(Blue)}",
-            "region": "Sun-Speckled Terrace"
+            "name": "Unlocked Blossoming Arcadia",
+            "region": "Blossoming Arcadia"
         },
         {
-            "name": "Material Pile",
-            "_comment": "In water #2",
-            "value": {"Material": 23},
-            "requires": "{Pikmin(Blue)}",
-            "region": "Sun-Speckled Terrace"
+            "name": "Unlocked Serene Shores",
+            "region": "Serene Shores"
         },
         {
-            "name": "Material Pile",
-            "value": {"Material": 25},
-            "region": "Sun-Speckled Terrace South"
+            "name": "Unlocked Hero's Hideaway",
+            "region": "Hero's Hideaway"
         },
         {
-            "name": "Material Pile",
-            "_comment": "Other side of bridge",
-            "value": {"Material": 26},
-            "requires": "{Build()}",
-            "region": "Sun-Speckled Terrace South"
+            "name": "Unlocked Giant's Hearth",
+            "region": "Giant's Hearth"
         },
         {
-            "name": "Material Pile",
-            "value": {"Material": 20},
-            "region": "Aquiferous Summit Floor 2",
-            "requires": "{Pikmin(Ice)}"
+            "name": "Unlocked Primordial Thicket",
+            "region": "Primordial Thicket"
+        },
+        {
+            "name": "Unlocked Shipwreck Tale",
+            "region": "Shipwreck Tale"
+        },
+        {
+            "name": "Unlocked ST Sun-Speckled Terrace",
+            "region": "ST Sun-Speckled Terrace"
+        },
+        {
+            "name": "Unlocked ST Blossoming Arcadia",
+            "region": "ST Blossoming Arcadia"
+        },
+        {
+            "name": "Unlocked ST Serene Shores",
+            "region": "ST Serene Shores"
+        },
+        {
+            "name": "ST Hero's Hideaway",
+            "region": "ST Sun-Speckled Terrace"
         },
 
         {
@@ -958,6 +964,79 @@
             "_comment": [],
             "requires": "|Leafling Cured:17|",
             "visible": true
+        },
+
+        {
+            "name": "Material Pile",
+            "_comment": "Free up North",
+            "value": {"Material": 23},
+            "region": "Sun-Speckled Terrace"
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "In water #1",
+            "value": {"Material": 23},
+            "requires": "{Pikmin(Blue)}",
+            "region": "Sun-Speckled Terrace"
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "In water #2",
+            "value": {"Material": 23},
+            "requires": "{Pikmin(Blue)}",
+            "region": "Sun-Speckled Terrace"
+        },
+        {
+            "name": "Material Pile",
+            "value": {"Material": 25},
+            "region": "Sun-Speckled Terrace South"
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "Other side of bridge",
+            "value": {"Material": 26},
+            "requires": "{Build()}",
+            "region": "Sun-Speckled Terrace South"
+        },
+        {
+            "name": "Material Pile",
+            "value": {"Material": 20},
+            "region": "Aquiferous Summit Floor 2",
+            "requires": "{Pikmin(Ice)}"
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "West under bridge",
+            "value": {"Material": 12},
+            "region": "Blossoming Arcadia",
+            "requires": ""
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "East near birdies",
+            "value": {"Material": 20},
+            "region": "Blossoming Arcadia",
+            "requires": ""
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "North near birdies",
+            "value": {"Material": 24},
+            "region": "Blossoming Arcadia North",
+            "requires": ""
+        },
+        {
+            "name": "Material Pile",
+            "_comment": "near trains",
+            "value": {"Material": 30},
+            "region": "Blossoming Arcadia NorthWest",
+            "requires": ""
+        },
+        {
+            "name": "Material Pile",
+            "value": {"Material": 15},
+            "region": "Blossoming Arcadia West",
+            "requires": ""
         }
     ]
 }

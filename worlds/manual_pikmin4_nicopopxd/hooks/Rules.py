@@ -5,6 +5,7 @@ from worlds.AutoWorld import World
 from ..Helpers import clamp, get_items_with_value, is_item_name_enabled, format_state_prog_items_key
 from ..Game import game_name
 from BaseClasses import MultiWorld, CollectionState
+from collections.abc import Mapping
 from math import ceil
 
 import dataclasses
@@ -18,19 +19,45 @@ if TYPE_CHECKING:
 def Build() -> str:
     return "|Russ|"
 
-def Night() -> str:
-    return "|Yonny|"
+def Night(level:int = 1) -> str:
+    # TODO adjust depending on level
+    pikmin = min(level * 2, 10)
+    return f"|Yonny| and |Glow Pikmins:{pikmin}|"
 
 def ElectricalGate(st:bool = False) -> str:
     if st: # TODO check if other equipment work too
-        return "{Pikmin(ST Yellow)}"
+        return "{Pikmin(ST Yellow)}" +\
+        " or {Bombs(ST)}"
 
     return "{Pikmin(Yellow)} or (|Pup Anti-Electrifier|)" + \
-        " or (|Anti-Electrifier| and {TODO(Melee Setting)})"
+        " or (|Anti-Electrifier| and {TODO(Melee Setting)})" +\
+        " or {AnyBomb(Wall)}"
 
 def IceGate() -> str:
     return "{Pikmin(Ice)} or (|Pup Thermal Defense|)" + \
-        " or (|Thermal Defense| and {TODO(Melee Setting)})"
+        " or (|Thermal Defense| and {TODO(Melee Setting)})" +\
+        " or {AnyBomb(WALL)}"
+
+def CrystalWall() -> str:
+    return "{Pikmin(Rock)} or {AnyBomb(WALL)}"
+
+def EasyKillAlt() -> str:
+    return '{Bombs()} or {Bombs(track)}'
+
+def ConcreteWall() -> str:
+    return '{Bombs()} or {Bombs(track)}'
+
+def DirtWall() -> str:
+    return "1"
+def DirtWallRule() -> str:
+    return "{True_()}"
+def PottedPlant() -> str:
+    return "1"
+def PottedPlantRule() -> str:
+    return "{True_()}"
+
+def HeadLamp() -> str:
+    return "({EventValue(Sparklium:2000)} or |NGP|) and |Headlamp|"
 
 def FreezeWater(count: int, short_duration: bool = False) -> str:
     if short_duration:
@@ -46,18 +73,45 @@ def PoisonFloor() -> str:
     return "{Pikmin(White)} or (|Pup Sniff Saver|)" + \
         " or {TODO(Melee Setting, False)}"
 
-def Bombs(bomb_type: str = "Normal") -> str:
+def Bombs(state: CollectionState, player: int, bomb_type: str = "Normal") -> bool:
     bomb_type = bomb_type.lower()
-    requires = ""
+    requires: bool = True
+    def has(item: str, count: int = 1):
+        return state.has(item, player, count)
+    def _EventValue(valueCount: str):
+        return EventValue(state, player, valueCount)
     if bomb_type == "normal": # TODO check for Source
-        requires = "({EventValue(Sparklium:3000)} or |NGP|) and |Bomb Rocks|"
-    if bomb_type == "ice":
-        requires = "({EventValue(Sparklium:1500)} or |NGP|) and |Ice Blasts|"
+        requires = (_EventValue("Sparklium:3000") or has("NGP")) \
+            and has("Bomb Rocks")
+    elif bomb_type == "st": # TODO check for Source
+        requires = has("ST Bomb Rocks")
+    elif bomb_type == "ice":
+        requires = (_EventValue("Sparklium:1500") or has("NGP")) \
+            and has("Ice Blasts")
     elif bomb_type == "mine":
-        requires = "({EventValue(Sparklium:1500)} or |NGP|) and |Mines|"
+        requires = (_EventValue("Sparklium:4000")or has("NGP")) \
+            and has("Mines")
     elif bomb_type == "track":
-        requires = "({EventValue(Sparklium:7500)} or |NGP|) and |Trackonators|"
-    return "|Russ| and " + requires
+        requires = (_EventValue("Sparklium:7500") or has("NGP")) \
+            and has("Trackonators")
+    return has("Russ") and requires
+
+def AnyBomb(state: CollectionState, player: int, Type: str = "") -> bool:
+        requested_type = Type.upper()
+        def _Bombs(bomb_type: str = "Normal"):
+            return Bombs(state, player, bomb_type)
+        if requested_type == "ST":
+            return _Bombs("ST")
+        elif requested_type == "DMG":
+            return _Bombs() or _Bombs("Mine") or _Bombs("Track")
+        elif requested_type == "WALL":
+            return _Bombs() or _Bombs("Track")
+        return _Bombs() or _Bombs("Ice") or _Bombs("Mine") or _Bombs("Track")
+
+def CanBoost(st: bool= False) -> str:
+    if st:
+        return "|ST Boost Potion|"
+    return "|Boost Potion|" # TODO check where you can farm for
 
 def CanLiftST(count: int, state: CollectionState, world: "ManualWorld", player: int) -> bool:
     # TODO deal with moss pulling stuff
@@ -89,18 +143,29 @@ def CanLiftOverWater(FreezeCount: int, Weight: int, state: CollectionState, worl
             return True
     return False
 
-def CanLift(count: int, state: CollectionState, world: "ManualWorld", player: int, excluded_colors: str = "") -> bool:
+def CanLift(count: int, state: CollectionState, world: "ManualWorld", player: int, excluded_colors: str = "", invert_exclude: bool = False) -> bool:
     if count == 0:
         return True
-    Real_pikmins = set(world.event_name_groups["Pikmins Carry"])
-
-    purple_excluded = False
-    if excluded_colors:
+    purple_excluded = invert_exclude
+    if invert_exclude and not excluded_colors:
+        raise Exception("You inverted the excluded colors without 'including' any and thus this CanLift always return False")
+    elif invert_exclude and excluded_colors:
+        Real_pikmins: set[str] = set()
         for color in excluded_colors.split(";"):
-            if color.strip() == "Purple":
-                purple_excluded = True
+            color = color.strip()
+            if color == "Purple":
+                purple_excluded = False
                 continue
-            Real_pikmins.remove(f"{color} Real")
+            Real_pikmins.add(f"{color} Real")
+    else:
+        Real_pikmins = set(world.event_name_groups["Pikmins Carry"])
+
+        if excluded_colors:
+            for color in excluded_colors.split(";"):
+                if color.strip() == "Purple":
+                    purple_excluded = True
+                    continue
+                Real_pikmins.remove(f"{color} Real")
 
     max_pikmin_count = ceil(count/10)
     rule: bool
@@ -133,6 +198,8 @@ def Pikmin(state: CollectionState, player: int, color: str, count: int = 1) -> b
     flarlic = "Flarlic"
     if color.startswith("ST "):
         flarlic = "ST Flarlic"
+    elif color.lower() == "glow":
+        return state.has(f"{color} Pikmins", player, item_count)
     return state.has(f"{color} Pikmins", player, item_count) and state.has(flarlic, player, flarlic_count) \
         and (state.has(f"{color} Onion", player) or state.has(f"{color} Pikmin Source", player))
 
@@ -163,6 +230,18 @@ def EventValue(state: CollectionState, player: int, valueCount: str):
     return state.has(value_name, player, requested_count)
 
 
+def has_some_count(state: CollectionState, item_counts: Mapping[str, int], player: int, needed: int) -> bool:
+    """Returns True if at least "needed" amount of counts is in the state"""
+    found = 0
+    def has(item: str, count: int = 1):
+        return state.has(item, player, count)
+    for item, count in item_counts.items():
+        if has(item, count):
+            found += 1
+            if found >= needed:
+                return True
+    return False
+
 # A rule that checks if the player has at least count of the given items, ignoring duplicates of the same item
 def HasFromCategoryUnique(category: str, count: str, state: CollectionState, world: "ManualWorld", player: int) -> bool:
     requested_count = int(count.strip())
@@ -175,7 +254,44 @@ def HasFromCategoryUnique(category: str, count: str, state: CollectionState, wor
 #     return HasFromCategoryUnique("Objectives Final", str(requested_count), state=state, world=world, player=player)
 
 if use_rulebuilder:
-    from rule_builder.rules import HasFromListUnique, Rule, True_, False_, Has, HasAllCounts, HasAnyCount, HasFromList, Or, And
+    from rule_builder.rules import HasFromListUnique, Rule, True_, False_, Has, HasAllCounts, HasAnyCount, \
+    HasFromList, Or, And, AtLeast
+
+    @dataclasses.dataclass()
+    class AnyBombRule(Rule["ManualWorld"], game=game_name):
+        Type: str = ""
+        def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+            requested_type = self.Type.upper()
+            if requested_type == "ST":
+                return Has("ST Bomb Rocks").resolve(world)
+            elif requested_type == "DMG":
+                return Or(BombsRule(), BombsRule("Mine"), BombsRule("Track")).resolve(world)
+            elif requested_type == "WALL":
+                return Or(BombsRule(), BombsRule("Track")).resolve(world)
+            return Or(BombsRule(),BombsRule("Ice"), BombsRule("Mine"), BombsRule("Track")).resolve(world)
+
+    @dataclasses.dataclass()
+    class BombsRule(Rule["ManualWorld"], game=game_name):
+        bomb_type: str = "Normal"
+        def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+            bomb_type = self.bomb_type.lower()
+            rule: Rule["ManualWorld"] = True_()
+            if bomb_type == "normal": # TODO check for Source
+                rule = And(Or(EventValueRule("Sparklium:3000"), Has("NGP")),
+                           Has("Bomb Rocks"))
+            elif bomb_type == "st": # TODO check for Source
+                rule = Has("ST Bomb Rocks")
+            elif bomb_type == "ice":
+                rule = And(Or(EventValueRule("Sparklium:1500"), Has("NGP")),
+                           Has("Ice Blasts"))
+            elif bomb_type == "mine":
+                rule = And(Or(EventValueRule("Sparklium:4000"), Has("NGP")),
+                                           Has("Mines"))
+            elif bomb_type == "track":
+                rule = And(Or(EventValueRule("Sparklium:7500"), Has("NGP")),
+                                           Has("Trackonators"))
+            return And(Has("Russ"), rule).resolve(world)
+
 
     @dataclasses.dataclass()
     class PikminRule(Rule["ManualWorld"], game=game_name):
@@ -184,14 +300,16 @@ if use_rulebuilder:
         def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
             color = self.color
             count = self.count
-            if self.color.lower() == "purple":
+            if color.lower() == "purple":
                 item_count = ceil(count/100)
             else:
                 item_count = ceil(count/10)
             flarlic = "Flarlic"
+            flarlic_count = max(item_count - 2, 0)
             if color.startswith("ST "):
                 flarlic = "ST Flarlic"
-            flarlic_count = max(item_count - 2, 0)
+            elif color.lower() == "glow":
+                return Has(f"{color} Pikmins", item_count).resolve(world)
 
             return And(Has(f"{color} Pikmins", item_count),
                        Has(flarlic, flarlic_count),
@@ -237,18 +355,33 @@ if use_rulebuilder:
     class CanLiftRule(Rule["ManualWorld"], game=game_name):
         count: int
         excluded_colors: str = ""
+        invert_excluded: bool = False
         def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
             # TODO Check for Oatchi buff
             if self.count == 0:
                 return True_().resolve(world)
-            Real_pikmins = set(world.event_name_groups["Pikmins Carry"])
-            purple_excluded = False
-            if self.excluded_colors:
+
+            purple_excluded = self.invert_excluded
+            if self.invert_excluded and not self.excluded_colors:
+                raise Exception("You inverted the excluded colors without 'including' any and thus this CanLift always return False")
+            elif self.invert_excluded and self.excluded_colors:
+                purple_excluded = True
+                Real_pikmins: set[str] = set()
                 for color in self.excluded_colors.split(";"):
-                    if not purple_excluded and color.strip() == "Purple":
-                        purple_excluded = True
+                    color = color.strip()
+                    if color == "Purple":
+                        purple_excluded = False
                         continue
-                    Real_pikmins.remove(f"{color.strip()} Real")
+                    Real_pikmins.add(f"{color} Real")
+            else:
+                Real_pikmins = set(world.event_name_groups["Pikmins Carry"])
+
+                if self.excluded_colors:
+                    for color in self.excluded_colors.split(";"):
+                        if not purple_excluded and color.strip() == "Purple":
+                            purple_excluded = True
+                            continue
+                        Real_pikmins.remove(f"{color.strip()} Real")
 
             max_pikmin_count = ceil(self.count/10)
             rule: Rule[World]
@@ -283,6 +416,15 @@ if use_rulebuilder:
             requested_count = int(self.count.strip())
             requested_list = world.item_and_event_name_groups[self.category.strip()]
             return HasFromListUnique(*requested_list, count=requested_count).resolve(world)
+
+    @dataclasses.dataclass()
+    class Has_some_countRule(Rule["ManualWorld"], game=game_name):
+        item_counts: Mapping[str, int]
+        count: int
+        def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+            requested_count = int(self.count)
+            children = [Has(item, count) for item, count in self.item_counts.items()]
+            return AtLeast(requested_count, *children).resolve(world)
 
     @dataclasses.dataclass()
     class TODORule(Rule["ManualWorld"], game=game_name):

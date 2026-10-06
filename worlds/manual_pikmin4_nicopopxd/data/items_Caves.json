@@ -1,0 +1,74 @@
+{
+    "$schema": "Schema/Manual.items.schema.json",
+    "data":[
+        {
+            "name": "FileMetaData",
+            "_comment": "Should be removed by the Data.py hook",
+            "offset": 100,
+            "disabled": true
+        },
+
+        {
+            "name": "Last-Frost Cavern Key",
+            "progression": true,
+            "description": "Unlock The Floor",
+            "category": ["Cavern Keys"]
+        },
+        {
+            "name": "Industrial Maze Key",
+            "count": 2,
+            "progression": true,
+            "description": "Unlock A Floor/2",
+            "category": ["Cavern Keys"]
+        },
+        {
+            "name": "Hectic Hollows Key",
+            "count": 2,
+            "progression": true,
+            "description": "Unlock A Floor/2",
+            "category": ["Cavern Keys"]
+        },
+        {
+            "name": "Crackling Cauldron Key",
+            "count": 2,
+            "progression": true,
+            "description": "Unlock A Floor/2",
+            "category": ["Cavern Keys"]
+        },
+        {
+            "name": "Aquiferous Summit Key",
+            "count": 2,
+            "progression": true,
+            "description": "Unlock A Floor/2",
+            "category": ["Cavern Keys"]
+        },
+
+        {
+            "name": "Drafty Gallery Key",
+            "count": 2,
+            "progression": true,
+            "description": "Unlock A Floor/2",
+            "category": ["Cavern Keys"]
+        },
+        {
+            "name": "Sightless Passage Key",
+            "progression": true,
+            "description": "Unlock The Cave",
+            "category": ["Cavern Keys"]
+        },
+        {
+            "name": "Kingdom of Beasts Key",
+            "count": 6,
+            "progression": true,
+            "description": "Unlock A Floor/6",
+            "category": ["Cavern Keys"]
+        },
+        {
+            "name": "Secluded Courtyard Key",
+            "count": 4,
+            "progression": true,
+            "description": "Unlock A Floor/2",
+            "category": ["Cavern Keys"]
+        }
+    ]
+}

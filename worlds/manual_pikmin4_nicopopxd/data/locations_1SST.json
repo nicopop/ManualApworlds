@@ -4,7 +4,8 @@
         {
             "name": "SST Dirt Wall Destroyed",
             "region": "Sun-Speckled Terrace",
-            "category": [ "Sun-Speckled Terrace" ]
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{DirtWall()}"
         },
         {
             "name": "SST Build East Bridge",
@@ -55,7 +56,8 @@
         {
             "name": "SST North Dirt Wall Destroyed",
             "region": "Sun-Speckled Terrace",
-            "category": [ "Sun-Speckled Terrace" ]
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{DirtWall()}"
         },
         {
             "name": "SST Push Central Paper Bag",
@@ -118,7 +120,7 @@
             "name": "SST Talisman of Life",
             "description": "Moon",
             "create_event": [
-                {"name": "Talisman of Life Moon", "value": {"Sparklium": 40},
+                {"name": "Talisman of Life (Moon)", "value": {"Sparklium": 40},
                 "category": ["Sparklium", "Hands of Fate", "SST Complete"], "visible": true}
             ],
             "region": "Sun-Speckled Terrace Post Aquiferous Summit",
@@ -301,7 +303,10 @@
         },
         {
             "name": "AS2 Rescue",
-            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]},
+                {"name": "End Of Cave", "requires": ""}
+            ],
             "region": "Aquiferous Summit Floor 2 Past Stairs",
             "requires": "{Pikmin(Ice)}",
             "category": [ "Sun-Speckled Terrace" ]
@@ -342,7 +347,10 @@
         {
             "name": "LFC Rescue",
             "region": "Last-Frost Cavern",
-            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]},
+                {"name": "End Of Cave"}
+            ],
             "category": [ "Sun-Speckled Terrace" ],
             "requires": "{Pikmin(Ice)}"
         },
@@ -374,7 +382,8 @@
         {
             "name": "IM1 Dirt Wall Destroyed",
             "region": "Industrial Maze",
-            "category": [ "Sun-Speckled Terrace" ]
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{DirtWall()}"
         },
 
         {
@@ -419,7 +428,10 @@
         {
             "name": "IM2 Rescue",
             "region": "Industrial Maze Floor 2 Post Electrical Gate",
-            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]},
+                {"name": "End Of Cave", "requires": ""}
+            ],
             "category": [ "Sun-Speckled Terrace" ],
             "requires": "{Pikmin(Yellow)}"
         },
@@ -457,7 +469,10 @@
         },
         {
             "name": "HH2 Rescue",
-            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]},
+                {"name": "End Of Cave"}
+            ],
             "region": "Hectic Hollows Floor 2",
             "category": [ "Sun-Speckled Terrace" ]
         },
@@ -525,7 +540,8 @@
         {
             "name": "CC2 Dirt Wall broken",
             "region": "Crackling Cauldron Floor 2",
-            "category": [ "Sun-Speckled Terrace" ]
+            "category": [ "Sun-Speckled Terrace" ],
+            "requires": "{DirtWall()}"
         },
         {
             "name": "CC2 S.S Chocolate",
@@ -548,7 +564,10 @@
         {
             "name": "CC2 Rescue",
             "region": "Crackling Cauldron Floor 2",
-            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]}],
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]},
+                {"name": "End Of Cave", "requires": ""}
+            ],
             "category": [ "Sun-Speckled Terrace" ]
         }
     ]

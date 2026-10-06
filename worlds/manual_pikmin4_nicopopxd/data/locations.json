@@ -100,14 +100,14 @@
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
             "requires": "|Schnauz| and (|@Sparklium:100| or |NGP|)",
-            "category": ["Side Missions"]
+            "category": ["Side Missions", "Disabled"]
         },
         {
             "name": "Appraisal Frenzy 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
             "requires": "|Schnauz| and (|@Sparklium:150| or |NGP|)",
-            "category": ["Side Missions"]
+            "category": ["Side Missions", "Disabled"]
         },
         {
             "name": "Appraisal Frenzy 4",

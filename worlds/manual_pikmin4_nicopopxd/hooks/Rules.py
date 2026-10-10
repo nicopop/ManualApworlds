@@ -199,10 +199,9 @@ def Pikmin(state: CollectionState, player: int, color: str, count: int = 1) -> b
     if color.startswith("ST "):
         flarlic = "ST Flarlic"
     elif color.lower() == "glow":
-        return state.has(f"{color} Pikmins", player, item_count)
-    return state.has(f"{color} Pikmins", player, item_count) and state.has(flarlic, player, flarlic_count) \
-        and (state.has(f"{color} Onion", player) or state.has(f"{color} Pikmin Source", player))
-
+        return state.has_all_counts({"Yonny": 1, f"{color} Pikmins": item_count}, player)
+    return state.has_all_counts({f"{color} Pikmins": item_count, flarlic: flarlic_count}, player) and\
+        state.has_any([f"{color} Onion", f"{color} Pikmin Source"], player)
 def Event(location: str, count: int = 1) -> str:
     event_name = f"|[Event] {location.strip()}:{count}|"
     return event_name
@@ -230,7 +229,7 @@ def EventValue(state: CollectionState, player: int, valueCount: str):
     return state.has(value_name, player, requested_count)
 
 
-def has_some_count(state: CollectionState, item_counts: Mapping[str, int], player: int, needed: int) -> bool:
+def HasSomeCount(state: CollectionState, item_counts: Mapping[str, int], player: int, needed: int) -> bool:
     """Returns True if at least "needed" amount of counts is in the state"""
     found = 0
     def has(item: str, count: int = 1):
@@ -255,7 +254,7 @@ def HasFromCategoryUnique(category: str, count: str, state: CollectionState, wor
 
 if use_rulebuilder:
     from rule_builder.rules import HasFromListUnique, Rule, True_, False_, Has, HasAllCounts, HasAnyCount, \
-    HasFromList, Or, And, AtLeast
+    HasFromList, Or, And, AtLeast, HasAny
 
     @dataclasses.dataclass()
     class AnyBombRule(Rule["ManualWorld"], game=game_name):
@@ -309,16 +308,10 @@ if use_rulebuilder:
             if color.startswith("ST "):
                 flarlic = "ST Flarlic"
             elif color.lower() == "glow":
-                return Has(f"{color} Pikmins", item_count).resolve(world)
+                return And(Has("Yonny"),Has(f"{color} Pikmins", item_count)).resolve(world)
 
-            return And(Has(f"{color} Pikmins", item_count),
-                       Has(flarlic, flarlic_count),
-                       Or(
-                           Has(f"{color} Onion"),
-                           Has(f"{color} Pikmin Source")
-                        )
-                       ).resolve(world)
-
+            return And(HasAllCounts({f"{color} Pikmins": item_count, flarlic: flarlic_count}),
+                       HasAny(*[f"{color} Onion",f"{color} Pikmin Source"])).resolve(world)
 
     @dataclasses.dataclass()
     class CanLiftOverWaterRule(Rule["ManualWorld"], game=game_name):
@@ -330,6 +323,7 @@ if use_rulebuilder:
             if item_weight_count > 10:
                 raise NotImplementedError("TODO Implement CanLiftOverWaterRule for weight over 100")
             # Deal with Blue || Pink || Purple
+            # TODO maybe add Glow pikmin too
             rule: Rule["ManualWorld"] = HasAnyCount({"Blue Real": item_weight_count, "Pink Real": item_weight_count}) |\
                 HasAllCounts({"Purple Real": 1, "Ice Real":item_freeze_count, "Flarlic": item_freeze_count + 1})
 
@@ -418,7 +412,7 @@ if use_rulebuilder:
             return HasFromListUnique(*requested_list, count=requested_count).resolve(world)
 
     @dataclasses.dataclass()
-    class Has_some_countRule(Rule["ManualWorld"], game=game_name):
+    class HasSomeCountRule(Rule["ManualWorld"], game=game_name):
         item_counts: Mapping[str, int]
         count: int
         def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:

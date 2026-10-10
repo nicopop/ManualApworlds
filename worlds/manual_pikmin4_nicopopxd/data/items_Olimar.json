@@ -1,0 +1,79 @@
+{
+    "$schema": "Schema/Manual.items.schema.json",
+    "data":[
+        {
+            "name": "FileMetaData",
+            "_comment": "Should be removed by the Data.py hook",
+            "offset": 100,
+            "disabled": true
+        },
+        {
+            "count": 30,
+            "name": "Ship Part",
+            "_comment": "TODO REPLACE WITH EVENTS",
+            "category": [ "All", "Collectibles" ],
+            "progression_skip_balancing": true
+        },
+
+        {
+            "name": "Moss Charge Pots",
+            "progression": true,
+            "category": [ "Moss", "Shipwreck Tale", "All" ]
+        },
+        {
+            "name": "Moss Charge Walls",
+            "progression": true,
+            "category": [ "Moss", "Shipwreck Tale", "All" ]
+        },
+        {
+            "name": "Moss Charge Monsters",
+            "useful": true,
+            "category": [ "Moss", "Shipwreck Tale", "All" ]
+        },
+
+        {
+            "name": "ST Boost Potion",
+            "progression": true,
+            "category": [ "All", "Shipwreck Tale", "Equipment" ]
+        },
+        {
+            "name": "ST Survey Drone",
+            "useful": true,
+            "category": [ "All", "Shipwreck Tale", "Equipment" ]
+        },
+        {
+            "name": "ST Bombs",
+            "progression": true,
+            "category": [ "All", "Shipwreck Tale", "Equipment" ]
+        },
+
+        {
+            "name": "1 Crash Landing",
+            "progression": true,
+            "category": [ "All", "Shipwreck Tale" ]
+        },
+
+        {
+            "name": "ST Red Pikmins",
+            "id": 10,
+            "description": "maximum x 10",
+            "count": 10,
+            "progression": true,
+            "category": [ "ST Pikmins", "Shipwreck Tale", "All" ]
+        },
+        {
+            "name": "ST Yellow Pikmins",
+            "description": "maximum x 10",
+            "count": 10,
+            "progression": true,
+            "category": [ "ST Pikmins", "Shipwreck Tale", "All" ]
+        },
+        {
+            "name": "ST Blue Pikmins",
+            "description": "maximum x 10",
+            "count": 10,
+            "progression": true,
+            "category": [ "ST Pikmins", "Shipwreck Tale", "All" ]
+        }
+    ]
+}

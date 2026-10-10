@@ -18,6 +18,8 @@ jobs:
           filters: |
             outerwilds:
               - 'worlds/manual_outerwilds_nicopopxd/**/!(*.md)'
+            pikmin4:
+              - 'worlds/manual_pikmin4_nicopopxd/**/!(*.md)'
             plateup:
               - 'worlds/manual_plateup_nicopopxd/**/!(*.md)'
             template:
@@ -30,6 +32,17 @@ jobs:
         if: steps.changes.outputs.outerwilds == 'true'
         with:
           apworld-path: worlds/manual_outerwilds_nicopopxd
+          ap-version: ${{ env.AP_VERSION }}
+          python-version: '3.12'
+          checkout: false
+
+      - uses: Eijebong/ap-actions/ap-tests@main
+        name: Test manual_pikmin4_nicopopxd
+        env:
+          AP_TEST_WORLDS: manual_pikmin4_nicopopxd
+        if: steps.changes.outputs.pikmin4 == 'true'
+        with:
+          apworld-path: worlds/manual_pikmin4_nicopopxd
           ap-version: ${{ env.AP_VERSION }}
           python-version: '3.12'
           checkout: false

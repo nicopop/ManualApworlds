@@ -1,0 +1,58 @@
+{
+    "$schema": "Schema/Manual.locations.schema.json",
+    "data": [
+        {
+            "name": "Cure Battle Leafling 1",
+            "region": "SST Night Expeditions",
+            "create_event": [{"name": "Battle Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]}],
+            "requires": "|Battle Leafling:1|",
+            "category": ["Night Expeditions", "Sun-Speckled Terrace"]
+        },
+        {
+            "name": "Cure Battle Leafling 2",
+            "region": "BA Night Expeditions",
+            "create_event": [{"name": "Battle Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]}],
+            "requires": "|Battle Leafling:2|",
+            "category": ["Night Expeditions", "Blossoming Arcadia"]
+        },
+        {
+            "name": "Cure Dandori Leafling 1",
+            "region": "SST Night Expeditions",
+            "create_event": [{"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]}],
+            "requires": "|Leafling:1|",
+            "category": ["Night Expeditions", "Sun-Speckled Terrace"]
+        },
+        {
+            "name": "Cure Dandori Leafling 2",
+            "region": "SST Night Expeditions",
+            "create_event": [{"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]}],
+            "requires": "|Leafling:2| and ({Night(2)} or |[UT OOL]|)",
+            "category": ["Night Expeditions", "Sun-Speckled Terrace"]
+        },
+        {
+            "name": "Cure Dandori Leafling 3",
+            "region": "BA Night Expeditions",
+            "create_event": [{"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]}],
+            "requires": "|Leafling:3|",
+            "category": ["Night Expeditions", "Blossoming Arcadia"]
+        },
+        {
+            "name": "Cure Dandori Leafling 4",
+            "region": "BA Night Expeditions",
+            "create_event": [
+                {"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]}
+            ],
+            "requires": "|Leafling:4| and ({Night(2)} or |[UT OOL]|)",
+            "category": ["Night Expeditions", "Blossoming Arcadia"]
+        },
+        {
+            "name": "Cure Dandori Leafling 5 ",
+            "region": "BA Night Expeditions",
+            "create_event": [
+                {"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]}
+            ],
+            "requires": "|Leafling:5| and ({Night(2)} or |[UT OOL]|)",
+            "category": ["Night Expeditions", "Blossoming Arcadia"]
+        }
+    ]
+}

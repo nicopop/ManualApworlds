@@ -1,0 +1,253 @@
+{
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.regions.schema.json",
+    "Tutorial": {"starting": true},
+    "Rescue Command Post": {
+        "starting": true,
+        "connects_to": ["Events", "Missions", "Sparklium", "Castaways", "Sun-Speckled Terrace", "Blossoming Arcadia",
+         "Serene Shores", "Hero's Hideaway", "Giant's Hearth", "Primordial Thicket", "Shipwreck Tale"]
+    },
+    "Events": {},
+    "Missions":{},
+    "Sparklium": {},
+    "Castaways": {},
+    "Sun-Speckled Terrace":
+    {
+        "connects_to": ["Last-Frost Cavern", "Industrial Maze", "Hectic Hollows", "Crackling Cauldron",
+         "Sun-Speckled Terrace South", "Sun-Speckled Terrace NorthWest", "Sun-Speckled Terrace South Island",
+          "SST Night Expeditions"],
+        "requires": "{EventValue(Sparklium:300)}"
+    },
+    "Sun-Speckled Terrace South":
+    {
+        "connects_to": [],
+        "entrance_requires": {"Sun-Speckled Terrace": "{ElectricalGate()}"},
+        "requires": ""
+    },
+    "Sun-Speckled Terrace South Island":
+    {
+        "connects_to": [],
+        "requires": "{Build()} and ({CanLiftOverWater(30, 1)})"
+    },
+    "Sun-Speckled Terrace NorthWest":
+    {
+        "_comment": "OtherSide of North Bridge",
+        "connects_to": ["Sun-Speckled Terrace South", "Aquiferous Summit"],
+        "requires": "{Build()}"
+    },
+    "SST Night Expeditions":{
+        "requires": "{Night()}"
+    },
+    "Last-Frost Cavern": {
+        "connects_to": [],
+        "requires": "{OptOne(Last-Frost Cavern Key:1)}"
+    },
+    "Industrial Maze": {
+        "connects_to": ["Industrial Maze Floor 2"],
+        "_comment": "Maybe require cavern level like other Pikmin4 manual idk",
+        "requires": "{OptOne(Industrial Maze Key:1)}"
+    },
+    "Industrial Maze Floor 2": {
+        "connects_to": ["Industrial Maze Floor 2 Post Electrical Gate"],
+        "requires": "{OptOne(Industrial Maze Key:2)}"
+    },
+    "Industrial Maze Floor 2 Post Electrical Gate": {
+        "connects_to": [],
+        "requires": "{ElectricalGate()}"
+    },
+    "Hectic Hollows": {
+        "connects_to": ["Hectic Hollows Floor 2"],
+        "requires": "{OptOne(Hectic Hollows Key:1)}"
+    },
+    "Hectic Hollows Floor 2": {"requires": "{OptOne(Hectic Hollows Key:2)}"},
+    "Crackling Cauldron": {
+        "connects_to": ["Crackling Cauldron Post Electrical Gate"],
+        "requires": "{OptOne(Crackling Cauldron Key:1)}"
+    },
+    "Crackling Cauldron Post Electrical Gate": {
+        "connects_to": ["Crackling Cauldron Floor 2"],
+        "requires": "{ElectricalGate()}"
+    },
+    "Crackling Cauldron Floor 2": {"requires": "{OptOne(Crackling Cauldron Key:2)}"},
+    "Aquiferous Summit": {
+        "connects_to": ["Aquiferous Summit Floor 2"],
+        "requires": "{OptOne(Aquiferous Summit Key:1)}"
+    },
+    "Aquiferous Summit Floor 2": {
+        "connects_to": ["Aquiferous Summit Floor 2 Past FireFloor"],
+        "requires": "{FreezeWater(10, True)} and {OptOne(Aquiferous Summit Key:2)}"
+    },
+    "Aquiferous Summit Floor 2 Past FireFloor": {
+        "connects_to": ["Aquiferous Summit Floor 2 Past Stairs"],
+        "requires": "{FireFloor()}"
+    },
+    "Aquiferous Summit Floor 2 Past Stairs": {
+        "connects_to": ["Sun-Speckled Terrace Post Aquiferous Summit"],
+        "requires": "{Build()}"
+    },
+    "Sun-Speckled Terrace Post Aquiferous Summit":
+    {
+        "_comment": "OtherSide of North Bridge",
+        "connects_to": [],
+        "requires": ""
+    },
+
+    "Blossoming Arcadia": {
+        "connects_to": ["Blossoming Arcadia Past West Central Bridge", "Blossoming Arcadia North",
+            "Blossoming Arcadia NorthWest", "Blossoming Arcadia South", "BA Night Expeditions"
+        ],
+        "requires": "{EventValue(Sparklium:1500)}"
+    },
+    "BA Night Expeditions":{
+        "requires": "{Night()}"
+    },
+    "Blossoming Arcadia South": {
+        "connects_to": ["Secluded Courtyard"],
+        "requires": "{ElectricalGate()}"
+    },
+    "Blossoming Arcadia Past West Central Bridge": {
+        "connects_to": ["Drafty Gallery", "Blossoming Arcadia NorthWest"],
+        "requires": "{Build()}"
+    },
+    "Blossoming Arcadia North": {
+        "entrance_requires": {
+            "Blossoming Arcadia": "{Build()} or |Skill Doggy-Paddle| or {FreezeWater(30, true)}"
+        },
+        "requires": "",
+        "connects_to": ["Blossoming Arcadia North Electrical Gate", "Sightless Passage", "Blossoming Arcadia East"]
+    },
+    "Blossoming Arcadia East": {
+        "connects_to": ["Kingdom of Beasts"],
+        "requires": "{Build()}"
+    },
+    "Blossoming Arcadia North Electrical Gate":{
+        "requires": "{ElectricalGate()}",
+        "connects_to": ["Blossoming Arcadia NorthWest", "Blossoming Arcadia North"]
+    },
+    "Blossoming Arcadia NorthWest": {
+        "entrance_requires": {
+            "Blossoming Arcadia": "|Skill Doggy-Paddle| or {FreezeWater(30, true)}"
+        },
+        "connects_to": ["Blossoming Arcadia North Electrical Gate", "Blossoming Arcadia West"],
+        "requires": ""
+    },
+    "Blossoming Arcadia West": {
+        "requires": "{IceGate()} or {Pikmin(Blue)}",
+        "connects_to": ["Blossoming Arcadia SouthWest"]
+    },
+    "Blossoming Arcadia SouthWest": {
+        "_comment": "TODO check minimum blue pikmin for thingy",
+        "requires": "{Build()}"
+    },
+    "Blossoming Arcadia NorthEast": {
+        "_comment": "TODO check minimum blue pikmin for thingy",
+        "requires": ""
+    },
+    "Drafty Gallery": {
+        "requires": "{OptOne(Drafty Gallery Key:1)}",
+        "connects_to": ["Drafty Gallery Floor 2"]
+    },
+    "Drafty Gallery Floor 2": {
+        "requires": "{OptOne(Drafty Gallery Key:2)}",
+        "connects_to": ["Drafty Gallery Floor 3"]
+    },
+    "Drafty Gallery Floor 3": {
+        "requires": "{OptOne(Drafty Gallery Key:3)}",
+        "connects_to": ["Drafty Gallery Floor 4"]
+    },
+    "Drafty Gallery Floor 4": {
+        "requires": "{OptOne(Drafty Gallery Key:4)} and {Build()}"
+    },
+    "Sightless Passage": {
+        "requires": "{OptOne(Sightless Passage Key:1)} and ({HeadLamp()} or |[UT OOL]|)",
+        "connects_to": ["Sightless Passage North"]
+    },
+    "Sightless Passage North": {
+        "requires": "{FireFloor()} or {ElectricalGate()}",
+        "connects_to": ["Blossoming Arcadia NorthEast"],
+        "exit_requires": {"Blossoming Arcadia NorthEast": "{Build()}"}
+    },
+    "Kingdom of Beasts": {
+        "connects_to": ["Kingdom of Beasts Floor 2"],
+        "requires": "{IceGate()} and {OptOne(Kingdom of Beasts Key:1)}"
+    },
+    "Kingdom of Beasts Floor 2": {
+        "connects_to": ["Kingdom of Beasts Floor 3"],
+        "requires": "{OptOne(Kingdom of Beasts Key:2)}"
+    },
+    "Kingdom of Beasts Floor 3": {
+        "connects_to": ["Kingdom of Beasts Floor 4"],
+        "requires": "{CrystalWall()} and (|Flarlic:2| or {CanBoost()}) and {OptOne(Kingdom of Beasts Key:3)}"
+    },
+    "Kingdom of Beasts Floor 4": {
+        "connects_to": ["Kingdom of Beasts Floor 5"],
+        "requires": "{OptOne(Kingdom of Beasts Key:4)} and {FireFloor()}"
+    },
+    "Kingdom of Beasts Floor 5": {
+        "connects_to": ["Kingdom of Beasts Floor 6"],
+        "requires": "{OptOne(Kingdom of Beasts Key:5)}"
+    },
+    "Kingdom of Beasts Floor 6": {
+        "connects_to": [],
+        "requires": "{OptOne(Kingdom of Beasts Key:6)}"
+    },
+    "Secluded Courtyard": {
+        "connects_to": ["Secluded Courtyard Floor 2"],
+        "requires": "{OptOne(Secluded Courtyard:1)}"
+    },
+    "Secluded Courtyard Floor 2": {
+        "connects_to": ["Secluded Courtyard Floor 3"],
+        "requires": "{OptOne(Secluded Courtyard:2)} and {FreezeWater(5, true)} or |Skill Doggy-Paddle|"
+    },
+    "Secluded Courtyard Floor 3": {
+        "connects_to": ["Secluded Courtyard Floor 4"],
+        "requires": "{OptOne(Secluded Courtyard:3)}"
+    },
+    "Secluded Courtyard Floor 4": {
+        "connects_to": [],
+        "requires": "{OptOne(Secluded Courtyard:4)} and {PottedPlant()}"
+    },
+
+
+    "Serene Shores": {
+        "connects_to": [],
+        "requires": "{EventValue(Sparklium:4000)}"
+    },
+    "Hero's Hideaway":
+    {
+        "connects_to": [],
+        "requires": "{EventValue(Sparklium:7000)} and |Bernard|"
+    },
+    "Giant's Hearth":
+    {
+        "connects_to": [],
+        "requires": "{EventValue(Sparklium:11000)} and |Olimar|"
+    },
+    "Primordial Thicket":
+    {
+        "connects_to": [],
+        "requires": "{EventValue(Sparklium:13000)}"
+    },
+    "Shipwreck Tale":
+    {
+        "connects_to": ["ST Sun-Speckled Terrace", "ST Blossoming Arcadia", "ST Serene Shores", "ST Hero's Hideaway"],
+        "requires": "|Olimar|"
+    },
+    "ST Sun-Speckled Terrace":
+    {
+        "connects_to": [],
+        "requires": ""
+    },
+    "ST Blossoming Arcadia": {
+        "connects_to": [],
+        "requires": "|Ship Part:2| and {TODO(Create Events for ship parts)}"
+    },
+    "ST Serene Shores": {
+        "connects_to": [],
+        "requires": "|Ship Part:8|"
+    },
+    "ST Hero's Hideaway":
+    {
+        "connects_to": [],
+        "requires": "|Ship Part:23|"
+    }
+}

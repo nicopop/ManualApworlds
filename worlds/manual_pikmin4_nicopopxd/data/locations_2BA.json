@@ -1,0 +1,993 @@
+{
+    "$schema": "Schema/Manual.locations.schema.json",
+    "data": [
+        {
+            "name": "BA Sweat-Soaked Blue Bird",
+            "description": "Blue Origami",
+            "create_event": [
+                {"name": "Sweat-Soaked Blue Bird", "value": {"Sparklium": 40},
+                "category": ["Sparklium", "Toys of Giants", "BA Complete"], "visible": true}
+            ],
+            "region": "Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Build North Central Bridge",
+            "region": "Blossoming Arcadia",
+            "create_event": [{"name": "Built Something"}],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{Build()}"
+        },
+        {
+            "name": "BA Central Flarlic",
+            "region": "Blossoming Arcadia",
+            "create_event": [{"name": "Flarlic", "category": ["Pikmins", "BA Complete"], "visible": true}],
+            "requires": "{CanLiftOverWater(30, 5)}",
+            "category": [ "Region" ]
+        },
+        {
+            "name": "BA Unfloatable Boat",
+            "create_event": [
+                {"name": "Unfloatable Boat", "value": {"Sparklium": 180},
+                "category": ["Sparklium", "Toys of Giants", "BA Complete"], "visible": true}
+            ],
+            "region": "Blossoming Arcadia",
+            "requires": "{CanLift(12, Blue; Pink, True)}",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Sticky Jewel",
+            "description": "Candy ring",
+            "create_event": [
+                {"name": "Sticky Jewel", "value": {"Sparklium": 20},
+                "category": ["Sparklium", "Dazzle", "BA Complete"], "visible": true}
+            ],
+            "region": "Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA South Dirt Wall Demolished",
+            "region": "Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{DirtWall()}"
+        },
+        {
+            "name": "BA Get the Yellow Onion",
+            "region": "Sun-Speckled Terrace South",
+            "create_event": [{"name": "Yellow Onion", "visible": true, "category": ["Pikmins", "BA Complete"]}],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Floral Instigator",
+            "description": "Flower Pin",
+            "create_event": [
+                {"name": "Floral Instigator", "value": {"Sparklium": 20},
+                "category": ["Sparklium","Modern Amenities", "BA Complete"], "visible": true}
+            ],
+            "region": "Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Push South Paper Bag",
+            "region": "Blossoming Arcadia",
+            "create_event": [{
+                    "name": "Material Pile",
+                    "value": {"Material": 30}
+                }],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA South Electrical Gate Destroyed",
+            "region": "Blossoming Arcadia South",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Daughter Doll Head",
+            "description": "Head",
+            "create_event": [
+                {"name": "Daughter Doll Head", "value": {"Sparklium": 80},
+                "category": ["Sparklium", "Three Generations", "BA Complete"], "visible": true}
+            ],
+            "region": "Blossoming Arcadia South",
+            "category": [ "Blossoming Arcadia" ]
+        },
+
+        {
+            "name": "BA Beat Battle in a Box",
+            "create_event": [
+                {"name": "Battle Leafling", "visible": true, "category": ["Leafling", "BA Complete"]}
+            ],
+            "region": "Blossoming Arcadia",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Build West Central Bridge",
+            "region": "Blossoming Arcadia Past West Central Bridge",
+            "create_event": [{"name": "Built Something"}],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{Build()}"
+        },
+        {
+            "name": "BA Push West Paper Bag",
+            "region": "Blossoming Arcadia Past West Central Bridge",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA North Electrical Gate Destroyed",
+            "region": "Blossoming Arcadia North Electrical Gate",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Orbital Communication Sphere",
+            "description": "Golf Ball",
+            "create_event": [
+                {"name": "Orbital Communication Sphere", "value": {"Sparklium": 40},
+                "category": ["Sparklium", "Recreation Recollection", "BA Complete"], "visible": true}
+            ],
+            "region": "Blossoming Arcadia North",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Beaten the Flower Miniboss",
+            "region": "Blossoming Arcadia North",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Octoplus",
+            "description": "Octopus",
+            "create_event": [
+                {"name": "Octoplus", "value": {"Sparklium": 40},
+                "category": ["Sparklium", "Paleontology", "BA Complete"], "visible": true}
+            ],
+            "region": "Blossoming Arcadia NorthWest",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Wind Detector",
+            "description": "Harmonica",
+            "create_event": [
+                {"name": "Wind Detector", "value": {"Sparklium": 110},
+                "category": ["Sparklium", "Soulful Musician", "BA Complete"], "visible": true}
+            ],
+            "region": "Blossoming Arcadia NorthWest",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Harmonic Synthesizer",
+            "description": "castanets",
+            "create_event": [
+                {"name": "Harmonic Synthesizer", "value": {"Sparklium": 110},
+                "category": ["Sparklium", "Soulful Musician", "BA Complete"], "visible": true}
+            ],
+            "region": "Blossoming Arcadia NorthWest",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Mooching Vase",
+            "description": "castanets",
+            "create_event": [
+                {"name": "Mooching Vase", "value": {"Sparklium": 80},
+                "category": ["Sparklium", "Three Generations", "BA Complete"], "visible": true}
+            ],
+            "region": "Blossoming Arcadia NorthWest",
+            "requires": "{Pikmin(Yellow)}",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Velvety Dreamdrop",
+            "create_event": [
+                {"name": "Velvety Dreamdrop", "value": {"Sparklium": 40},
+                "category": ["Sparklium", "Spring Crop", "BA Complete"], "visible": true}
+            ],
+            "region": "Blossoming Arcadia NorthWest",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Wayward Moon",
+            "description": "Big Fruit",
+            "create_event": [
+                {"name": "Wayward Moon", "value": {"Sparklium": 200},
+                "category": ["Sparklium", "Spring Crop", "BA Complete"], "visible": true}
+            ],
+            "region": "Blossoming Arcadia West",
+            "requires": "{CanLift(50, Blue, True)} or (({Build()} and ({Pikmin(Blue, 12)} or {IceGate()})) and {CanLift(50)})",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Build Sprinkler valve",
+            "region": "Blossoming Arcadia West",
+            "create_event": [{"name": "Built Something"}],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{Build()} and ({Pikmin(Blue, 12)} or {IceGate()})"
+        },
+        {
+            "name": "BA West Ice Wall Destroyed",
+            "region": "Blossoming Arcadia West",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{IceGate()}"
+        },
+        {
+            "name": "BA Build SouthWest Bridge",
+            "region": "Blossoming Arcadia West",
+            "create_event": [{"name": "Built Something"}],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{Build()}"
+        },
+        {
+            "name": "BA Destroy Concrete Wall",
+            "region": "Blossoming Arcadia SouthWest",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{ConcreteWall()}"
+        },
+        {
+            "name": "BA Beat Rockaway Cellars",
+            "description": "South",
+            "create_event": [
+                {"name": "Leafling", "visible": true, "category": ["Leafling", "BA Complete"]},
+                {"name": "Dandori Puzzle", "visible": true, "category": ["BA Complete"]},
+                {"name": "Material Reward 30","value": {"Material": 30}, "category": []}
+            ],
+            "requires": "{ConcreteWall()}",
+            "region": "Blossoming Arcadia SouthWest",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Cupid's Grenade x3",
+            "description": "Cherry",
+            "region": "Blossoming Arcadia SouthWest",
+            "create_event": [
+                {"name": "Cupid's Grenade", "value": {"Sparklium": 20},
+                "category": ["Sparklium", "Spring Crop", "BA Complete"], "visible": true},
+                {"name": "Cupid's Grenade", "value": {"Sparklium": 20},
+                "category": ["Sparklium", "Spring Crop", "BA Complete"], "visible": true},
+                {"name": "Cupid's Grenade", "value": {"Sparklium": 20},
+                "category": ["Sparklium", "Spring Crop", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Beat Bird Miniboss",
+            "region": "Blossoming Arcadia SouthWest",
+            "category": [ "Blossoming Arcadia" ],
+            "create_event": [{
+                    "name": "Material Pile",
+                    "value": {"Material": 30}
+                }
+            ],
+            "requires": ""
+        },
+        {
+            "name": "BA Brush of Wisdom",
+            "description": "Tooth Brush",
+            "region": "Blossoming Arcadia SouthWest",
+            "create_event": [
+                {"name": "Brush of Wisdom", "value": {"Sparklium": 80},
+                "category": ["Sparklium", "Oral Arguments", "BA Complete"], "visible": true}
+            ],
+            "requires": ""
+        },
+        {
+            "name": "BA Sphere of Fuzzy Feelings",
+            "description": "Tennis Ball",
+            "region": "Blossoming Arcadia SouthWest",
+            "create_event": [
+                {"name": "Sphere of Fuzzy Feelings", "value": {"Sparklium": 100},
+                "category": ["Sparklium", "Recreation Recollection", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+
+        {
+            "name": "BA Push North Paper Bag",
+            "region": "Blossoming Arcadia NorthEast",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Kill the little guy.",
+            "region": "Blossoming Arcadia NorthEast",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Shake-a-Smile",
+            "description": "Dropped by the little guy",
+            "region": "Blossoming Arcadia NorthEast",
+            "create_event": [
+                {"name": "Shake-a-Smile", "value": {"Sparklium": 180},
+                "category": ["Sparklium", "Soulful Musician", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "BA Mechanical Harp",
+            "description": "Memory Song",
+            "region": "Blossoming Arcadia NorthEast",
+            "create_event": [
+                {"name": "Mechanical Harp Memory Song", "value": {"Sparklium": 150},
+                "category": ["Sparklium", "Recreation Recollection", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{Pikmin(Yellow)}"
+        },
+
+        {
+            "name": "BA Build East Stairs",
+            "region": "Blossoming Arcadia North",
+            "create_event": [{"name": "Built Something"}],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{Build()}"
+        },
+        {
+            "name": "BA East Ice Wall Destroyed",
+            "region": "Blossoming Arcadia East",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{IceGate()}"
+        },
+        {
+            "name": "BA Searing Acidshock",
+            "description": "Fruit",
+            "region": "Blossoming Arcadia East",
+            "create_event": [
+                {"name": "Searing Acidshock", "value": {"Sparklium": 50},
+                "category": ["Sparklium", "Spring Crop", "BA Complete"], "visible": true}
+            ],
+            "requires": ""
+        },
+        {
+            "name": "BA Beat Hotshock Canyon",
+            "description": "East",
+            "create_event": [
+                {"name": "Leafling", "visible": true, "category": ["Leafling", "BA Complete"]},
+                {"name": "Dandori Puzzle", "visible": true, "category": ["BA Complete"]},
+                {"name": "Material Reward 30","value": {"Material": 30}, "category": []}
+            ],
+            "requires": "",
+            "region": "Blossoming Arcadia East",
+            "category": [ "Blossoming Arcadia" ]
+        },
+
+
+        {
+            "name": "DG1 Dirt Wall Demolished",
+            "id": 100,
+            "region": "Drafty Gallery",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{DirtWall()}"
+        },
+        {
+            "name": "DG1 Hoop of Fortune",
+            "description": "Glowstick Ring",
+            "region": "Drafty Gallery",
+            "create_event": [
+                {"name": "Hoop of Fortune", "value": {"Sparklium": 130},
+                "category": ["Sparklium", "Dazzle", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "DG1 Memory Fragment",
+            "description": "Puzzle Piece",
+            "region": "Drafty Gallery",
+            "create_event": [
+                {"name": "Memory Fragment", "value": {"Sparklium": 50},
+                "category": ["Sparklium", "Memory Fragment", "BA Complete"], "visible": true}
+            ],
+            "requires": "{Pikmin(Yellow)}",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "DG1 Spouse Alert",
+            "description": "Bell",
+            "region": "Drafty Gallery",
+            "create_event": [
+                {"name": "Spouse Alert", "value": {"Sparklium": 70},
+                "category": ["Sparklium", "Soulful Musician", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "DG2 East Dirt Wall Demolished",
+            "region": "Drafty Gallery Floor 2",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{DirtWall()}"
+        },
+        {
+            "name": "DG2 North Dirt Wall Demolished",
+            "region": "Drafty Gallery Floor 2",
+            "create_event": [{"name": "Ice Pikmin Source", "category": ["Pikmins"]}],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{DirtWall()}"
+        },
+        {
+            "name": "DG2 Sphere of Support",
+            "description": "Ball #9",
+            "region": "Drafty Gallery Floor 2",
+            "create_event": [
+                {"name": "Sphere of Support", "value": {"Sparklium": 110},
+                "category": ["Sparklium", "Sacred Sphere", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "DG2 Gold Pile",
+            "region": "Drafty Gallery Floor 2",
+            "create_event": [
+                {"name": "Nuggets", "value": {"Sparklium": 50},
+                "category": ["Sparklium", "Collection Obsession", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "DG2 Tandem Trainer",
+            "region": "Drafty Gallery Floor 2",
+            "create_event": [
+                {"name": "Tandem Trainer", "value": {"Sparklium": 150},
+                "category": ["Sparklium", "Recreation Recollection", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "DG2 Back-at-the-Beginning Track",
+            "description": "Rail",
+            "region": "Drafty Gallery Floor 2",
+            "create_event": [
+                {"name": "Back-at-the-Beginning Track", "value": {"Sparklium": 110},
+                "category": ["Sparklium", "Roundabout Express", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "DG3 Build Bridge",
+            "region": "Drafty Gallery Floor 3",
+            "create_event": [
+                {"name": "Built Something"},
+                {
+                    "name": "Material Pile",
+                    "value": {"Material": 10}
+                }
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{Build()}"
+        },
+        {
+            "name": "DG3 Crush Paper Bag",
+            "region": "Drafty Gallery Floor 3",
+            "category": [ "Blossoming Arcadia" ],
+            "create_event": [{
+                "name": "Material Pile",
+                "value": {"Material": 15}
+            }],
+            "requires": ""
+        },
+        {
+            "name": "DG3 Lower North Bridge",
+            "region": "Drafty Gallery Floor 3",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "DG3 Middle-Management Tank Car",
+            "region": "Drafty Gallery Floor 3",
+            "create_event": [
+                {"name": "Middle-Management Tank Car", "value": {"Sparklium": 110},
+                "category": ["Sparklium", "Roundabout Express", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "DG3 Internal-Clock Measurer",
+            "region": "Drafty Gallery Floor 3",
+            "create_event": [
+                {"name": "Internal-Clock Measurer", "value": {"Sparklium": 120},
+                "category": ["Sparklium", "Gifts from the Sages", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "DG4 Kill MiniBoss",
+            "region": "Drafty Gallery Floor 4",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "DG4 Rescue",
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]},
+                {"name": "End Of Cave", "requires": ""}
+            ],
+            "region": "Drafty Gallery Floor 4",
+            "requires": "",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "DG4 Sphere of Family",
+            "description": "Ball #2",
+            "region": "Drafty Gallery Floor 4",
+            "create_event": [
+                {"name": "Sphere of Family", "value": {"Sparklium": 110},
+                "category": ["Sparklium", "Sacred Sphere", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+
+
+        {
+            "name": "SP1 Masterpiece Plank",
+            "description": "Gameboy Game",
+            "region": "Sightless Passage",
+            "create_event": [
+                {"name": "Masterpiece Plank", "value": {"Sparklium": 110},
+                "category": ["Sparklium", "Newly Nostalgic", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{Pikmin(Yellow)}"
+        },
+        {
+            "name": "SP1 Micromanagement Station",
+            "description": "Gameboy",
+            "region": "Sightless Passage",
+            "create_event": [
+                {"name": "Micromanagement Station", "value": {"Sparklium": 150},
+                "category": ["Sparklium", "Newly Nostalgic", "BA Complete"], "visible": true},
+                {"name": "Material Pile","_comment": "South behind Bars","value": {"Material": 10}, "requires": ""},
+                {"name": "Red Pikmin Source", "category": ["Pikmins"], "requires": ""},
+                {"name": "Yellow Pikmin Source", "category": ["Pikmins"], "requires": ""}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{Pikmin(Red)} or {AnyBomb(DMG)}"
+        },
+        {
+            "name": "SP1 East Electrical Gate Destroyed",
+            "description": "Gameboy",
+            "region": "Sightless Passage",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{ElectricalGate()}"
+        },
+        {
+            "name": "SP1 Rescue",
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]},
+                {"name": "End Of Cave"}
+            ],
+            "region": "Sightless Passage North",
+            "requires": "",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "SP1 Build Stairs",
+            "region": "Sightless Passage North",
+            "create_event": [{"name": "Built Something"}],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{Build()}"
+        },
+        {
+            "name": "SP1 Dirt Wall Demolished",
+            "region": "Sightless Passage North",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{DirtWall()}"
+        },
+        {
+            "name": "SP1 Heat Sensor",
+            "description": "Burried Thermometer",
+            "region": "Sightless Passage North",
+            "create_event": [
+                {"name": "Heat Sensor", "value": {"Sparklium": 120},
+                "category": ["Sparklium", "Gifts from the Sages", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{FireFloor()}"
+        },
+        {
+            "name": "SP1 Hoop of Healing",
+            "description": "Glowstick Ring",
+            "region": "Sightless Passage North",
+            "create_event": [
+                {"name": "Hoop of Healing", "value": {"Sparklium": 130},
+                "category": ["Sparklium", "Dazzle", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+
+
+        {
+            "name": "KoB1 Entrance Dirt Wall Demolished",
+            "region": "Kingdom of Beasts",
+            "category": [ "Blossoming Arcadia" ],
+            "create_event": [
+                {"name": "Red Pikmin Source", "category": ["Pikmins"], "requires": ""},
+                {"name": "Material Pile","value": {"Material": 12}}
+            ],
+            "requires": "{DirtWall()}"
+        },
+        {
+            "name": "KoB1 Flaky Temptation",
+            "description": "Croissant",
+            "region": "Kingdom of Beasts",
+            "category": [ "Blossoming Arcadia" ],
+            "create_event": [
+                {"name": "Flaky Temptation", "value": {"Sparklium": 110},
+                "category": ["Sparklium", "Extravagant Breakfast", "BA Complete"], "visible": true}
+            ],
+            "requires": "{FireFloor()}"
+        },
+        {
+            "name": "KoB1 Memory Fragment",
+            "description": "Puzzle Piece",
+            "region": "Kingdom of Beasts",
+            "create_event": [
+                {"name": "Memory Fragment", "value": {"Sparklium": 50},
+                "category": ["Sparklium", "Memory Fragment", "BA Complete"], "visible": true}
+            ],
+            "requires": "{FireFloor()}",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "KoB1 Exit Dirt Wall Demolished",
+            "region": "Kingdom of Beasts",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{DirtWall()}"
+        },
+        {
+            "name": "KoB2 Entrance Crystal Wall Demolished",
+            "region": "Kingdom of Beasts Floor 2",
+            "category": [ "Blossoming Arcadia" ],
+            "create_event": [
+                {"name": "Rock Pikmin Source", "category": ["Pikmins"], "requires": ""},
+                {"name": "Material Pile","value": {"Material": 15}, "requires": ""}
+            ],
+            "requires": "{CrystalWall()}"
+        },
+        {
+            "name": "KoB2 Exit Crystal Wall Demolished",
+            "region": "Kingdom of Beasts Floor 2",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{CrystalWall()}"
+        },
+        {
+            "name": "KoB2 Goo Crystal Wall Demolished",
+            "region": "Kingdom of Beasts Floor 2",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{CrystalWall()}"
+        },
+        {
+            "name": "KoB2 Ambiguous Goo",
+            "description": "Paint",
+            "region": "Kingdom of Beasts Floor 2",
+            "create_event": [
+                {"name": "Ambiguous Goo", "value": {"Sparklium": 80},
+                "category": ["Sparklium", "Soulful Artist", "BA Complete"], "visible": true}
+            ],
+            "requires": "{CrystalWall()}",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "KoB2 Anxious Sprout",
+            "description": "Burried",
+            "region": "Kingdom of Beasts Floor 2",
+            "create_event": [
+                {"name": "Anxious Sprout", "value": {"Sparklium": 90},
+                "category": ["Sparklium", "Nature's Candy", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "KoB3 Beat Boss",
+            "region": "Kingdom of Beasts Floor 3",
+            "category": [ "Blossoming Arcadia" ],
+            "create_event": [
+                {"name": "Boss Reward","value": {"Material": 20}}
+            ],
+            "requires": ""
+        },
+        {
+            "name": "KoB3 Rescue",
+            "region": "Kingdom of Beasts Floor 3",
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]},
+                {"name": "KoB3 Rescue", "requires": ""}
+
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "KoB3 Disk of Joyous Wisdom x3",
+            "description": "Poker Chips",
+            "region": "Kingdom of Beasts Floor 3",
+            "create_event": [
+                {"name": "Disk of Joyous Wisdom", "value": {"Sparklium": 1},
+                "category": ["Sparklium", "Gimme Gimme", "BA Complete"], "visible": true},
+                {"name": "Disk of Joyous Wisdom", "value": {"Sparklium": 1},
+                "category": ["Sparklium", "Gimme Gimme", "BA Complete"], "visible": true},
+                {"name": "Disk of Joyous Wisdom", "value": {"Sparklium": 1},
+                "category": ["Sparklium", "Gimme Gimme", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "KoB4 Bridge Lowered",
+            "region": "Kingdom of Beasts Floor 4",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "KoB4 Crystal Wall Demolished",
+            "region": "Kingdom of Beasts Floor 4",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "KoB4 Planetary Rubber Cutie",
+            "description": "Ducky",
+            "region": "Kingdom of Beasts Floor 4",
+            "create_event": [
+                {"name": "Planetary Rubber Cutie", "value": {"Sparklium": 40}, "visible": true,
+                "category": ["Sparklium", "Rubber Cutie", "BA Complete"]}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "KoB4 Gold Pile",
+            "region": "Kingdom of Beasts Floor 4",
+            "create_event": [
+                {"name": "Nuggets", "value": {"Sparklium": 100},
+                "category": ["Sparklium", "Collection Obsession", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "KoB4 Sweet Stumble-Not",
+            "description": "Candy Cane",
+            "region": "Kingdom of Beasts Floor 4",
+            "create_event": [
+                {"name": "Sweet Stumble-Not", "value": {"Sparklium": 60}, "visible": true,
+                "category": ["Sparklium", "Sweet Tooth", "BA Complete"]}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "KoB5 Exit Crystal Wall Demolished",
+            "region": "Kingdom of Beasts Floor 5",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "KoB5 Button Crystal Wall Demolished",
+            "region": "Kingdom of Beasts Floor 5",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "KoB5 Cookie of Prosperity",
+            "region": "Kingdom of Beasts Floor 5",
+            "create_event": [
+                {"name": "Cookie of Prosperity", "value": {"Sparklium": 50}, "visible": true,
+                "category": ["Sparklium", "Sweet Tooth", "BA Complete"]}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "KoB5 Crew-Cut Gourd",
+            "description": "Cucumber",
+            "region": "Kingdom of Beasts Floor 5",
+            "create_event": [
+                {"name": "Crew-Cut Gourd", "value": {"Sparklium": 90}, "visible": true,
+                "category": ["Sparklium", "Nature's Candy", "BA Complete"]}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "KoB5 Chance Totem x3",
+            "description": "Dice",
+            "region": "Kingdom of Beasts Floor 5",
+            "create_event": [
+                {"name": "Chance Totem", "value": {"Sparklium": 20}, "visible": true,
+                "category": ["Sparklium", "Hands of Fate", "BA Complete"]},
+                {"name": "Chance Totem", "value": {"Sparklium": 20}, "visible": true,
+                "category": ["Sparklium", "Hands of Fate", "BA Complete"]},
+                {"name": "Chance Totem", "value": {"Sparklium": 20}, "visible": true,
+                "category": ["Sparklium", "Hands of Fate", "BA Complete"]},
+                {"name": "Material Pile","value": {"Material": 15}, "requires": ""}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "KoB6 Kill the 2 bosses",
+            "region": "Kingdom of Beasts Floor 6",
+            "create_event": [
+                {"name": "Boss Reward","value": {"Material": 30}}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "KoB6 Rescue",
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]},
+                {"name": "End Of Cave", "requires": "|KoB3 Rescue|"}
+            ],
+            "region": "Kingdom of Beasts Floor 6",
+            "requires": "",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "KoB6 Ancient Statue Head",
+            "region": "Kingdom of Beasts Floor 6",
+            "create_event": [
+                {"name": "Ancient Statue Head", "value": {"Sparklium": 200}, "visible": true,
+                "category": ["Sparklium", "Ancient Secrets", "BA Complete"]}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+
+        {
+            "name": "SC1 Potted Plant Pulled",
+            "region": "Secluded Courtyard",
+            "create_event": [
+                {"name": "Blue Pikmin Source", "category": ["Pikmins"], "requires": ""}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{PottedPlant()}"
+        },
+        {
+            "name": "SC1 Decorative Goo",
+            "description": "Paint",
+            "region": "Secluded Courtyard",
+            "create_event": [
+                {"name": "Decorative Goo", "value": {"Sparklium": 80},
+                "category": ["Sparklium", "Soulful Artist", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "SC1 Citrus Lump",
+            "description": "Orange",
+            "region": "Secluded Courtyard",
+            "create_event": [
+                {"name": "Citrus Lump", "value": {"Sparklium": 60}, "visible": true,
+                "category": ["Sparklium", "Winter Reserve", "BA Complete"]}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "SC1 Universal Rubber Cutie",
+            "description": "Ducky",
+            "region": "Secluded Courtyard",
+            "create_event": [
+                {"name": "Universal Rubber Cutie", "value": {"Sparklium": 90}, "visible": true,
+                "category": ["Sparklium", "Rubber Cutie", "BA Complete"]}
+            ],
+            "requires": "{CanLiftOverWater(5, 10)}",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "SC2 Talisman of Life",
+            "description": "Cherry Blossom",
+            "create_event": [
+                {"name": "Talisman of Life (Cherry Blossom)", "value": {"Sparklium": 40},
+                "category": ["Sparklium", "Hands of Fate", "BA Complete"], "visible": true},
+                {"name": "Yellow Pikmin Source", "category": ["Pikmins"]},
+                {"name": "Material Pile","value": {"Material": 15}, "requires": ""}
+            ],
+            "region": "Secluded Courtyard Floor 2",
+            "requires": "",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "SC2 Dirt Wall Demolished",
+            "region": "Secluded Courtyard Floor 2",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{DirtWall()}"
+        },
+        {
+            "name": "SC2 Rescue",
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]},
+                {"name": "SC2 Rescue"}
+            ],
+            "region": "Secluded Courtyard Floor 2",
+            "requires": "",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "SC2 Time Marker",
+            "description": "Bell",
+            "region": "Secluded Courtyard Floor 2",
+            "create_event": [
+                {"name": "Time Marker", "value": {"Sparklium": 180},
+                "category": ["Sparklium", "Soulful Musician", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "SC2 Disguised Delicacy",
+            "description": "Kiwi",
+            "region": "Secluded Courtyard Floor 2",
+            "create_event": [
+                {"name": "Disguised Delicacy", "value": {"Sparklium": 40},
+                "category": ["Sparklium", "Autumn Harvest", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{DirtWall()}"
+        },
+        {
+            "name": "SC3 Blonde Impostor",
+            "description": "Kiwi",
+            "region": "Secluded Courtyard Floor 3",
+            "create_event": [
+                {"name": "Blonde Impostor", "value": {"Sparklium": 40},
+                "category": ["Sparklium", "Autumn Harvest", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{Pikmin(Yellow)} or {ElectricalGate()}"
+        },
+        {
+            "name": "SC3 Astringent Clump",
+            "description": "Grapefruit",
+            "region": "Secluded Courtyard Floor 3",
+            "create_event": [
+                {"name": "Astringent Clump", "value": {"Sparklium": 90},
+                "category": ["Sparklium", "Spring Crop", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{Pikmin(Yellow)} or {ElectricalGate()}"
+        },
+        {
+            "name": "SC3 Gold Pile",
+            "region": "Secluded Courtyard Floor 3",
+            "create_event": [
+                {"name": "Nuggets", "value": {"Sparklium": 75},
+                "category": ["Sparklium", "Collection Obsession", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "SC3 Flarlic",
+            "region": "Secluded Courtyard Floor 3",
+            "create_event": [{"name": "Flarlic", "category": ["Pikmins", "BA Complete"], "visible": true}],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": "{ElectricalGate()}"
+        },
+        {
+            "name": "SC4 Potted Plant Pulled",
+            "region": "Secluded Courtyard Floor 4",
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        },
+        {
+            "name": "SC4 Beat Boss",
+            "region": "Secluded Courtyard Floor 4",
+            "category": [ "Blossoming Arcadia" ],
+            "create_event": [],
+            "requires": ""
+        },
+        {
+            "name": "SC4 Rescue",
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]},
+                {"name": "End Of Cave", "requires": "|SC2 Rescue|"}
+            ],
+            "region": "Secluded Courtyard Floor 4",
+            "requires": "",
+            "category": [ "Blossoming Arcadia" ]
+        },
+        {
+            "name": "SC4 Expression Hider",
+            "description": "Face Mask",
+            "region": "Secluded Courtyard Floor 4",
+            "create_event": [
+                {"name": "Expression Hider", "value": {"Sparklium": 150},
+                "category": ["Sparklium", "Ancient Secrets", "BA Complete"], "visible": true}
+            ],
+            "category": [ "Blossoming Arcadia" ],
+            "requires": ""
+        }
+
+
+    ]
+}

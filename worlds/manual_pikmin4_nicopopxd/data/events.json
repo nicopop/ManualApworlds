@@ -1,0 +1,611 @@
+{
+	"$schema": "Schema/Manual.events.schema.json",
+    "data": [
+        {
+            "name": "FileMetaData",
+            "_comment": "Should be removed by the Data.py hook",
+            "extra_files": ["events_Castaways.json", "events_Materials.json", "events_Misc.json"],
+            "disabled": true
+        },
+        {
+            "name": "NGP",
+            "category": ["New Game Plus"]
+        },
+        {
+            "name": "Unlocked Sun-Speckled Terrace",
+            "region": "Sun-Speckled Terrace"
+        },
+        {
+            "name": "Unlocked Blossoming Arcadia",
+            "region": "Blossoming Arcadia"
+        },
+        {
+            "name": "Unlocked Serene Shores",
+            "region": "Serene Shores"
+        },
+        {
+            "name": "Unlocked Hero's Hideaway",
+            "region": "Hero's Hideaway"
+        },
+        {
+            "name": "Unlocked Giant's Hearth",
+            "region": "Giant's Hearth"
+        },
+        {
+            "name": "Unlocked Primordial Thicket",
+            "region": "Primordial Thicket"
+        },
+        {
+            "name": "Unlocked Shipwreck Tale",
+            "region": "Shipwreck Tale"
+        },
+        {
+            "name": "Unlocked ST Sun-Speckled Terrace",
+            "region": "ST Sun-Speckled Terrace"
+        },
+        {
+            "name": "Unlocked ST Blossoming Arcadia",
+            "region": "ST Blossoming Arcadia"
+        },
+        {
+            "name": "Unlocked ST Serene Shores",
+            "region": "ST Serene Shores"
+        },
+        {
+            "name": "ST Hero's Hideaway",
+            "region": "ST Sun-Speckled Terrace"
+        },
+
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 10)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 20)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 40)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 40)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 50)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 60)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 70)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 80)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 90)}"
+        },
+        {
+            "name": "Red Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Red, 100)}"
+        },
+
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 10)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 20)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 40)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 40)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 50)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 60)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 70)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 80)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 90)}"
+        },
+        {
+            "name": "Yellow Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Yellow, 100)}"
+        },
+
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 10)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 20)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 40)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 40)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 50)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 60)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 70)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 80)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 90)}"
+        },
+        {
+            "name": "Blue Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Blue, 100)}"
+        },
+
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 10)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 20)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 40)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 40)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 50)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 60)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 70)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 80)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 90)}"
+        },
+        {
+            "name": "Ice Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Ice, 100)}"
+        },
+
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 10)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 20)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 40)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 40)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 50)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 60)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 70)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 80)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 90)}"
+        },
+        {
+            "name": "Rock Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Rock, 100)}"
+        },
+
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 10)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 20)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 40)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 40)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 50)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 60)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 70)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 80)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 90)}"
+        },
+        {
+            "name": "Pink Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pink, 100)}"
+        },
+
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 100)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 200)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 400)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 400)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 500)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 600)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 700)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 800)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 900)}"
+        },
+        {
+            "name": "Purple Real", "region": "Events",
+            "requires": "{Pikmin(Purple, 1000)}"
+        },
+
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 10)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 20)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 40)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 40)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 50)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 60)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 70)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 80)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 90)}"
+        },
+        {
+            "name": "White Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(White, 100)}"
+        },
+
+
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 10)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 20)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 40)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 40)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 50)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 60)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 70)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 80)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 90)}"
+        },
+        {
+            "name": "ST Red Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Red, 100)}"
+        },
+
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 10)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 20)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 40)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 40)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 50)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 60)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 70)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 80)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 90)}"
+        },
+        {
+            "name": "ST Yellow Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Yellow, 100)}"
+        },
+
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 10)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 20)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 40)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 40)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 50)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 60)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 70)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 80)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 90)}"
+        },
+        {
+            "name": "ST Blue Real", "region": "Shipwreck Tale",
+            "category": ["ST Pikmins Carry"],
+            "requires": "{Pikmin(ST Blue, 100)}"
+        }
+    ]
+}

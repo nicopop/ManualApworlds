@@ -1,0 +1,367 @@
+{
+	"$schema": "Schema/Manual.events.schema.json",
+    "data": [
+        {
+            "name": "Russ",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "unlock Lab",
+            "requires": "|Rescue:3|",
+            "visible": true
+        },
+        {
+            "name": "Schnauz",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "unlock Appraisal Frenzy side mission",
+            "requires": "|Rescue:4|",
+            "visible": true
+        },
+        {
+            "name": "Kingsly",
+            "category": ["Castaways"], "region": "Castaways",
+            "requires": "|Rescue:5|",
+            "_comment": "Set the World Abloom side mission",
+            "visible": true
+        },
+        {
+            "name": "Dingo",
+            "category": ["Castaways"], "region": "Castaways",
+            "requires": "|Rescue:6|",
+            "_comment": "Investigation Side Missions",
+            "visible": true
+        },
+        {
+            "name": "Dalmo",
+            "category": ["Castaways"], "region": "Castaways",
+            "requires": "|Rescue:7|",
+            "_comment": "All the Little Darlings Side Missions",
+            "visible": true
+        },
+        {
+            "name": "François",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "Friend to All Pikmin and Required to complete Precious Scientists side mission",
+            "requires": "|Rescue:8|",
+            "visible": true
+        },
+        {
+            "name": "Pitunia",
+            "_comment": "Fusing Onion Quests and Required to complete Precious Scientists side mission",
+            "category": ["Castaways"], "region": "Castaways",
+            "requires": "|Rescue:9|",
+            "visible": true
+        },
+        {
+            "name": "Yonny",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "Night Expeditions",
+            "requires": "|Rescue:10|",
+            "visible": true
+        },
+        {
+            "name": "Puddle",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "The Leafling Meet and Greet mission",
+            "requires": "|Rescue:10|",
+            "visible": true
+        },
+        {
+            "name": "Mika",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "Find the Missing Students side mission and Required to complete A Tour without Tourists side mission",
+            "requires": "|Rescue:12|",
+            "visible": true
+        },
+        {
+            "name": "Sy",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": "Provides Researching Onions side missions and Required to complete Precious Scientists side mission",
+            "requires": "|Rescue:13|",
+            "visible": true
+        },
+        {
+            "name": "Sheeba",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Find the Missing Students side mission",
+                "Required to complete A Tour without Tourists side mission"
+            ],
+            "requires": "|Rescue:14|",
+            "visible": true
+        },
+        {
+            "name": "Muggs",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Provides Find the Missing TV Crew side mission"
+            ],
+            "requires": "|Rescue:15|",
+            "visible": true
+        },
+        {
+            "name": "Keesh",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Find the Missing Students side mission",
+                "Required to complete A Tour without Tourists side mission"
+            ],
+            "requires": "|Rescue:16|",
+            "visible": true
+        },
+        {
+            "name": "Osa",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Provides Building Goodwill side missions",
+                "Required to complete Precious Scientists side mission"
+            ],
+            "requires": "|Rescue:17|",
+            "visible": true
+        },
+        {
+            "name": "Frisé",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Provides Music of a Past Culture side missions",
+                "Required to complete Find the Missing TV Crew side mission"
+            ],
+            "requires": "|Rescue:18|",
+            "visible": true
+        },
+        {
+            "name": "Kaia",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Find the Missing Students side mission",
+                "Required to complete A Tour without Tourists side mission"
+            ],
+            "requires": "|Rescue:19|",
+            "visible": true
+        },
+        {
+            "name": "Vonda",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Find the Missing TV Crew side mission"
+            ],
+            "requires": "|Rescue:20|",
+            "visible": true
+        },
+        {
+            "name": "Twyla",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Precious Scientists side mission"
+            ],
+            "requires": "|Rescue:21|",
+            "visible": true
+        },
+        {
+            "name": "Don Bergman",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Cure Oatchi main mission"
+            ],
+            "requires": "|Rescue:22|",
+            "visible": true
+        },
+        {
+            "name": "Yorke",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Cure Oatchi main mission"
+            ],
+            "requires": "|Rescue:24|",
+            "visible": true
+        },
+        {
+            "name": "Horatio",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete A Tour without Tourists side mission"
+            ],
+            "requires": "|Rescue:25|",
+            "visible": true
+        },
+        {
+            "name": "Nelle",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Cure Oatchi main mission"
+            ],
+            "requires": "|Rescue:26|",
+            "visible": true
+        },
+        {
+            "name": "Sammy",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Precious Scientists side mission"
+            ],
+            "requires": "|Rescue:27|",
+            "visible": true
+        },
+        {
+            "name": "Wolfgang",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Required to complete Find the Missing TV Crew side mission"
+            ],
+            "requires": "|Rescue:28|",
+            "visible": true
+        },
+
+        {
+            "name": "Dash",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Provides Cave Delving side missions"
+            ],
+            "requires": "|Battle Leafling Cured:1|",
+            "visible": true
+        },
+        {
+            "name": "Corgwin",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Unlocks additional Dandori Battles",
+                "Provides Dandori Battle Training side missions"
+            ],
+            "requires": "|Battle Leafling Cured:2|",
+            "visible": true
+        },
+        {
+            "name": "Bernard",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "Provides Curing the Leaflings side missions",
+                "Required to complete Secure Energy Source main mission",
+                "Unlocks "
+            ],
+            "requires": "|Battle Leafling Cured:3|",
+            "visible": true
+        },
+
+        {
+            "name": "Jin",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [
+                "The ability to replay Dandori Challenges.",
+                "The Beat Dandori Challenge mission"
+            ],
+            "requires": "|Leafling Cured:1|",
+            "visible": true
+        },
+        {
+            "name": "Chet",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:2|",
+            "visible": true
+        },
+        {
+            "name": "Patch",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:3|",
+            "visible": true
+        },
+        {
+            "name": "Chewy",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:4|",
+            "visible": true
+        },
+        {
+            "name": "Molly",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:5|",
+            "visible": true
+        },
+        {
+            "name": "Santi",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:6|",
+            "visible": true
+        },
+        {
+            "name": "Kayz",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:7|",
+            "visible": true
+        },
+        {
+            "name": "Kit",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:8|",
+            "visible": true
+        },
+        {
+            "name": "Komo",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:9|",
+            "visible": true
+        },
+        {
+            "name": "Alpin",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:10|",
+            "visible": true
+        },
+        {
+            "name": "Chowder",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:11|",
+            "visible": true
+        },
+        {
+            "name": "Lapi",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:12|",
+            "visible": true
+        },
+        {
+            "name": "Ren",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:13|",
+            "visible": true
+        },
+        {
+            "name": "Boris",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:14|",
+            "visible": true
+        },
+        {
+            "name": "Grace",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:15|",
+            "visible": true
+        },
+        {
+            "name": "Fawks",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:16|",
+            "visible": true
+        },
+        {
+            "name": "Beaux",
+            "category": ["Castaways"], "region": "Castaways",
+            "_comment": [],
+            "requires": "|Leafling Cured:17|",
+            "visible": true
+        }
+    ]
+}

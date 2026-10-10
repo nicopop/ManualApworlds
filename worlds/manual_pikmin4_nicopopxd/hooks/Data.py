@@ -1,4 +1,4 @@
-from BaseClasses import Tutorial
+from BaseClasses import Tutorial, Location
 from typing import Any, cast
 from worlds.AutoWorld import World, WebWorld
 
@@ -8,6 +8,7 @@ import logging
 _location_table: list[dict[str, Any]] = []
 # endregion
 
+# region load extra files
 class metadata_class():
     extra_files: list[str]
     ids_reserved: int
@@ -15,51 +16,84 @@ class metadata_class():
     def __init__(self, json: dict[str, Any], offset_size: int = 1000):
         self.extra_files = json.get("extra_files", [])
         self.ids_reserved = json.get("offset", offset_size)
+def recursively_find_files_to_load(data_table: list[dict[str, Any]]|dict[str, Any], offset: int = 0, offset_size: int = 1000, adjust_ids: bool = True) -> tuple[int, int]:
+    from ..Helpers import load_data_file
+    errors: list[str] = []
+    if isinstance(data_table, dict): # things like region files
+        current_offset, last_offset_size = 0, 0
+        if data_table:
+            FileMetaData = data_table.pop("FileMetaData", "")
+            if FileMetaData:
+                metadata = metadata_class(FileMetaData, 0)
+            else:
+                return 0, 0
+        else:
+            return 0, 0
+        for extra_file in metadata.extra_files:
+            new_dict_table: dict[str, Any] = load_data_file(extra_file)
+            new_dict_table.pop("$schema", "")
+            recursively_find_files_to_load(new_dict_table)
+            shared_keys = list(data_table.keys() & new_dict_table.keys())
+            nl = "\n"
+            if shared_keys:
+                errors.append(f'file {extra_file} contains {len(shared_keys)} key{"s" if len(shared_keys) > 1 else ""} that are shared with existing tables' +
+                              f"{nl} Here's the list of those duplicate: [{', '.join(shared_keys)}]")
 
-def recursively_find_files_to_load(data_table: list[dict[str, Any]], offset: int = 0, offset_size: int = 1000) -> tuple[int, int]:
-    if data_table:
-        if data_table[0].get("name", "") == "FileMetaData":
-            metadata = metadata_class(data_table.pop(0), offset_size)
-        elif data_table[0].get("FileMetaData"):
-            metadata = metadata_class(data_table[0]["FileMetaData"], offset_size)
+            else:
+                data_table |= new_dict_table
+
+    else: # lists of dicts like locations.json
+        if data_table:
+            if data_table[0].get("name", "") == "FileMetaData":
+                metadata = metadata_class(data_table.pop(0), offset_size)
+            elif data_table[0].get("FileMetaData"):
+                metadata = metadata_class(data_table[0]["FileMetaData"], offset_size)
+            else:
+                return offset, offset_size
         else:
             return offset, offset_size
-    else:
-        return offset, offset_size
 
-    from ..Data import convert_to_list
-    from ..Helpers import load_data_file
+        from ..Data import convert_to_list
+        if not adjust_ids:
+            metadata.ids_reserved = 0
+            offset = 0
+        last_offset_size = metadata.ids_reserved
+        current_offset = offset
+        for extra_file in metadata.extra_files:
+            known_names: set[str] = {o["name"] for o in data_table}
+            id_offset = current_offset + last_offset_size
 
-    errors: list[str] = []
-    last_offset_size = metadata.ids_reserved
-    current_offset = offset
-    for extra_file in metadata.extra_files:
-        id_offset = current_offset + last_offset_size
-        new_table = convert_to_list(load_data_file(extra_file), "data")
-        location: dict[str, Any]
-        for location in list(new_table):
-            name: str = location["name"]
-            if location.get("id"):
-                location["id"] += id_offset
-            for existing_loc in data_table:
-                if existing_loc["name"] == name:
-                    errors.append(f'Location "{name}" has been declared in multiple place including in file {extra_file}')
-                    break
-        new_table[0]["id"] = id_offset  # Plenty of room for expansion
-        current_offset, last_size = recursively_find_files_to_load(new_table, id_offset, last_offset_size)
-        if current_offset != id_offset: # some file got recursively found
-            last_offset_size = last_size
-        elif last_offset_size != metadata.ids_reserved: # restore previous offset
-            last_offset_size = metadata.ids_reserved
-        data_table.extend(new_table)
+            new_table: list[dict[str, Any]] = convert_to_list(load_data_file(extra_file), "data")
+            current_offset, last_size = recursively_find_files_to_load(new_table, id_offset, last_offset_size, adjust_ids=adjust_ids)
+
+            new_names: set[str]= {o["name"] for o in data_table}
+            shared_keys = list(new_names & known_names)
+
+            if shared_keys:
+                nl = "\n"
+                errors.append(f'file {extra_file} contains {len(shared_keys)} key{"s" if len(shared_keys) > 1 else ""} that are shared with existing tables' +
+                              f"{nl} Here's the list of those duplicate: [{', '.join(shared_keys)}]")
+
+            else:
+                if adjust_ids:
+                    for manual_dict in list(new_table):
+                        if manual_dict.get("id"):
+                            manual_dict["id"] += id_offset
+                    new_table[0]["id"] = id_offset
+
+                if current_offset != id_offset: # some file got recursively found
+                    last_offset_size = last_size
+                elif last_offset_size != metadata.ids_reserved: # restore previous offset
+                    last_offset_size = metadata.ids_reserved
+                data_table.extend(new_table)
 
     if errors:
         if len(errors) == 1:
-            raise Exception("Found an error in the location data: \n - " + errors[0])
+            raise Exception("Found an error in the file data: \n - " + errors[0])
         else:
-            raise Exception("Found errors in the location data:" + "\n - ".join(errors))
+            raise Exception("Found errors in the files data:" + "\n - ".join(errors))
     return current_offset, last_offset_size
-
+# endregion
 # region load_manifest
 def load_manifest() -> dict[str, Any]:
     """Use this function to load the data from the archipelago.json file"""
@@ -100,6 +134,7 @@ def after_load_location_file(location_table: list[dict[str, Any]]) -> list:
 # called after the events.json file has been loaded, before any processing has occurred
 # If you need access to the events after processing, you should use the hooks in World.py
 def after_load_event_file(event_table: list) -> list:
+    recursively_find_files_to_load(event_table, adjust_ids=False)
 # region create_event
 # this region deals with the "create_event" location property
     class event_override():

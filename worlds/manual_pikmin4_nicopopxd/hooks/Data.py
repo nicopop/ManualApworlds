@@ -66,7 +66,7 @@ def recursively_find_files_to_load(data_table: list[dict[str, Any]]|dict[str, An
             new_table: list[dict[str, Any]] = convert_to_list(load_data_file(extra_file), "data")
             current_offset, last_size = recursively_find_files_to_load(new_table, id_offset, last_offset_size, adjust_ids=adjust_ids)
 
-            new_names: set[str]= {o["name"] for o in data_table}
+            new_names: set[str]= {o["name"] for o in new_table}
             shared_keys = list(new_names & known_names)
 
             if shared_keys:

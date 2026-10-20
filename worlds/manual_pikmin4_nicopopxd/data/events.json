@@ -4,7 +4,7 @@
         {
             "name": "FileMetaData",
             "_comment": "Should be removed by the Data.py hook",
-            "extra_files": ["events_Castaways.json", "events_Materials.json", "events_Misc.json"],
+            "extra_files": ["events_Castaways.json", "events_Skills.json", "events_Materials.json", "events_Misc.json"],
             "disabled": true
         },
         {
@@ -69,7 +69,7 @@
         {
             "name": "Red Real", "region": "Events",
             "category": ["Pikmins Carry"],
-            "requires": "{Pikmin(Red, 40)}"
+            "requires": "{Pikmin(Red, 30)}"
         },
         {
             "name": "Red Real", "region": "Events",
@@ -120,7 +120,7 @@
         {
             "name": "Yellow Real", "region": "Events",
             "category": ["Pikmins Carry"],
-            "requires": "{Pikmin(Yellow, 40)}"
+            "requires": "{Pikmin(Yellow, 30)}"
         },
         {
             "name": "Yellow Real", "region": "Events",
@@ -171,7 +171,7 @@
         {
             "name": "Blue Real", "region": "Events",
             "category": ["Pikmins Carry"],
-            "requires": "{Pikmin(Blue, 40)}"
+            "requires": "{Pikmin(Blue, 30)}"
         },
         {
             "name": "Blue Real", "region": "Events",
@@ -222,7 +222,7 @@
         {
             "name": "Ice Real", "region": "Events",
             "category": ["Pikmins Carry"],
-            "requires": "{Pikmin(Ice, 40)}"
+            "requires": "{Pikmin(Ice, 30)}"
         },
         {
             "name": "Ice Real", "region": "Events",
@@ -273,7 +273,7 @@
         {
             "name": "Rock Real", "region": "Events",
             "category": ["Pikmins Carry"],
-            "requires": "{Pikmin(Rock, 40)}"
+            "requires": "{Pikmin(Rock, 30)}"
         },
         {
             "name": "Rock Real", "region": "Events",
@@ -324,7 +324,7 @@
         {
             "name": "Pink Real", "region": "Events",
             "category": ["Pikmins Carry"],
-            "requires": "{Pikmin(Pink, 40)}"
+            "requires": "{Pikmin(Pink, 30)}"
         },
         {
             "name": "Pink Real", "region": "Events",
@@ -372,7 +372,7 @@
         },
         {
             "name": "Purple Real", "region": "Events",
-            "requires": "{Pikmin(Purple, 400)}"
+            "requires": "{Pikmin(Purple, 300)}"
         },
         {
             "name": "Purple Real", "region": "Events",
@@ -416,7 +416,7 @@
         {
             "name": "White Real", "region": "Events",
             "category": ["Pikmins Carry"],
-            "requires": "{Pikmin(White, 40)}"
+            "requires": "{Pikmin(White, 30)}"
         },
         {
             "name": "White Real", "region": "Events",
@@ -468,7 +468,7 @@
         {
             "name": "ST Red Real", "region": "Shipwreck Tale",
             "category": ["ST Pikmins Carry"],
-            "requires": "{Pikmin(ST Red, 40)}"
+            "requires": "{Pikmin(ST Red, 30)}"
         },
         {
             "name": "ST Red Real", "region": "Shipwreck Tale",
@@ -519,7 +519,7 @@
         {
             "name": "ST Yellow Real", "region": "Shipwreck Tale",
             "category": ["ST Pikmins Carry"],
-            "requires": "{Pikmin(ST Yellow, 40)}"
+            "requires": "{Pikmin(ST Yellow, 30)}"
         },
         {
             "name": "ST Yellow Real", "region": "Shipwreck Tale",
@@ -570,7 +570,7 @@
         {
             "name": "ST Blue Real", "region": "Shipwreck Tale",
             "category": ["ST Pikmins Carry"],
-            "requires": "{Pikmin(ST Blue, 40)}"
+            "requires": "{Pikmin(ST Blue, 30)}"
         },
         {
             "name": "ST Blue Real", "region": "Shipwreck Tale",

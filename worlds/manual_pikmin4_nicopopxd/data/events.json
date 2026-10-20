@@ -453,6 +453,57 @@
             "category": ["Pikmins Carry"],
             "requires": "{Pikmin(White, 100)}"
         },
+        {
+            "name": "Pup Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pup, 10)}"
+        },
+        {
+            "name": "Pup Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pup, 20)}"
+        },
+        {
+            "name": "Pup Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pup, 30)}"
+        },
+        {
+            "name": "Pup Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pup, 40)}"
+        },
+        {
+            "name": "Pup Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pup, 50)}"
+        },
+        {
+            "name": "Pup Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pup, 60)}"
+        },
+        {
+            "name": "Pup Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pup, 70)}"
+        },
+        {
+            "name": "Pup Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pup, 80)}"
+        },
+        {
+            "name": "Pup Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pup, 90)}"
+        },
+        {
+            "name": "Pup Real", "region": "Events",
+            "category": ["Pikmins Carry"],
+            "requires": "{Pikmin(Pup, 100)}"
+        },
+
 
 
         {

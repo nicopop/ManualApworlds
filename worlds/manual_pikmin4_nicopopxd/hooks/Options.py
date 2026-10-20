@@ -212,21 +212,21 @@ class RangeIsRandom(NamedRange):
         return cls(super().from_text(text).value, randomized)
 # endregion
 
-class ExampleIsRandom(ChoiceIsRandom):
-    """Choose which type of Evil biome will be in your game"""
-    option_corruption = 1
-    option_crimson = 2
-    option_both = 3
-    option_random_1 = -41
-    default = -41
+# class ExampleIsRandom(ChoiceIsRandom):
+#     """Choose which type of Evil biome will be in your game"""
+#     option_corruption = 1
+#     option_crimson = 2
+#     option_both = 3
+#     option_random_1 = -41
+#     default = -41
 
-    @classmethod
-    def is_text_rdm(cls, text: str, return_list = True) -> bool | list[int]:
-        # override here for the random_1
-        if text == "random_1":
-            return [cls.option_corruption, cls.option_crimson] if return_list else True
-        else:
-            return super().is_text_rdm(text, return_list)
+#     @classmethod
+#     def is_text_rdm(cls, text: str, return_list = True) -> bool | list[int]:
+#         # override here for the random_1
+#         if text == "random_1":
+#             return [cls.option_corruption, cls.option_crimson] if return_list else True
+#         else:
+#             return super().is_text_rdm(text, return_list)
 
 # region remove_items
 from ..Items import item_name_to_item
@@ -257,16 +257,25 @@ class RemoveLocation(OptionSet):
     visibility = Visibility.complex_ui | Visibility.spoiler
 # endregion
 
-class NewGamePlus(DefaultOnToggle):
+class NewGamePlus(DefaultOnToggleIsRandom):
     """Are you using New game plus (true) or starting from a fresh save (false)"""
 
 class GlowPikminUsable(ToggleIsRandom):
     """Can Glow pikmin be required to be used during the daytime"""
 class CanRequireMelee(ToggleIsRandom):
     """Can You be required to use your fist to break objects"""
+
+class CaveKeyLogic(ChoiceIsRandom):
+    """What level of key logic requirement do you want for caves"""
+    option_no_key = 0
+    option_one_key_per_level = 1
+    option_one_key_per_cave = 2
+    default = 1
+
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, Type[Option[Any]]]:
     options["New_Game_Plus"] = NewGamePlus
+    options["Cave_Keys"] = CaveKeyLogic
     options["Melee_Logic"] = CanRequireMelee
     options["Glow_Pikmin_In_Daylight"] = GlowPikminUsable
 

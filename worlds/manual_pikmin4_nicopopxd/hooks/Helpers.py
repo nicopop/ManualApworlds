@@ -115,37 +115,18 @@ def checkobject(multiworld: MultiWorld, player: int, obj: dict[str, Any]) -> Opt
     return None
 
 def InitCategories(world: "ManualWorld"):
-    """Mark categories as Enabled or Disabled based on options"""
-    # from .Options import Goal #imported here because otherwise cause circular import
+    """Mark categories as Forced Enabled or Disabled based on options"""
+    from .Options import CaveKeyLogic, NewGamePlus
 
-    # goal = cast(Goal, getattr(world.options, "goal"))
-    # rdm_base_game = bool(getattr(world.options, "randomize_base_game").value)
-    NGP = bool(getattr(world.options, "New_Game_Plus").value)
-    # solanum = bool(getattr(world.options, "require_solanum").value)
+    New_Game_Plus = getattr(world.options, "New_Game_Plus", NewGamePlus(NewGamePlus.default))
+    Cave_Keys = getattr(world.options, "Cave_Keys", CaveKeyLogic(CaveKeyLogic.default))
 
-    # if not rdm_dlc or not world.options.dlc_access_items.value: # type: ignore
-    #     set_category_status(world, 'DLC - Reduced Knowledge', False)
-
+    NGP = bool(New_Game_Plus.value)
     set_category_status(world, 'New Game Plus', NGP)
     set_category_status(world, 'Not New Game Plus', not NGP)
     set_category_status(world, 'Disabled', False)
-    # set_category_status(world, 'DLC - Eye', rdm_dlc)
-
-    # if rdm_dlc and not rdm_base_game:
-    #     if solanum:
-    #         set_category_status(world, 'required for solanum', True)
-
-    #     if goal == goal.alias_vanilla:
-    #         set_category_status(world, 'Goal Eye', True)
-    #         set_category_status(world, 'required for warpdrive', True)
-    #     elif goal == goal.alias_ash_twin_project_break_spacetime:
-    #         set_category_status(world, 'required for warpdrive', True)
-    #     # elif goal == Goal.alias_high_energy_lab_break_spacetime:
-    #     elif goal == goal.alias_stuck_with_solanum:
-    #         set_category_status(world, 'required for warpdrive', True)
-    #         set_category_status(world, 'required for solanum', True)
-    #     elif (goal == goal.alias_stuck_in_stranger or goal == goal.alias_stuck_in_dream):
-    #         set_category_status(world, 'required for warpdrive', True)
+    if Cave_Keys == Cave_Keys.option_no_key:
+        set_category_status(world, 'Cavern Keys', False)
 
 
 def create_category_status(world: "ManualWorld"):

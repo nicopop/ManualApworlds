@@ -128,18 +128,19 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
         Write to the spoiler header. If individual it's right at the end of that player's options,
         if as stage it's right under the common header before per-player options.
         """
-        state = multiworld.get_all_state(False)
+        state = multiworld.get_all_state()
         state.update_reachable_regions(world.player)
         def getValueCount(item: str)-> str:
             item = format_state_prog_items_key("EVENT_VALUE", item)
             return str(state.prog_items[world.player].get(item, 'unknown'))
         Sparklium = f"Total of {getValueCount('Sparklium')} Sparklium"
         Material = f"Total of {getValueCount('material')} Material"
-        logging.info(f"{world.player}: {Sparklium}")
+        types = [i for i, count in state.prog_items[world.player].items() if count and i in world.event_name_groups['Sparklium']]
+        logging.info(f"{world.player}: {Sparklium} ({len(types)} types)")
         logging.info(f"{world.player}: {Material}")
 
         spoiler_handle.write(f"Apworld Version: {world.world_version.as_simple_string()}\n")
-        spoiler_handle.write(f"{Sparklium}\n")
+        spoiler_handle.write(f"{Sparklium} ({len(types)} types)\n")
         spoiler_handle.write(f"{Material}\n")
         if region_counts:
             for region, count in region_counts.items():
@@ -168,6 +169,12 @@ def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: i
 #       will create 5 items that are the "useful trap" class
 # {"Item Name": {ItemClassification.useful: 5}} <- You can also use the classification directly
 def before_create_items_all(item_config: dict[str, int|dict], world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict[str, int|dict]:
+    from .Options import CaveKeyLogic
+    Cave_Keys = getattr(world.options, "Cave_Keys", CaveKeyLogic(CaveKeyLogic.default))
+    for name, count in item_config.items():
+        if name in world.item_name_groups["Cavern Keys"] and Cave_Keys.value == Cave_Keys.option_one_key_per_cave:
+            # no_key is dealt in hooks/Helpers.py
+            item_config[name] = 1
     return item_config
 
 # The item pool before place_item(_category) are processed, in case you want to see the raw item pool at that stage

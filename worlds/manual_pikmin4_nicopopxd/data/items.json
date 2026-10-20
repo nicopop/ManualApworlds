@@ -136,6 +136,7 @@
 
     {
         "name": "Skill Buff",
+        "_comment": "2-3 cost 1, 4-6 cost 2",
         "count": 6,
         "progression": true,
         "category": ["Pup Skills", "All"]
@@ -143,18 +144,21 @@
 
     {
         "name": "Skill Chomp",
+        "_comment": "2-3 cost 2, 4-6 cost 3",
         "count": 6,
         "progression": true,
         "category": ["Pup Skills", "All"]
     },
     {
         "name": "Skill Rush",
+        "_comment": "2-3 cost 3, 4-6 cost 4",
         "count": 6,
         "useful": true,
         "category": ["Pup Skills", "All"]
     },
     {
         "name": "Skill Doggy-Paddle",
+        "_comment": "2-3 cost 2",
         "count": 3,
         "progression": true,
         "category": ["Pup Skills", "All"]

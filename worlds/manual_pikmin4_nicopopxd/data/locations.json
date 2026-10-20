@@ -106,7 +106,7 @@
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
             "requires": "|Schnauz| and ({HasFromCategoryUnique(Sparklium, 100)} or |NGP|)",
-            "category": ["Side Missions"]
+            "category": ["Side Missions", "Disabled"]
         },
         {
             "name": "Appraisal Frenzy 3",
@@ -171,7 +171,7 @@
             "name": "Investigate Areas 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dingo| and |@SS Complete:ALL|",
+            "requires": "|Dingo| and {TODO(@SS Complete:ALL)}",
             "category": ["Side Missions"]
         },
         {

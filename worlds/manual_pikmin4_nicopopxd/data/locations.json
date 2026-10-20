@@ -928,14 +928,6 @@
                 {"name": "Completed Hands of Fate", "value": {"Sparklium": 96}, "visible": true, "category": ["Sparklium"]}
             ],
             "category": ["Sparklium", "Disabled"]
-        },
-
-        {
-            "name": "The End",
-            "requires": "|1 Crash Landing|",
-            "region": "Rescue Command Post",
-            "victory": true
-
         }
     ]
 }

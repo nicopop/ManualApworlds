@@ -180,7 +180,7 @@
     {
         "name": "Skill Command",
         "count": 3,
-        "useful": true,
+        "progression": true,
         "category": ["Pup Skills", "All"]
     },
 

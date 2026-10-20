@@ -10,28 +10,23 @@
     "starting_items": [
         {
             "items": ["Skill Buff"],
-            "random": 1,
-            "yaml_option": ["New Game Plus"]
+            "random": 1
         },
         {
             "items": ["Skill Chomp"],
-            "random": 1,
-            "yaml_option": ["New Game Plus"]
+            "random": 1
         },
         {
             "items": ["Skill Rush"],
-            "random": 1,
-            "yaml_option": ["New Game Plus"]
+            "random": 1
         },
         {
             "items": ["Skill Dig"],
-            "random": 1,
-            "yaml_option": ["New Game Plus"]
+            "random": 1
         },
         {
             "items": ["Skill Command"],
-            "random": 1,
-            "yaml_option": ["New Game Plus"]
+            "random": 1
         },
         {
             "item_categories": ["Pikmins NGP"],

@@ -192,19 +192,19 @@
     },
     "Secluded Courtyard": {
         "connects_to": ["Secluded Courtyard Floor 2"],
-        "requires": "{OptOne(Secluded Courtyard:1)}"
+        "requires": "{OptOne(Secluded Courtyard Key:1)}"
     },
     "Secluded Courtyard Floor 2": {
         "connects_to": ["Secluded Courtyard Floor 3"],
-        "requires": "{OptOne(Secluded Courtyard:2)} and {FreezeWater(5, true)} or |Skill Doggy-Paddle|"
+        "requires": "{OptOne(Secluded Courtyard Key:2)} and {FreezeWater(5, true)} or |Skill Doggy-Paddle|"
     },
     "Secluded Courtyard Floor 3": {
         "connects_to": ["Secluded Courtyard Floor 4"],
-        "requires": "{OptOne(Secluded Courtyard:3)}"
+        "requires": "{OptOne(Secluded Courtyard Key:3)}"
     },
     "Secluded Courtyard Floor 4": {
         "connects_to": [],
-        "requires": "{OptOne(Secluded Courtyard:4)} and {PottedPlant()}"
+        "requires": "{OptOne(Secluded Courtyard Key:4)} and {PottedPlant()}"
     },
 
 

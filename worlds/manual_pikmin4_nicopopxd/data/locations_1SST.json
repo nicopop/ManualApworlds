@@ -278,7 +278,9 @@
         {
             "name": "AS2 Gold Pile",
             "create_event": [
-                {"name": "Nuggets", "value": {"Sparklium": 50},
+                {"name": "5 Nuggets", "value": {"Sparklium": 25},
+                "category": ["Sparklium", "Collection Obsession", "SST Complete"], "visible": true},
+                {"name": "5 Nuggets", "value": {"Sparklium": 25},
                 "category": ["Sparklium", "Collection Obsession", "SST Complete"], "visible": true}
             ],
             "region": "Aquiferous Summit Floor 2 Past FireFloor",
@@ -305,6 +307,7 @@
             "name": "AS2 Rescue",
             "create_event": [
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "End Of Cave", "requires": ""}
             ],
             "region": "Aquiferous Summit Floor 2 Past Stairs",
@@ -349,6 +352,7 @@
             "region": "Last-Frost Cavern",
             "create_event": [
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "End Of Cave"}
             ],
             "category": [ "Sun-Speckled Terrace" ],
@@ -430,6 +434,7 @@
             "region": "Industrial Maze Floor 2 Post Electrical Gate",
             "create_event": [
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "End Of Cave", "requires": ""}
             ],
             "category": [ "Sun-Speckled Terrace" ],
@@ -471,6 +476,7 @@
             "name": "HH2 Rescue",
             "create_event": [
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "End Of Cave"}
             ],
             "region": "Hectic Hollows Floor 2",
@@ -566,6 +572,7 @@
             "region": "Crackling Cauldron Floor 2",
             "create_event": [
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "SST Complete"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "End Of Cave", "requires": ""}
             ],
             "category": [ "Sun-Speckled Terrace" ]

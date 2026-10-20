@@ -538,9 +538,9 @@
         {
             "name": "ST Treasure 30",
             "category": [ "Treasures" ],
+            "victory": true,
             "region": "ST Hero's Hideaway",
-            "requires": "|Ship Part:30|",
-            "place_item": [ "1 Crash Landing" ]
+            "requires": "|Ship Part:30|"
         }
     ]
 }

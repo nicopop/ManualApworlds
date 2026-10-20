@@ -414,7 +414,9 @@
             "name": "DG2 Gold Pile",
             "region": "Drafty Gallery Floor 2",
             "create_event": [
-                {"name": "Nuggets", "value": {"Sparklium": 50},
+                {"name": "5 Nuggets", "value": {"Sparklium": 25},
+                "category": ["Sparklium", "Collection Obsession", "BA Complete"], "visible": true},
+                {"name": "5 Nuggets", "value": {"Sparklium": 25},
                 "category": ["Sparklium", "Collection Obsession", "BA Complete"], "visible": true}
             ],
             "category": [ "Blossoming Arcadia" ]
@@ -495,6 +497,7 @@
             "name": "DG4 Rescue",
             "create_event": [
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "End Of Cave", "requires": ""}
             ],
             "region": "Drafty Gallery Floor 4",
@@ -516,6 +519,7 @@
 
         {
             "name": "SP1 Masterpiece Plank",
+            "id": 200,
             "description": "Gameboy Game",
             "region": "Sightless Passage",
             "create_event": [
@@ -541,7 +545,6 @@
         },
         {
             "name": "SP1 East Electrical Gate Destroyed",
-            "description": "Gameboy",
             "region": "Sightless Passage",
             "category": [ "Blossoming Arcadia" ],
             "requires": "{ElectricalGate()}"
@@ -550,6 +553,7 @@
             "name": "SP1 Rescue",
             "create_event": [
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "End Of Cave"}
             ],
             "region": "Sightless Passage North",
@@ -595,6 +599,7 @@
 
         {
             "name": "KoB1 Entrance Dirt Wall Demolished",
+            "id": 300,
             "region": "Kingdom of Beasts",
             "category": [ "Blossoming Arcadia" ],
             "create_event": [
@@ -688,6 +693,7 @@
             "region": "Kingdom of Beasts Floor 3",
             "create_event": [
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "KoB3 Rescue", "requires": ""}
 
             ],
@@ -734,7 +740,13 @@
             "name": "KoB4 Gold Pile",
             "region": "Kingdom of Beasts Floor 4",
             "create_event": [
-                {"name": "Nuggets", "value": {"Sparklium": 100},
+                {"name": "5 Nuggets", "value": {"Sparklium": 25},
+                "category": ["Sparklium", "Collection Obsession", "BA Complete"], "visible": true},
+                {"name": "5 Nuggets", "value": {"Sparklium": 25},
+                "category": ["Sparklium", "Collection Obsession", "BA Complete"], "visible": true},
+                {"name": "5 Nuggets", "value": {"Sparklium": 25},
+                "category": ["Sparklium", "Collection Obsession", "BA Complete"], "visible": true},
+                {"name": "5 Nuggets", "value": {"Sparklium": 25},
                 "category": ["Sparklium", "Collection Obsession", "BA Complete"], "visible": true}
             ],
             "category": [ "Blossoming Arcadia" ]
@@ -808,6 +820,7 @@
             "name": "KoB6 Rescue",
             "create_event": [
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "End Of Cave", "requires": "|KoB3 Rescue|"}
             ],
             "region": "Kingdom of Beasts Floor 6",
@@ -826,6 +839,7 @@
 
         {
             "name": "SC1 Potted Plant Pulled",
+            "id": 400,
             "region": "Secluded Courtyard",
             "create_event": [
                 {"name": "Blue Pikmin Source", "category": ["Pikmins"], "requires": ""}
@@ -887,6 +901,7 @@
             "name": "SC2 Rescue",
             "create_event": [
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "SC2 Rescue"}
             ],
             "region": "Secluded Courtyard Floor 2",
@@ -941,7 +956,11 @@
             "name": "SC3 Gold Pile",
             "region": "Secluded Courtyard Floor 3",
             "create_event": [
-                {"name": "Nuggets", "value": {"Sparklium": 75},
+                {"name": "5 Nuggets", "value": {"Sparklium": 25},
+                "category": ["Sparklium", "Collection Obsession", "BA Complete"], "visible": true},
+                {"name": "5 Nuggets", "value": {"Sparklium": 25},
+                "category": ["Sparklium", "Collection Obsession", "BA Complete"], "visible": true},
+                {"name": "5 Nuggets", "value": {"Sparklium": 25},
                 "category": ["Sparklium", "Collection Obsession", "BA Complete"], "visible": true}
             ],
             "category": [ "Blossoming Arcadia" ]
@@ -970,6 +989,7 @@
             "name": "SC4 Rescue",
             "create_event": [
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "BA Complete"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "End Of Cave", "requires": "|SC2 Rescue|"}
             ],
             "region": "Secluded Courtyard Floor 4",

@@ -48,12 +48,6 @@
         },
 
         {
-            "name": "1 Crash Landing",
-            "progression": true,
-            "category": [ "All", "Shipwreck Tale" ]
-        },
-
-        {
             "name": "ST Red Pikmins",
             "id": 10,
             "description": "maximum x 10",

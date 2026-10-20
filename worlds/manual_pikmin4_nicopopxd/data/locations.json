@@ -27,7 +27,9 @@
                 {"name": "Purple Onion", "visible": true, "category": ["Pikmins", "Onion"]},
                 {"name": "White Onion", "visible": true, "category": ["Pikmins", "Onion"]},
                 {"name": "Rescue", "visible": true, "category": ["Castaways"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "Rescue", "visible": true, "category": ["Castaways"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "End Of Cave"}
             ],
             "category": ["New Game Plus", "Tutorial"]
@@ -36,8 +38,11 @@
         {
             "name": "RCP Rescue Collin",
             "region": "Tutorial",
-            "create_event": [{"name": "Rescue", "visible": true, "category": ["Castaways"],
-             "enabled_with_location": "RCP Rescue Collin"}],
+            "create_event": [
+                {"name": "Rescue", "visible": true, "category": ["Castaways"],
+                 "enabled_with_location": "RCP Rescue Collin"},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]}
+                ],
             "category": ["Not New Game Plus", "Tutorial"]
         },
         {
@@ -45,7 +50,8 @@
             "region": "Tutorial",
             "create_event": [
                 {"name": "Rescue", "visible": true, "category": ["Castaways"],
-                "enabled_with_location": "RCP Rescue Shepherd"},
+                 "enabled_with_location": "RCP Rescue Shepherd"},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "End Of Cave"}
             ],
             "category": ["Not New Game Plus", "Tutorial"]
@@ -92,36 +98,36 @@
             "name": "Appraisal Frenzy 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Schnauz| and (|@Sparklium:50| or |NGP|)",
+            "requires": "|Schnauz| and ({HasFromCategoryUnique(Sparklium, 50)} or |NGP|)",
             "category": ["Side Missions"]
         },
         {
             "name": "Appraisal Frenzy 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Schnauz| and (|@Sparklium:100| or |NGP|)",
-            "category": ["Side Missions", "Disabled"]
+            "requires": "|Schnauz| and ({HasFromCategoryUnique(Sparklium, 100)} or |NGP|)",
+            "category": ["Side Missions"]
         },
         {
             "name": "Appraisal Frenzy 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Schnauz| and (|@Sparklium:150| or |NGP|)",
+            "requires": "|Schnauz| and ({HasFromCategoryUnique(Sparklium, 150)} or |NGP|)",
             "category": ["Side Missions", "Disabled"]
         },
         {
             "name": "Appraisal Frenzy 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Schnauz| and (|@Sparklium:200| or |NGP|)",
+            "requires": "|Schnauz| and ({HasFromCategoryUnique(Sparklium, 200)} or |NGP|)",
             "category": ["Side Missions", "Disabled"]
         },
         {
             "name": "Appraisal Frenzy 5",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Schnauz| and (|@Sparklium:all| or |NGP|)",
-            "category": ["Side Missions"]
+            "requires": "|Schnauz| and ({HasFromCategoryUnique(Sparklium, 239)} or |NGP|)",
+            "category": ["Side Missions", "Disabled"]
         },
 
         {
@@ -151,21 +157,21 @@
             "name": "Investigate Areas 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dingo| and {OptOne(@SST Complete:ALL)}",
+            "requires": "|Dingo| and |@SST Complete:ALL|",
             "category": ["Side Missions", ""]
         },
         {
             "name": "Investigate Areas 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dingo| and {OptOne(@BA Complete:ALL)}",
+            "requires": "|Dingo| and |@BA Complete:ALL|",
             "category": ["Side Missions"]
         },
         {
             "name": "Investigate Areas 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dingo| and {TODO(@SS Complete:ALL)}",
+            "requires": "|Dingo| and |@SS Complete:ALL|",
             "category": ["Side Missions"]
         },
         {

@@ -311,10 +311,10 @@ class CanLiftInWater(Rule["ManualWorld"], game=game_name):
             if self.CloseToSurface:
                 rule |= Pikmin("Pink", Weight)
         else:
-            possible_pikmin = ["Blue Real", "Glow Real", "Pup Real"]
-            if self.CloseToSurface:
-                possible_pikmin += "Pink Real"
-            tmp = HasFromList(*possible_pikmin, options=[OptionFilter(GlowPikminUsable, 1)])
+            # possible_pikmin = ["Blue Real", "Glow Real", "Pup Real"]
+            # if self.CloseToSurface:
+            #     possible_pikmin += "Pink Real"
+            # tmp = HasFromList(*possible_pikmin, options=[OptionFilter(GlowPikminUsable, 1)])
             rule = Or(Has("Blue Real", item_weight_count), Pikmin("Glow", Weight),
                 And(Pikmin("pup", Weight), Has("Doggy-Paddle Learned", 3)))
             if self.CloseToSurface:

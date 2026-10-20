@@ -101,6 +101,23 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     # biome_seed = cast(BiomeRdmSeed, world.options.biome_seed) # type: ignore
 
 # endregion
+# region Event Value
+    item_mapping: dict[str, str] | None = getattr(world, "item_mapping", None)
+    if item_mapping is None:
+        item_mapping = {}
+        setattr(world, "item_mapping", item_mapping)
+
+    for manual_event in world.event_name_to_event.values():
+        name: str = manual_event['name']
+        if name in item_mapping.keys():
+            continue
+        values: dict[str, int]
+        if values := manual_event.get("value", {}):
+            first_value = list(values)[0]
+            item_mapping[name] = first_value # since item_mapping is a dict only the first value can be the mapping
+# endregion
+
+
 
 # region spoiler_header
 # Something not in base Manual is write_spoiler_header which let you write stuff in the spoiler file just after
@@ -229,19 +246,35 @@ region_counts: Counter[str] = Counter()
 from ..Helpers import format_state_prog_items_key
 def after_collect_item(world: "ManualWorld", state: CollectionState, Changed: bool, item: Item):
     global region_counts
-    if item.location is None or not Changed:
-        return # for type checkers
-    if item.name.startswith("Unlocked ") and __debug__:
-        region = item.name.removeprefix('Unlocked ')
-        count = state.prog_items[item.player][format_state_prog_items_key('EVENT_VALUE', 'Sparklium')]
-        if not region.startswith("ST ") and region_counts[region] != count:
-            region_counts[region] = count
-        # logging.info(f"Reached {region} with {count}")
-    manual_event = world.event_name_to_event.get(item.location.name, {})
-    if manual_event and (values := manual_event.get("value")):
-        for key, value in values.items():
-            state.prog_items[item.player][format_state_prog_items_key("EVENT_VALUE", key)] += int(value)
+    if not Changed:
+        return #  AKA non prog items
+    player: int = item.player
 
+    if item.is_event and item.location is not None:
+        value_key = "EVENT_VALUE"
+
+        if item.name.startswith("Unlocked ") and __debug__: # Debug stuff
+            region = item.name.removeprefix('Unlocked ')
+            count = state.prog_items[item.player][format_state_prog_items_key('EVENT_VALUE', 'Sparklium')]
+            if not region.startswith("ST ") and region_counts[region] != count:
+                region_counts[region] = count
+
+        manual_dict = world.event_name_to_event.get(item.location.name, {})
+        if manual_dict and (values := manual_dict.get("value")):
+            for key, value in values.items():
+                state.prog_items[item.player][format_state_prog_items_key(value_key, key)] += int(value)
+    elif not item.is_event:
+        manual_dict = world.item_name_to_item.get(item.name, {})
+        value_key = "VALUE"
+    else: return
+
+    if manual_dict.get("progressive_value"):
+        real_count = state.count(item.name, player)
+        values =  len(manual_dict["progressive_value"])
+        if real_count <= values:
+            current_values: dict[str, int] = manual_dict["progressive_value"][real_count - 1]
+            for name, value in current_values.items():
+                state.prog_items[player][format_state_prog_items_key(value_key, name)] = int(value)
     # the following let you add to the Potato Item Value count
     # if item.name == "Cooked Potato":
     #     state.prog_items[item.player][format_state_prog_items_key(ProgItemsCat.VALUE, "Potato")] += 1
@@ -250,13 +283,32 @@ def after_collect_item(world: "ManualWorld", state: CollectionState, Changed: bo
 # This method is run every time an item is removed from the state, can be used to modify the value of an item.
 # IMPORTANT! Any changes made in this hook must be first done in after_collect_item
 def after_remove_item(world: "ManualWorld", state: CollectionState, Changed: bool, item: Item):
-    if item.location is None or not Changed:
-        return # for type checkers
+    if not Changed:
+        return # AKA non prog items
+    player: int = item.player
+    if item.is_event and item.location is not None:
+        value_key = "EVENT_VALUE"
+        manual_dict = world.event_name_to_event.get(item.location.name, {})
+        if manual_dict and (values := manual_dict.get("value")):
+            for key, value in values.items():
+                state.prog_items[player][format_state_prog_items_key(value_key, key)] -= int(value)
+    elif not item.is_event:
+        manual_dict = world.item_name_to_item.get(item.name, {})
+        value_key = "VALUE"
+    else: return
 
-    manual_event = world.event_name_to_event.get(item.location.name, {})
-    if manual_event and (values := manual_event.get("value")):
-        for key, value in values.items():
-            state.prog_items[item.player][format_state_prog_items_key("EVENT_VALUE", key)] -= int(value)
+    if manual_dict.get("progressive_value"):
+        real_count = state.count(item.name, player)
+        values_count =  len(manual_dict["progressive_value"])
+        current_values: dict[str, int]
+        if real_count == 0:
+            current_values = manual_dict["progressive_value"][0]
+            for name in current_values.keys():
+                state.prog_items[player][format_state_prog_items_key(value_key, name)] = 0
+        elif real_count <= values_count:
+            current_values = manual_dict["progressive_value"][real_count - 1]
+            for name, value in current_values.items():
+                state.prog_items[player][format_state_prog_items_key(value_key, name)] = int(value)
 
     # the following let you undo the addition to the Potato Item Value count
     # if item.name == "Cooked Potato":

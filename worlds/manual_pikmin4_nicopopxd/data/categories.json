@@ -6,10 +6,15 @@
     "Pikmins NGP": {
         "hidden": true
     },
+    "NGP1": {
+        "hidden": true
+    },
     "New Game Plus": {
+        "hidden": true,
         "yaml_option": ["New Game Plus"]
     },
     "Not New Game Plus": {
+        "hidden": true,
         "yaml_option": ["!New Game Plus"]
     },
     "Disabled": {},

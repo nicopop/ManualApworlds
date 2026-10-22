@@ -52,8 +52,8 @@
             "region": "ST Serene Shores"
         },
         {
-            "name": "ST Hero's Hideaway",
-            "region": "ST Sun-Speckled Terrace"
+            "name": "Unlocked ST Hero's Hideaway",
+            "region": "ST Hero's Hideaway"
         },
 
         {
@@ -503,7 +503,6 @@
             "category": ["Pikmins Carry"],
             "requires": "{Pikmin(Pup, 100)}"
         },
-
 
 
         {

@@ -222,14 +222,14 @@
             "name": "All the Little Darlings 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Dalmo| and ((|Unlocked Hero's Hideaway| and |Bernard|) or |NGP|)",
+            "requires": "|Dalmo| and (|Unlocked Hero's Hideaway| or |NGP|)",
             "category": ["Side Missions"]
         },
         {
             "name": "All the Little Darlings 5",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Dalmo| and (({EventValue(Sparklium:13000)} and |Olimar|) or |NGP|)",
+            "requires": "|Dalmo| and (|Unlocked Primordial Thicket| or |NGP|)",
             "category": ["Side Missions"]
         },
 
@@ -251,7 +251,7 @@
             "name": "Friend to All Pikmin 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|François| and (({EventValue(Sparklium:13000)}) or |[UT OOL]|)",
+            "requires": "|François| and (|Unlocked Primordial Thicket| or |[UT OOL]|)",
             "category": ["Side Missions"]
         },
 

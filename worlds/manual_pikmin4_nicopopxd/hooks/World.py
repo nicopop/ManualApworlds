@@ -94,9 +94,14 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     This is the earliest hook called during generation, before anything else is done.
     Use it to check or modify incompatible options, or to set up variables for later use.
     """
+    from .Options import NewGamePlus, GlowPikminUsable, CanRequireMelee, CaveKeyLogic
 # region Init Options
     # Here I usually deal with options values and check for UT
     world.is_ut = cast(bool, getattr(multiworld, "generation_is_fake", False)) # type: ignore
+    ngp = bool(getattr(world.options, "New_Game_Plus", NewGamePlus(NewGamePlus.default)))
+    glow = bool(getattr(world.options, "Glow_Pikmin_In_Daylight", GlowPikminUsable(GlowPikminUsable.default)))
+    melee = bool(getattr(world.options, "Melee_Logic", CanRequireMelee(CanRequireMelee.default)))
+    cave =getattr(world.options, "Cave_Keys", CaveKeyLogic(CaveKeyLogic.default))
     # evil_type = cast(EvilBiomeType, world.options.evil_biome) # type: ignore
     # biome_seed = cast(BiomeRdmSeed, world.options.biome_seed) # type: ignore
 
@@ -116,7 +121,10 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
             first_value = list(values)[0]
             item_mapping[name] = first_value # since item_mapping is a dict only the first value can be the mapping
 # endregion
-
+    def yn(boolean) -> str:
+        return 'Yes' if bool(boolean) else 'No'
+    if __debug__:
+        logging.info(f"#{player}, NGP: {yn(ngp)}, GlowPikmin: {yn(glow)}, Melee: {yn(melee)}, {cave}")
 
 
 # region spoiler_header
@@ -169,11 +177,17 @@ def after_create_regions(world: "ManualWorld", multiworld: MultiWorld, player: i
 #       will create 5 items that are the "useful trap" class
 # {"Item Name": {ItemClassification.useful: 5}} <- You can also use the classification directly
 def before_create_items_all(item_config: dict[str, int|dict], world: "ManualWorld", multiworld: MultiWorld, player: int) -> dict[str, int|dict]:
-    from .Options import CaveKeyLogic
+    from .Options import CaveKeyLogic, NewGamePlus
     Cave_Keys = getattr(world.options, "Cave_Keys", CaveKeyLogic(CaveKeyLogic.default))
+    ngp = bool(getattr(world.options, "New_Game_Plus", NewGamePlus(NewGamePlus.default)))
+
     for name, count in item_config.items():
+        if not count:
+            continue
         if name in world.item_name_groups["Cavern Keys"] and Cave_Keys.value == Cave_Keys.option_one_key_per_cave:
-            # no_key is dealt in hooks/Helpers.py
+            # Cave_Keys.option_no_key is managed in hooks/Helpers.py
+            item_config[name] = 1
+        elif name in world.item_name_groups["NGP1"] and ngp:
             item_config[name] = 1
     return item_config
 

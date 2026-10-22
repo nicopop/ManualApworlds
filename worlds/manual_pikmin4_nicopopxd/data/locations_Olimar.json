@@ -37,11 +37,11 @@
     ],
     "data": [
         {
-            "name": "TMP Olimar",
-            "region": "Serene Shores",
-            "_comment": "Using this as a moveable MOCK rest of the game",
+            "name": "HH battle Olimar",
+            "region": "Hero's Hideaway",
+            "_comment": "Leaving this with no requirement for now so Gen works",
             "create_event": [
-                {"name": "Olimar", "visible": true, "category": ["Castaways", "X Complete"]}
+                {"name": "Battle Leafling", "visible": true, "category": ["Leafling", "X Complete"]}
             ]
         },
         {
@@ -69,6 +69,18 @@
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "X Complete"]},
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "X Complete"]},
                 {"name": "Rescue", "visible": true, "category": ["Castaways", "X Complete"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]},
                 {"name": "Battle Leafling", "visible": true, "category": ["Leafling", "SST Complete"]},
                 {"name": "Battle Leafling", "visible": true, "category": ["Leafling", "SST Complete"]},
                 {"name": "Battle Leafling", "visible": true, "category": ["Leafling", "SST Complete"]},

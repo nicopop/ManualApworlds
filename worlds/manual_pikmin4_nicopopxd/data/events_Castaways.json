@@ -240,6 +240,12 @@
             "requires": "|Battle Leafling Cured:3|",
             "visible": true
         },
+        {
+            "name": "Olimar",
+            "category": ["Castaways"], "region": "Castaways",
+            "requires": "|Battle Leafling Cured:4|",
+            "visible": true
+        },
 
         {
             "name": "Jin",

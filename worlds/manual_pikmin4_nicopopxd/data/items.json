@@ -52,14 +52,14 @@
     },
     {
         "name": "Triple Threat",
-        "useful": true,
+        "progression": true,
         "category": ["Rescue Gear", "All"]
     },
     {
         "name": "Treasure Gauge",
         "count": 2,
         "useful": true,
-        "category": ["Rescue Gear", "All"]
+        "category": ["Rescue Gear", "All", "NGP1"]
     },
     {
         "name": "Gunk Buster",
@@ -75,19 +75,19 @@
         "name": "Air Armor",
         "count": 3,
         "useful": true,
-        "category": ["Rescue Gear", "All"]
+        "category": ["Rescue Gear", "All", "NGP1"]
     },
     {
         "name": "Tuff Stuff",
         "count": 3,
         "useful": true,
-        "category": ["Rescue Gear", "All"]
+        "category": ["Rescue Gear", "All", "NGP1"]
     },
     {
         "name": "Headlamp",
         "count": 2,
         "progression": true,
-        "category": ["Rescue Gear", "All"]
+        "category": ["Rescue Gear", "All", "NGP1"]
     },
     {
         "name": "Lineup Trumpet",
@@ -114,7 +114,7 @@
         "name": "Pup Tuff Stuff",
         "count": 3,
         "useful": true,
-        "category": ["Pup Gear", "All"]
+        "category": ["Pup Gear", "All", "NGP1"]
     },
     {
         "name": "Pup Thermal Defense",
@@ -130,7 +130,7 @@
         "name": "Pup Air Armor",
         "count": 3,
         "useful": true,
-        "category": ["Pup Gear", "All"]
+        "category": ["Pup Gear", "All", "NGP1"]
     },
 
 

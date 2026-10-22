@@ -270,7 +270,7 @@ class CaveKeyLogic(ChoiceIsRandom):
     option_no_key = 0
     option_one_key_per_level = 1
     option_one_key_per_cave = 2
-    default = 1
+    default = 2
 
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, Type[Option[Any]]]:

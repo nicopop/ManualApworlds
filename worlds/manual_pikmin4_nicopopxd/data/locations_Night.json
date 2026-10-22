@@ -20,6 +20,24 @@
             "category": ["Night Expeditions", "Blossoming Arcadia"]
         },
         {
+            "name": "Cure Battle Leafling 3",
+            "region": "SS Night Expeditions",
+            "create_event": [
+                {"name": "Battle Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]}],
+            "requires": "|Battle Leafling:3|",
+            "category": ["Night Expeditions", "Serene Shores"]
+        },
+        {
+            "name": "Cure Battle Leafling 4",
+            "region": "HH Night Expeditions",
+            "create_event": [
+                {"name": "Battle Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]}],
+            "requires": "|Battle Leafling:4|",
+            "category": ["Night Expeditions", "Serene Shores"]
+        },
+        {
             "name": "Cure Dandori Leafling 1",
             "region": "SST Night Expeditions",
             "create_event": [
@@ -56,12 +74,75 @@
             "category": ["Night Expeditions", "Blossoming Arcadia"]
         },
         {
-            "name": "Cure Dandori Leafling 5 ",
+            "name": "Cure Dandori Leafling 5",
             "region": "BA Night Expeditions",
             "create_event": [
                 {"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]},
                 {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]}],
             "requires": "|Leafling:5| and ({Night(2)} or |[UT OOL]|)",
+            "category": ["Night Expeditions", "Blossoming Arcadia"]
+        },
+        {
+            "name": "Cure Dandori Leafling 6",
+            "region": "BA Night Expeditions",
+            "create_event": [
+                {"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]}],
+            "requires": "|Leafling:6| and ({Night(2)} or |[UT OOL]|)",
+            "category": ["Night Expeditions", "Blossoming Arcadia"]
+        },
+        {
+            "name": "Cure Dandori Leafling 7",
+            "region": "SS Night Expeditions",
+            "create_event": [
+                {"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]}],
+            "requires": "|Leafling:7| and ({Night(2)} or |[UT OOL]|)",
+            "category": ["Night Expeditions", "Blossoming Arcadia"]
+        },
+        {
+            "name": "Cure Dandori Leafling 8",
+            "region": "SS Night Expeditions",
+            "create_event": [
+                {"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]}],
+            "requires": "|Leafling:8| and ({Night(2)} or |[UT OOL]|)",
+            "category": ["Night Expeditions", "Blossoming Arcadia"]
+        },
+        {
+            "name": "Cure Dandori Leafling 9",
+            "region": "SS Night Expeditions",
+            "create_event": [
+                {"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]}],
+            "requires": "|Leafling:9| and ({Night(2)} or |[UT OOL]|)",
+            "category": ["Night Expeditions", "Blossoming Arcadia"]
+        },
+        {
+            "name": "Cure Dandori Leafling 10",
+            "region": "SS Night Expeditions",
+            "create_event": [
+                {"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]}],
+            "requires": "|Leafling:10| and ({Night(2)} or |[UT OOL]|)",
+            "category": ["Night Expeditions", "Blossoming Arcadia"]
+        },
+        {
+            "name": "Cure Dandori Leafling 11",
+            "region": "SS Night Expeditions",
+            "create_event": [
+                {"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]}],
+            "requires": "|Leafling:11| and ({Night(2)} or |[UT OOL]|)",
+            "category": ["Night Expeditions", "Blossoming Arcadia"]
+        },
+        {
+            "name": "Cure Dandori Leafling 12",
+            "region": "HH Night Expeditions",
+            "create_event": [
+                {"name": "Leafling Cured", "visible": true, "category": ["Castaways", "Cured"]},
+                {"name": "Pup Drive", "visible": true, "category": ["Pup Skills"]}],
+            "requires": "|Leafling:12| and ({Night(2)} or |[UT OOL]|)",
             "category": ["Night Expeditions", "Blossoming Arcadia"]
         }
     ]

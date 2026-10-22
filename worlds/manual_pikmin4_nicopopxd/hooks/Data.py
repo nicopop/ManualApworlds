@@ -1,7 +1,7 @@
 from BaseClasses import Tutorial, Location
 from typing import Any, cast
 from worlds.AutoWorld import World, WebWorld
-
+from . import REMOVE_MATERIAL, USE_FULL_RULES
 import logging
 # region create_event
 # this part is required for create_event
@@ -147,7 +147,7 @@ def after_load_event_file(event_table: list) -> list:
             self.name = name
             self.data = data
             pass
-
+    name: str
     for location in _location_table:
         loc_name: str = location["name"]
         event_request = location.get("create_event")
@@ -186,6 +186,22 @@ def after_load_event_file(event_table: list) -> list:
 
             event_table.append(event)
 # endregion
+    event_dict: dict[str, Any]
+    for event_dict in event_table:
+        disabled = False
+        if REMOVE_MATERIAL: # make gen ~2 second quicker but if they are required later this will need to be turned off
+            values: dict[str, int]
+            if values := event_dict.get("value", {}):
+                if "Material" in values:
+                    disabled = True
+        if USE_FULL_RULES:
+            name = event_dict["name"]
+            if name.endswith(" Real"):
+                disabled = True
+        if disabled:
+            categories: list[str] = event_dict.get("category", [])
+            categories.append("Disabled")
+            event_dict["category"] = categories
     return event_table
 # called after the regions.json file has been loaded, before any location loading or processing has occurred
 # if you need access to the locations after processing to add ids, etc., you should use the hooks in World.py

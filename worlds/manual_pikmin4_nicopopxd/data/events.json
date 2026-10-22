@@ -453,6 +453,58 @@
             "category": ["Pikmins Carry"],
             "requires": "{Pikmin(White, 100)}"
         },
+
+        {
+            "name": "Glow Real", "region": "Events",
+            "category": ["Glow_Pikmin_In_Daylight", "Pikmins Carry"],
+            "requires": "{Pikmin(Glow, 10)}"
+        },
+        {
+            "name": "Glow Real", "region": "Events",
+            "category": ["Glow_Pikmin_In_Daylight", "Pikmins Carry"],
+            "requires": "{Pikmin(Glow, 20)}"
+        },
+        {
+            "name": "Glow Real", "region": "Events",
+            "category": ["Glow_Pikmin_In_Daylight", "Pikmins Carry"],
+            "requires": "{Pikmin(Glow, 30)}"
+        },
+        {
+            "name": "Glow Real", "region": "Events",
+            "category": ["Glow_Pikmin_In_Daylight", "Pikmins Carry"],
+            "requires": "{Pikmin(Glow, 40)}"
+        },
+        {
+            "name": "Glow Real", "region": "Events",
+            "category": ["Glow_Pikmin_In_Daylight", "Pikmins Carry"],
+            "requires": "{Pikmin(Glow, 50)}"
+        },
+        {
+            "name": "Glow Real", "region": "Events",
+            "category": ["Glow_Pikmin_In_Daylight", "Pikmins Carry"],
+            "requires": "{Pikmin(Glow, 60)}"
+        },
+        {
+            "name": "Glow Real", "region": "Events",
+            "category": ["Glow_Pikmin_In_Daylight", "Pikmins Carry"],
+            "requires": "{Pikmin(Glow, 70)}"
+        },
+        {
+            "name": "Glow Real", "region": "Events",
+            "category": ["Glow_Pikmin_In_Daylight", "Pikmins Carry"],
+            "requires": "{Pikmin(Glow, 80)}"
+        },
+        {
+            "name": "Glow Real", "region": "Events",
+            "category": ["Glow_Pikmin_In_Daylight", "Pikmins Carry"],
+            "requires": "{Pikmin(Glow, 90)}"
+        },
+        {
+            "name": "Glow Real", "region": "Events",
+            "category": ["Glow_Pikmin_In_Daylight", "Pikmins Carry"],
+            "requires": "{Pikmin(Glow, 100)}"
+        },
+
         {
             "name": "Pup Real", "region": "Events",
             "category": ["Pikmins Carry"],

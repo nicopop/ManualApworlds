@@ -9,6 +9,10 @@
     "NGP1": {
         "hidden": true
     },
+    "Glow_Pikmin_In_Daylight": {
+        "hidden": true,
+        "yaml_option": ["Glow_Pikmin_In_Daylight"]
+    },
     "New Game Plus": {
         "hidden": true,
         "yaml_option": ["New Game Plus"]
@@ -135,6 +139,9 @@
         "hidden": true
     },
     "BA Complete": {
+        "hidden": true
+    },
+    "SS Complete": {
         "hidden": true
     }
 }

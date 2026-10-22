@@ -37,7 +37,7 @@ if TYPE_CHECKING:
 class ChoiceIsRandom(Choice):
     randomized: bool | list[int] = False
     supports_weighting = False
-    display_name = "ChoiceIsRandom"
+    display_name: str
     option_randomized = -42
     clean_values: None|dict[int, str] = None
 
@@ -136,7 +136,7 @@ class ChoiceIsRandom(Choice):
                 randomized = cls._convert_str_list_to_int_list(list(counter.keys()))
             else:
                 randomized = False
-            name = cast(str, get_choice(cls.display_name, {cls.display_name: dict(counter)}))
+            name = cast(str, get_choice("get_choice", {"get_choice": dict(counter)}))
 
             return cls(int(super().from_text(name)), randomized)
 
@@ -144,7 +144,7 @@ class ChoiceIsRandom(Choice):
 # endregion
 # region ToggleIsRDM
 class ToggleIsRandom(ChoiceIsRandom):
-    display_name = "ToggleIsRandom"
+    display_name: str
     option_false = 0
     option_true = 1
 
@@ -262,8 +262,12 @@ class NewGamePlus(DefaultOnToggleIsRandom):
 
 class GlowPikminUsable(ToggleIsRandom):
     """Can Glow pikmin be required to be used during the daytime"""
-class CanRequireMelee(ToggleIsRandom):
+class CanRequireMelee(ChoiceIsRandom):
     """Can You be required to use your fist to break objects"""
+    option_never = 0
+    option_always = 1
+    option_with_upgrade = 2
+    default = ToggleIsRandom.option_randomized
 
 class CaveKeyLogic(ChoiceIsRandom):
     """What level of key logic requirement do you want for caves"""

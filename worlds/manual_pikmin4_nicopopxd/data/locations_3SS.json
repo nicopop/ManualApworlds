@@ -38,5 +38,15 @@
     ],
     "data": [
 
+        {
+            "name": "SS Beat Dandori Castle",
+            "description": "SouthWest",
+            "region": "Serene Shores",
+            "create_event": [
+                {"name": "Battle Leafling", "visible": true, "category": ["Leafling", "SS Complete"]}
+            ],
+            "category": [ "Serene Shores" ],
+            "requires": "({FreezeWater(20, True)} or {Build()}) and ({TODO(Dandori Requirement option)} or {Pikmin(Yellow, 20)})"
+        }
     ]
 }

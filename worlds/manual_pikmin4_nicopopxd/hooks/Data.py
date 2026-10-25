@@ -1,7 +1,7 @@
 from BaseClasses import Tutorial, Location
 from typing import Any, cast
 from worlds.AutoWorld import World, WebWorld
-from . import REMOVE_MATERIAL, USE_FULL_RULES
+from . import REMOVE_MATERIAL
 import logging
 # region create_event
 # this part is required for create_event
@@ -194,10 +194,6 @@ def after_load_event_file(event_table: list) -> list:
             if values := event_dict.get("value", {}):
                 if "Material" in values:
                     disabled = True
-        if USE_FULL_RULES:
-            name = event_dict["name"]
-            if name.endswith(" Real"):
-                disabled = True
         if disabled:
             categories: list[str] = event_dict.get("category", [])
             categories.append("Disabled")

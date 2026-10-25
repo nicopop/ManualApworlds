@@ -98,35 +98,35 @@
             "name": "Appraisal Frenzy 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Schnauz| and ({HasFromCategoryUnique(Sparklium, 50)} or |NGP|)",
+            "requires": "{Castaway(Schnauz)} and ({HasFromCategoryUnique(Sparklium, 50)} or |NGP|)",
             "category": ["Side Missions"]
         },
         {
             "name": "Appraisal Frenzy 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Schnauz| and ({HasFromCategoryUnique(Sparklium, 100)} or |NGP|)",
+            "requires": "{Castaway(Schnauz)} and ({HasFromCategoryUnique(Sparklium, 100)} or |NGP|)",
             "category": ["Side Missions", "Disabled"]
         },
         {
             "name": "Appraisal Frenzy 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Schnauz| and ({HasFromCategoryUnique(Sparklium, 150)} or |NGP|)",
+            "requires": "{Castaway(Schnauz)} and ({HasFromCategoryUnique(Sparklium, 150)} or |NGP|)",
             "category": ["Side Missions", "Disabled"]
         },
         {
             "name": "Appraisal Frenzy 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Schnauz| and ({HasFromCategoryUnique(Sparklium, 200)} or |NGP|)",
+            "requires": "{Castaway(Schnauz)} and ({HasFromCategoryUnique(Sparklium, 200)} or |NGP|)",
             "category": ["Side Missions", "Disabled"]
         },
         {
             "name": "Appraisal Frenzy 5",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Schnauz| and ({HasFromCategoryUnique(Sparklium, 239)} or |NGP|)",
+            "requires": "{Castaway(Schnauz)} and ({HasFromCategoryUnique(Sparklium, 239)} or |NGP|)",
             "category": ["Side Missions", "Disabled"]
         },
 
@@ -135,21 +135,21 @@
             "region": "Missions",
             "_comment": "TODO maybe replace region check with onion/pikmin+source count somehow",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Kingsly| and (|Unlocked Blossoming Arcadia| or |[UT OOL]|)",
+            "requires": "{Castaway(Kingsly)} and (|Unlocked Blossoming Arcadia| or |[UT OOL]|)",
             "category": ["Side Missions"]
         },
         {
             "name": "Set the World Abloom 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Kingsly| and (|Unlocked Hero's Hideaway| or |[UT OOL]|)",
+            "requires": "{Castaway(Kingsly)} and (|Unlocked Hero's Hideaway| or |[UT OOL]|)",
             "category": ["Side Missions"]
         },
         {
             "name": "Set the World Abloom 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Kingsly| and (|Unlocked Primordial Thicket| or |[UT OOL]|)",
+            "requires": "{Castaway(Kingsly)} and (|Unlocked Primordial Thicket| or |[UT OOL]|)",
             "category": ["Side Missions"]
         },
 
@@ -157,42 +157,42 @@
             "name": "Investigate Areas 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dingo| and |@SST Complete:ALL|",
+            "requires": "{Castaway(Dingo)} and |@SST Complete:ALL|",
             "category": ["Side Missions", ""]
         },
         {
             "name": "Investigate Areas 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dingo| and |@BA Complete:ALL|",
+            "requires": "{Castaway(Dingo)} and |@BA Complete:ALL|",
             "category": ["Side Missions"]
         },
         {
             "name": "Investigate Areas 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dingo| and {TODO(@SS Complete:ALL)}",
+            "requires": "{Castaway(Dingo)} and |@SS Complete:ALL|",
             "category": ["Side Missions"]
         },
         {
             "name": "Investigate Areas 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dingo| and {TODO(@HH Complete:ALL)}",
+            "requires": "{Castaway(Dingo)} and {TODO(@HH Complete:ALL)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Investigate Areas 5",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dingo| and {TODO(@GH Complete:ALL)}",
+            "requires": "{Castaway(Dingo)} and {TODO(@GH Complete:ALL)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Investigate Areas 6",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dingo| and {TODO(@PT Complete:ALL)}",
+            "requires": "{Castaway(Dingo)} and {TODO(@PT Complete:ALL)}",
             "category": ["Side Missions"]
         },
 
@@ -201,35 +201,35 @@
             "_comment": "TODO track where you can find Species of Creatures",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Dalmo|",
+            "requires": "{Castaway(Dalmo)}",
             "category": ["Side Missions"]
         },
         {
             "name": "All the Little Darlings 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Dalmo| and (|Unlocked Blossoming Arcadia| or |NGP|)",
+            "requires": "{Castaway(Dalmo)} and (|Unlocked Blossoming Arcadia| or |NGP|)",
             "category": ["Side Missions"]
         },
         {
             "name": "All the Little Darlings 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Dalmo| and (|Unlocked Serene Shores| or |NGP|)",
+            "requires": "{Castaway(Dalmo)} and (|Unlocked Serene Shores| or |NGP|)",
             "category": ["Side Missions"]
         },
         {
             "name": "All the Little Darlings 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Dalmo| and (|Unlocked Hero's Hideaway| or |NGP|)",
+            "requires": "{Castaway(Dalmo)} and (|Unlocked Hero's Hideaway| or |NGP|)",
             "category": ["Side Missions"]
         },
         {
             "name": "All the Little Darlings 5",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Dalmo| and (|Unlocked Primordial Thicket| or |NGP|)",
+            "requires": "{Castaway(Dalmo)} and (|Unlocked Primordial Thicket| or |NGP|)",
             "category": ["Side Missions"]
         },
 
@@ -237,21 +237,21 @@
             "name": "Friend to All Pikmin 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|François| and (|Unlocked Blossoming Arcadia| or |[UT OOL]|)",
+            "requires": "{Castaway(François)} and (|Unlocked Blossoming Arcadia| or |[UT OOL]|)",
             "category": ["Side Missions"]
         },
         {
             "name": "Friend to All Pikmin 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|François| and (|Unlocked Hero's Hideaway| or |[UT OOL]|)",
+            "requires": "{Castaway(François)} and (|Unlocked Hero's Hideaway| or |[UT OOL]|)",
             "category": ["Side Missions"]
         },
         {
             "name": "Friend to All Pikmin 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|François| and (|Unlocked Primordial Thicket| or |[UT OOL]|)",
+            "requires": "{Castaway(François)} and (|Unlocked Primordial Thicket| or |[UT OOL]|)",
             "category": ["Side Missions"]
         },
 
@@ -260,56 +260,56 @@
             "name": "Fusing Onions 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 10","value": {"Material": 10}, "category": []}],
-            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 2)}",
+            "requires": "{Castaway(Pitunia)} and {HasFromCategoryUnique(Onion, 2)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Fusing Onions 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 10","value": {"Material": 10}, "category": []}],
-            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 3)}",
+            "requires": "{Castaway(Pitunia)} and {HasFromCategoryUnique(Onion, 3)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Fusing Onions 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 10","value": {"Material": 10}, "category": []}],
-            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 4)}",
+            "requires": "{Castaway(Pitunia)} and {HasFromCategoryUnique(Onion, 4)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Fusing Onions 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 10","value": {"Material": 10}, "category": []}],
-            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 5)}",
+            "requires": "{Castaway(Pitunia)} and {HasFromCategoryUnique(Onion, 5)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Fusing Onions 5",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 10","value": {"Material": 10}, "category": []}],
-            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 6)}",
+            "requires": "{Castaway(Pitunia)} and {HasFromCategoryUnique(Onion, 6)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Fusing Onions 6",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 10","value": {"Material": 10}, "category": []}],
-            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 7)}",
+            "requires": "{Castaway(Pitunia)} and {HasFromCategoryUnique(Onion, 7)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Fusing Onions 7",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 10","value": {"Material": 10}, "category": []}],
-            "requires": "|Pitunia| and {HasFromCategoryUnique(Onion, 8)}",
+            "requires": "{Castaway(Pitunia)} and {HasFromCategoryUnique(Onion, 8)}",
             "category": ["Side Missions"]
         },
 
         {
             "name": "Leafling Meet and Greet",
             "region": "Missions",
-            "requires": "|Puddle| and (|@Leafling:10|)",
+            "requires": "{Castaway(Puddle)} and (|@Leafling:10|)",
             "category": ["Side Missions"]
         },
 
@@ -317,7 +317,7 @@
             "name": "Find the Missing Students",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Mika| and |Sheeba| and |Keesh| and |Kaia|",
+            "requires": "{Castaways(Mika; Sheeba; Keesh; Kaia)}",
             "category": ["Side Missions"]
         },
 
@@ -325,28 +325,28 @@
             "name": "Researching Onions 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Sy| and |Flarlic:2|",
+            "requires": "{Castaway(Sy)} and |Flarlic:2|",
             "category": ["Side Missions"]
         },
         {
             "name": "Researching Onions 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Sy| and |Flarlic:4|",
+            "requires": "{Castaway(Sy)} and |Flarlic:4|",
             "category": ["Side Missions"]
         },
         {
             "name": "Researching Onions 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Sy| and |Flarlic:6|",
+            "requires": "{Castaway(Sy)} and |Flarlic:6|",
             "category": ["Side Missions"]
         },
         {
             "name": "Researching Onions 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Sy| and |Flarlic:8|",
+            "requires": "{Castaway(Sy)} and |Flarlic:8|",
             "category": ["Side Missions"]
         },
 
@@ -354,7 +354,7 @@
             "name": "Find the Missing TV Crew",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Muggs| and |Frisé| and |Vonda| and |Wolfgang|",
+            "requires": "{Castaways(Muggs; Frisé; Vonda; Wolfgang)}",
             "category": ["Side Missions"]
         },
 
@@ -362,21 +362,21 @@
             "name": "Building Goodwill 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Osa| and |Built Something:10|",
+            "requires": "{Castaway(Osa)} and |Built Something:10|",
             "category": ["Side Missions"]
         },
         {
             "name": "Building Goodwill 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Osa| and |Built Something:20|",
+            "requires": "{Castaway(Osa)} and |Built Something:20|",
             "category": ["Side Missions"]
         },
         {
             "name": "Building Goodwill 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Osa| and |Built Something:All|",
+            "requires": "{Castaway(Osa)} and |Built Something:All|",
             "category": ["Side Missions"]
         },
 
@@ -384,20 +384,20 @@
             "name": "Music of a Past Culture 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Frisé| and {OptOne(|@Soulful Musician:4|)}",
+            "requires": "{Castaway(Frisé)} and {OptOne(|@Soulful Musician:4|)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Music of a Past Culture 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Frisé| and {OptOne(|@Soulful Musician:8|)}",
+            "requires": "{Castaway(Frisé)} and {OptOne(|@Soulful Musician:8|)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Music of a Past Culture 3",
             "region": "Missions",
-            "requires": "|Frisé| and {OptOne(|@Soulful Musician:13|)}",
+            "requires": "{Castaway(Frisé)} and {OptOne(|@Soulful Musician:13|)}",
             "category": ["Side Missions"]
         },
 
@@ -406,28 +406,28 @@
             "name": "Cave Delving 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dash| and |End Of Cave:5|",
+            "requires": "{Castaway(Dash)} and |End Of Cave:5|",
             "category": ["Side Missions"]
         },
         {
             "name": "Cave Delving 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dash| and |End Of Cave:10|",
+            "requires": "{Castaway(Dash)} and |End Of Cave:10|",
             "category": ["Side Missions"]
         },
         {
             "name": "Cave Delving 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dash| and |End Of Cave:15|",
+            "requires": "{Castaway(Dash)} and |End Of Cave:15|",
             "category": ["Side Missions"]
         },
         {
             "name": "Cave Delving 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Dash| and |End Of Cave:23|",
+            "requires": "{Castaway(Dash)} and |End Of Cave:23|",
             "category": ["Side Missions"]
         },
 
@@ -435,28 +435,28 @@
             "name": "Dandori Battle Training 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Corgwin| and |Battle Leafling|",
+            "requires": "{Castaway(Corgwin)} and |Battle Leafling|",
             "category": ["Side Missions"]
         },
         {
             "name": "Dandori Battle Training 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Corgwin| and |Battle Leafling:3|",
+            "requires": "{Castaway(Corgwin)} and |Battle Leafling:3|",
             "category": ["Side Missions"]
         },
         {
             "name": "Dandori Battle Training 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Corgwin| and |Battle Leafling:All|",
+            "requires": "{Castaway(Corgwin)} and |Battle Leafling:All|",
             "category": ["Side Missions"]
         },
         {
             "name": "Dandori Battle Training 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Corgwin| and |Battle Leafling:All|",
+            "requires": "{Castaway(Corgwin)} and |Battle Leafling:All|",
             "category": ["Side Missions"]
         },
 
@@ -464,35 +464,35 @@
             "name": "Cure the Leaflings 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Bernard| and |@Cured:6|",
+            "requires": "{Castaway(Bernard)} and |@Cured:6|",
             "category": ["Side Missions"]
         },
         {
             "name": "Cure the Leaflings 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Bernard| and |@Cured:9|",
+            "requires": "{Castaway(Bernard)} and |@Cured:9|",
             "category": ["Side Missions"]
         },
         {
             "name": "Cure the Leaflings 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Bernard| and |@Cured:12|",
+            "requires": "{Castaway(Bernard)} and |@Cured:12|",
             "category": ["Side Missions"]
         },
         {
             "name": "Cure the Leaflings 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Bernard| and |@Cured:15|",
+            "requires": "{Castaway(Bernard)} and |@Cured:15|",
             "category": ["Side Missions"]
         },
         {
             "name": "Cure the Leaflings 5",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Bernard| and |@Cured:21|",
+            "requires": "{Castaway(Bernard)} and |@Cured:21|",
             "category": ["Side Missions"]
         },
 
@@ -500,35 +500,35 @@
             "name": "Beat Dandori Challenge 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Jin| and |Dandori Puzzle:1|",
+            "requires": "{Castaway(Jin)} and |Dandori Puzzle:1|",
             "category": ["Side Missions"]
         },
         {
             "name": "Beat Dandori Challenge 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Jin| and |Dandori Puzzle:3|",
+            "requires": "{Castaway(Jin)} and |Dandori Puzzle:3|",
             "category": ["Side Missions"]
         },
         {
             "name": "Beat Dandori Challenge 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Jin| and |Dandori Puzzle:6|",
+            "requires": "{Castaway(Jin)} and |Dandori Puzzle:6|",
             "category": ["Side Missions"]
         },
         {
             "name": "Beat Dandori Challenge 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Jin| and |Dandori Puzzle:All|",
+            "requires": "{Castaway(Jin)} and |Dandori Puzzle:All|",
             "category": ["Side Missions"]
         },
         {
             "name": "Beat Dandori Challenge 5",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 30","value": {"Material": 30}, "category": []}],
-            "requires": "|Jin| and |Dandori Puzzle:All|",
+            "requires": "{Castaway(Jin)} and |Dandori Puzzle:All|",
             "category": ["Side Missions"]
         },
 
@@ -536,7 +536,7 @@
             "name": "Precious Scientists",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Chet| and |François| and |Pitunia| and |Sy| and |Osa| and |Kit| and |Twyla| and |Sammy| and |Komo| and |Ren|",
+            "requires": "{Castaways(Chet; François; Pitunia; Sy; Osa; Kit; Twyla; Sammy; Komo; Ren)}",
             "category": ["Side Missions"]
         },
 
@@ -544,21 +544,21 @@
             "name": "You vs. Planet 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Patch| and |Unlocked Sun-Speckled Terrace|",
+            "requires": "{Castaway(Patch)} and |Unlocked Sun-Speckled Terrace|",
             "category": ["Side Missions"]
         },
         {
             "name": "You vs. Planet 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Patch| and |Unlocked Blossoming Arcadia|",
+            "requires": "{Castaway(Patch)} and |Unlocked Blossoming Arcadia|",
             "category": ["Side Missions"]
         },
         {
             "name": "You vs. Planet 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Patch| and {TODO(Track Possible Enemy Kill 1000)}",
+            "requires": "{Castaway(Patch)} and {TODO(Track Possible Enemy Kill 1000)}",
             "category": ["Side Missions"]
         },
 
@@ -566,7 +566,7 @@
             "name": "A Tour Without Tourists",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Chewy| and |Sheeba| and |Keesh| and |Kaia| and |Mika| and |Molly| and |Lapi| and |Boris| and |Horatio| and |Santi|",
+            "requires": "{Castaways(Chewy; Sheeba; Keesh; Kaia; Mika; Molly; Lapi; Boris; Horatio; Santi)}",
             "category": ["Side Missions"]
         },
 
@@ -574,7 +574,7 @@
             "name": "Employer at Large!",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 50","value": {"Material": 50}, "category": []}],
-            "requires": "|Kayz| and |Chowder|",
+            "requires": "{Castaways(Kayz; Chowder)}",
             "category": ["Side Missions"]
         },
 
@@ -582,42 +582,42 @@
             "name": "Fit for a Feast 1",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Louie| and {TODO(Make Event for 4 Dwarf Bulborb)}",
+            "requires": "{Castaway(Louie)} and {TODO(Make Event for 4 Dwarf Bulborb)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Fit for a Feast 2",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Louie| and {TODO(Make Event for 2 Yellow Wollyhops)}",
+            "requires": "{Castaway(Louie)} and {TODO(Make Event for 2 Yellow Wollyhops)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Fit for a Feast 3",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Louie| and {TODO(Make Event for 1 Peckish Aristocrab)}",
+            "requires": "{Castaway(Louie)} and {TODO(Make Event for 1 Peckish Aristocrab)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Fit for a Feast 4",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Louie| and {TODO(Make Event for 1 Fiery Bulblax)}",
+            "requires": "{Castaway(Louie)} and {TODO(Make Event for 1 Fiery Bulblax)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Fit for a Feast 5",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Louie| and {TODO(Make Event for 1 Giant Breadbug)}",
+            "requires": "{Castaway(Louie)} and {TODO(Make Event for 1 Giant Breadbug)}",
             "category": ["Side Missions"]
         },
         {
             "name": "Fit for a Feast 6",
             "region": "Missions",
             "create_event": [{"name": "Material Reward 20","value": {"Material": 20}, "category": []}],
-            "requires": "|Louie| and {TODO(Make Event for 1 Sovereign Bulblax)}",
+            "requires": "{Castaway(Louie)} and {TODO(Make Event for 1 Sovereign Bulblax)}",
             "category": ["Side Missions"]
         },
 

@@ -26,7 +26,7 @@
     "Sun-Speckled Terrace South Island":
     {
         "connects_to": [],
-        "requires": "{Build()} and ({CanLiftOverWater(30, 1)})"
+        "requires": "{Build()} and ({CanLiftOverWater(30, 1, 0)})"
     },
     "Sun-Speckled Terrace NorthWest":
     {
@@ -218,7 +218,7 @@
     "Hero's Hideaway":
     {
         "connects_to": ["HH Night Expeditions"],
-        "requires": "{EventValue(Sparklium:7000)} and |Bernard|"
+        "requires": "{EventValue(Sparklium:7000)} and {Castaway(Bernard)}"
     },
     "HH Night Expeditions":
     {
@@ -228,17 +228,17 @@
     "Giant's Hearth":
     {
         "connects_to": [],
-        "requires": "{EventValue(Sparklium:11000)} and |Bernard| and |Olimar|"
+        "requires": "{EventValue(Sparklium:11000)} and {Castaway(Bernard)} and {Castaway(Olimar)}"
     },
     "Primordial Thicket":
     {
         "connects_to": [],
-        "requires": "{EventValue(Sparklium:13000)} and |Bernard| and |Olimar|"
+        "requires": "{EventValue(Sparklium:13000)} and {Castaway(Bernard)} and {Castaway(Olimar)}"
     },
     "Shipwreck Tale":
     {
         "connects_to": ["ST Sun-Speckled Terrace"],
-        "requires": "|Olimar|"
+        "requires": "{Castaway(Olimar)}"
     },
     "ST Sun-Speckled Terrace":
     {

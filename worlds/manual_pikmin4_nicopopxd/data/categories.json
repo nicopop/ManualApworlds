@@ -9,9 +9,9 @@
     "NGP1": {
         "hidden": true
     },
-    "Glow_Pikmin_In_Daylight": {
+    "Glow_Pikmin_In_Caves": {
         "hidden": true,
-        "yaml_option": ["Glow_Pikmin_In_Daylight"]
+        "yaml_option": ["Glow_Pikmin_In_Caves"]
     },
     "New Game Plus": {
         "hidden": true,

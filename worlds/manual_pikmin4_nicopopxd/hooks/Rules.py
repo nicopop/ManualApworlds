@@ -15,19 +15,78 @@ from Utils import version_tuple
 # use_rulebuilder = version_tuple >= (0, 6, 7)
 from rule_builder.rules import HasFromListUnique, Rule, True_, False_, Has, HasAllCounts, HasAnyCount, \
 HasFromList, Or, And, AtLeast, HasAny, OptionFilter, resolve_field, FieldResolver
-from .Options import GlowPikminUsable, CanRequireMelee
-from . import USE_FULL_RULES
+from .Options import GlowPikminUsable, CanRequireMelee, NewGamePlus
+# from . import USE_FULL_RULES
 
 if TYPE_CHECKING:
     from .. import ManualWorld
 
 def Build() -> str:
-    return "|Russ|"
+    return "{Castaway(Russ)}"
 
 def Night(level:int = 1) -> str:
     # TODO adjust depending on level
     pikmin = min(level * 2, 10)
-    return f"|Yonny| and |Glow Pikmins:{pikmin}|"
+    return f"{{Castaway(Yonny)}} and |Glow Pikmins:{pikmin}|"
+
+def _Castaway(name: str) -> tuple[str, int]:
+    RESCUED: tuple[str, ...] = (
+        "Russ", "Schnauz", "Kingsly", "Dingo", "Dalmo", "François", "Pitunia", "Yonny", "Puddle", "Mika",
+        "Sy", "Sheeba", "Muggs", "Keesh", "Osa", "Frisé", "Kaia", "Vonda", "Twyla", "Don Bergman",
+        "Bernise", "Yorke", "Horatio", "Nelle", "Sammy", "Wolfgang"
+        )
+    BATTLE_LEAFLINGS: tuple[str, ...] = "Dash", "Corgwin", "Bernard", "Olimar"
+    LEAFLINGS: tuple[str, ...] = (
+        "Jin", "Chet", "Patch", "Chewy", "Molly", "Santi", "Kayz", "Kit", "Komo", "Alpin",
+        "Chowder", "Lapi", "Ren", "Boris", "Grace", "Fawks", "Beaux"
+        )
+    EVENTS: tuple[str, ...] = "Louie",
+    if name in RESCUED:
+        return "Rescue", RESCUED.index(name) + 3
+    elif name in BATTLE_LEAFLINGS:
+        return "Battle Leafling Cured", BATTLE_LEAFLINGS.index(name) + 1
+    elif name in LEAFLINGS:
+        return "Leafling Cured", LEAFLINGS.index(name) + 1
+    elif name in EVENTS:
+        return name, 1
+    raise ValueError(f"'{name}' is not a Known Castaway")
+
+@dataclasses.dataclass()
+class Castaways(Rule["ManualWorld"], game=game_name):
+    names: str|list[str]
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        rescue_max: int = 0
+        battle_max: int = 0
+        leafling_max: int = 0
+        names = self.names
+        if isinstance(names, str):
+            castaways = names.split(";")
+        else:
+            castaways = names
+        for castaway in castaways:
+            castaway = castaway.strip().strip("|")
+            item, count = _Castaway(castaway)
+            if item == "Rescue" and count > rescue_max:
+                rescue_max = count
+            elif item == "Battle Leafling Cured" and count > battle_max:
+                battle_max = count
+            elif item == "Leafling Cured" and count > leafling_max:
+                leafling_max = count
+        needed: list[tuple[str, int]] = []
+        if rescue_max:
+            needed.append(("Rescue", rescue_max))
+        if battle_max:
+            needed.append(("Battle Leafling Cured", battle_max))
+        if battle_max:
+            needed.append(("Leafling Cured", leafling_max))
+        return HasAllCounts(dict(needed), options=self.options).resolve(world)
+
+@dataclasses.dataclass()
+class Castaway(Rule["ManualWorld"], game=game_name):
+    name: str
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        data = _Castaway(self.name)
+        return Has(data[0], data[1], options=self.options).resolve(world)
 
 # region ProgBlockers
 @dataclasses.dataclass()
@@ -163,20 +222,19 @@ class HeadLamp(Rule["ManualWorld"], game=game_name):
 @dataclasses.dataclass()
 class Shop(Rule["ManualWorld"], game=game_name):
     item: str
-    cost: int = 0
+    unlock_cost: int = 0
     require_russ: bool = False
     item_count: int = 1
     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
-        rule: Rule["ManualWorld"] = Has("NGP")
+        rule: Rule["ManualWorld"] = Has(self.item, self.item_count)
         if self.require_russ:
-            rule = rule & Has("Russ")
-        if self.cost:
-            rule |= Has("Russ") & EventValueRule(f"Sparklium:{self.cost}")
-        else:
-            rule |= Has("Russ")
+            rule = rule & Castaway("Russ")
 
-        if self.item is not None:
-            rule = rule & Has(self.item, self.item_count)
+        if self.unlock_cost:
+            rule = rule & And(Castaway("Russ"), EventValueRule(f"Sparklium:{self.unlock_cost}"),
+                            options=[OptionFilter(NewGamePlus, 0)], filtered_resolution=True)
+        else:
+            rule = rule & Castaway("Russ", options=[OptionFilter(NewGamePlus, 0)], filtered_resolution=True)
         return rule.resolve(world)
 
 @dataclasses.dataclass()
@@ -214,53 +272,258 @@ class AnyBomb(Rule["ManualWorld"], game=game_name):
 @dataclasses.dataclass()
 class Pikmin(Rule["ManualWorld"], game=game_name):
     color: str
-    count: int = 1
+    weight: int = 1
     quick: bool = False
     convert_to_item: bool = True
     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
-        color = self.color
-        count = self.count
-        if count == 0:
+        weight: int = self.weight
+        if weight == 0:
             return True_().resolve(world)
-
+        item_counts= self._convert_request_to_items()
+        return self.Resolved(
+            item_counts=tuple(item_counts.items()),
+            color=self.color,
+            player=world.player,
+            caching_enabled=getattr(world, "rule_caching_enabled", False),
+        )
+    def _convert_request_to_items(self) -> dict[str, int]:
+        color: str = self.color
+        weight: int = self.weight
+        if weight == 0:
+            return {}
+        items: dict[str, int] = {}
         if color.lower() == "purple":
             if self.convert_to_item:
-                item_count = ceil(count/100)
+                item_count = ceil(weight/100)
             else:
-                item_count = count
-                count = count * 100
+                item_count = weight
+                weight = weight * 100
         else:
-            if count > 100:
-                return False_().resolve(world)
             if self.convert_to_item:
-                item_count = ceil(count/10)
+                item_count = ceil(weight/10)
             else:
-                item_count = count
-                count = count * 10
-        if self.quick and not USE_FULL_RULES:
-            return Has(f"{color} Real", item_count).resolve(world)
+                item_count = weight
+                weight = weight * 10
 
         flarlic = "Flarlic"
         flarlic_count = max(item_count - 2, 0)
         if color.startswith("ST "):
             flarlic = "ST Flarlic"
         elif color.lower() == "pup":
-            return Has("Buff Learned", _RequiredPup(count)).resolve(world)
+            items = {"Buff Learned": _RequiredPup(weight)}
         elif color.lower() == "glow":
-            return And(Has("Yonny"),Has(f"{color} Pikmins", item_count), options=[OptionFilter(GlowPikminUsable, 1)]).resolve(world)
+            options = list(self.options)
+            options.append(OptionFilter(GlowPikminUsable, 1))
+            self.options = options
+            yonny = _Castaway("Yonny")
+            items = {f"{color} Pikmins": item_count, yonny[0]: yonny[1]}
+        else:
+            items = {f"{color} Pikmins": item_count}
+            if flarlic_count:
+                items[flarlic] = flarlic_count
+            items[f"Source"] = 1
+        return items
 
-        return And(HasAllCounts({f"{color} Pikmins": item_count, flarlic: flarlic_count}),
-                    HasAny(*[f"{color} Onion",f"{color} Pikmin Source"])).resolve(world)
-    # class Resolved(Rule.Resolved):
-    #     @override
-    #     def  item_dependencies(self) -> dict[str, set[int]]:
-    #         return super().item_dependencies()
-    #     @override # ? Maybe override the explanation if its too much/weird
-    #     def explain_str(self, state: CollectionState | None = None) -> str:
-    #         return super().explain_str(state)
-    #     @override
-    #     def explain_json(self, state: CollectionState | None = None) -> list[JSONMessagePart]:
-    #         return super().explain_json(state)
+    @override
+    def __str__(self) -> str:
+        def _count(count:int) -> str:
+            return f" x{count}" if count > 1 else ""
+        items = ", ".join([f"{item}{_count(count)}" for item, count in self._convert_request_to_items().items()])
+        options = f", options={self.options}" if self.options else ""
+        return f"{self.__class__.__name__}({items}{options})"
+    class Resolved(Rule.Resolved):
+        item_counts: tuple[tuple[str, int], ...]
+        color: str
+        @override
+        def _evaluate(self, state: CollectionState) -> bool:
+            def _has(item:str, count: int = 1) -> bool:
+                return state.has(item, player, count)
+            player = self.player
+            item_counts = dict(self.item_counts)
+            color = self.color
+            Source = item_counts.pop("Source", None)
+            for item, count in item_counts.items():
+                if not _has(item, count):
+                    return False
+            if Source is not None:
+                if not (_has(f"{color} Onion") or _has(f"{color} Pikmin Source")):
+                    return False
+            return True
+        @override
+        def item_dependencies(self) -> dict[str, set[int]]:
+            items: dict[str, set[int]] = {}
+            item_counts = dict(self.item_counts)
+            color = self.color
+            Source = item_counts.pop("Source", None)
+            if Source is not None:
+                item_counts[f"{color} Onion"] = 42
+                item_counts[f"{color} Pikmin Source"] = 42
+
+            for item in item_counts:
+                items[item] = {id(self)}
+            return items
+        @override
+        def explain_str(self, state: CollectionState | None = None) -> str:
+            if state is None:
+                return self.__str__()
+            player = self.player
+            item_counts = dict(self.item_counts)
+            pikmin_color = self.color
+            main_count = self.item_counts[0][1]
+            if pikmin_color.lower() == "pup":
+                prefix = "Has" if self(state) else "Missing"
+                count_str = f"{main_count}x " if main_count > 1 else ""
+                return f"{prefix} {count_str}Buff Learned"
+            Source = item_counts.pop("Source", None)
+            final_str = ""
+            def _count(item:str) -> int:
+                return state.count(item, player)
+            def _has(item: str) -> bool:
+                return _count(item) >= item_counts[item]
+            for i, (item, count) in enumerate(item_counts.items()):
+                if i > 0:
+                    final_str += ", "
+                if _has(item):
+                    final_str += "[x] "
+                    if count > 1:
+                        final_str += f"{count} "
+                else:
+                    final_str += "[ ] "
+                    if count > 1:
+                        final_str += f"{_count(item)}/{count} "
+                final_str += item
+            if Source:
+                onion = f"{pikmin_color} Onion"
+                has_onion = _has(onion)
+                source = f"{pikmin_color} Pikmin Source"
+                has_source = _has(source)
+                final_str += f", [{'X' if has_onion or has_source else ' '}] Source"
+                if not (has_onion or has_source):
+                    final_str += f"({onion} OR {source})"
+            return final_str
+        @override
+        def explain_json(self, state: CollectionState | None = None) -> list[JSONMessagePart]:
+            player = self.player
+            messages: list[JSONMessagePart] = []
+            item_counts = dict(self.item_counts)
+            Source = item_counts.pop("Source", None)
+            pikmin_color = self.color
+            main_count = self.item_counts[0][1]
+            def str_count(count:int) -> str:
+                return f"{count}x " if count > 1 else ""
+            if state is None:
+                count_str = str_count(main_count)
+                if pikmin_color.lower() == "pup":
+                    messages = [{"type": "text", "text": "Has "}]
+                    if count_str:
+                        messages.extend([
+                        {"type": "color", "color": "cyan", "text": str(main_count)},
+                        {"type": "text", "text": "x "},
+                    ])
+                    messages.append({"type": "item_name", "flags": 0b001, "text": "Buff Learned", "player": self.player})
+                else:
+                    messages = [{"type": "text", "text": "Has "}]
+                    for i, (item, count) in enumerate(item_counts.items()):
+                        if i > 0:
+                            messages.append({"type": "text", "text": ", "})
+                        count_str = str_count(count)
+                        if count_str:
+                            messages.extend([
+                                {"type": "color", "color": "cyan", "text": str(count)},
+                                {"type": "text", "text": "x "},
+                            ])
+                        messages.append({"type": "item_name", "flags": 0b001, "text": item, "player": self.player})
+                    if Source is not None:
+                        messages.extend([
+                            {"type": "text", "text": "and any of ("},
+                            {"type": "item_name", "flags": 0b001, "text": f"{pikmin_color} Onion", "player": self.player},
+                            {"type": "text", "text": ","},
+                            {"type": "item_name", "flags": 0b001, "text": f"{pikmin_color} Pikmin Source", "player": self.player},
+                        ])
+                        messages.append({"type": "text", "text": ")"})
+                return messages
+
+            def _has(item:str, count: int = 1) -> bool:
+                return state.has(item, player, count)
+            def _count(item:str) -> int:
+                return state.count(item, player)
+
+            def _color(have:int, want: int) -> str:
+                return "green" if have >= want else "salmon"
+
+            if pikmin_color.lower() == "pup":
+                verb = "Missing " if state and not self(state) else "Has "
+                messages.append({"type": "text", "text": verb})
+                if main_count > 1:
+                    messages.append({"type": "color", "color": "cyan", "text": str(main_count)})
+                    messages.append({"type": "text", "text": "x "})
+
+                color = "green" if self(state) else "salmon"
+                messages.append({"type": "color", "color": color, "text": "Buff Learned"})
+                return messages
+            main_actual_count = _count(self.item_counts[0][0])
+            item_counts.pop(f"{pikmin_color} Pikmins", None)
+            messages = [
+                {"type": "text", "text": "Has "},
+                {
+                    "type": "color",
+                    "color": _color(main_actual_count, main_count),
+                    "text": f"{main_actual_count}/{main_count}" if main_actual_count < main_count else str(main_count),
+                },
+                {"type": "text", "text": f" {pikmin_color} Pikmins"},
+            ]
+            if item_counts:
+                for item, count in item_counts.items():
+                    actual_count = _count(item)
+                    count_str = f"{actual_count}/{count} " if actual_count < count else f"{count} "
+                    item_str = f"{count_str if str_count(count) else ''}{item}"
+                    messages.extend([
+                        {"type": "text", "text": ", "},
+                        {
+                            "type": "color",
+                            "color": _color(actual_count, count),
+                            "text": item_str,
+                        }])
+            if Source:
+                onion = f"{pikmin_color} Onion"
+                has_onion = _has(onion)
+                source = f"{pikmin_color} Pikmin Source"
+                has_source = _has(source)
+                messages.extend([
+                    {"type": "text", "text": " and "},
+                    {
+                        "type": "color",
+                        "color": _color(int(has_onion) + int(has_source) , 1),
+                        "text": "Source",
+                    }])
+                if not (has_onion or has_source):
+                    messages.extend([
+                    {"type": "text", "text": " ("},
+                    {
+                        "type": "color",
+                        "color": _color(int(has_onion), 1),
+                        "text": onion,
+                    },
+                    {"type": "text", "text": " or "},
+                    {
+                        "type": "color",
+                        "color": _color(int(has_source), 1),
+                        "text": source,
+                    },
+                    ])
+            return messages
+        @override
+        def __str__(self) -> str:
+            item_counts = dict(self.item_counts)
+            def _count(count:int) -> str:
+                return f"{count}x " if count > 1 else ""
+            color = self.color
+            main_count = self.item_counts[0][1]
+            if color.lower() == "pup":
+                return f"Has {_count(main_count)}Buff Learned"
+            flarlic_type: str = 'Flarlic' if 'Flarlic' in item_counts else 'ST Flarlic' if 'ST Flarlic' in item_counts else ""
+            flarlic_str = f" & {_count(item_counts[flarlic_type])} {flarlic_type}" if flarlic_type else ""
+            return f"Has {_count(main_count)}{self.color} Pikmins & Source{flarlic_str}"
 
 def _RequiredPup(weight: int) -> int:
     import bisect
@@ -279,11 +542,14 @@ def _PupToWeight(item:int) -> int:
 # region CanLift
 @dataclasses.dataclass()
 class CanLiftST(Rule["ManualWorld"], game=game_name):
-    count: int
+    weight: int
     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
-        Real_pikmins = set(world.event_name_groups["ST Pikmins Carry"])
-        max_pikmin_count = ceil(self.count/10)
-        return HasFromList(*Real_pikmins, count=max_pikmin_count).resolve(world)
+        colors = [c.removesuffix(" Pikmins") for c in sorted(world.item_name_groups["ST Pikmins"]) if c.endswith(" Pikmins")]
+        # TODO Handle Moss somehow (probably in PupStatus > 3)
+        # Real_pikmins = [i for i in sorted(world.event_name_groups["ST Pikmins Carry"])]
+        # max_pikmin_count = ceil(self.weight/10)
+        # return HasFromList(*Real_pikmins, count=max_pikmin_count).resolve(world)
+        return CanLift(self.weight, colors, True, 0).resolve(world)
 
 @dataclasses.dataclass()
 class CanLiftOverWater(Rule["ManualWorld"], game=game_name):
@@ -291,23 +557,18 @@ class CanLiftOverWater(Rule["ManualWorld"], game=game_name):
     FreezeCount: int
     Weight: int
     PupStatus: int = 2 # 0 NO pup, 1 Pup can touch water, 2 underwater pup
+    InACave: bool = False # For Glow Pikmins
     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
         FreezeCount = self.FreezeCount
-        item_freeze_count = ceil(FreezeCount/10) # 3
         Weight = self.Weight
-        item_weight_count = ceil(Weight/10) # 3
         rule: Rule["ManualWorld"]
 
         # Deal with Blue or Pink or Glow || Purple
-        rule = Or( # v Blue or Pink or Glow
-            CanLiftInWater(Weight, True), # v ice freeze + anything but ice
-            FreezeWater(FreezeCount) & CanLift(Weight, ["Ice"], previous_pikmin_count=FreezeCount)
+        rule = Or(
+            CanLiftInWater(Weight, True, self.PupStatus, self.InACave),
+            FreezeWater(FreezeCount) & CanLift(Weight, InACave=self.InACave, previous_pikmin={"Ice":FreezeCount})
         )
 
-        # Then deal with all the other mix
-        max_item_count = item_freeze_count + item_weight_count # 6
-        for i in range(item_freeze_count, min(max_item_count, 10)):
-            rule |= FreezeWater(i * 10) & CanLift(Weight, ["Ice"], previous_pikmin_count=i * 10)
         return rule.resolve(world)
 
 @dataclasses.dataclass()
@@ -315,6 +576,8 @@ class CanLiftInWater(Rule["ManualWorld"], game=game_name):
     """A rule that checks if the player has enough pikmin + pup to lift an item in water"""
     Weight: int
     CloseToSurface: bool = False
+    PupStatus: int = 2 if CloseToSurface else 1
+    InACave: bool = False # For Glow Pikmins
     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
         Weight = self.Weight
         rule: Rule["ManualWorld"]
@@ -322,7 +585,7 @@ class CanLiftInWater(Rule["ManualWorld"], game=game_name):
         if self.CloseToSurface:
             colors.append("Pink")
 
-        rule = CanLift(Weight, colors, True, 2 if self.CloseToSurface else 3)
+        rule = CanLift(Weight, colors, True, self.PupStatus + 1 if self.PupStatus else 0, self.InACave)
         return rule.resolve(world)
 
 @dataclasses.dataclass()
@@ -330,7 +593,7 @@ class CanLift(Rule["ManualWorld"], game=game_name):
     """A rule that checks if the player has enough pikmin + pup to lift an item"""
     weight: int | FieldResolver
     """How much does the item weight"""
-    excluded_colors: str | list[str] = ""
+    excluded_colors: str | list[str] = dataclasses.field(default_factory=list)
     """`;` separated list of pikmin color to include /exclude if `invert_excluded`"""
     invert_excluded: bool | FieldResolver = False
     """Should `excluded_color` be used as included instead"""
@@ -341,80 +604,78 @@ class CanLift(Rule["ManualWorld"], game=game_name):
     2. Oatchi might need to touch water aka |Doggy-Paddle Learned:1|
     3. Oatchi might swim aka |Doggy-Paddle Learned:3|
     """
-    previous_pikmin_count: int | FieldResolver = 0
+    InACave: bool = False # For Glow Pikmins
+    previous_pikmin: str | dict[str, int] = dataclasses.field(default_factory=dict)
     """For things like freezing the water"""
-    USE_FULL_RULES: bool = USE_FULL_RULES
     @override
     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
         weight = resolve_field(self.weight, world, int)
-        previous_pikmin_count = resolve_field(self.previous_pikmin_count, world, int)
+        previous_pikmin = self.previous_pikmin
+        if isinstance(previous_pikmin, str):
+            def _build_dict(data:str) -> tuple[str, int]:
+                data_list = data.split(":")
+                count = 0
+                if len(data_list) > 1:
+                    count = int(data_list[-1])
+                return data_list[0], count
+            previous_pikmin = {_build_dict(i)[0]: _build_dict(i)[1] for i in previous_pikmin.strip().split(";")}
         if weight <= 0:
             return True_().resolve(world)
         excluded_colors = self.excluded_colors
         if isinstance(excluded_colors, str):
             excluded_colors = excluded_colors.strip().split(";")
         invert_excluded = resolve_field(self.invert_excluded, world, bool)
-        purple_excluded = invert_excluded
         pup_status = resolve_field(self.pup_status, world, int)
-        colors = {c.removesuffix(" Real") for c in world.item_and_event_name_groups["Pikmins Carry"]}
+        colors = {c.removesuffix(" Pikmins") for c in sorted(world.item_name_groups["Pikmins"]) if c.endswith(" Pikmins")}
         if invert_excluded and not excluded_colors:
             raise Exception("You inverted the excluded colors without 'including' any and thus this CanLift always return False")
 
         elif invert_excluded and excluded_colors:
-            purple_excluded = True
             pikmins: set[str] = set()
             for color in excluded_colors:
                 color = color.strip()
-                if color == "Purple":
-                    purple_excluded = False
-                    continue
-                elif color == "Pup":
+                if color == "Pup":
                     continue
                 pikmins.add(color)
 
         else:
             pikmins = set(colors)
-
             if excluded_colors:
                 for color in excluded_colors:
                     color = color.strip()
-                    if color == "Purple":
-                        purple_excluded = True
+                    if color == "Pup":
                         continue
-                    elif color == "Pup":
-                        continue
-                    real_name = color.strip()
-                    if real_name in pikmins:
-                        pikmins.remove(real_name)
+                    if color in pikmins:
+                        pikmins.remove(color)
 
-        Glow_Pikmin_In_Daylight = getattr(world.options, "Glow_Pikmin_In_Daylight", GlowPikminUsable(GlowPikminUsable.default)).value
-        if not Glow_Pikmin_In_Daylight and "Glow" in pikmins:
+        Glow_Pikmin_In_Caves = getattr(world.options, "Glow_Pikmin_In_Caves", GlowPikminUsable(GlowPikminUsable.default)).value
+        if not (Glow_Pikmin_In_Caves and self.InACave) and "Glow" in pikmins:
             pikmins.remove("Glow")
+
+        for pikmin in tuple(pikmins):
+            if previous_pikmin.get(pikmin, 0) == 100:
+                pikmins.remove(pikmin)
 
         return self.Resolved(
             weight=weight,
-            previous_pikmin_count=previous_pikmin_count,
-            purple_excluded=purple_excluded,
+            previous_pikmin=tuple(previous_pikmin.items()),
             pup_status=pup_status,
-            valid_pikmins=tuple(pikmins),
-            USE_FULL_RULES=self.USE_FULL_RULES,
+            valid_pikmins=tuple(sorted(pikmins)),
             player=world.player,
             caching_enabled=getattr(world, "rule_caching_enabled", False),
         )
 
     @override
     def __str__(self) -> str:
-        count = f", count={self.weight}" if isinstance(self.weight, FieldResolver) or self.weight > 1 else ""
+        count = f"weight={self.weight}" if isinstance(self.weight, FieldResolver) or self.weight > 1 else ""
         options = f", options={self.options}" if self.options else ""
         return f"{self.__class__.__name__}({count}{options})"
 
     class Resolved(Rule.Resolved):
         weight: int
-        previous_pikmin_count: int
-        purple_excluded: bool
+        previous_pikmin: tuple[tuple[str, int], ...]
         pup_status: int
         valid_pikmins: tuple[str, ...]
-        USE_FULL_RULES: bool = USE_FULL_RULES
         skip_cache: ClassVar[bool] = True
 
         @override
@@ -424,10 +685,15 @@ class CanLift(Rule["ManualWorld"], game=game_name):
                 return state.has(item, player, count)
             def _count(item:str) -> int:
                 return state.count(item, player)
-            max_pikmin = 100 - self.previous_pikmin_count
-            max_pikmin_item = ceil(max_pikmin/10)
-            def _clamp(item_count:int) -> int:
-                return min(item_count, max_pikmin_item)
+            extra_count = 0
+            max_pikmin = 100
+            previous_pikmin = Counter(dict(self.previous_pikmin))
+            for count in previous_pikmin.values():
+                max_pikmin -= count
+                extra_count += count
+
+            def _clamp(pikmin_count:int) -> int:
+                return min(pikmin_count, max_pikmin)
             to_lift = self.weight
             if self.pup_status:
                 pup_count = _count("Buff Learned")
@@ -438,40 +704,54 @@ class CanLift(Rule["ManualWorld"], game=game_name):
                     to_lift -= _PupToWeight(pup_count)
                 if to_lift <= 0: return True
             purple_count = 0
-            if not self.purple_excluded:
-                if self.USE_FULL_RULES:
-                    if _has("Purple Onion") or _has("Purple Pikmin Source"):
-                        purple_count = _clamp(_count("Purple Pikmins"))
-                else:
-                    purple_count = _clamp(_count("Purple Real"))
-                to_lift -= purple_count*100
-                if purple_count*100 >= to_lift: return True
-            max_pikmin_item -= purple_count
-            valid_pikmins = self.valid_pikmins
-            if to_lift > 100 or not valid_pikmins or not max_pikmin_item: return False # if we get here then pup + purple failed
+            valid_pikmins = list(self.valid_pikmins)
+            if "Purple" in valid_pikmins:
+                valid_pikmins.pop(valid_pikmins.index("Purple"))
+                count = 0
+                if _has("Purple Onion") or _has("Purple Pikmin Source"):
+                    count = _count("Purple Pikmins") * 10
+
+                if "Purple" in previous_pikmin:
+                    count -= previous_pikmin["Purple"]
+                count = _clamp(count)
+                if count > 0:
+                    purple_count = count
+                    to_lift -= count*10
+                    if to_lift <= 0: return True
+                    max_pikmin -= count
+                    extra_count += count
+            if to_lift > 100 or not valid_pikmins or max_pikmin <= 0: return False # if we get here then pup + purple failed
 
             pool: Counter[str] = Counter()
             if "Glow" in valid_pikmins: # Glow do not need Flarlics so don't check for those here
-                glow_count = 0
-                if self.USE_FULL_RULES:
-                    if _has("Yonny"):
-                        glow_count = _count("Glow Pikmins")
-                else:
-                    glow_count = _count("Glow Real")
-                to_lift -= glow_count*10
-            rough_count = ceil(to_lift/10)
-            if rough_count > max_pikmin_item: return False
-            flarlic_count = max(ceil((self.previous_pikmin_count + to_lift)/10) + purple_count - 2, 0)
+                count = 0
+                if _has(*_Castaway("Yonny")):
+                    count = _count("Glow Pikmins")
+
+                if "Glow" in previous_pikmin:
+                    count -= previous_pikmin["Glow"]
+                count = _clamp(count)
+                if count > 0:
+                    to_lift -= count
+                    if to_lift <= 0: return True
+                    max_pikmin -= count
+                    extra_count += count
+
+            if to_lift > max_pikmin: return False # even if we could have pikmin we couldn't have enough
+
+            flarlic_count = max(ceil((previous_pikmin.total() + purple_count + to_lift)/10) - 2, 0)
             if not _has("Flarlic", flarlic_count): return False
 
             for color in valid_pikmins:
-                if color == "Glow": continue
-                if self.USE_FULL_RULES:
-                    if _has(f"{color} Onion") or _has(f"{color} Pikmin Source"):
-                        pool[color] = _count(f"{color} Pikmins")
-                    else:
-                        pool[color] = _count(f"{color} Real")
-                if pool.total() >= rough_count: return True
+                if color in ["Glow", "Purple"]: continue
+                count = 0
+                if _has(f"{color} Onion") or _has(f"{color} Pikmin Source"):
+                    count = _count(f"{color} Pikmins")
+                if color in previous_pikmin:
+                    count -= previous_pikmin[color]
+                if count > 0:
+                    pool[color] = count
+                if pool.total() >= to_lift: return True
 
             return False
 
@@ -484,19 +764,13 @@ class CanLift(Rule["ManualWorld"], game=game_name):
                     items["Doggy-Paddle Learned"] = {id(self)}
             if self.valid_pikmins:
                 items["Flarlic"] = {id(self)}
-            colors = set(self.valid_pikmins)
-            if not self.purple_excluded:
-                colors.add("Purple")
-            for color in colors:
-                if self.USE_FULL_RULES:
-                    if color == "Glow":
-                        items["Yonny"] = {id(self)}
-                        continue
-                    items[f"{color} Pikmins"] = {id(self)}
-                    items[f"{color} Onion"] = {id(self)}
-                    items[f"{color} Pikmin Source"] = {id(self)}
-                else:
-                    items[f"{color} Real"] = {id(self)}
+            for color in self.valid_pikmins:
+                items[f"{color} Pikmins"] = {id(self)}
+                if color == "Glow":
+                    items[_Castaway("Yonny")[0]] = {id(self)}
+                    continue
+                items[f"{color} Onion"] = {id(self)}
+                items[f"{color} Pikmin Source"] = {id(self)}
             return items
 
         @override
@@ -515,19 +789,15 @@ class CanLift(Rule["ManualWorld"], game=game_name):
                     items.append("Buff Learned")
                     if self.pup_status in [2,3]:
                         items.append("Doggy-Paddle Learned")
-                colors = set(self.valid_pikmins)
-                if not self.purple_excluded:
-                    colors.add("Purple")
-                for color in colors:
-                    if self.USE_FULL_RULES:
-                        items.append(f"{color} Pikmins")
-                        if color == "Glow":
-                            items.append("Yonny")
-                            continue
-                        items.append(f"{color} Onion")
-                        items.append(f"{color} Pikmin Source")
-                    else:
-                        items.append(f"{color} Real")
+
+                for color in self.valid_pikmins:
+                    items.append(f"{color} Pikmins")
+                    if color == "Glow":
+                        items.append(_Castaway("Yonny")[0])
+                        continue
+                    items.append(f"{color} Onion")
+                    items.append(f"{color} Pikmin Source")
+
                 for i, item in enumerate(items):
                     if i > 0:
                         messages.append({"type": "text", "text": ", "})
@@ -579,31 +849,28 @@ class CanLift(Rule["ManualWorld"], game=game_name):
                 return state.count(item, player)
 
             pool: Counter[str] = Counter()
+            previous_pikmin = Counter(dict(self.previous_pikmin))
             pup_lift = 0
-            purple_lift = 0
             purple_count = 0
+            valid_pikmins = self.valid_pikmins
             if self.pup_status:
                 pup_lift = _PupToWeight(_count("Buff Learned"))
-            if not self.purple_excluded:
-                color = "Purple"
-                if self.USE_FULL_RULES:
-                    if _has(f"{color} Onion") or _has(f"{color} Pikmin Source"):
-                        purple_lift = _count(f"{color} Real") * 100
-                else:
-                    purple_lift = _count(f"{color} Real") * 100
-                purple_count = int(purple_lift / 100)
 
-            for color in self.valid_pikmins:
-                if self.USE_FULL_RULES:
-                    if color == "Glow" and _has("Yonny"): # Glow do not need Flarlics so don't check for those
-                        pool["Glow"] = _count("Glow Pikmins") * 10
-                        continue
-                    if _has(f"{color} Onion") or _has(f"{color} Pikmin Source"):
-                        pool[color] = _count(f"{color} Pikmins") * 10
-                else:
-                    pool[color] = _count(f"{color} Real") * 10
+            for color in valid_pikmins:
+                count = 0
+                if color == "Glow" and _has(*_Castaway("Yonny")): # Glow do not need Flarlics so don't check for those
+                    count = _count("Glow Pikmins") * 10
+                    continue
+                if _has(f"{color} Onion") or _has(f"{color} Pikmin Source"):
+                    count = _count(f"{color} Pikmins") * 10
+
+                count -= previous_pikmin.get(color, 0)
+                if count > 0:
+                    if color == "Purple":
+                        purple_count = count
+                        count *= 10
+                    pool[color] = count
             missing: list[str] = []
-            if not self.purple_excluded and not purple_lift: missing.append("Purple")
 
             found = []
             if self.pup_status:
@@ -618,16 +885,14 @@ class CanLift(Rule["ManualWorld"], game=game_name):
                         missing.append(f"Doggy-Paddle Learned: {paddle_needed - paddle_count}/{paddle_needed}")
                     else:
                         found.append(f"Doggy-Paddle Learned: {paddle_count}/{paddle_needed}")
-            if not self.purple_excluded and purple_lift:
-                found.append(f"Purple: {purple_lift}")
-                if purple_count < 10:
-                    missing.append(f"Purple: {10 - purple_count}")
+            purple_lift = pool["Purple"]
             to_lift = self.weight - pup_lift - purple_lift
-            rough_flarlic = ceil((to_lift + purple_count + self.previous_pikmin_count)/10)
+            rough_flarlic = ceil((to_lift + purple_count + previous_pikmin.total())/10)
             flarlic_count = max(rough_flarlic - 2 - pool["Glow"], 0)
             if not _has("Flarlic", flarlic_count):
                 missing.extend(f"Flarlic: {flarlic_count - _count('Flarlic')}")
-            missing.extend([color for color in self.valid_pikmins if color not in pool.keys() or pool[color] < 100])
+            missing.extend([color for color in valid_pikmins if color not in pool.keys()
+                            or (pool[color] < 100 if color != "Purple" else pool[color] < 1000)])
             found.extend([f"{color}: {count}" for color, count in pool.items()])
 
             return pool, pup_lift, purple_lift, found, missing
@@ -642,21 +907,34 @@ class CanLift(Rule["ManualWorld"], game=game_name):
             infix = "; " if found_str and missing else ""
 
             total_str = f"{pup_lift + purple_lift + min(pool.total(), 100)}"
-            prefix: str = "Has enough" if self(state) else "Not Enough"
+            prefix: str = "Has Enough" if self(state) else "Not Enough"
             suffix: str = "" if self(state) else f" from {found_str}{infix}{missing_str}"
             return f"{prefix} for {self.weight}x Lift Power ({total_str}/{self.weight}{suffix})"
 
         @override
         def __str__(self) -> str:
-            count = f"{self.weight}x " if self.weight > 0 else ""
+            count = f"{self.weight}x " if self.weight > 1 else ""
             Oatchi_str = "Oatchi, " if self.pup_status else ""
             paddle_needed: int = 0 if self.pup_status < 2 else  1 if self.pup_status == 2 else 3
             if paddle_needed:
                 Oatchi_str += f"Doggy-Paddle Learned ({paddle_needed}), "
             sources: str = Oatchi_str
-            sources += "Purple Pikmins + Onion/Source, " if not self.purple_excluded else ""
-            sources += " Pikmins + Onion/Source, ".join(self.valid_pikmins)
-            return f"Have enough {count}Lift Power from ({sources})"
+            colors_count = len(self.valid_pikmins)# + int(not self.purple_excluded)
+            offset = 1 if "Glow" not in self.valid_pikmins else 0
+            if colors_count == 9 - offset: # All pikmins
+                sources += "Any"
+                pass
+            elif colors_count > 4: # more than half, invert
+                all_colors = {"Red", "Yellow", "Blue", "Pink", "Ice", "Rock", "Purple", "White"}
+                compareto = set(self.valid_pikmins)
+                reversed_colors = all_colors - compareto
+                sources += "Any Pikmins + Source Except; "
+                sources += " Pikmins + Source, ".join(sorted(reversed_colors))
+            else:
+                sources += " Pikmins + Source, ".join(self.valid_pikmins)
+            if self.valid_pikmins:
+                sources += " Pikmins + Source"
+            return f"Has Enough {count}Lift Power from ({sources})"
 
 # endregion
 
@@ -731,6 +1009,68 @@ class CanLift(Rule["ManualWorld"], game=game_name):
 #             count = f"{self.count}x " if self.count > 1 else ""
 #             return f"Has {count}{self.item_name}"
 
+
+# @dataclasses.dataclass()
+# class OldPikmin(Rule["ManualWorld"], game=game_name):
+#     color: str
+#     count: int = 1
+#     quick: bool = False
+#     convert_to_item: bool = True
+#     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+#         color = self.color
+#         count = self.count
+#         if count == 0:
+#             return True_().resolve(world)
+
+#         if color.lower() == "purple":
+#             if self.convert_to_item:
+#                 item_count = ceil(count/100)
+#             else:
+#                 item_count = count
+#                 count = count * 100
+#         else:
+#             if count > 100:
+#                 return False_().resolve(world)
+#             if self.convert_to_item:
+#                 item_count = ceil(count/10)
+#             else:
+#                 item_count = count
+#                 count = count * 10
+#         if self.quick and not USE_FULL_RULES:
+#             return Has(f"{color} Real", item_count).resolve(world)
+
+#         flarlic = "Flarlic"
+#         flarlic_count = max(item_count - 2, 0)
+#         if color.startswith("ST "):
+#             flarlic = "ST Flarlic"
+#         elif color.lower() == "pup":
+#             return Has("Buff Learned", _RequiredPup(count)).resolve(world)
+#         elif color.lower() == "glow":
+#             return And(Has("Yonny"),Has(f"{color} Pikmins", item_count), options=[OptionFilter(GlowPikminUsable, 1)]).resolve(world)
+
+#         return And(HasAllCounts({f"{color} Pikmins": item_count, flarlic: flarlic_count}),
+#                     HasAny(*[f"{color} Onion",f"{color} Pikmin Source"])).resolve(world)
+#     # class Resolved(Rule.Resolved):
+#     #     @override
+#     #     def  item_dependencies(self) -> dict[str, set[int]]:
+#     #         return super().item_dependencies()
+#     #     @override # ? Maybe override the explanation if its too much/weird
+#     #     def explain_str(self, state: CollectionState | None = None) -> str:
+#     #         return super().explain_str(state)
+#     #     @override
+#     #     def explain_json(self, state: CollectionState | None = None) -> list[JSONMessagePart]:
+#     #         return super().explain_json(state)
+#     #     @override
+#     #     def __str__(self) -> str:
+#     #         count = f"{self.weight}x " if self.weight > 1 else ""
+#     #         Oatchi_str = "Oatchi, " if self.pup_status else ""
+#     #         paddle_needed: int = 0 if self.pup_status < 2 else  1 if self.pup_status == 2 else 3
+#     #         if paddle_needed:
+#     #             Oatchi_str += f"Doggy-Paddle Learned ({paddle_needed}), "
+#     #         sources: str = Oatchi_str
+#     #         sources += "Purple Pikmins + Source, " if not self.purple_excluded else ""
+#     #         sources += " Pikmins + Source, ".join(self.valid_pikmins)
+#     #         return f"Have enough {count}Lift Power from ({sources})"
 
 # @dataclasses.dataclass()
 # class OldCanLift(Rule["ManualWorld"], game=game_name):

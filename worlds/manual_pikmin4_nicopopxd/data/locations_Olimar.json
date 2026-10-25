@@ -45,6 +45,12 @@
             ]
         },
         {
+            "name": "PT battle Louie",
+            "region": "Primordial Thicket",
+            "_comment": "Leaving this with no requirement for now so Gen works",
+            "create_event": [{"name": "Louie", "visible": true, "category": ["Castaways", "X Complete"]}]
+        },
+        {
             "name": "Shipwreck Tale Begins",
             "region": "Shipwreck Tale",
             "create_event": [{"name": "ST Red Onion", "visible": true,
@@ -544,7 +550,6 @@
             "name": "ST Treasure 25",
             "category": [ "Treasures" ],
             "region": "ST Hero's Hideaway",
-            "create_event": [{"name": "Louie", "visible": true, "category": ["Castaways", "X Complete"]}],
             "requires": "|Ship Part:25|"
         },
         {

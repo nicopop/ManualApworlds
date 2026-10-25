@@ -261,7 +261,7 @@ class NewGamePlus(DefaultOnToggleIsRandom):
     """Are you using New game plus (true) or starting from a fresh save (false)"""
 
 class GlowPikminUsable(ToggleIsRandom):
-    """Can Glow pikmin be required to be used during the daytime"""
+    """Can Glow pikmin be required to be used in caves"""
 class CanRequireMelee(ChoiceIsRandom):
     """Can You be required to use your fist to break objects"""
     option_never = 0
@@ -281,7 +281,7 @@ def before_options_defined(options: dict[str, Type[Option[Any]]]) -> dict[str, T
     options["New_Game_Plus"] = NewGamePlus
     options["Cave_Keys"] = CaveKeyLogic
     options["Melee_Logic"] = CanRequireMelee
-    options["Glow_Pikmin_In_Daylight"] = GlowPikminUsable
+    options["Glow_Pikmin_In_Caves"] = GlowPikminUsable
 
 
     # options["remove_items"] = RemoveItems

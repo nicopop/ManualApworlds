@@ -82,7 +82,7 @@ def hook_get_filler_item_name(world: "ManualWorld", multiworld: MultiWorld, play
 # region dummyfillers
     # with this you can have a category called FillerDummy assigned to items and copy of  said item will possibly be generated as filler
     # work even if you set the item count to 0 in the items.json
-    dummyfillers = list(world.item_name_groups.get("FillerDummy", set()))
+    dummyfillers = list(sorted(world.item_name_groups.get("FillerDummy", set())))
     dummyfillers = [i for i in dummyfillers if is_item_enabled(multiworld, player, world.item_name_to_item[i])]
     if not dummyfillers:
         return world.filler_item_name
@@ -99,7 +99,7 @@ def before_generate_early(world: "ManualWorld", multiworld: MultiWorld, player: 
     # Here I usually deal with options values and check for UT
     world.is_ut = cast(bool, getattr(multiworld, "generation_is_fake", False)) # type: ignore
     ngp = bool(getattr(world.options, "New_Game_Plus", NewGamePlus(NewGamePlus.default)))
-    glow = bool(getattr(world.options, "Glow_Pikmin_In_Daylight", GlowPikminUsable(GlowPikminUsable.default)))
+    glow = bool(getattr(world.options, "Glow_Pikmin_In_Caves", GlowPikminUsable(GlowPikminUsable.default)))
     melee = bool(getattr(world.options, "Melee_Logic", CanRequireMelee(CanRequireMelee.default)))
     cave =getattr(world.options, "Cave_Keys", CaveKeyLogic(CaveKeyLogic.default))
     # evil_type = cast(EvilBiomeType, world.options.evil_biome) # type: ignore
@@ -373,7 +373,7 @@ def before_write_spoiler(world: "ManualWorld", multiworld: MultiWorld, spoiler_h
         state = multiworld.get_all_state(False)
         state.update_reachable_regions(world.player)
         visualize_regions(multiworld.get_region(world.origin_region_name, world.player), f"debug/{world.game}_{world.player}.puml",
-            regions_to_highlight=set(state.reachable_regions[world.player]))
+            regions_to_highlight=set(state.reachable_regions[world.player]), show_entrance_rules=True)
     pass
 
 # This is called when you want to add information to the hint text

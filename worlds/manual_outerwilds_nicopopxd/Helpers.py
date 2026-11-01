@@ -6,13 +6,11 @@ import re
 
 from BaseClasses import MultiWorld, Item, ItemClassification
 from enum import IntEnum
-from typing import Optional, List, Union, get_args, get_origin, Any, TYPE_CHECKING
+from typing import Optional, List, Union, get_args, get_origin, Any
 from types import GenericAlias
 from worlds.AutoWorld import World
 from .hooks.Helpers import before_is_category_enabled, before_is_item_enabled, before_is_location_enabled, before_is_event_enabled
 
-if TYPE_CHECKING:
-    from . import ManualWorld
 
 # blatantly copied from the minecraft ap world because why not
 def load_data_file(*args) -> dict:
@@ -104,6 +102,10 @@ def is_location_name_enabled(multiworld: MultiWorld, player: int, location_name:
 
 def is_location_enabled(multiworld: MultiWorld, player: int, location: dict[str, Any]) -> bool:
     """Check if a location has been disabled by a yaml option."""
+    if getattr(multiworld, "generation_is_fake", False):
+        # When UT is doing a fake gen, give it everything
+        return True
+
     hook_result = before_is_location_enabled(multiworld, player, location)
     if hook_result is not None:
         return hook_result
@@ -137,17 +139,17 @@ def get_items_for_player(multiworld: MultiWorld, player: int, includePrecollecte
         items.extend(multiworld.precollected_items.get(player, []))
     return items
 
-def reset_specific_item_value_cache_for_player(world: "ManualWorld", value: str, player: Optional[int] = None) -> dict[str, int]:
+def reset_specific_item_value_cache_for_player(world: World, value: str, player: Optional[int] = None) -> dict[str, int]:
     if player is None:
         player = world.player
     return world.item_values[player].pop(value, {})
 
-def reset_item_value_cache_for_player(world: "ManualWorld", player: Optional[int] = None):
+def reset_item_value_cache_for_player(world: World, player: Optional[int] = None):
     if player is None:
         player = world.player
     world.item_values[player] = {}
 
-def get_items_with_value(world: "ManualWorld", multiworld: MultiWorld, value: str, player: Optional[int] = None, skipCache: bool = False) -> dict[str, int]:
+def get_items_with_value(world: World, multiworld: MultiWorld, value: str, player: Optional[int] = None, skipCache: bool = False) -> dict[str, int]:
     """Return a dict of every items with a specific value type present in their respective 'value' dict\n
     Output in the format 'Item Name': 'value count'\n
     Keep a cache of the result, it can be skipped with 'skipCache == True'\n
@@ -281,8 +283,8 @@ def convert_string_to_itemclassification(string: str) ->  ItemClassification:
     else:
         true_class = stringCheck(string)
     return true_class
-from types import UnionType
-def convert_string_to_type(input: str, target_type: type|UnionType) -> Any:
+
+def convert_string_to_type(input: str, target_type: type) -> Any:
     """Take a string and attempt to convert it to {target_type}
     \ntarget_type can be a single type(ex. str), an union (int|str), an Optional type (Optional[str]) or a combo of any of those (Optional[int|str])
     \nSpecial logic:
@@ -308,7 +310,7 @@ def convert_string_to_type(input: str, target_type: type|UnionType) -> Any:
         else:
             raise Exception(f"'{value}' cannot be converted to {target_type} since its not a supported type \nAsk about it in #Manual-support and it might be added.")
 
-    found_types: list[type] = []
+    found_types = []
     checktype(target_type, found_types)
 
     if str in found_types: #do it last

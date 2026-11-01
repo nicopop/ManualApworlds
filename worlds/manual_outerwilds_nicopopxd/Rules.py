@@ -1,6 +1,6 @@
 import dataclasses
 import inspect
-from typing import TYPE_CHECKING, Any, Callable, Optional, Any, cast
+from typing import TYPE_CHECKING, Any, Callable, Optional, Any
 from enum import IntEnum
 from operator import eq, ge, le
 
@@ -139,9 +139,9 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
             total_count = sum([items_counts.get(item, 0) for item in world.item_and_event_name_groups.get(item_name, set())])
         else:
             total_count = items_counts.get(item_name, 0)
-        if item_count == 'all':
+        if item_count.lower() == 'all':
             count = total_count
-        elif item_count == 'half':
+        elif item_count.lower() == 'half':
             count = int(total_count / 2)
         elif item_count.endswith('%') and len(item_count) > 1:
             percent = clamp(float(item_count[:-1]) / 100, 0, 1)
@@ -202,7 +202,6 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                         func = ns.get(name)
                     else:
                         func = getattr(ns, name, None)
-                    func = cast(Callable | type[rule_builder.rules.Rule] | None, func)
 
                     if func and inspect.isclass(func) and issubclass(func, rule_builder.rules.Rule):
                         convert_req_function_args(None, func, func_args, area['name'], world)
@@ -212,7 +211,7 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                     if func and inspect.signature(func).return_annotation is str:
                         # I'm assuming that functions that return strings don't need states.
                         convert_req_function_args(None, func, func_args, area['name'], world)
-                        rule = recursively_tokenize_manual_rule(str(func(*func_args)))
+                        rule = recursively_tokenize_manual_rule(func(*func_args))
                         break
 
                 if rule is None:
@@ -497,7 +496,7 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
     # Victory requirement
     multiworld.completion_condition[player] = lambda state: state.has("__Victory__", player)
 
-def convert_req_function_args(state: CollectionState | None, func: Callable, args: list[str | Any], areaName: str, world: World) -> None:
+def convert_req_function_args(state: CollectionState | None, func, args: list[str | Any], areaName: str, world: World) -> None:
     parameters = inspect.signature(func).parameters
     knownParameters = [World, 'ManualWorld', MultiWorld, CollectionState]
     index = -1
@@ -700,7 +699,6 @@ def YamlCompare(world: "ManualWorld", args: str, skipCache: bool = False) -> boo
     else:
         raise  ValueError(f"Could not find a valid comparator in given string '{args}', it must be one of {comp_symbols.keys()}")
 
-    value: str|int
     option_name, value = args.split(comparator)
 
     initial_option_name = str(option_name).strip() #For exception messages
@@ -721,12 +719,11 @@ def YamlCompare(world: "ManualWorld", args: str, skipCache: bool = False) -> boo
     if not value: #empty string ''
         raise ValueError(f"Could not find a valid value to compare against in given string '{args}'. \nThere must be a value to compare against after the comparator (in this case '{comparator}').")
 
-    cacheindex: str = ""
     if not skipCache: #Cache made for optimization purposes
         cacheindex = option_name + '_' + comp_symbols[comparator].__name__ + '_' + format_to_valid_identifier(value.lower())
 
         if not hasattr(world, 'yaml_compare_rule_cache'):
-            world.yaml_compare_rule_cache = dict[str,bool]() # type: ignore
+            world.yaml_compare_rule_cache = dict[str,bool]()
 
     if skipCache or world.yaml_compare_rule_cache.get(cacheindex, None) is None:
         try:
@@ -745,7 +742,7 @@ def YamlCompare(world: "ManualWorld", args: str, skipCache: bool = False) -> boo
                     value = convert_string_to_type(value, int)
 
             elif issubclass(type(option), Toggle):
-                value = int(convert_string_to_type(str(value), bool))
+                value = int(convert_string_to_type(value, bool))
 
             else:
                 raise ValueError(f"YamlCompare does not currently support Option of type {type(option)} \nAsk about it in #Manual-dev and it might be added.")
@@ -756,9 +753,7 @@ def YamlCompare(world: "ManualWorld", args: str, skipCache: bool = False) -> boo
                 \n\n{type(ex).__name__}:{ex}")
 
         except Exception as ex:
-            base = type(option).__base__
-            name = str(type(option)) if base is None else base.__name__
-            raise TypeError(f"YamlCompare failed to convert the requested value to what a {name} option supports.\
+            raise TypeError(f"YamlCompare failed to convert the requested value to what a {type(option).__base__.__name__} option supports.\
                 \nCaused By:\
                 \n\n{type(ex).__name__}:{ex}")
 

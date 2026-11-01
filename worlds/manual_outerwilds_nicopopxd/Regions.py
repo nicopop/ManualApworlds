@@ -4,10 +4,7 @@ from .Data import region_table
 from .Locations import ManualLocation, location_name_to_location
 from .Items import ManualItem
 from worlds.AutoWorld import World
-from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from . import ManualWorld
 
 if not region_table:
     region_table = {}
@@ -24,7 +21,7 @@ regionMap["Manual"] = {
 }
 
 
-def create_regions(world: "ManualWorld", multiworld: MultiWorld, player: int):
+def create_regions(world: World, multiworld: MultiWorld, player: int):
     # Create regions and assign locations to each region
     for region in regionMap:
         if "connects_to" not in regionMap[region]:
@@ -52,7 +49,7 @@ def create_regions(world: "ManualWorld", multiworld: MultiWorld, player: int):
                 connection = multiworld.get_entrance(getConnectionName(region, linkedRegion), player)
                 connection.connect(multiworld.get_region(linkedRegion, player))
 
-def create_region(world: "ManualWorld", multiworld: MultiWorld, player: int, name: str, locations=None, exits=None):
+def create_region(world: World, multiworld: MultiWorld, player: int, name: str, locations=None, exits=None):
     ret = Region(name, player, multiworld)
 
     if locations:
@@ -70,7 +67,7 @@ def create_region(world: "ManualWorld", multiworld: MultiWorld, player: int, nam
 def getConnectionName(entranceName: str, exitName: str):
     return entranceName + "To" + exitName
 
-def create_events(world: "ManualWorld", multiworld: MultiWorld, player: int):
+def create_events(world: World, multiworld: MultiWorld, player: int):
     for name, event in world.event_name_to_event.items():
         if not is_event_enabled(multiworld, player, event):
             continue

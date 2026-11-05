@@ -21,13 +21,31 @@ from .Options import GlowPikminUsable, CanRequireMelee, NewGamePlus
 if TYPE_CHECKING:
     from .. import ManualWorld
 
-def Build() -> str:
-    return "{Castaway(Russ)}"
+@dataclasses.dataclass()
+class Build(Rule["ManualWorld"], game=game_name):
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        return Castaway("Russ").resolve(world)
 
-def Night(level:int = 1) -> str:
-    # TODO adjust depending on level
-    pikmin = min(level * 2, 10)
-    return f"{{Castaway(Yonny)}} and |Glow Pikmins:{pikmin}|"
+@dataclasses.dataclass()
+class Night(Rule["ManualWorld"], game=game_name):
+    level:int = 1
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        pikmin = min(self.level * 2, 10)
+        return And(Castaway("Yonny"), Has("Glow Pikmins", pikmin)).resolve(world)
+
+def _RequiredPup(weight: int) -> int:
+    import bisect
+    # code inspired from https://www.geeksforgeeks.org/python/python-find-closest-number-to-k-in-given-list/
+    buff_strenghts = [3, 5, 10, 20, 30, 100]
+    # 15
+    index = bisect.bisect_right(buff_strenghts, weight)
+    # 3
+    return index
+def _PupToWeight(item:int) -> int:
+    buff_strenghts = [3, 5, 10, 20, 30, 100]
+    if item <= len(buff_strenghts):
+        return buff_strenghts[item-1]
+    return buff_strenghts[-1]
 
 def _Castaway(name: str) -> tuple[str, int]:
     RESCUED: tuple[str, ...] = (
@@ -59,6 +77,7 @@ class Castaways(Rule["ManualWorld"], game=game_name):
         battle_max: int = 0
         leafling_max: int = 0
         names = self.names
+        needed: list[tuple[str, int]] = []
         if isinstance(names, str):
             castaways = names.split(";")
         else:
@@ -66,13 +85,17 @@ class Castaways(Rule["ManualWorld"], game=game_name):
         for castaway in castaways:
             castaway = castaway.strip().strip("|")
             item, count = _Castaway(castaway)
-            if item == "Rescue" and count > rescue_max:
-                rescue_max = count
-            elif item == "Battle Leafling Cured" and count > battle_max:
-                battle_max = count
-            elif item == "Leafling Cured" and count > leafling_max:
-                leafling_max = count
-        needed: list[tuple[str, int]] = []
+            if item == "Rescue":
+                if count > rescue_max:
+                    rescue_max = count
+            elif item == "Battle Leafling Cured":
+                if count > battle_max:
+                    battle_max = count
+            elif item == "Leafling Cured":
+                if count > leafling_max:
+                    leafling_max = count
+            else:
+                needed.append((item, count))
         if rescue_max:
             needed.append(("Rescue", rescue_max))
         if battle_max:
@@ -115,41 +138,50 @@ class IceGate(Rule["ManualWorld"], game=game_name):
         )
         return rule.resolve(world)
 
-def CrystalWall() -> str:
-    return "{Pikmin(Rock)} or {AnyBomb(WALL)}"
+@dataclasses.dataclass()
+class CrystalWall(Rule["ManualWorld"], game=game_name):
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        rule: Rule["ManualWorld"] = Or(
+            Pikmin("Rock"),
+            AnyBomb("WALL")
+        )
+        return rule.resolve(world)
 
-def ConcreteWall() -> str:
-    return '{Bombs()} or {Bombs(track)}'
+@dataclasses.dataclass()
+class ConcreteWall(Rule["ManualWorld"], game=game_name):
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        return AnyBomb("WALL").resolve(world)
 
-def BreakPot():
-    return True
-def BreakPotRule() -> str:
-    return "{True_()}"
 
-def DigHole():
-    return True
-def DigHoleRule() -> str:
-    return "{True_()}"
+@dataclasses.dataclass()
+class BreakPot(Rule["ManualWorld"], game=game_name):
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        return True_().resolve(world)
 
-def PushBag():
-    return True
-def PushBagRule() -> str:
-    return "{True_()}"
+@dataclasses.dataclass()
+class DigHole(Rule["ManualWorld"], game=game_name):
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        return True_().resolve(world)
 
-def LowerBridge():
-    return True
-def LowerBridgeRule() -> str:
-    return "{True_()}"
+@dataclasses.dataclass()
+class PushBag(Rule["ManualWorld"], game=game_name):
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        return True_().resolve(world)
 
-def DirtWall():
-    return True
-def DirtWallRule() -> str:
-    return "{True_()}"
+@dataclasses.dataclass()
+class LowerBridge(Rule["ManualWorld"], game=game_name):
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        return True_().resolve(world)
 
-def PottedPlant():
-    return True
-def PottedPlantRule() -> str:
-    return "{True_()}"
+@dataclasses.dataclass()
+class DirtWall(Rule["ManualWorld"], game=game_name):
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        return True_().resolve(world)
+
+@dataclasses.dataclass()
+class PottedPlant(Rule["ManualWorld"], game=game_name):
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        return True_().resolve(world)
 
 @dataclasses.dataclass()
 class FreezeBlob(Rule["ManualWorld"], game=game_name):
@@ -159,7 +191,9 @@ class FreezeBlob(Rule["ManualWorld"], game=game_name):
 @dataclasses.dataclass()
 class FreezeWater(Rule["ManualWorld"], game=game_name):
     count: int
+    """How many ice Pikmin required to freeze the water"""
     short_duration: bool = False
+    """Can water be only frozen for a short time (like using an Ice bomb)"""
     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
         if not self.count:
             return True_().resolve(world)
@@ -197,10 +231,14 @@ class PoisonFloorRule(Rule["ManualWorld"], game=game_name):
 # endregion
 # region Items Rules
 
-def CanBoost(st: bool= False) -> str:
-    if st:
-        return "|ST Boost Potion|"
-    return "|Boost Potion|" # TODO check where you can farm for
+@dataclasses.dataclass()
+class CanBoost(Rule["ManualWorld"], game=game_name):
+    st: bool = False
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        if self.st:
+            return Has("ST Boost Potion").resolve(world)
+        return Has("Boost Potion").resolve(world) # TODO check where you can farm for
+
 @dataclasses.dataclass()
 class CanMelee(Rule["ManualWorld"], game=game_name):
     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
@@ -525,24 +563,13 @@ class Pikmin(Rule["ManualWorld"], game=game_name):
             flarlic_str = f" & {_count(item_counts[flarlic_type])} {flarlic_type}" if flarlic_type else ""
             return f"Has {_count(main_count)}{self.color} Pikmins & Source{flarlic_str}"
 
-def _RequiredPup(weight: int) -> int:
-    import bisect
-    # code inspired from https://www.geeksforgeeks.org/python/python-find-closest-number-to-k-in-given-list/
-    buff_strenghts = [3, 5, 10, 20, 30, 100]
-    # 15
-    index = bisect.bisect_right(buff_strenghts, weight)
-    # 3
-    return index
-def _PupToWeight(item:int) -> int:
-    buff_strenghts = [3, 5, 10, 20, 30, 100]
-    if item <= len(buff_strenghts):
-        return buff_strenghts[item-1]
-    return buff_strenghts[-1]
 # endregion
 # region CanLift
 @dataclasses.dataclass()
 class CanLiftST(Rule["ManualWorld"], game=game_name):
+    """A rule that checks if the player has enough pikmin + Moss to lift an item in Olimar's Shipwreck Tale"""
     weight: int
+    """How much does the item weight"""
     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
         colors = [c.removesuffix(" Pikmins") for c in sorted(world.item_name_groups["ST Pikmins"]) if c.endswith(" Pikmins")]
         # TODO Handle Moss somehow (probably in PupStatus > 3)
@@ -555,9 +582,17 @@ class CanLiftST(Rule["ManualWorld"], game=game_name):
 class CanLiftOverWater(Rule["ManualWorld"], game=game_name):
     """A rule that checks if the player has enough pikmin + pup to lift an item over the water"""
     FreezeCount: int
+    """How many ice Pikmin required to freeze the water"""
     Weight: int
-    PupStatus: int = 2 # 0 NO pup, 1 Pup can touch water, 2 underwater pup
-    InACave: bool = False # For Glow Pikmins
+    """How much does the item weight"""
+    PupStatus: int = 2
+    """
+    0. No Oatchi
+    1. Oatchi need to touch water aka |Doggy-Paddle Learned:1|
+    2. Oatchi need to swim aka |Doggy-Paddle Learned:3|
+    """
+    InACave: bool = False
+    """Is this rule called for a location in a cave (to check for Glow Pikmins)"""
     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
         FreezeCount = self.FreezeCount
         Weight = self.Weight
@@ -566,7 +601,8 @@ class CanLiftOverWater(Rule["ManualWorld"], game=game_name):
         # Deal with Blue or Pink or Glow || Purple
         rule = Or(
             CanLiftInWater(Weight, True, self.PupStatus, self.InACave),
-            FreezeWater(FreezeCount) & CanLift(Weight, InACave=self.InACave, previous_pikmin={"Ice":FreezeCount})
+            FreezeWater(FreezeCount) & CanLift(weight=Weight, pup_status=1 if self.PupStatus else 0,
+                                               InACave=self.InACave, previous_pikmin={"Ice":FreezeCount})
         )
 
         return rule.resolve(world)
@@ -575,9 +611,17 @@ class CanLiftOverWater(Rule["ManualWorld"], game=game_name):
 class CanLiftInWater(Rule["ManualWorld"], game=game_name):
     """A rule that checks if the player has enough pikmin + pup to lift an item in water"""
     Weight: int
+    """How much does the item weight"""
     CloseToSurface: bool = False
-    PupStatus: int = 2 if CloseToSurface else 1
-    InACave: bool = False # For Glow Pikmins
+    """Is the item close to the surface (for things like pink pikmins)"""
+    PupStatus: int = 1 if CloseToSurface else 2
+    """
+    0. No Oatchi
+    1. Oatchi need to touch water aka |Doggy-Paddle Learned:1|
+    2. Oatchi need to swim aka |Doggy-Paddle Learned:3|
+    """
+    InACave: bool = False
+    """Is this rule called for a location in a cave (to check for Glow Pikmins)"""
     def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
         Weight = self.Weight
         rule: Rule["ManualWorld"]
@@ -585,7 +629,7 @@ class CanLiftInWater(Rule["ManualWorld"], game=game_name):
         if self.CloseToSurface:
             colors.append("Pink")
 
-        rule = CanLift(Weight, colors, True, self.PupStatus + 1 if self.PupStatus else 0, self.InACave)
+        rule = CanLift(Weight, colors, True, pup_status=self.PupStatus + 1 if self.PupStatus else 0, InACave=self.InACave)
         return rule.resolve(world)
 
 @dataclasses.dataclass()
@@ -604,7 +648,8 @@ class CanLift(Rule["ManualWorld"], game=game_name):
     2. Oatchi might need to touch water aka |Doggy-Paddle Learned:1|
     3. Oatchi might swim aka |Doggy-Paddle Learned:3|
     """
-    InACave: bool = False # For Glow Pikmins
+    InACave: bool = False
+    """Is this rule called for a location in a cave (to check for Glow Pikmins)"""
     previous_pikmin: str | dict[str, int] = dataclasses.field(default_factory=dict)
     """For things like freezing the water"""
     @override
@@ -1074,7 +1119,6 @@ class CanLift(Rule["ManualWorld"], game=game_name):
 
 # @dataclasses.dataclass()
 # class OldCanLift(Rule["ManualWorld"], game=game_name):
-#     # TODO potentially rewrite to count pup first then pikmin
 #     count: int
 #     excluded_colors: str = ""
 #     invert_excluded: bool = False

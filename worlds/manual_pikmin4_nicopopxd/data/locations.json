@@ -4,7 +4,7 @@
         {
             "name": "FileMetaData",
             "_comment": "Should be removed by the Data.py hook",
-            "extra_files": ["locations_1SST.json", "locations_2BA.json", "locations_Night.json", "locations_Olimar.json"],
+            "extra_files": ["locations_1SST.json", "locations_2BA.json", "locations_3SS.json", "locations_Night.json", "locations_Olimar.json"],
             "offset": 500,
             "disabled": true
         },

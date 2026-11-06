@@ -1,6 +1,9 @@
 {
     "cSpell.words": [
         "Alpin",
+        "apmanual",
+        "Apworld",
+        "Apworlds",
         "Aristocrab",
         "Bernise",
         "Bident",
@@ -8,27 +11,55 @@
         "Corgwin",
         "Dalmo",
         "Dandori",
+        "deprioritized",
         "Fawks",
         "Flarlics",
         "Frisé",
+        "François",
+        "itempool",
         "Kaia",
         "Kayz",
         "Keesh",
         "Komo",
         "Lapi",
+        "Mika",
+        "Multiworld",
         "Nelle",
+        "Nico",
+        "nicopopxd",
         "Octoplus",
+        "Olimar",
+        "OuterWilds",
+        "Owlks",
+        "Pikmin",
         "Pikmins",
         "Pitunia",
+        "plando",
+        "puml",
+        "rando",
+        "randomizer",
         "Santi",
         "Schnauz",
         "Sheeba",
+        "Signaloscope",
         "Sparklium",
         "Trackonators",
         "Twyla",
         "Unfloatable",
+        "Webhost",
+        "webworld",
         "Wollyhops",
         "Yonny",
         "Yorke"
-    ]
+    ],
+
+    "python.analysis.extraPaths": [
+        "../Archipelago-Tests"
+    ],
+
+    "timetracker.autostart.autoStartTimeTracking": true,
+    "timetracker.dotTimeTrackerIndent": 2,
+    "emptyIndent.exclude": [
+        ".md"
+    ],
 }

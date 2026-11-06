@@ -372,7 +372,7 @@ def before_write_spoiler(world: "ManualWorld", multiworld: MultiWorld, spoiler_h
         from Utils import visualize_regions
         state = multiworld.get_all_state(False)
         state.update_reachable_regions(world.player)
-        visualize_regions(multiworld.get_region(world.origin_region_name, world.player), f"debug/{world.game}_{world.player}.puml",
+        visualize_regions(multiworld.get_region(world.origin_region_name, world.player), f".debug/{world.game}_{world.player}.puml",
             regions_to_highlight=set(state.reachable_regions[world.player]), show_entrance_rules=True)
     pass
 

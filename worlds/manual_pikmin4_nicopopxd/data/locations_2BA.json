@@ -32,7 +32,7 @@
                 "category": ["Sparklium", "Toys of Giants", "BA Complete"], "visible": true}
             ],
             "region": "Blossoming Arcadia",
-            "requires": "{CanLift(12, Blue; Pink, True)}",
+            "requires": "{CanLiftInWater(12, True)}",
             "category": [ "Blossoming Arcadia" ]
         },
         {

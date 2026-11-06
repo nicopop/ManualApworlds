@@ -69,6 +69,66 @@ def _Castaway(name: str) -> tuple[str, int]:
         return name, 1
     raise ValueError(f"'{name}' is not a Known Castaway")
 
+SKILL_ORDER = ("Buff", "Buff", "none", "Doggy-Paddle", "none", "Doggy-Paddle", "none", "none", "Command", "none",
+            "Chomp", "none", "Chomp", "none", "Buff", "none", "Buff", "none", "Buff", "none",
+            "none", "Chomp", "none", "none", "Chomp", "none", "none", "Chomp", "none", "none",
+            "Command",) # Order arbitrarily made for non NGP game by feel ;)
+SKILL_HAS_FIRST_FREE = ("Buff", "Doggy-Paddle", "Command", "Chomp", )
+def _Skills(name:str, count:int) -> int:
+    """How many Pup Drive Needed for skill"""
+    skill = name.removesuffix(" Learned")
+    indexes = [idx for idx, item in enumerate(SKILL_ORDER) if item == skill]
+    if not indexes: return len(indexes) + 1
+    index = count - 1 # 1
+    if skill in SKILL_HAS_FIRST_FREE:
+        if index == 0:
+            return 0
+        index += -1 # 0
+    if index > len(indexes):
+        return len(indexes) + 1
+    return indexes[index] + 1
+
+@dataclasses.dataclass()
+class SkillRule(Rule["ManualWorld"], game=game_name):
+    name: str
+    level: int
+    def _instantiate(self, world: "ManualWorld") -> Rule.Resolved:
+        skill = self.name.removesuffix(" Learned")
+        drive = _Skills(skill, self.level)
+        rule: Rule["ManualWorld"] = Has(f"Skill {skill}", self.level)
+        UT = world.glitches_item_name or "UT OOL"
+        if drive:
+            rule = rule & Or(Has(UT), Has("Pup Drive", drive), options=[OptionFilter(NewGamePlus, 0)], filtered_resolution=True)
+        return rule.resolve(world)
+
+def SkillCount(name: str, state:CollectionState, multiworld: MultiWorld, player: int) -> int:
+    world: "ManualWorld" = cast("ManualWorld", multiworld.worlds[player])
+    UT = world.glitches_item_name or "UT OOL"
+    skill = name.removesuffix(" Learned")
+    item_count = state.count(f"Skill {skill}", player)
+    if getattr(world.options, "New_Game_Plus", NewGamePlus(NewGamePlus.default)).value or\
+        state.has(UT, player) or skill not in SKILL_ORDER:
+        return item_count
+
+    drive = state.count("Pup Drive", player)
+    indexes = len([idx + 1 for idx, item in enumerate(SKILL_ORDER) if item == skill and idx < drive])
+    if skill in SKILL_HAS_FIRST_FREE:
+        indexes += 1
+    # TODO TEST THIS MORE
+    return min(item_count, indexes)
+
+def Skill(name: str, level: int, state:CollectionState, multiworld: MultiWorld, player: int) -> bool:
+    world = multiworld.worlds[player]
+    skill = name.removesuffix(" Learned")
+    drive = _Skills(skill, level)
+    if not state.has(f"Skill {skill}", player, level): return False
+    if not drive: return True
+
+    if getattr(world.options, "New_Game_Plus", NewGamePlus(NewGamePlus.default)).value:
+        return True
+    UT = world.glitches_item_name or "UT OOL"
+    return state.has_any_count({UT: 1, "Pup Drive": drive}, player)
+
 @dataclasses.dataclass()
 class Castaways(Rule["ManualWorld"], game=game_name):
     names: str|list[str]
@@ -614,8 +674,10 @@ class CanLiftInWater(Rule["ManualWorld"], game=game_name):
     """How much does the item weight"""
     CloseToSurface: bool = False
     """Is the item close to the surface (for things like pink pikmins)"""
-    PupStatus: int = 1 if CloseToSurface else 2
+    PupStatus: int = -1
     """
+    -1 will adjust based on CloseToSurface
+
     0. No Oatchi
     1. Oatchi need to touch water aka |Doggy-Paddle Learned:1|
     2. Oatchi need to swim aka |Doggy-Paddle Learned:3|
@@ -626,6 +688,8 @@ class CanLiftInWater(Rule["ManualWorld"], game=game_name):
         Weight = self.Weight
         rule: Rule["ManualWorld"]
         colors = ["Blue", "Glow"]
+        if self.PupStatus == -1:
+            self.PupStatus = 1 if self.CloseToSurface else 2
         if self.CloseToSurface:
             colors.append("Pink")
 
@@ -697,9 +761,10 @@ class CanLift(Rule["ManualWorld"], game=game_name):
         if not (Glow_Pikmin_In_Caves and self.InACave) and "Glow" in pikmins:
             pikmins.remove("Glow")
 
-        for pikmin in tuple(pikmins):
-            if previous_pikmin.get(pikmin, 0) == 100:
-                pikmins.remove(pikmin)
+        if previous_pikmin:
+            for pikmin in tuple(pikmins):
+                if previous_pikmin.get(pikmin, 0) == 100:
+                    pikmins.remove(pikmin)
 
         return self.Resolved(
             weight=weight,
@@ -727,6 +792,7 @@ class CanLift(Rule["ManualWorld"], game=game_name):
         def _evaluate(self, state: CollectionState) -> bool:
             player = self.player
             def _has(item:str, count: int = 1) -> bool:
+                if count <= 0: return True
                 return state.has(item, player, count)
             def _count(item:str) -> int:
                 return state.count(item, player)
@@ -741,12 +807,12 @@ class CanLift(Rule["ManualWorld"], game=game_name):
                 return min(pikmin_count, max_pikmin)
             to_lift = self.weight
             if self.pup_status:
-                pup_count = _count("Buff Learned")
-                if self.pup_status in [2,3]:
-                    if _has("Doggy-Paddle Learned", 1 if self.pup_status == 2 else 3):
-                        to_lift -= _PupToWeight(pup_count)
-                else:
-                    to_lift -= _PupToWeight(pup_count)
+                pup_count = SkillCount("Buff", state, state.multiworld, player)
+                paddle_needed = self.pup_status - 1
+                pup_power = _PupToWeight(pup_count)
+                if _has("Doggy-Paddle Learned", paddle_needed):
+                    to_lift -= pup_power
+
                 if to_lift <= 0: return True
             purple_count = 0
             valid_pikmins = list(self.valid_pikmins)
@@ -804,7 +870,8 @@ class CanLift(Rule["ManualWorld"], game=game_name):
         def item_dependencies(self) -> dict[str, set[int]]:
             items: dict[str, set[int]] = {}
             if self.pup_status:
-                items["Buff Learned"] = {id(self)}
+                items["Skill Buff"] = {id(self)}
+                items["Pup Drive"] = {id(self)}
                 if self.pup_status > 1:
                     items["Doggy-Paddle Learned"] = {id(self)}
             if self.valid_pikmins:

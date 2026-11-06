@@ -1,0 +1,59 @@
+{
+	"$schema": "Schema/Manual.events.schema.json",
+    "data": [
+        {
+            "name": "FileMetaData",
+            "_comment": "Should be removed by the Data.py hook",
+            "extra_files": ["events_Skills.json", "events_Materials.json", "events_Misc.json"],
+            "disabled": true
+        },
+        {
+            "name": "NGP",
+            "category": ["New Game Plus"]
+        },
+        {
+            "name": "Unlocked Sun-Speckled Terrace",
+            "region": "Sun-Speckled Terrace"
+        },
+        {
+            "name": "Unlocked Blossoming Arcadia",
+            "region": "Blossoming Arcadia"
+        },
+        {
+            "name": "Unlocked Serene Shores",
+            "region": "Serene Shores"
+        },
+        {
+            "name": "Unlocked Hero's Hideaway",
+            "region": "Hero's Hideaway"
+        },
+        {
+            "name": "Unlocked Giant's Hearth",
+            "region": "Giant's Hearth"
+        },
+        {
+            "name": "Unlocked Primordial Thicket",
+            "region": "Primordial Thicket"
+        },
+        {
+            "name": "Unlocked Shipwreck Tale",
+            "region": "Shipwreck Tale"
+        },
+        {
+            "name": "Unlocked ST Sun-Speckled Terrace",
+            "region": "ST Sun-Speckled Terrace"
+        },
+        {
+            "name": "Unlocked ST Blossoming Arcadia",
+            "region": "ST Blossoming Arcadia"
+        },
+        {
+            "name": "Unlocked ST Serene Shores",
+            "region": "ST Serene Shores"
+        },
+        {
+            "name": "Unlocked ST Hero's Hideaway",
+            "region": "ST Hero's Hideaway"
+        }
+    ]
+}

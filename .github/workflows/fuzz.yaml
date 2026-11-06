@@ -18,6 +18,8 @@ jobs:
           filters: |
             outerwilds:
               - 'worlds/manual_outerwilds_nicopopxd/**/!(*.md)'
+            pikmin4:
+              - 'worlds/manual_pikmin4_nicopopxd/**/!(*.md)'
             plateup:
               - 'worlds/manual_plateup_nicopopxd/**/!(*.md)'
             template:
@@ -30,6 +32,18 @@ jobs:
           apworld-path: worlds/manual_outerwilds_nicopopxd/
           ap-version: ${{ env.AP_VERSION }}
           fuzzer-commit: 53686ba34f9e8852cbe1970666a5f56fd6abf75a
+          python-version: '3.12'
+          runs: 500 # This is optional
+          yamls-per-run: 1 # This is optional
+          checkout: false
+
+      - uses: Eijebong/ap-actions/fuzz@main
+        name: Run fuzz for manual_pikmin4_nicopopxd
+        if: steps.changes.outputs.pikmin4 == 'true'
+        with:
+          apworld-path: worlds/manual_pikmin4_nicopopxd/
+          fuzzer-commit: 53686ba34f9e8852cbe1970666a5f56fd6abf75a
+          ap-version: ${{ env.AP_VERSION }}
           python-version: '3.12'
           runs: 500 # This is optional
           yamls-per-run: 1 # This is optional
